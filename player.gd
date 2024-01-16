@@ -12,7 +12,8 @@ const DASH_LENGTH = 0.1
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var double_jump = false
+var has_double_jump = false
+var has_dash = false
 var speed = SPEED
 var platform
 
@@ -21,22 +22,20 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
-		double_jump = true
+		has_double_jump = true
+		has_dash = true
 		get_tree().call_group("platforms", "show")
 		
 	if is_on_wall():
 		velocity.y *= 0.8
-		double_jump = true
+		has_double_jump = true
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump"):
 		try_jump()
 		
-	if Input.is_action_just_pressed("dash") and is_on_floor():
-		dash_timer.wait_time = DASH_LENGTH
-		dash_timer.start()
-		gravity = 0
-		speed = DASH_VELOCITY
+	if Input.is_action_just_pressed("dash"):
+		try_dash()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -58,13 +57,22 @@ func _physics_process(delta):
 func try_jump():
 	if is_on_floor():
 		pass
-	elif double_jump:
-		double_jump = false
+	elif has_double_jump:
+		has_double_jump = false
 		velocity.x *= 2.5
 		get_tree().call_group("platforms", "hide")
 	else:
 		return
 	velocity.y = JUMP_VELOCITY
+
+func try_dash():
+	if has_dash and !is_on_floor():
+		has_dash = false
+		dash_timer.wait_time = DASH_LENGTH
+		dash_timer.start()
+		gravity = 0
+		speed = DASH_VELOCITY
+		velocity.y = 0
 
 func _on_dash_timer_timeout():
 	gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
