@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://b75hun8hw8sj0"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_0if4t"]
+[ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="2_et84s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0rk70"]
+size = Vector2(128, 128)
+
+[node name="Player" type="CharacterBody2D" groups=["players"]]
+scale = Vector2(0.5, 0.5)
+collision_mask = 127
+script = ExtResource("1_0if4t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_et84s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0rk70")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DropCheck" type="RayCast2D" parent="."]
+target_position = Vector2(0, 100)
+collision_mask = 8
+
+[node name="DropTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
