@@ -13,11 +13,21 @@ const DASH_LENGTH = 0.1
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_double_jump = false
+var is_dashing = false
 var has_dash = false
 var speed = SPEED
 var platform
 
 func _physics_process(delta):
+	# Do not allow other movement while dashing
+	if is_dashing:
+		move_and_slide()
+		return
+	
+	# Reset character to start of level
+	if Input.is_action_just_pressed("reset"):
+		position = Vector2(64,432)
+		
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -67,6 +77,7 @@ func try_jump():
 
 func try_dash():
 	if has_dash and !is_on_floor():
+		is_dashing = true
 		has_dash = false
 		dash_timer.wait_time = DASH_LENGTH
 		dash_timer.start()
@@ -77,6 +88,7 @@ func try_dash():
 func _on_dash_timer_timeout():
 	gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 	speed = SPEED
+	is_dashing = false
 
 
 func _on_drop_timer_timeout():
