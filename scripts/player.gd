@@ -17,6 +17,7 @@ var has_double_jump = false
 var is_dashing = false
 var has_dash = false
 var platform
+var accel_multi = 1
 
 func _physics_process(delta):
 	# Do not allow other movement while dashing
@@ -31,7 +32,9 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		accel_multi = 0.7
 	else:
+		accel_multi = 1
 		has_double_jump = true
 		has_dash = true
 		get_tree().call_group("platforms", "show")
@@ -44,7 +47,7 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("left", "right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = move_toward(velocity.x, direction * SPEED, SPEED / 8 * accel_multi )
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED / 5)
 		
@@ -63,6 +66,8 @@ func _physics_process(delta):
 func try_jump():
 	if is_on_floor():
 		pass
+	elif is_wall_hanging and is_on_wall():
+		velocity.x = 500
 	elif has_double_jump:
 		has_double_jump = false
 		#get_tree().call_group("platforms", "hide")
@@ -92,7 +97,7 @@ func _on_dash_timer_timeout():
 
 
 func _on_drop_timer_timeout():
-	platform.disabled = false # Replace with function body.
+	platform.disabled = false
 
 
 func _on_area_2d_body_entered(body):
