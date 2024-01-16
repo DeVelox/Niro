@@ -17,6 +17,7 @@ var is_dashing = false
 var has_dash = false
 var speed = SPEED
 var platform
+var is_wall_hanging = false
 
 func _physics_process(delta):
 	# Do not allow other movement while dashing
@@ -36,7 +37,7 @@ func _physics_process(delta):
 		has_dash = true
 		get_tree().call_group("platforms", "show")
 		
-	if is_on_wall():
+	if is_wall_hanging and is_on_wall():
 		velocity.y *= 0.8
 		has_double_jump = true
 
@@ -70,7 +71,7 @@ func try_jump():
 	elif has_double_jump:
 		has_double_jump = false
 		velocity.x *= 2.5
-		get_tree().call_group("platforms", "hide")
+		#get_tree().call_group("platforms", "hide")
 	else:
 		return
 	velocity.y = JUMP_VELOCITY
@@ -93,3 +94,11 @@ func _on_dash_timer_timeout():
 
 func _on_drop_timer_timeout():
 	platform.disabled = false # Replace with function body.
+
+
+func _on_area_2d_body_entered(body):
+	is_wall_hanging = true
+
+
+func _on_area_2d_body_exited(body):
+	is_wall_hanging = false

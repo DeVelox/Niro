@@ -94,6 +94,7 @@ reset={
 2d_physics/layer_5="obstacle"
 2d_physics/layer_6="interactable"
 2d_physics/layer_7="prop"
+2d_physics/layer_8="wall"
 
 [rendering]
 
