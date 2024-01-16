@@ -47,7 +47,10 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("left", "right")
 	if direction:
-		velocity.x = move_toward(velocity.x, direction * SPEED, SPEED / 8 * accel_multi )
+		if absf(velocity.x) > SPEED:
+			velocity.x = move_toward(velocity.x, direction * SPEED, SPEED / 20 * accel_multi )
+		else:
+			velocity.x = move_toward(velocity.x, direction * SPEED, SPEED / 8 * accel_multi )
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED / 5)
 		
@@ -76,6 +79,8 @@ func try_jump():
 	velocity.y = JUMP_VELOCITY
 
 func try_dash():
+	if is_on_floor():
+		velocity.x *= 1.5
 	if has_dash and !is_on_floor():
 		is_dashing = true
 		has_dash = false
