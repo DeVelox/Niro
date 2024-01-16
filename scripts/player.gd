@@ -3,8 +3,8 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-const DASH_VELOCITY = SPEED * 4
 const DASH_LENGTH = 0.1
+const DASH_MULTI = 4
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
@@ -12,12 +12,11 @@ const DASH_LENGTH = 0.1
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var is_wall_hanging = false
 var has_double_jump = false
 var is_dashing = false
 var has_dash = false
-var speed = SPEED
 var platform
-var is_wall_hanging = false
 
 func _physics_process(delta):
 	# Do not allow other movement while dashing
@@ -41,28 +40,24 @@ func _physics_process(delta):
 		velocity.y *= 0.8
 		has_double_jump = true
 
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction = Input.get_axis("left", "right")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED / 5)
+		
 	# Handle jump.
 	if Input.is_action_just_pressed("jump"):
 		try_jump()
 		
 	if Input.is_action_just_pressed("dash"):
 		try_dash()
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("left", "right")
-	if direction:
-		velocity.x = direction * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed / 15)
 	
+	if Input.is_action_just_pressed("crouch"):
+		try_drop()
 		
-	if drop_check.is_colliding():
-		if Input.is_action_just_pressed("crouch"):
-			platform = drop_check.get_collider().get_node("CollisionShape2D")
-			platform.disabled = true
-			drop_timer.start()
-
 	move_and_slide()
 
 func try_jump():
@@ -70,7 +65,6 @@ func try_jump():
 		pass
 	elif has_double_jump:
 		has_double_jump = false
-		velocity.x *= 2.5
 		#get_tree().call_group("platforms", "hide")
 	else:
 		return
@@ -82,14 +76,19 @@ func try_dash():
 		has_dash = false
 		dash_timer.wait_time = DASH_LENGTH
 		dash_timer.start()
-		gravity = 0
-		speed = DASH_VELOCITY
+		velocity.x *= DASH_MULTI
 		velocity.y = 0
-
+		gravity = 0
+		
+func try_drop():
+	if drop_check.is_colliding():
+		platform = drop_check.get_collider().get_node("CollisionShape2D")
+		platform.disabled = true
+		drop_timer.start()
+	
 func _on_dash_timer_timeout():
 	gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-	speed = SPEED
-	is_dashing = false
+	is_dashing = false 
 
 
 func _on_drop_timer_timeout():
