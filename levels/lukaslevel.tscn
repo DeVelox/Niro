@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddg6uqgviy6ul"]
+[gd_scene load_steps=7 format=3 uid="uid://ddg6uqgviy6ul"]
 
 [ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="1_olyet"]
 [ext_resource type="PackedScene" uid="uid://b75hun8hw8sj0" path="res://player/player.tscn" id="2_owwt6"]
 [ext_resource type="PackedScene" uid="uid://dppnqjdjkmgpf" path="res://obstacles/rockfall.tscn" id="3_cuhgi"]
 [ext_resource type="PackedScene" uid="uid://cyhd4k3titmr" path="res://obstacles/explosion.tscn" id="4_jkw3t"]
+[ext_resource type="PackedScene" uid="uid://utg2yptwwqkq" path="res://obstacles/spike.tscn" id="5_u1oqk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nobot"]
 size = Vector2(128, 32)
@@ -173,3 +174,7 @@ position = Vector2(224, 384)
 
 [node name="Explosion" parent="." instance=ExtResource("4_jkw3t")]
 position = Vector2(696, 384)
+
+[node name="spike" parent="." instance=ExtResource("5_u1oqk")]
+position = Vector2(144, 454)
+scale = Vector2(4.12, 3.84)
