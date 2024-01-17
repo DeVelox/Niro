@@ -178,3 +178,17 @@ position = Vector2(696, 384)
 [node name="spike" parent="." instance=ExtResource("5_u1oqk")]
 position = Vector2(144, 454)
 scale = Vector2(4.12, 3.84)
+
+[node name="Wall5" type="CharacterBody2D" parent="." groups=["platforms"]]
+position = Vector2(241, 136)
+scale = Vector2(0.15154, -1.91897)
+collision_layer = 136
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall5"]
+texture = ExtResource("1_olyet")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall5"]
+shape = SubResource("RectangleShape2D_nobot")
