@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -300.0
-const DASH_LENGTH = 0.2
-const DASH_MULTI = 2.5
+const DASH_LENGTH = 0.1
+const DASH_MULTI = 2.8
 const SLIDE_MULTI = 2.5
 const WALL_JUMP_MULTI = 2
 
@@ -36,7 +36,18 @@ func _physics_process(delta):
 		reload()
 		
 	if Input.is_action_just_pressed("dash"):
-		try_dash()
+		try_dash_and_slide()
+
+	# Sprite direction
+	if not is_zero_approx(velocity.x):
+		if velocity.x > 0.0:
+			sprite.flip_h = false
+		else:
+			sprite.flip_h = true
+
+	# Current animation
+	sprite.play(get_animation())
+	
 	# Do not allow other movement while dashing
 	if is_dashing:
 		move_and_slide()
@@ -72,16 +83,6 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, motion, accel())
 	else:
 		velocity.x = move_toward(velocity.x, 0, decel())
-		
-	# Sprite direction
-	if not is_zero_approx(velocity.x):
-		if velocity.x > 0.0:
-			sprite.flip_h = false
-		else:
-			sprite.flip_h = true
-
-	# Current animation
-	sprite.play(get_animation())
 
 	# Coyote timer
 	if is_on_floor():
@@ -110,7 +111,9 @@ func try_jump():
 	else:
 		return
 
-func try_dash():
+func try_dash_and_slide():
+	if not motion:
+		return
 	if not is_sliding and is_on_floor():	
 		velocity.x = motion * SLIDE_MULTI
 		hitbox.position.y = 45
