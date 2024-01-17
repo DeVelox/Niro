@@ -9,7 +9,9 @@ const WALL_JUMP_MULTI = 2
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
 @onready var drop_timer = $DropTimer
+@onready var coyote_timer = $CoyoteTimer
 @onready var slide_cooldown = $SlideCooldown
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -22,6 +24,7 @@ var has_dash = false
 var has_slide = true
 var platform
 var motion
+var was_on_floor = false
 
 func _physics_process(delta):
 	is_wall_hanging = is_wall_hanging_left != is_wall_hanging_right
@@ -64,10 +67,17 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, decel())
 
+	if is_on_floor():
+		was_on_floor = true
+
 	move_and_slide()
+		
+	if was_on_floor and not is_on_floor():
+		was_on_floor = false
+		coyote_timer.start()
 
 func try_jump():
-	if is_on_floor():
+	if is_on_floor() or not coyote_timer.is_stopped():
 		velocity.y = JUMP_VELOCITY
 	elif is_wall_hanging:
 		# Apply a jump opposite of the wall hang
