@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dppnqjdjkmgpf"]
+
+[ext_resource type="Script" path="res://obstacles/rockfall.gd" id="1_owrc2"]
+[ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="1_pu5nu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0xl4"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfq0c"]
+size = Vector2(32, 24)
+
+[node name="Rockfall" type="Area2D"]
+collision_layer = 16
+collision_mask = 13
+script = ExtResource("1_owrc2")
+
+[node name="Rock" type="RigidBody2D" parent="."]
+collision_layer = 16
+collision_mask = 13
+
+[node name="Sprite2D" type="Sprite2D" parent="Rock"]
+position = Vector2(0, 4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_pu5nu")
+offset = Vector2(0, -200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock"]
+position = Vector2(0, -96)
+shape = SubResource("RectangleShape2D_m0xl4")
+
+[node name="Detector" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_yfq0c")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
