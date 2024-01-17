@@ -40,7 +40,6 @@ func _physics_process(delta):
 		has_double_jump = true
 		has_dash = true
 	elif is_on_wall() and is_wall_hanging:
-		has_double_jump = true
 		velocity.y *= 0.8
 
 	# Establish baseline horizontal movement
@@ -59,22 +58,23 @@ func _physics_process(delta):
 	# Apply acceleration
 	if motion:
 		velocity.x = move_toward(velocity.x, motion, accel())
-	else:
+	elif is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, decel())
 
 	move_and_slide()
 
 func try_jump():
 	if is_on_floor():
-		pass
+		velocity.y = JUMP_VELOCITY
 	elif is_wall_hanging and is_on_wall():
 	# Apply a jump opposite of the wall hang
-		velocity.x = motion * -1.5
+		velocity.x = motion * -2
+		velocity.y = JUMP_VELOCITY * 0.75
 	elif has_double_jump:
 		has_double_jump = false
+		velocity.y = JUMP_VELOCITY
 	else:
 		return
-	velocity.y = JUMP_VELOCITY
 
 func try_dash():
 	if has_slide and is_on_floor():
