@@ -18,59 +18,58 @@ var is_dashing = false
 var has_dash = false
 var has_slide = true
 var platform
+var motion
 
 func _physics_process(delta):
-
+		
+	# Reset character to start of level
+	if Input.is_action_just_pressed("reset"):
+		position = Vector2(64,432)
+	
 	# Do not allow other movement while dashing
 	if is_dashing:
 		move_and_slide()
 		return
 	
-	# Reset character to start of level
-	if Input.is_action_just_pressed("reset"):
-		position = Vector2(64,432)
-		
-	# Add the gravity.
+	# Apply gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	else:
+	
+	# Perform state checks
+	if is_on_floor():
 		has_double_jump = true
 		has_dash = true
-		
-	if is_wall_hanging and is_on_wall():
+	elif is_on_wall() and is_wall_hanging:
+		has_double_jump = true
 		velocity.y *= 0.8
-		has_double_jump = true		
 
+	# Establish baseline horizontal movement
+	motion = Input.get_axis("left", "right") * SPEED
 
-	# Get the input direction and handle the movement/deceleration.
-	# Accel/decel handled in appropriate functions now
-	
-	var direction = Input.get_axis("left", "right")
-	if direction:
-		velocity.x = move_toward(velocity.x, SPEED * direction, accel())
-	else:
-		velocity.x = move_toward(velocity.x, 0, decel())
-		
 	# Handle special movement.
 	if Input.is_action_just_pressed("jump"):
 		try_jump()
-		
+
 	if Input.is_action_just_pressed("dash"):
 		try_dash()
 	
 	if Input.is_action_just_pressed("crouch"):
 		try_drop()
-		
+
+	# Apply acceleration
+	if motion:
+		velocity.x = move_toward(velocity.x, motion, accel())
+	else:
+		velocity.x = move_toward(velocity.x, 0, decel())
+
 	move_and_slide()
 
 func try_jump():
 	if is_on_floor():
 		pass
 	elif is_wall_hanging and is_on_wall():
-	# This was only able to jump off the left wall, now it jumps
-	# opposite of which key is held to stick to the wall
-	# I think that's the intended behaviour
-		velocity.x = 500 * -Input.get_axis("left", "right")
+	# Apply a jump opposite of the wall hang
+		velocity.x = motion * -1.5
 	elif has_double_jump:
 		has_double_jump = false
 	else:
@@ -79,15 +78,14 @@ func try_jump():
 
 func try_dash():
 	if has_slide and is_on_floor():
-	# This makes dashes very inconsistent as it's based off current speed
-	# Might be desired behaviour, idk, I don't play platformers
-		velocity.x *= DASH_MULTI
+	# Make sure the dashes are always a consistent speed / length
+		velocity.x = motion * DASH_MULTI
 		scale.x = 0.3
 		scale.y = 0.15
 		slide_cooldown.start()
 		has_slide = false
 	elif has_dash and not is_on_floor():
-		velocity.x *= DASH_MULTI
+		velocity.x = motion * DASH_MULTI
 		is_dashing = true
 		has_dash = false
 	else:
@@ -105,22 +103,22 @@ func try_drop():
 func accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
 	if absf(velocity.x) > SPEED:
-		return SPEED / 5
+		return 60
 	# For floatier movement when falling / jumping
 	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
-		return SPEED / 10
+		return 30
 	# Mostly for walking, I think
 	else:
-		return SPEED / 5
+		return 60
 
 func decel() -> float:
 	# Deceleration when direction keys are let go
 	if absf(velocity.x) > SPEED:
-		return SPEED / 5
+		return 60
 	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
-		return SPEED / 10
+		return 30
 	else:
-		return SPEED / 5
+		return 60
 		
 func _on_area_2d_body_entered(body):
 	is_wall_hanging = true
