@@ -4,6 +4,7 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -300.0
 const DASH_LENGTH = 0.2
 const DASH_MULTI = 2
+const WALL_JUMP_MULTI = 3
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
@@ -13,6 +14,8 @@ const DASH_MULTI = 2
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_wall_hanging = false
+var is_wall_hanging_left = false
+var is_wall_hanging_right = false
 var has_double_jump = false
 var is_dashing = false
 var has_dash = false
@@ -21,7 +24,7 @@ var platform
 var motion
 
 func _physics_process(delta):
-		
+	is_wall_hanging = is_wall_hanging_left != is_wall_hanging_right
 	# Reset character to start of level
 	if Input.is_action_just_pressed("reset"):
 		position = Vector2(64,432)
@@ -58,7 +61,7 @@ func _physics_process(delta):
 	# Apply acceleration
 	if motion:
 		velocity.x = move_toward(velocity.x, motion, accel())
-	elif is_on_floor():
+	else:
 		velocity.x = move_toward(velocity.x, 0, decel())
 
 	move_and_slide()
@@ -66,9 +69,10 @@ func _physics_process(delta):
 func try_jump():
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	elif is_wall_hanging and is_on_wall():
-	# Apply a jump opposite of the wall hang
-		velocity.x = motion * -2
+	elif is_wall_hanging:
+		# Apply a jump opposite of the wall hang
+		var direction = 1 if is_wall_hanging_left else -1
+		velocity.x = SPEED * WALL_JUMP_MULTI * direction
 		velocity.y = JUMP_VELOCITY * 0.75
 	elif has_double_jump:
 		has_double_jump = false
@@ -103,7 +107,7 @@ func try_drop():
 func accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
 	if absf(velocity.x) > SPEED:
-		return 60
+		return 30
 	# For floatier movement when falling / jumping
 	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
 		return 30
@@ -116,15 +120,10 @@ func decel() -> float:
 	if absf(velocity.x) > SPEED:
 		return 60
 	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
-		return 30
+		return 0
 	else:
-		return 60
+		return 90
 		
-func _on_area_2d_body_entered(body):
-	is_wall_hanging = true
-
-func _on_area_2d_body_exited(body):
-	is_wall_hanging = false
 	
 func _on_drop_timer_timeout():
 	platform.disabled = false
@@ -137,3 +136,15 @@ func _on_dash_timer_timeout():
 func _on_slide_cooldown_timeout():
 # Make the cooldown obvious to the player somehow, right now it feels weird
 	has_slide = true
+
+func _on_area_2d_left_body_entered(body):
+	is_wall_hanging_left = true
+
+func _on_area_2d_left_body_exited(body):
+	is_wall_hanging_left = false
+
+func _on_area_2d_right_body_entered(body):
+	is_wall_hanging_right = true
+
+func _on_area_2d_right_body_exited(body):
+	is_wall_hanging_right = false
