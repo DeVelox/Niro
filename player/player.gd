@@ -28,6 +28,7 @@ var is_sliding = false
 var platform
 var motion
 var was_on_floor = false
+var is_crouching = false
 
 func _physics_process(delta):
 	is_wall_hanging = is_wall_hanging_left != is_wall_hanging_right
@@ -70,13 +71,18 @@ func _physics_process(delta):
 	# Handle special movement.
 	if Input.is_action_just_pressed("jump"):
 		try_jump()
-
+	
 	if Input.is_action_just_pressed("crouch"):
 		if double_tap.is_stopped():
 			double_tap.start()
 		else:
 			double_tap.stop()
 			try_drop()
+
+	if Input.is_action_pressed("crouch"):
+		try_crouch()
+	elif Input.is_action_just_released("crouch"):
+		stop_crouch()
 
 	# Apply acceleration
 	if motion:
@@ -93,9 +99,21 @@ func _physics_process(delta):
 	if was_on_floor and not is_on_floor():
 		was_on_floor = false
 		coyote_timer.start()
-
+		
+func try_crouch():
+	is_crouching = true
+	hitbox.position.y = 32
+	hitbox.scale.y = 0.5
+		
+func stop_crouch():
+	is_crouching = false
+	hitbox.position.y = 0
+	hitbox.scale.y = 1
+		
 func try_jump():
-	if is_on_floor() or not coyote_timer.is_stopped():
+	if Input.is_action_pressed("crouch"):
+		try_drop()
+	elif is_on_floor() or not coyote_timer.is_stopped():
 		if is_sliding:
 			stop_slide()
 			velocity.x *= 1.3
@@ -168,19 +186,19 @@ func decel() -> float:
 		return 90
 		
 func get_animation():
-	if Input.is_action_pressed("crouch") and drop_check.is_colliding():
+	if is_crouching:
 		return "crouching"
 	elif is_sliding:
 		return "sliding"
+	elif is_dashing:
+		return "dashing"
+	elif is_wall_hanging:
+		return "wall"
 	elif is_on_floor():
 		if absf(velocity.x) > 0.1:
 			return "running"
 		else:
 			return "idle"
-	elif is_dashing:
-		return "dashing"
-	elif is_wall_hanging:
-		return "wall"
 	else:
 		if velocity.y > 0.0:
 			return "falling"
