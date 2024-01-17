@@ -63,7 +63,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"dashing",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -168,7 +168,7 @@ script = ExtResource("1_0if4t")
 position = Vector2(10, -13.3333)
 scale = Vector2(6.4, 4.32432)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"sliding"
+animation = &"dashing"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -192,11 +192,8 @@ wait_time = 0.5
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="SlideCooldown" type="Timer" parent="."]
-one_shot = true
-
 [node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.15
+wait_time = 0.1
 one_shot = true
 
 [node name="DoubleTap" type="Timer" parent="."]
@@ -221,7 +218,6 @@ shape = SubResource("RectangleShape2D_kjvja")
 
 [connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
-[connection signal="timeout" from="SlideCooldown" to="." method="_on_slide_cooldown_timeout"]
 [connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
 [connection signal="body_exited" from="Area2DLeft" to="." method="_on_area_2d_left_body_exited"]
 [connection signal="body_entered" from="Area2DRight" to="." method="_on_area_2d_right_body_entered"]
