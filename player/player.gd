@@ -4,7 +4,7 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -300.0
 const DASH_LENGTH = 0.2
 const DASH_MULTI = 2
-const WALL_JUMP_MULTI = 3
+const WALL_JUMP_MULTI = 2
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
@@ -27,7 +27,7 @@ func _physics_process(delta):
 	is_wall_hanging = is_wall_hanging_left != is_wall_hanging_right
 	# Reset character to start of level
 	if Input.is_action_just_pressed("reset"):
-		position = Vector2(64,432)
+		reload()
 	
 	# Do not allow other movement while dashing
 	if is_dashing:
@@ -71,8 +71,8 @@ func try_jump():
 		velocity.y = JUMP_VELOCITY
 	elif is_wall_hanging:
 		# Apply a jump opposite of the wall hang
-		var direction = 1 if is_wall_hanging_left else -1
-		velocity.x = SPEED * WALL_JUMP_MULTI * direction
+		var wall_direction = 1 if is_wall_hanging_left else -1
+		velocity.x = SPEED * WALL_JUMP_MULTI * wall_direction
 		velocity.y = JUMP_VELOCITY * 0.75
 	elif has_double_jump:
 		has_double_jump = false
@@ -125,6 +125,9 @@ func decel() -> float:
 		return 90
 		
 	
+func reload():
+	get_tree().reload_current_scene()
+
 func _on_drop_timer_timeout():
 	platform.disabled = false
 	

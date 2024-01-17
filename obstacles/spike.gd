@@ -13,4 +13,4 @@ func _process(delta):
 func _on_body_entered(body):
 	if body.is_in_group("players"):
 		#body.position = Vector2(64,432)
-		get_tree().reload_current_scene()
+		body.reload()
