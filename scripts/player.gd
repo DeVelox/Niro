@@ -95,38 +95,32 @@ func try_dash():
 	dash_timer.wait_time = DASH_LENGTH
 	dash_timer.start()
 	velocity.y = 0
-		
+
 func try_drop():
 	if drop_check.is_colliding():
 		platform = drop_check.get_collider().get_node("CollisionShape2D")
 		platform.disabled = true
 		drop_timer.start()
 
-# For move_toward accel values above 0.5 * SPEED effectively do nothing
-# The acceleration is "step size" so if velocity is 0 and SPEED is 300
-# accel of 150 will reach max speed in 2 frames, most of the time
-# velocity won't be zero so only values of about ~0.2 * SPEED and lower
-# are noticeable in most cases (check examples in docs for more info)
-
 func accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
 	if absf(velocity.x) > SPEED:
-		return SPEED * 0.2
+		return SPEED / 5
 	# For floatier movement when falling / jumping
 	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
-		return SPEED * 0.1
+		return SPEED / 10
 	# Mostly for walking, I think
 	else:
-		return SPEED * 0.2
+		return SPEED / 5
 
 func decel() -> float:
 	# Deceleration when direction keys are let go
 	if absf(velocity.x) > SPEED:
-		return SPEED * 0.2
+		return SPEED / 5
 	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
-		return SPEED * 0.1
+		return SPEED / 10
 	else:
-		return SPEED * 0.2
+		return SPEED / 5
 		
 func _on_area_2d_body_entered(body):
 	is_wall_hanging = true
