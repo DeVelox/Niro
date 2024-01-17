@@ -141,7 +141,6 @@ func try_drop():
 func accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
 	if absf(velocity.x) > SPEED:
-		print(velocity.x)
 		if is_sliding:
 			return 15
 		return 30
