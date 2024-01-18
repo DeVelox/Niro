@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bda4aynhgsdg0"]
+
+[ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_8tj4b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xr62"]
+size = Vector2(16, 48)
+
+[node name="Wall" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 3
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8tj4b")
+region_enabled = true
+region_rect = Rect2(240, 0, 16, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1xr62")

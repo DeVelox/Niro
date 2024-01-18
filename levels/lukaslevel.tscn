@@ -1,17 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddg6uqgviy6ul"]
+[gd_scene load_steps=9 format=3 uid="uid://ddg6uqgviy6ul"]
 
+[ext_resource type="Script" path="res://levels/lukaslevel.gd" id="1_7lidr"]
 [ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="1_olyet"]
 [ext_resource type="PackedScene" uid="uid://b75hun8hw8sj0" path="res://player/player.tscn" id="2_owwt6"]
 [ext_resource type="PackedScene" uid="uid://dppnqjdjkmgpf" path="res://obstacles/rockfall.tscn" id="3_cuhgi"]
 [ext_resource type="PackedScene" uid="uid://cyhd4k3titmr" path="res://obstacles/explosion.tscn" id="4_jkw3t"]
 [ext_resource type="PackedScene" uid="uid://utg2yptwwqkq" path="res://obstacles/spike.tscn" id="5_u1oqk"]
+[ext_resource type="PackedScene" uid="uid://buknsgyyqacry" path="res://obstacles/checkpoint.tscn" id="6_k05kv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nobot"]
 size = Vector2(128, 32)
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_7lidr")
 
-[node name="Platform1" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Platform1" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(64, 472)
 scale = Vector2(0.56, 0.48)
 collision_layer = 8
@@ -22,10 +25,10 @@ texture = ExtResource("1_olyet")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 32)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1" groups=["level_1_set_1"]]
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Platform2" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Platform2" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(232, 400)
 scale = Vector2(0.56, 0.48)
 collision_layer = 8
@@ -39,7 +42,7 @@ region_rect = Rect2(0, 0, 128, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Platform3" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Platform3" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(696, 400)
 scale = Vector2(1.12001, 0.48)
 collision_layer = 8
@@ -53,7 +56,7 @@ region_rect = Rect2(0, 0, 128, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3"]
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Platform4" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Platform4" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(760, 208)
 scale = Vector2(0.56, 0.48)
 collision_layer = 8
@@ -67,7 +70,7 @@ region_rect = Rect2(0, 0, 128, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform4"]
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Platform5" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Platform5" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(392, 208)
 scale = Vector2(1.6, 0.48)
 collision_layer = 8
@@ -81,7 +84,7 @@ region_rect = Rect2(0, 0, 128, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform5"]
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Wall1" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Wall1" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(760, 304)
 scale = Vector2(0.119995, 6.2)
 collision_layer = 136
@@ -95,7 +98,7 @@ region_rect = Rect2(0, 0, 128, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall1"]
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Wall2" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Wall2" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(416, 148)
 scale = Vector2(0.15154, -1.91897)
 collision_layer = 136
@@ -109,7 +112,7 @@ region_rect = Rect2(0, 0, 128, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Platform6" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Platform6" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(417, 109)
 scale = Vector2(0.840002, 0.48)
 collision_layer = 8
@@ -126,7 +129,7 @@ shape = SubResource("RectangleShape2D_nobot")
 [node name="Player" parent="." instance=ExtResource("2_owwt6")]
 position = Vector2(64, 440)
 
-[node name="Wall3" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Wall3" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(760, 88)
 scale = Vector2(0.15154, -1.91897)
 collision_layer = 136
@@ -140,7 +143,7 @@ region_rect = Rect2(0, 0, 128, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3"]
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Platform7" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Platform7" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(608, 104)
 scale = Vector2(2.2, 0.683)
 collision_layer = 8
@@ -155,7 +158,7 @@ region_rect = Rect2(0, 0, 128, 32)
 scale = Vector2(1, 0.667)
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Wall4" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Wall4" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(760, 88)
 scale = Vector2(0.15154, -1.91897)
 collision_layer = 136
@@ -169,17 +172,17 @@ region_rect = Rect2(0, 0, 128, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
 shape = SubResource("RectangleShape2D_nobot")
 
-[node name="Rockfall" parent="." instance=ExtResource("3_cuhgi")]
+[node name="Rockfall" parent="." groups=["level_1_set_1"] instance=ExtResource("3_cuhgi")]
 position = Vector2(224, 384)
 
-[node name="Explosion" parent="." instance=ExtResource("4_jkw3t")]
+[node name="Explosion" parent="." groups=["level_1_set_1"] instance=ExtResource("4_jkw3t")]
 position = Vector2(696, 384)
 
-[node name="spike" parent="." instance=ExtResource("5_u1oqk")]
+[node name="spike" parent="." groups=["level_1_set_1"] instance=ExtResource("5_u1oqk")]
 position = Vector2(144, 454)
 scale = Vector2(4.12, 3.84)
 
-[node name="Wall5" type="CharacterBody2D" parent="." groups=["platforms"]]
+[node name="Wall5" type="CharacterBody2D" parent="." groups=["level_1_set_1", "platforms"]]
 position = Vector2(241, 136)
 scale = Vector2(0.15154, -1.91897)
 collision_layer = 136
@@ -192,3 +195,23 @@ region_rect = Rect2(0, 0, 128, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall5"]
 shape = SubResource("RectangleShape2D_nobot")
+
+[node name="checkpoint" parent="." instance=ExtResource("6_k05kv")]
+position = Vector2(97, 449)
+
+[node name="Platform8" type="CharacterBody2D" parent="." groups=["level_1_set_2", "platforms"]]
+visible = false
+position = Vector2(64, 481)
+scale = Vector2(0.56, 0.48)
+collision_layer = 8
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform8"]
+texture = ExtResource("1_olyet")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform8"]
+shape = SubResource("RectangleShape2D_nobot")
+
+[connection signal="spawn" from="checkpoint" to="." method="_on_checkpoint_spawn"]

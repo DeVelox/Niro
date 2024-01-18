@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://sujagm05aqbv"]
+[gd_scene load_steps=7 format=3 uid="uid://sujagm05aqbv"]
 
 [ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_7u1rj"]
+[ext_resource type="PackedScene" uid="uid://dwrmqyb742m6b" path="res://terrain/platform.tscn" id="2_4bgvd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qo5hr"]
 texture = ExtResource("1_7u1rj")
@@ -1094,11 +1095,11 @@ physics_layer_1/collision_layer = 4
 physics_layer_2/collision_layer = 128
 sources/0 = SubResource("TileSetAtlasSource_qo5hr")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5npi"]
-size = Vector2(114.286, 16.6666)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1xr62"]
 size = Vector2(16, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5npi"]
+size = Vector2(114.286, 16.6666)
 
 [node name="NewLevel" type="Node2D"]
 
@@ -1107,24 +1108,7 @@ tile_set = SubResource("TileSet_fm8lq")
 format = 2
 layer_0/tile_data = PackedInt32Array(1900544, 524288, 1, 1900593, 524288, 0, 1900545, 393216, 0, 1900546, 458752, 0, 1900547, 458752, 0, 1900548, 458752, 0, 1900549, 458752, 0, 1900550, 458752, 0, 1900551, 458752, 0, 1900552, 458752, 0, 1900553, 458752, 0, 1900554, 458752, 0, 1900555, 458752, 0, 1900556, 458752, 0, 1900557, 458752, 0, 1900558, 458752, 0, 1900559, 458752, 0, 1900560, 458752, 0, 1900561, 458752, 0, 1900562, 458752, 0, 1900563, 458752, 0, 1900564, 458752, 0, 1900565, 458752, 0, 1900566, 458752, 0, 1900567, 458752, 0, 1900568, 458752, 0, 1900569, 458752, 0, 1900570, 458752, 0, 1900571, 458752, 0, 1900572, 458752, 0, 1900573, 458752, 0, 1900574, 458752, 0, 1900575, 458752, 0, 1900576, 458752, 0, 1900577, 458752, 0, 1900578, 458752, 0, 1900579, 458752, 0, 1900580, 458752, 0, 1900581, 458752, 0, 1900582, 458752, 0, 1900583, 458752, 0, 1900584, 458752, 0, 1900585, 458752, 0, 1900586, 458752, 0, 1900587, 458752, 0, 1900588, 458752, 0, 1900589, 458752, 0, 1900590, 458752, 0, 1900591, 458752, 0, 1900592, 458752, 0, 1769472, 524288, 1, 1835008, 524288, 1, 1638400, 524288, 1, 1703936, 524288, 1, 1507328, 524288, 1, 1572864, 524288, 1, 1376256, 524288, 1, 1441792, 524288, 1, 1245184, 524288, 1, 1310720, 524288, 1, 1114112, 524288, 1, 1179648, 524288, 1, 983040, 524288, 1, 1048576, 524288, 1, 851968, 524288, 1, 917504, 524288, 1, 786432, 524288, 1, 720896, 524288, 1, 655360, 524288, 1, 589824, 524288, 1, 524288, 524288, 1, 458752, 524288, 1, 393216, 524288, 1, 327680, 524288, 1, 262144, 524288, 1, 196608, 524288, 1, 131072, 524288, 1, 65536, 524288, 1, 0, 524288, 1)
 
-[node name="Platform" type="CharacterBody2D" parent="." groups=["platforms"]]
-position = Vector2(224, 392)
-scale = Vector2(0.56, 0.48)
-collision_layer = 8
-collision_mask = 3
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Platform"]
-position = Vector2(2.47955e-05, -4.57764e-05)
-scale = Vector2(2.38095, 3.33332)
-texture = ExtResource("1_7u1rj")
-region_enabled = true
-region_rect = Rect2(272, 16, 48, 5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
-position = Vector2(0, -4.00543e-05)
-shape = SubResource("RectangleShape2D_a5npi")
-one_way_collision = true
+[node name="Platform" parent="." instance=ExtResource("2_4bgvd")]
 
 [node name="Wall" type="CharacterBody2D" parent="."]
 position = Vector2(120, 408)
@@ -1159,7 +1143,6 @@ region_rect = Rect2(240, 0, 16, 48)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_1xr62")
-one_way_collision = true
 
 [node name="Platform2" type="CharacterBody2D" parent="." groups=["platforms"]]
 position = Vector2(743, 418)
