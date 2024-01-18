@@ -8,7 +8,7 @@ size = Vector2(34, 44)
 
 [node name="Trophy" type="StaticBody2D"]
 z_index = -1
-collision_layer = 64
+collision_layer = 32
 script = ExtResource("1_l8r76")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
