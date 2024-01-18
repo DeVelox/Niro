@@ -7,7 +7,7 @@ const DASH_MULTI = 2.8
 const SLIDE_MULTI = 2.5
 const WALL_JUMP_MULTI = 2
 const FALL_CLAMP = 600.0
-const JUMP_APEX = 10.0
+const JUMP_APEX = 5
 const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
 
@@ -63,7 +63,6 @@ func _physics_process(delta):
 	# Apply gravity
 
 	if is_jumping and absf(velocity.y) < JUMP_APEX and not is_wall_hanging:
-		print("stall")
 		velocity.y += gravity * delta * JUMP_APEX_MULTI
 	elif not is_on_floor():
 		velocity.y += gravity * delta
@@ -81,10 +80,12 @@ func _physics_process(delta):
 
 	# Establish baseline horizontal movement
 	motion = Input.get_axis("left", "right") * SPEED
-	
+		
 	# Handle special movement.
-	if Input.is_action_just_pressed("jump") and jump_buffer.is_stopped():
+	if Input.is_action_just_pressed("jump"):
 		jump_buffer.start()
+
+	if not jump_buffer.is_stopped():
 		try_jump()
 	
 	if Input.is_action_just_pressed("crouch"):
@@ -142,7 +143,7 @@ func try_jump():
 		# Apply a jump opposite of the wall hang
 		var wall_direction = 1 if is_wall_hanging_left else -1
 		velocity.x = SPEED * WALL_JUMP_MULTI * wall_direction
-		velocity.y = JUMP_VELOCITY * 0.75
+		velocity.y = JUMP_VELOCITY * 1
 		is_jumping = true
 	elif has_double_jump:
 		has_double_jump = false
@@ -150,6 +151,7 @@ func try_jump():
 		is_jumping = true
 	else:
 		return
+	jump_buffer.stop()
 
 func try_dash_and_slide():
 	if not motion:
@@ -222,7 +224,8 @@ func get_animation():
 		else:
 			return "idle"
 	else:
-		if velocity.y > 0.0:
+		if velocity.y > -JUMP_VELOCITY:
+			print(velocity.y)
 			return "falling"
 		else:
 			return "jumping"
