@@ -186,6 +186,10 @@ position_smoothing_enabled = true
 target_position = Vector2(0, 100)
 collision_mask = 8
 
+[node name="InteractCheck" type="RayCast2D" parent="."]
+target_position = Vector2(128, 0)
+collision_mask = 64
+
 [node name="DropTimer" type="Timer" parent="."]
 wait_time = 0.5
 

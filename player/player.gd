@@ -19,6 +19,7 @@ const VAR_JUMP_MULTI = 0.25
 @onready var double_tap = $DoubleTap
 @onready var hitbox = $CollisionShape2D
 @onready var jump_buffer = $JumpBuffer
+@onready var interact_check = $InteractCheck
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -42,6 +43,9 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("reset"):
 		reload()
 		
+	if Input.is_action_just_pressed("interact"):
+		try_interact()
+		
 	if Input.is_action_just_pressed("dash"):
 		try_dash_and_slide()
 
@@ -49,8 +53,10 @@ func _physics_process(delta):
 	if not is_zero_approx(velocity.x):
 		if velocity.x > 0.0:
 			sprite.flip_h = false
+			interact_check.scale.x = 1
 		else:
 			sprite.flip_h = true
+			interact_check.scale.x = -1
 
 	# Current animation
 	sprite.play(get_animation())
@@ -228,6 +234,10 @@ func get_animation():
 			return "falling"
 		else:
 			return "jumping"
+			
+func try_interact():
+	if interact_check.is_colliding():
+		interact_check.get_collider().interact()
 
 func reload():
 	get_tree().reload_current_scene()

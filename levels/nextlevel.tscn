@@ -1,12 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://sujagm05aqbv"]
+[gd_scene load_steps=9 format=3 uid="uid://cewedqcc704ji"]
 
-[ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_7u1rj"]
-[ext_resource type="Script" path="res://levels/newlevel.gd" id="1_orbb2"]
-[ext_resource type="PackedScene" uid="uid://dwrmqyb742m6b" path="res://terrain/platform.tscn" id="2_4bgvd"]
-[ext_resource type="PackedScene" uid="uid://biarri6nepyei" path="res://trophy.tscn" id="4_usmut"]
+[ext_resource type="Script" path="res://levels/nextlevel.gd" id="1_hejka"]
+[ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_w0hpb"]
+[ext_resource type="PackedScene" uid="uid://dwrmqyb742m6b" path="res://terrain/platform.tscn" id="2_vrps5"]
+[ext_resource type="PackedScene" uid="uid://biarri6nepyei" path="res://trophy.tscn" id="3_r7w8q"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qo5hr"]
-texture = ExtResource("1_7u1rj")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_afyry"]
+texture = ExtResource("1_w0hpb")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -1091,31 +1091,31 @@ texture = ExtResource("1_7u1rj")
 20:10/0/physics_layer_2/angular_velocity = 0.0
 20:10/0/physics_layer_2/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSet" id="TileSet_fm8lq"]
+[sub_resource type="TileSet" id="TileSet_0t85j"]
 physics_layer_0/collision_layer = 8
 physics_layer_1/collision_layer = 4
 physics_layer_2/collision_layer = 128
-sources/0 = SubResource("TileSetAtlasSource_qo5hr")
+sources/0 = SubResource("TileSetAtlasSource_afyry")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xr62"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4aop"]
 size = Vector2(16, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5npi"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_41y5r"]
 size = Vector2(114.286, 16.6666)
 
-[node name="NewLevel" type="Node2D"]
-script = ExtResource("1_orbb2")
+[node name="NextLevel" type="Node2D"]
+script = ExtResource("1_hejka")
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_fm8lq")
+tile_set = SubResource("TileSet_0t85j")
 format = 2
 layer_0/tile_data = PackedInt32Array(1900544, 524288, 1, 1900593, 524288, 0, 1900545, 393216, 0, 1900546, 458752, 0, 1900547, 458752, 0, 1900548, 458752, 0, 1900549, 458752, 0, 1900550, 458752, 0, 1900551, 458752, 0, 1900552, 458752, 0, 1900553, 458752, 0, 1900554, 458752, 0, 1900555, 458752, 0, 1900556, 458752, 0, 1900557, 458752, 0, 1900558, 458752, 0, 1900559, 458752, 0, 1900560, 458752, 0, 1900561, 458752, 0, 1900562, 458752, 0, 1900563, 458752, 0, 1900564, 458752, 0, 1900565, 458752, 0, 1900566, 458752, 0, 1900567, 458752, 0, 1900568, 458752, 0, 1900569, 458752, 0, 1900570, 458752, 0, 1900571, 458752, 0, 1900572, 458752, 0, 1900573, 458752, 0, 1900574, 458752, 0, 1900575, 458752, 0, 1900576, 458752, 0, 1900577, 458752, 0, 1900578, 458752, 0, 1900579, 458752, 0, 1900580, 458752, 0, 1900581, 458752, 0, 1900582, 458752, 0, 1900583, 458752, 0, 1900584, 458752, 0, 1900585, 458752, 0, 1900586, 458752, 0, 1900587, 458752, 0, 1900588, 458752, 0, 1900589, 458752, 0, 1900590, 458752, 0, 1900591, 458752, 0, 1900592, 458752, 0, 1769472, 524288, 1, 1835008, 524288, 1, 1638400, 524288, 1, 1703936, 524288, 1, 1507328, 524288, 1, 1572864, 524288, 1, 1376256, 524288, 1, 1441792, 524288, 1, 1245184, 524288, 1, 1310720, 524288, 1, 1114112, 524288, 1, 1179648, 524288, 1, 983040, 524288, 1, 1048576, 524288, 1, 851968, 524288, 1, 917504, 524288, 1, 786432, 524288, 1, 720896, 524288, 1, 655360, 524288, 1, 589824, 524288, 1, 524288, 524288, 1, 458752, 524288, 1, 393216, 524288, 1, 327680, 524288, 1, 262144, 524288, 1, 196608, 524288, 1, 131072, 524288, 1, 65536, 524288, 1, 0, 524288, 1)
 
-[node name="Platform" parent="." instance=ExtResource("2_4bgvd")]
-position = Vector2(228, 358)
+[node name="Platform" parent="." instance=ExtResource("2_vrps5")]
+position = Vector2(573, 335)
 
 [node name="Wall" type="CharacterBody2D" parent="."]
-position = Vector2(120, 408)
+position = Vector2(99, 404)
 collision_layer = 128
 collision_mask = 3
 metadata/_edit_group_ = true
@@ -1123,16 +1123,16 @@ metadata/_edit_group_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Wall"]
 position = Vector2(0, 8)
 scale = Vector2(1, 1.33333)
-texture = ExtResource("1_7u1rj")
+texture = ExtResource("1_w0hpb")
 region_enabled = true
 region_rect = Rect2(240, 0, 16, 48)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
 position = Vector2(0, 8)
-shape = SubResource("RectangleShape2D_1xr62")
+shape = SubResource("RectangleShape2D_q4aop")
 
 [node name="Wall2" type="CharacterBody2D" parent="."]
-position = Vector2(328, 344)
+position = Vector2(376, 329)
 collision_layer = 128
 collision_mask = 3
 metadata/_edit_group_ = true
@@ -1140,13 +1140,13 @@ metadata/_edit_group_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Wall2"]
 position = Vector2(0, 8)
 scale = Vector2(1, 1.33333)
-texture = ExtResource("1_7u1rj")
+texture = ExtResource("1_w0hpb")
 region_enabled = true
 region_rect = Rect2(240, 0, 16, 48)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
 position = Vector2(0, 8)
-shape = SubResource("RectangleShape2D_1xr62")
+shape = SubResource("RectangleShape2D_q4aop")
 
 [node name="Platform2" type="CharacterBody2D" parent="." groups=["platforms"]]
 position = Vector2(743, 418)
@@ -1158,17 +1158,17 @@ metadata/_edit_group_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Platform2"]
 position = Vector2(1.78574, -4.57764e-05)
 scale = Vector2(2.38095, 3.33332)
-texture = ExtResource("1_7u1rj")
+texture = ExtResource("1_w0hpb")
 region_enabled = true
 region_rect = Rect2(272, 16, 48, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
 position = Vector2(0, -4.00543e-05)
-shape = SubResource("RectangleShape2D_a5npi")
+shape = SubResource("RectangleShape2D_41y5r")
 one_way_collision = true
 
 [node name="Platform3" type="CharacterBody2D" parent="." groups=["platforms"]]
-position = Vector2(406, 418)
+position = Vector2(244, 416)
 scale = Vector2(0.880002, 0.48)
 collision_layer = 8
 collision_mask = 3
@@ -1177,15 +1177,15 @@ metadata/_edit_group_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Platform3"]
 position = Vector2(2.47955e-05, -4.57764e-05)
 scale = Vector2(2.38095, 3.33332)
-texture = ExtResource("1_7u1rj")
+texture = ExtResource("1_w0hpb")
 region_enabled = true
 region_rect = Rect2(272, 16, 48, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3"]
 position = Vector2(0, -4.00543e-05)
-shape = SubResource("RectangleShape2D_a5npi")
+shape = SubResource("RectangleShape2D_41y5r")
 one_way_collision = true
 
-[node name="Trophy" parent="." instance=ExtResource("4_usmut")]
-position = Vector2(228, 319)
-next_level = "res://levels/nextlevel.tscn"
+[node name="Trophy" parent="." instance=ExtResource("3_r7w8q")]
+position = Vector2(574, 295)
+next_level = "res://levels/newlevel.tscn"
