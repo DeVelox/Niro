@@ -6,6 +6,10 @@ const DASH_LENGTH = 0.1
 const DASH_MULTI = 2.8
 const SLIDE_MULTI = 2.5
 const WALL_JUMP_MULTI = 2
+const FALL_CLAMP = 600.0
+const JUMP_APEX = 10.0
+const JUMP_APEX_MULTI = 0.1
+const VAR_JUMP_MULTI = 0.25
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
@@ -14,6 +18,7 @@ const WALL_JUMP_MULTI = 2
 @onready var sprite = $AnimatedSprite2D
 @onready var double_tap = $DoubleTap
 @onready var hitbox = $CollisionShape2D
+@onready var jump_buffer = $JumpBuffer
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -25,6 +30,7 @@ var has_double_jump = false
 var is_dashing = false
 var has_dash = false
 var is_sliding = false
+var is_jumping = false
 var platform
 var motion
 var was_on_floor = false
@@ -55,13 +61,21 @@ func _physics_process(delta):
 		return
 	
 	# Apply gravity
-	if not is_on_floor():
+
+	if is_jumping and absf(velocity.y) < JUMP_APEX and not is_wall_hanging:
+		print("stall")
+		velocity.y += gravity * delta * JUMP_APEX_MULTI
+	elif not is_on_floor():
 		velocity.y += gravity * delta
+		
+	if velocity.y > FALL_CLAMP:
+		velocity.y = FALL_CLAMP
 
 	# Perform state checks
 	if is_on_floor():
 		has_double_jump = true
 		has_dash = true
+		is_jumping = false
 	elif is_on_wall() and is_wall_hanging:
 		velocity.y *= 0.8
 
@@ -69,7 +83,8 @@ func _physics_process(delta):
 	motion = Input.get_axis("left", "right") * SPEED
 	
 	# Handle special movement.
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and jump_buffer.is_stopped():
+		jump_buffer.start()
 		try_jump()
 	
 	if Input.is_action_just_pressed("crouch"):
@@ -83,6 +98,10 @@ func _physics_process(delta):
 		try_crouch()
 	elif Input.is_action_just_released("crouch"):
 		stop_crouch()
+
+	# Variable jump
+	if Input.is_action_just_released("jump") and velocity.y < 0.0:
+		velocity.y -= velocity.y * VAR_JUMP_MULTI
 
 	# Apply acceleration
 	if motion:
@@ -113,19 +132,22 @@ func stop_crouch():
 func try_jump():
 	if Input.is_action_pressed("crouch"):
 		try_drop()
-	elif is_on_floor() or not coyote_timer.is_stopped():
+	elif (is_on_floor() or not coyote_timer.is_stopped()) and not jump_buffer.is_stopped():
 		if is_sliding:
 			stop_slide()
 			velocity.x *= 1.3
 		velocity.y = JUMP_VELOCITY
+		is_jumping = true
 	elif is_wall_hanging:
 		# Apply a jump opposite of the wall hang
 		var wall_direction = 1 if is_wall_hanging_left else -1
 		velocity.x = SPEED * WALL_JUMP_MULTI * wall_direction
 		velocity.y = JUMP_VELOCITY * 0.75
+		is_jumping = true
 	elif has_double_jump:
 		has_double_jump = false
 		velocity.y = JUMP_VELOCITY
+		is_jumping = true
 	else:
 		return
 

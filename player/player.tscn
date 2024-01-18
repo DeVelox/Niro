@@ -196,6 +196,10 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="JumpBuffer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [node name="DoubleTap" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
