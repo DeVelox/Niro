@@ -225,7 +225,6 @@ func get_animation():
 			return "idle"
 	else:
 		if velocity.y > -JUMP_VELOCITY:
-			print(velocity.y)
 			return "falling"
 		else:
 			return "jumping"
