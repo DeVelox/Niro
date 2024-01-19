@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8rs6osmfarsa"]
+[gd_scene load_steps=7 format=3 uid="uid://c8rs6osmfarsa"]
 
 [ext_resource type="Script" path="res://player/checkpoint.gd" id="1_4tspx"]
 [ext_resource type="Texture2D" uid="uid://ch84dh65mxmru" path="res://temp/adventurer/adventurer-idle-2-00.png" id="1_r8uef"]
@@ -26,21 +26,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4otf"]
-size = Vector2(175, 116.667)
-
-[node name="Checkpoint" type="Area2D"]
+[node name="Checkpoint" type="Node2D"]
 modulate = Color(0.164706, 1, 1, 0.556863)
 z_index = -1
-scale = Vector2(0.2, 0.3)
 script = ExtResource("1_4tspx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(10, -13)
-scale = Vector2(6.4, 4.324)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_lrn07")
 autoplay = "default"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.5, 5)
-shape = SubResource("RectangleShape2D_r4otf")
+offset = Vector2(0, -1)

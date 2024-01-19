@@ -1193,6 +1193,5 @@ shape = SubResource("RectangleShape2D_a5npi")
 one_way_collision = true
 
 [node name="Trophy" parent="." instance=ExtResource("4_usmut")]
-position = Vector2(185, 215)
-
+position = Vector2(185, 214)
 next_scene = "res://levels/nextlevel.tscn"

@@ -283,6 +283,7 @@ func get_animation():
 
 func try_interact():
 	if interact_check.is_colliding():
+		print("huh")
 		interact_check.get_collider().interact()
 
 func try_checkpoint(recall = false):
@@ -304,7 +305,7 @@ func try_checkpoint(recall = false):
 			for scene in main.scene_history:
 				var rewind_level = load(scene).instantiate()
 				main.add_child(rewind_level)
-				main.current_level.destroy()
+				main.current_level.destroy(delay)
 				main.current_level = rewind_level
 				main.current_scene = scene
 			main.scene_history = [main.current_scene]
