@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dppnqjdjkmgpf" path="res://obstacles/rockfall.tscn" id="3_cuhgi"]
 [ext_resource type="PackedScene" uid="uid://cyhd4k3titmr" path="res://obstacles/explosion.tscn" id="4_jkw3t"]
 [ext_resource type="PackedScene" uid="uid://utg2yptwwqkq" path="res://obstacles/spike.tscn" id="5_u1oqk"]
-[ext_resource type="PackedScene" uid="uid://buknsgyyqacry" path="res://obstacles/checkpoint.tscn" id="6_k05kv"]
+[ext_resource type="PackedScene" uid="uid://c8rs6osmfarsa" path="res://player/checkpoint.tscn" id="6_k05kv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nobot"]
 size = Vector2(128, 32)

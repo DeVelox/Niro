@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://qmab3qyahg6g"]
+
+[ext_resource type="Script" path="res://levels/nextlevel.gd" id="1_jw1eb"]
+[ext_resource type="PackedScene" uid="uid://bda4aynhgsdg0" path="res://terrain/wall.tscn" id="1_ty722"]
+[ext_resource type="PackedScene" uid="uid://dwrmqyb742m6b" path="res://terrain/platform.tscn" id="2_v7wl0"]
+
+[node name="tutorial2" type="Node2D"]
+script = ExtResource("1_jw1eb")
+
+[node name="Wall" parent="." instance=ExtResource("1_ty722")]
+position = Vector2(8, 232)
+scale = Vector2(1, 10.36)
+
+[node name="Wall2" parent="." instance=ExtResource("1_ty722")]
+position = Vector2(792, 232)
+scale = Vector2(1, 10.36)
+
+[node name="Platform" parent="." instance=ExtResource("2_v7wl0")]
+position = Vector2(401, 472)
+scale = Vector2(7.32, 1)
+
+[node name="Wall3" parent="." instance=ExtResource("1_ty722")]
+position = Vector2(210, 177)
+scale = Vector2(1, 8)
