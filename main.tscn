@@ -1,11 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://buwbgoy582pkb"]
+[gd_scene load_steps=2 format=3 uid="uid://buwbgoy582pkb"]
 
-[ext_resource type="PackedScene" uid="uid://b75hun8hw8sj0" path="res://player/player.tscn" id="1_662jq"]
 [ext_resource type="Script" path="res://main.gd" id="1_qd4cp"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_qd4cp")
 current_level = "res://levels/newlevel.tscn"
 
-[node name="Player" parent="." instance=ExtResource("1_662jq")]
-position = Vector2(187, 29)
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(187, 31)
