@@ -10,6 +10,8 @@ const FALL_CLAMP = 600.0
 const JUMP_APEX = 5
 const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
+const NUDGE_RANGE = 100
+const NUDGE_MULTI = 1.25
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
@@ -113,7 +115,7 @@ func _physics_process(delta):
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y -= velocity.y * VAR_JUMP_MULTI
 		
-	gap_check.position = velocity.normalized() * 100
+	gap_check.position = velocity.normalized() * NUDGE_RANGE
 
 	# Apply acceleration
 	if motion:
@@ -270,4 +272,4 @@ func _on_area_2d_right_body_exited(_body):
 
 func _on_area_2d_collision_check_body_entered(body):
 	if not area_2d_gap_check.get_overlapping_bodies():
-		velocity *= 1.25
+		velocity *= NUDGE_MULTI
