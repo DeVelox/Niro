@@ -152,8 +152,9 @@ func _physics_process(delta):
 
 func try_crouch():
 	is_crouching = true
-	hitbox.position.y = 32
 	hitbox.scale.y = 0.5
+	hitbox.position.y = hitbox.scale.y * hitbox.shape.size[0]
+	
 
 func stop_crouch():
 	is_crouching = false
@@ -219,27 +220,27 @@ func accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
 	if absf(velocity.x) > SPEED:
 		if is_sliding:
-			return 15
-		return 30
+			return SPEED / 20
+		return SPEED / 10
 	# For floatier movement when falling / jumping
 	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
-		return 30
+		return SPEED / 10
 	# Mostly for walking, I think
 	else:
 		if is_sliding:
 			stop_slide()
-		return 60
+		return SPEED / 5
 
 func decel() -> float:
 	# Deceleration when direction keys are let go
 	if absf(velocity.x) > SPEED:
-		return 60
+		return SPEED / 5
 	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
-		return 30
+		return SPEED / 10
 	else:
 		if is_sliding:
 			stop_slide()
-		return 90
+		return SPEED / 3
 
 func get_animation():
 	if is_crouching:
