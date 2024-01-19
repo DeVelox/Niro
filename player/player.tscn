@@ -156,10 +156,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rk70"]
-size = Vector2(100, 128)
+size = Vector2(28, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjvja"]
-size = Vector2(128, 128)
+size = Vector2(28, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txqwi"]
 atlas = ExtResource("30_cadxq")
@@ -211,26 +211,24 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
-scale = Vector2(0.2, 0.3)
 collision_mask = 255
 script = ExtResource("1_0if4t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(10, -13)
-scale = Vector2(6.4, 4.32432)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"idle"
+animation = &"crouching"
 autoplay = "idle"
+offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.15, 1.15)
 limit_left = 0
 limit_top = 0
-limit_right = 800
-limit_bottom = 480
+limit_right = 704
+limit_bottom = 396
 position_smoothing_enabled = true
 
 [node name="DropCheck" type="RayCast2D" parent="."]
@@ -238,10 +236,8 @@ target_position = Vector2(0, 100)
 collision_mask = 8
 
 [node name="InteractCheck" type="RayCast2D" parent="."]
-target_position = Vector2(150, 0)
+target_position = Vector2(128, 0)
 collision_mask = 32
-hit_from_inside = true
-collide_with_areas = true
 
 [node name="DropTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -273,7 +269,7 @@ one_shot = true
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DLeft"]
-position = Vector2(-64, 0)
+position = Vector2(-14, 0)
 scale = Vector2(0.4, 1)
 shape = SubResource("RectangleShape2D_kjvja")
 
@@ -281,7 +277,7 @@ shape = SubResource("RectangleShape2D_kjvja")
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DRight"]
-position = Vector2(64, 0)
+position = Vector2(14, 0)
 scale = Vector2(0.4, 1)
 shape = SubResource("RectangleShape2D_kjvja")
 
@@ -301,7 +297,7 @@ shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_hpjs7")
-volume_db = -10.0
+volume_db = -20.0
 
 [node name="Effects" type="AnimatedSprite2D" parent="."]
 z_index = -1
