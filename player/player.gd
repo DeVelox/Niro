@@ -13,6 +13,7 @@ const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
 const NUDGE_RANGE = 100
 const NUDGE_MULTI = 1.25
+const REWIND_DUR = 1
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
@@ -28,6 +29,7 @@ const NUDGE_MULTI = 1.25
 @onready var area_2d_gap_check = $Area2DGapCheck
 @onready var jump_sound = $JumpSound
 @onready var effects = $Effects
+@onready var long_press = $LongPress
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -47,12 +49,21 @@ var motion
 var was_on_floor = false
 var is_crouching = false
 var has_checkpoint = false
+var long_reset = false
 
 func _physics_process(delta):
 	can_wall_hang = is_wall_hanging_left != is_wall_hanging_right
 	# Reset character to start of level
+
 	if Input.is_action_just_pressed("reset"):
-		reload()
+		long_reset = false
+		long_press.start()
+	elif Input.is_action_just_released("reset") and not long_reset:
+		long_press.stop()
+		try_checkpoint()
+	elif Input.is_action_pressed("reset") and long_press.is_stopped() and not long_reset:
+		long_reset = true
+		try_checkpoint(true)
 
 	if Input.is_action_just_pressed("interact"):
 		try_interact()
@@ -273,11 +284,33 @@ func get_animation():
 func try_interact():
 	if interact_check.is_colliding():
 		interact_check.get_collider().interact()
-	elif not has_checkpoint:
+
+func try_checkpoint(recall = false):
+	var main = get_node("/root/Main")
+	if not has_checkpoint:
 		has_checkpoint = true
-		get_node("/root/Main").add_child(load("res://player/checkpoint.tscn").instantiate())
+		var place_checkpoint = load("res://player/checkpoint.tscn").instantiate()
+		main.add_child(place_checkpoint)
+		main.scene_history = [main.current_scene]
+	elif has_checkpoint and recall:
+		var checkpoint = get_node("/root/Main/Checkpoint")
+		main.scene_history.clear()
+		checkpoint.destroy()
 	elif has_checkpoint:
-		position = get_node("/root/Main/Checkpoint").position
+		var checkpoint = get_node("/root/Main/Checkpoint")
+		if main.scene_history.size() > 1:
+			var delay = REWIND_DUR / main.scene_history.size()
+			main.scene_history.reverse()
+			for scene in main.scene_history:
+				var rewind_level = load(scene).instantiate()
+				main.add_child(rewind_level)
+				main.current_level.destroy()
+				main.current_level = rewind_level
+				main.current_scene = scene
+			main.scene_history = [main.current_scene]
+		var tween = create_tween()
+		tween.tween_property(self, "position", checkpoint.position, REWIND_DUR)\
+		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
 
 func reload():
 	get_tree().reload_current_scene()

@@ -1187,5 +1187,5 @@ shape = SubResource("RectangleShape2D_41y5r")
 one_way_collision = true
 
 [node name="Trophy" parent="." instance=ExtResource("3_r7w8q")]
-position = Vector2(574, 295)
+position = Vector2(574, 294)
 next_scene = "res://levels/newlevel.tscn"
