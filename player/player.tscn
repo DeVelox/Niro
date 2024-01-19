@@ -227,8 +227,8 @@ shape = SubResource("RectangleShape2D_0rk70")
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0
 limit_top = 0
-limit_right = 640
-limit_bottom = 360
+limit_right = 704
+limit_bottom = 396
 position_smoothing_enabled = true
 
 [node name="DropCheck" type="RayCast2D" parent="."]
@@ -236,8 +236,10 @@ target_position = Vector2(0, 100)
 collision_mask = 8
 
 [node name="InteractCheck" type="RayCast2D" parent="."]
-target_position = Vector2(128, 0)
+target_position = Vector2(64, 0)
 collision_mask = 32
+hit_from_inside = true
+collide_with_areas = true
 
 [node name="DropTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -259,6 +261,10 @@ one_shot = true
 
 [node name="WallHangTimer" type="Timer" parent="."]
 wait_time = 0.25
+one_shot = true
+
+[node name="LongPress" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="Area2DLeft" type="Area2D" parent="."]
@@ -297,8 +303,8 @@ volume_db = -20.0
 
 [node name="Effects" type="AnimatedSprite2D" parent="."]
 z_index = -1
-position = Vector2(10, 50)
-scale = Vector2(4.375, 1.125)
+position = Vector2(0, 24)
+scale = Vector2(1, 0.4375)
 sprite_frames = SubResource("SpriteFrames_1xcut")
 animation = &"double_jump"
 

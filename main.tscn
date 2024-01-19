@@ -4,7 +4,7 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_qd4cp")
-current_level = "res://levels/newlevel.tscn"
+current_scene = "res://levels/newlevel.tscn"
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(187, 31)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyov2csde5d8f"]
+[gd_scene load_steps=10 format=3 uid="uid://d110vi58bemcj"]
 
 [ext_resource type="Script" path="res://levels/newlevel.gd" id="1_0s5bh"]
 [ext_resource type="PackedScene" uid="uid://dwrmqyb742m6b" path="res://terrain/platform.tscn" id="1_dtqwl"]
@@ -94,8 +94,8 @@ scale = Vector2(2.03999, 8.6)
 shape = SubResource("RectangleShape2D_yfq0c")
 
 [node name="Trophy" parent="." instance=ExtResource("7_inutk")]
-position = Vector2(40, 165)
-next_scene = "res://levels/tutorial2.tscn"
+position = Vector2(40, 169)
+next_scene = "res://levels/newlevel.tscn"
 
 [node name="Platform5" parent="." instance=ExtResource("1_dtqwl")]
 position = Vector2(557, 129)
