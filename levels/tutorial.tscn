@@ -97,5 +97,8 @@ shape = SubResource("RectangleShape2D_yfq0c")
 position = Vector2(40, 165)
 next_scene = "res://levels/tutorial2.tscn"
 
+[node name="Platform5" parent="." instance=ExtResource("1_dtqwl")]
+position = Vector2(557, 129)
+
 [connection signal="body_entered" from="Rockfall" to="Rockfall" method="_on_body_entered"]
 [connection signal="body_entered" from="Rockfall/Rock/Area2D" to="Rockfall" method="_on_area_2d_body_entered"]
