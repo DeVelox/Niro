@@ -47,17 +47,20 @@ var motion
 var was_on_floor = false
 var is_crouching = false
 var has_checkpoint = false
+var long_reset = false
 
 func _physics_process(delta):
 	can_wall_hang = is_wall_hanging_left != is_wall_hanging_right
 	# Reset character to start of level
 
 	if Input.is_action_just_pressed("reset"):
+		long_reset = false
 		long_press.start()
-	elif Input.is_action_just_released("reset"):
+	elif Input.is_action_just_released("reset") and not long_reset:
 		long_press.stop()
 		try_checkpoint()
-	elif Input.is_action_pressed("reset") and long_press.is_stopped():
+	elif Input.is_action_pressed("reset") and long_press.is_stopped() and not long_reset:
+		long_reset = true
 		try_checkpoint(true)
 
 	if Input.is_action_just_pressed("interact"):
