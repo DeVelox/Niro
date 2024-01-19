@@ -12,6 +12,7 @@ const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
 const NUDGE_RANGE = 100
 const NUDGE_MULTI = 1.25
+const REWIND_DUR = 1
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
@@ -281,18 +282,26 @@ func try_checkpoint(recall = false):
 		has_checkpoint = true
 		var place_checkpoint = load("res://player/checkpoint.tscn").instantiate()
 		main.add_child(place_checkpoint)
+		main.scene_history = [main.current_scene]
 	elif has_checkpoint and recall:
 		var checkpoint = get_node("/root/Main/Checkpoint")
+		main.scene_history.clear()
 		checkpoint.destroy()
 	elif has_checkpoint:
 		var checkpoint = get_node("/root/Main/Checkpoint")
-		if main.current_scene != checkpoint.checkpoint_scene:
-			var rewind_level = load(checkpoint.checkpoint_scene).instantiate()
-			main.add_child(rewind_level)
-			main.current_level.destroy()
-			main.current_level = rewind_level
-			main.current_scene = checkpoint.checkpoint_scene
-		position = checkpoint.position
+		if main.scene_history.size() > 1:
+			var delay = REWIND_DUR / main.scene_history.size()
+			main.scene_history.reverse()
+			for scene in main.scene_history:
+				var rewind_level = load(scene).instantiate()
+				main.add_child(rewind_level)
+				main.current_level.destroy()
+				main.current_level = rewind_level
+				main.current_scene = scene
+			main.scene_history = [main.current_scene]
+		var tween = create_tween()
+		tween.tween_property(self, "position", checkpoint.position, REWIND_DUR)\
+		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
 
 func reload():
 	get_tree().reload_current_scene()

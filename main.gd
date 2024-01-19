@@ -1,6 +1,7 @@
 extends Node
 @export_file("*.tscn") var current_scene
 var current_level
+var scene_history : Array
 @onready var spawn = $Spawn
 
 # Called when the node enters the scene tree for the first time.
