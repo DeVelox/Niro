@@ -22,6 +22,7 @@ const VAR_JUMP_MULTI = 0.25
 @onready var interact_check = $InteractCheck
 @onready var gap_check = $Area2DGapCheck/GapCheck
 @onready var area_2d_gap_check = $Area2DGapCheck
+@onready var jump_sound = $JumpSound
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -161,6 +162,8 @@ func try_jump():
 		is_jumping = true
 	else:
 		return
+	if is_jumping and not jump_sound.playing:
+		jump_sound.play()
 	jump_buffer.stop()
 
 func try_dash_and_slide():
