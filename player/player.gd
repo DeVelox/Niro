@@ -20,6 +20,8 @@ const VAR_JUMP_MULTI = 0.25
 @onready var hitbox = $CollisionShape2D
 @onready var jump_buffer = $JumpBuffer
 @onready var interact_check = $InteractCheck
+@onready var gap_check = $Area2DGapCheck/GapCheck
+@onready var area_2d_gap_check = $Area2DGapCheck
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -109,6 +111,8 @@ func _physics_process(delta):
 	# Variable jump
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y -= velocity.y * VAR_JUMP_MULTI
+		
+	gap_check.position = velocity.normalized() * 100
 
 	# Apply acceleration
 	if motion:
@@ -260,3 +264,7 @@ func _on_area_2d_right_body_entered(_body):
 
 func _on_area_2d_right_body_exited(_body):
 	is_wall_hanging_right = false
+
+func _on_area_2d_collision_check_body_entered(body):
+	if not area_2d_gap_check.get_overlapping_bodies():
+		velocity *= 1.25

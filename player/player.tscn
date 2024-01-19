@@ -224,9 +224,24 @@ position = Vector2(64, 0)
 scale = Vector2(0.4, 1)
 shape = SubResource("RectangleShape2D_kjvja")
 
+[node name="Area2DGapCheck" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 140
+
+[node name="GapCheck" type="CollisionShape2D" parent="Area2DGapCheck"]
+shape = SubResource("RectangleShape2D_0rk70")
+
+[node name="Area2DCollisionCheck" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 140
+
+[node name="CollisionCheck" type="CollisionShape2D" parent="Area2DCollisionCheck"]
+shape = SubResource("RectangleShape2D_0rk70")
+
 [connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
 [connection signal="body_exited" from="Area2DLeft" to="." method="_on_area_2d_left_body_exited"]
 [connection signal="body_entered" from="Area2DRight" to="." method="_on_area_2d_right_body_entered"]
 [connection signal="body_exited" from="Area2DRight" to="." method="_on_area_2d_right_body_exited"]
+[connection signal="body_entered" from="Area2DCollisionCheck" to="." method="_on_area_2d_collision_check_body_entered"]
