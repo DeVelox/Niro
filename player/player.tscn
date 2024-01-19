@@ -219,12 +219,12 @@ scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
 animation = &"crouching"
 autoplay = "idle"
+offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.15, 1.15)
 limit_left = 0
 limit_top = 0
 limit_right = 640

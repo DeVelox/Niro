@@ -1,12 +1,13 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
+const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
-const DASH_LENGTH = 0.1
+const DASH_LENGTH = 0.15
 const DASH_MULTI = 2.8
-const SLIDE_MULTI = 2.5
+const SLIDE_MULTI = 2.3
+const SLIDE_JUMP_MULTI = 2.2
 const WALL_JUMP_MULTI = 2
-const FALL_CLAMP = 600.0
+const FALL_CLAMP = 400.0
 const JUMP_APEX = 5
 const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
@@ -167,7 +168,7 @@ func try_jump():
 	elif (is_on_floor() or not coyote_timer.is_stopped()) and not jump_buffer.is_stopped():
 		if is_sliding:
 			stop_slide()
-			velocity.x *= 1.3
+			velocity.x = motion * SLIDE_JUMP_MULTI
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
 	elif is_wall_hanging:
@@ -176,6 +177,7 @@ func try_jump():
 		velocity.y = JUMP_VELOCITY * 1
 		is_jumping = true
 	elif has_double_jump:
+		stop_slide()
 		effects.play("double_jump")
 		has_double_jump = false
 		velocity.y = JUMP_VELOCITY
@@ -191,8 +193,8 @@ func try_dash_and_slide():
 		return
 	if not is_sliding and is_on_floor():
 		velocity.x = motion * SLIDE_MULTI
-		hitbox.position.y = 45
-		hitbox.scale.y = 0.3
+		hitbox.scale.y = 0.4
+		hitbox.position.y = hitbox.scale.y * hitbox.shape.size[0] * 1.2
 		is_sliding = true
 	elif has_dash and not is_on_floor():
 		dash_timer.wait_time = DASH_LENGTH
@@ -218,29 +220,31 @@ func try_drop():
 
 func accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
-	if absf(velocity.x) > SPEED:
-		if is_sliding:
-			return SPEED / 20
-		return SPEED / 10
+	if is_on_floor():
+		if absf(velocity.x) > SPEED:
+			if is_sliding:
+				return SPEED / 20
+			return SPEED / 10
+		# Mostly for walking, I think
+		else:
+			if is_sliding:
+				stop_slide()
+			return SPEED / 5
 	# For floatier movement when falling / jumping
-	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
-		return SPEED / 10
-	# Mostly for walking, I think
 	else:
-		if is_sliding:
-			stop_slide()
-		return SPEED / 5
+		return SPEED / 15
 
 func decel() -> float:
 	# Deceleration when direction keys are let go
-	if absf(velocity.x) > SPEED:
-		return SPEED / 5
-	elif not is_on_floor() or Input.is_action_just_pressed("jump"):
-		return SPEED / 10
+	if is_on_floor():
+		if absf(velocity.x) > SPEED:
+			return SPEED / 5
+		else:
+			if is_sliding:
+				stop_slide()
+			return SPEED / 3
 	else:
-		if is_sliding:
-			stop_slide()
-		return SPEED / 3
+		return SPEED / 10
 
 func get_animation():
 	if is_crouching:
