@@ -216,7 +216,7 @@ collision_mask = 255
 script = ExtResource("1_0if4t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(10, -13)
+position = Vector2(10, -13.3333)
 scale = Vector2(6.4, 4.32432)
 sprite_frames = SubResource("SpriteFrames_13nta")
 animation = &"idle"
@@ -238,10 +238,8 @@ target_position = Vector2(0, 100)
 collision_mask = 8
 
 [node name="InteractCheck" type="RayCast2D" parent="."]
-target_position = Vector2(150, 0)
+target_position = Vector2(128, 0)
 collision_mask = 32
-hit_from_inside = true
-collide_with_areas = true
 
 [node name="DropTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -259,6 +257,10 @@ one_shot = true
 
 [node name="DoubleTap" type="Timer" parent="."]
 wait_time = 0.3
+one_shot = true
+
+[node name="WallHangTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [node name="Area2DLeft" type="Area2D" parent="."]
@@ -293,7 +295,7 @@ shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_hpjs7")
-volume_db = -10.0
+volume_db = -20.0
 
 [node name="Effects" type="AnimatedSprite2D" parent="."]
 z_index = -1

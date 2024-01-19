@@ -17,6 +17,7 @@ const NUDGE_MULTI = 1.25
 @onready var drop_check = $DropCheck
 @onready var drop_timer = $DropTimer
 @onready var coyote_timer = $CoyoteTimer
+@onready var wall_hang_timer = $WallHangTimer
 @onready var sprite = $AnimatedSprite2D
 @onready var double_tap = $DoubleTap
 @onready var hitbox = $CollisionShape2D
@@ -31,8 +32,10 @@ const NUDGE_MULTI = 1.25
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_wall_hanging = false
+var can_wall_hang = false
 var is_wall_hanging_left = false
 var is_wall_hanging_right = false
+var wall_hang_direction = 0
 var has_double_jump = false
 var is_dashing = false
 var has_dash = false
@@ -45,7 +48,7 @@ var is_crouching = false
 var has_checkpoint = false
 
 func _physics_process(delta):
-	is_wall_hanging = is_wall_hanging_left != is_wall_hanging_right
+	can_wall_hang = is_wall_hanging_left != is_wall_hanging_right
 	# Reset character to start of level
 	if Input.is_action_just_pressed("reset"):
 		reload()
@@ -88,11 +91,24 @@ func _physics_process(delta):
 		has_double_jump = true
 		has_dash = true
 		is_jumping = false
-	elif is_on_wall() and is_wall_hanging:
-		velocity.y *= 0.8
-
+	elif is_on_wall() and can_wall_hang and not is_wall_hanging:
+		print("triggered")
+		wall_hang_direction = 1 if is_wall_hanging_right else -1
+		is_wall_hanging = true
+		wall_hang_timer.start()
+		
+	if is_wall_hanging:
+		if not is_on_wall() or is_on_floor():
+			is_wall_hanging = false
+			wall_hang_timer.stop()
+		else:
+			velocity.y *= 0.8
 	# Establish baseline horizontal movement
-	motion = Input.get_axis("left", "right") * SPEED
+	#print(wall_hang_timer.is_stopped())
+	if wall_hang_timer.is_stopped():
+		motion = Input.get_axis("left", "right") * SPEED
+	else:
+		motion = 0
 
 	# Handle special movement.
 	if Input.is_action_just_pressed("jump"):
@@ -120,6 +136,7 @@ func _physics_process(delta):
 	gap_check.position = velocity.normalized() * NUDGE_RANGE
 
 	# Apply acceleration
+	
 	if motion:
 		velocity.x = move_toward(velocity.x, motion, accel())
 	else:
@@ -156,8 +173,7 @@ func try_jump():
 		is_jumping = true
 	elif is_wall_hanging:
 		# Apply a jump opposite of the wall hang
-		var wall_direction = 1 if is_wall_hanging_left else -1
-		velocity.x = SPEED * WALL_JUMP_MULTI * wall_direction
+		velocity.x = SPEED * WALL_JUMP_MULTI * -wall_hang_direction
 		velocity.y = JUMP_VELOCITY * 1
 		is_jumping = true
 	elif has_double_jump:
