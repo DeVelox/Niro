@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptak2"]
 size = Vector2(34, 44)
 
-[node name="Trophy" type="StaticBody2D"]
+[node name="Trophy" type="Area2D"]
 z_index = -1
 collision_layer = 32
 script = ExtResource("1_l8r76")

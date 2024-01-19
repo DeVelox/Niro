@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Node2D
 @export_file("*.tscn") var next_scene
 	
 func interact():
