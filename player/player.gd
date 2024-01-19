@@ -92,7 +92,6 @@ func _physics_process(delta):
 		has_dash = true
 		is_jumping = false
 	elif is_on_wall() and can_wall_hang and not is_wall_hanging:
-		print("triggered")
 		wall_hang_direction = 1 if is_wall_hanging_right else -1
 		is_wall_hanging = true
 		wall_hang_timer.start()
@@ -104,7 +103,6 @@ func _physics_process(delta):
 		else:
 			velocity.y *= 0.8
 	# Establish baseline horizontal movement
-	#print(wall_hang_timer.is_stopped())
 	if wall_hang_timer.is_stopped():
 		motion = Input.get_axis("left", "right") * SPEED
 	else:
