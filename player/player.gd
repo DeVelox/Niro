@@ -27,6 +27,7 @@ const NUDGE_MULTI = 1.25
 @onready var area_2d_gap_check = $Area2DGapCheck
 @onready var jump_sound = $JumpSound
 @onready var effects = $Effects
+@onready var long_press = $LongPress
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -50,8 +51,14 @@ var has_checkpoint = false
 func _physics_process(delta):
 	can_wall_hang = is_wall_hanging_left != is_wall_hanging_right
 	# Reset character to start of level
+
 	if Input.is_action_just_pressed("reset"):
-		reload()
+		long_press.start()
+	elif Input.is_action_just_released("reset"):
+		long_press.stop()
+		try_checkpoint()
+	elif Input.is_action_pressed("reset") and long_press.is_stopped():
+		try_checkpoint(true)
 
 	if Input.is_action_just_pressed("interact"):
 		try_interact()
@@ -264,11 +271,25 @@ func get_animation():
 func try_interact():
 	if interact_check.is_colliding():
 		interact_check.get_collider().interact()
-	elif not has_checkpoint:
+
+func try_checkpoint(recall = false):
+	var main = get_node("/root/Main")
+	if not has_checkpoint:
 		has_checkpoint = true
-		get_node("/root/Main").add_child(load("res://player/checkpoint.tscn").instantiate())
+		var place_checkpoint = load("res://player/checkpoint.tscn").instantiate()
+		main.add_child(place_checkpoint)
+	elif has_checkpoint and recall:
+		var checkpoint = get_node("/root/Main/Checkpoint")
+		checkpoint.destroy()
 	elif has_checkpoint:
-		position = get_node("/root/Main/Checkpoint").position
+		var checkpoint = get_node("/root/Main/Checkpoint")
+		if main.current_scene != checkpoint.checkpoint_scene:
+			var rewind_level = load(checkpoint.checkpoint_scene).instantiate()
+			main.add_child(rewind_level)
+			main.current_level.destroy()
+			main.current_level = rewind_level
+			main.current_scene = checkpoint.checkpoint_scene
+		position = checkpoint.position
 
 func reload():
 	get_tree().reload_current_scene()
