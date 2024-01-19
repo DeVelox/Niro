@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://biarri6nepyei"]
 
-[ext_resource type="Script" path="res://Trophy.gd" id="1_l8r76"]
+[ext_resource type="Script" path="res://trophy.gd" id="1_l8r76"]
 [ext_resource type="Texture2D" uid="uid://d3x5m852v0ujh" path="res://temp/trophy.png" id="2_p45a7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptak2"]

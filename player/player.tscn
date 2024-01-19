@@ -216,7 +216,7 @@ collision_mask = 255
 script = ExtResource("1_0if4t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(10, -13.3333)
+position = Vector2(10, -13)
 scale = Vector2(6.4, 4.32432)
 sprite_frames = SubResource("SpriteFrames_13nta")
 animation = &"idle"
@@ -238,8 +238,10 @@ target_position = Vector2(0, 100)
 collision_mask = 8
 
 [node name="InteractCheck" type="RayCast2D" parent="."]
-target_position = Vector2(128, 0)
+target_position = Vector2(150, 0)
 collision_mask = 32
+hit_from_inside = true
+collide_with_areas = true
 
 [node name="DropTimer" type="Timer" parent="."]
 wait_time = 0.5
