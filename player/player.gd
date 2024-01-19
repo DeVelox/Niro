@@ -232,7 +232,11 @@ func accel() -> float:
 			return SPEED / 5
 	# For floatier movement when falling / jumping
 	else:
-		return SPEED / 15
+		if absf(velocity.x) > SPEED:
+			return SPEED / 20
+		else:
+			stop_slide()
+			return SPEED / 15
 
 func decel() -> float:
 	# Deceleration when direction keys are let go

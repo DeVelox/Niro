@@ -227,8 +227,8 @@ shape = SubResource("RectangleShape2D_0rk70")
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0
 limit_top = 0
-limit_right = 640
-limit_bottom = 360
+limit_right = 704
+limit_bottom = 396
 position_smoothing_enabled = true
 
 [node name="DropCheck" type="RayCast2D" parent="."]
