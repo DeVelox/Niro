@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://dyov2csde5d8f"]
+[gd_scene load_steps=10 format=3 uid="uid://dyov2csde5d8f"]
 
+[ext_resource type="Script" path="res://levels/newlevel.gd" id="1_0s5bh"]
 [ext_resource type="PackedScene" uid="uid://dwrmqyb742m6b" path="res://terrain/platform.tscn" id="1_dtqwl"]
 [ext_resource type="PackedScene" uid="uid://bda4aynhgsdg0" path="res://terrain/wall.tscn" id="2_agokn"]
-[ext_resource type="PackedScene" uid="uid://b75hun8hw8sj0" path="res://player/player.tscn" id="3_oubbr"]
 [ext_resource type="PackedScene" uid="uid://utg2yptwwqkq" path="res://obstacles/spike.tscn" id="4_ijmwd"]
 [ext_resource type="Script" path="res://obstacles/rockfall.gd" id="5_a0bpw"]
 [ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="6_o70rm"]
+[ext_resource type="PackedScene" uid="uid://biarri6nepyei" path="res://trophy.tscn" id="7_inutk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0xl4"]
 size = Vector2(64, 64)
@@ -14,6 +15,7 @@ size = Vector2(64, 64)
 size = Vector2(32, 24)
 
 [node name="tutorial" type="Node2D"]
+script = ExtResource("1_0s5bh")
 
 [node name="Wall5" parent="." instance=ExtResource("2_agokn")]
 position = Vector2(621, 130)
@@ -45,9 +47,6 @@ scale = Vector2(7.32, 1)
 
 [node name="Platform2" parent="." instance=ExtResource("1_dtqwl")]
 position = Vector2(71, 405)
-
-[node name="Player" parent="." instance=ExtResource("3_oubbr")]
-position = Vector2(34, 444)
 
 [node name="Wall4" parent="." instance=ExtResource("2_agokn")]
 position = Vector2(209, 239)
@@ -93,6 +92,10 @@ shape = SubResource("RectangleShape2D_m0xl4")
 position = Vector2(2, 42)
 scale = Vector2(2.03999, 8.6)
 shape = SubResource("RectangleShape2D_yfq0c")
+
+[node name="Trophy" parent="." instance=ExtResource("7_inutk")]
+position = Vector2(40, 165)
+next_scene = "res://levels/tutorial2.tscn"
 
 [connection signal="body_entered" from="Rockfall" to="Rockfall" method="_on_body_entered"]
 [connection signal="body_entered" from="Rockfall/Rock/Area2D" to="Rockfall" method="_on_area_2d_body_entered"]
