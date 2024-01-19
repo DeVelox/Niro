@@ -25,6 +25,7 @@ const NUDGE_MULTI = 1.25
 @onready var gap_check = $Area2DGapCheck/GapCheck
 @onready var area_2d_gap_check = $Area2DGapCheck
 @onready var jump_sound = $JumpSound
+@onready var effects = $Effects
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -159,6 +160,7 @@ func try_jump():
 		velocity.y = JUMP_VELOCITY * 1
 		is_jumping = true
 	elif has_double_jump:
+		effects.play("double_jump")
 		has_double_jump = false
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
