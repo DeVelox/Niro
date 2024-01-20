@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://sujagm05aqbv"]
+[gd_scene load_steps=11 format=3 uid="uid://sujagm05aqbv"]
 
 [ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_7u1rj"]
 [ext_resource type="Script" path="res://levels/newlevel.gd" id="1_orbb2"]
 [ext_resource type="PackedScene" uid="uid://dwrmqyb742m6b" path="res://terrain/platform.tscn" id="2_4bgvd"]
 [ext_resource type="PackedScene" uid="uid://biarri6nepyei" path="res://trophy.tscn" id="4_usmut"]
+[ext_resource type="PackedScene" uid="uid://b7lw1iu6kcbpg" path="res://templates/rockfall.tscn" id="5_iu4fs"]
+[ext_resource type="PackedScene" uid="uid://ba4txqq0320sd" path="res://templates/spikes.tscn" id="6_d3o30"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qo5hr"]
 texture = ExtResource("1_7u1rj")
@@ -1195,3 +1197,9 @@ one_way_collision = true
 [node name="Trophy" parent="." instance=ExtResource("4_usmut")]
 position = Vector2(185, 214)
 next_scene = "res://levels/nextlevel.tscn"
+
+[node name="Rockfall" parent="." instance=ExtResource("5_iu4fs")]
+position = Vector2(285, 206)
+
+[node name="Spikes" parent="." instance=ExtResource("6_d3o30")]
+position = Vector2(359, 288)
