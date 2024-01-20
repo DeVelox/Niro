@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=40 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_0if4t"]
 [ext_resource type="Texture2D" uid="uid://bxturgjbo7ee2" path="res://temp/adventurer/adventurer-crouch-00.png" id="2_jb7dh"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://d3hxvwhgjurv3" path="res://temp/adventurer/adventurer-idle-00.png" id="12_8yebu"]
 [ext_resource type="Texture2D" uid="uid://cguc3lg250vc5" path="res://temp/adventurer/adventurer-idle-01.png" id="13_8vfrw"]
 [ext_resource type="Texture2D" uid="uid://dydy0rxi5hud" path="res://temp/adventurer/adventurer-idle-02.png" id="14_p8q0y"]
+[ext_resource type="Texture2D" uid="uid://8gjboby860pg" path="res://temp/adventurer/adventurer-jump-00.png" id="15_4lgct"]
+[ext_resource type="Texture2D" uid="uid://xbdqrr8pvmll" path="res://temp/adventurer/adventurer-jump-01.png" id="16_4kr7a"]
 [ext_resource type="Texture2D" uid="uid://cbt242n5gkxx1" path="res://temp/adventurer/adventurer-jump-02.png" id="17_2v83y"]
 [ext_resource type="Texture2D" uid="uid://d26hkxldq7anf" path="res://temp/adventurer/adventurer-jump-03.png" id="18_3lmmi"]
 [ext_resource type="Texture2D" uid="uid://fqtym10beun8" path="res://temp/adventurer/adventurer-run-00.png" id="19_7yssc"]
@@ -91,10 +93,16 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 2.0,
+"duration": 1.0,
+"texture": ExtResource("15_4lgct")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_4kr7a")
+}, {
+"duration": 1.0,
 "texture": ExtResource("17_2v83y")
 }, {
-"duration": 3.0,
+"duration": 1.0,
 "texture": ExtResource("18_3lmmi")
 }],
 "loop": true,
@@ -204,13 +212,12 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 collision_mask = 255
-safe_margin = 0.1
 script = ExtResource("1_0if4t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(1.6, 1.6)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"jumping"
+animation = &"crouching"
 autoplay = "idle"
 offset = Vector2(0, -1)
 
@@ -234,6 +241,9 @@ target_position = Vector2(64, 0)
 collision_mask = 32
 hit_from_inside = true
 collide_with_areas = true
+
+[node name="DropTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
@@ -299,6 +309,7 @@ scale = Vector2(1, 0.4375)
 sprite_frames = SubResource("SpriteFrames_1xcut")
 animation = &"double_jump"
 
+[connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
 [connection signal="body_exited" from="Area2DLeft" to="." method="_on_area_2d_left_body_exited"]
