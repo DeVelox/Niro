@@ -317,7 +317,7 @@ func try_checkpoint(recall = false):
 		tween.tween_callback(collision)
 
 func reload():
-	get_tree().reload_current_scene()
+	get_tree().call_deferred("reload_current_scene")
 
 func collision(state = 1):
 	set_deferred("collision_layer", state)
