@@ -225,9 +225,10 @@ func stop_slide():
 
 func try_drop():
 	if drop_check.is_colliding():
-		platform = drop_check.get_collider().get_node("CollisionShape2D")
-		platform.disabled = true
-		drop_timer.start()
+		position.y += 1
+		#platform = drop_check.get_collider().get_node("CollisionShape2D")
+		#platform.disabled = true
+		#drop_timer.start()
 
 func accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
@@ -316,8 +317,8 @@ func try_checkpoint(recall = false):
 func reload():
 	get_tree().reload_current_scene()
 
-func _on_drop_timer_timeout():
-	platform.disabled = false
+#func _on_drop_timer_timeout():
+	#platform.disabled = false
 
 func _on_dash_timer_timeout():
 	velocity.x = motion
