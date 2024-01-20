@@ -17,22 +17,6 @@ const NUDGE_RANGE = 28
 const NUDGE_MULTI = 10
 const REWIND_DUR = 1
 
-@onready var dash_timer = $DashTimer
-@onready var drop_check = $DropCheck
-@onready var coyote_timer = $CoyoteTimer
-@onready var wall_hang_timer = $WallHangTimer
-@onready var sprite = $AnimatedSprite2D
-@onready var double_tap = $DoubleTap
-@onready var hitbox = $CollisionShape2D
-@onready var jump_buffer = $JumpBuffer
-@onready var interact_check = $InteractCheck
-@onready var gap_check = $Area2DGapCheck/GapCheck
-@onready var area_2d_gap_check = $Area2DGapCheck
-@onready var jump_sound = $JumpSound
-@onready var effects = $Effects
-@onready var long_press = $LongPress
-
-
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_wall_hanging = false
@@ -50,13 +34,76 @@ var platform
 var motion
 var was_on_floor = false
 var is_crouching = false
-var has_checkpoint = false 
+var has_checkpoint = false
 var long_reset = false
 
-func _physics_process(delta):
-	can_wall_hang = is_wall_hanging_left != is_wall_hanging_right
-	# Reset character to start of level
+@onready var dash_timer = $DashTimer
+@onready var drop_check = $DropCheck
+@onready var coyote_timer = $CoyoteTimer
+@onready var wall_hang_timer = $WallHangTimer
+@onready var sprite = $AnimatedSprite2D
+@onready var double_tap = $DoubleTap
+@onready var hitbox = $CollisionShape2D
+@onready var jump_buffer = $JumpBuffer
+@onready var interact_check = $InteractCheck
+@onready var gap_check = $Area2DGapCheck/GapCheck
+@onready var area_2d_gap_check = $Area2DGapCheck
+@onready var jump_sound = $JumpSound
+@onready var effects = $Effects
+@onready var long_press = $LongPress
 
+
+func _physics_process(delta):
+	# Do not allow other movement while dashing
+	if is_dashing:
+		move_and_slide()
+		return
+
+	_state_checks()
+
+	_special_actions()
+
+	_special_movement()
+
+	_horizontal_movement()
+
+	_apply_gravity(delta)
+
+	_animation_and_sound()
+
+	# Coyote timer has to execute before and after move_and_slide, maybe put in a wrapper?
+	if is_on_floor():
+		was_on_floor = true
+
+	move_and_slide()
+
+	if was_on_floor and not is_on_floor():
+		was_on_floor = false
+		coyote_timer.start()
+
+
+func _state_checks():
+	can_wall_hang = is_wall_hanging_left != is_wall_hanging_right
+	if is_on_floor():
+		has_double_jump = true
+		has_dash = true
+		is_jumping = false
+		is_double_jumping = false
+	elif is_on_wall() and can_wall_hang and not is_wall_hanging:
+		wall_hang_direction = 1 if is_wall_hanging_right else -1
+		is_wall_hanging = true
+		wall_hang_timer.start()
+
+	if is_wall_hanging:
+		if not is_on_wall() or is_on_floor():
+			has_checkpoint = true
+			is_wall_hanging = false
+			wall_hang_timer.stop()
+		else:
+			velocity.y *= 0.8
+
+
+func _special_actions():
 	if Input.is_action_just_pressed("reset"):
 		long_reset = false
 		long_press.start()
@@ -66,16 +113,56 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("reset") and long_press.is_stopped() and not long_reset:
 		long_reset = true
 		try_recall()
-
 	if Input.is_action_just_pressed("interact"):
-		try_place_checkpoint()
-	
-	if Input.is_action_just_pressed("interact"):
-		try_interact()
+		_try_interact()
+		_try_place_checkpoint()
 
+
+func _special_movement():
 	if Input.is_action_just_pressed("dash"):
-		try_dash_and_slide()
+		_try_dash_and_slide()
 
+	if Input.is_action_just_pressed("jump"):
+		jump_buffer.start()
+	if not jump_buffer.is_stopped():
+		_try_jump()
+
+	if Input.is_action_just_pressed("crouch"):
+		if double_tap.is_stopped():
+			double_tap.start()
+		else:
+			double_tap.stop()
+			_try_drop()
+
+	if Input.is_action_pressed("crouch"):
+		_try_crouch()
+	elif Input.is_action_just_released("crouch"):
+		_stop_crouch()
+
+	# Variable jump
+	if Input.is_action_just_released("jump") and velocity.y < 0.0:
+		if is_jumping:
+			velocity.y -= velocity.y * VAR_JUMP_MULTI
+
+
+func _horizontal_movement():
+	# Establish baseline horizontal movement
+	if wall_hang_timer.is_stopped():
+		if is_on_floor():
+			motion = Input.get_axis("left", "right") * SPEED
+		else:
+			motion = Input.get_axis("left", "right") * SPEED * AIR_SPEED_MULTI
+	else:
+		motion = 0
+
+	# Apply acceleration
+	if motion:
+		velocity.x = move_toward(velocity.x, motion, _accel())
+	else:
+		velocity.x = move_toward(velocity.x, 0, _decel())
+
+
+func _animation_and_sound():
 	# Sprite direction
 	if not is_zero_approx(velocity.x):
 		if velocity.x > 0.0:
@@ -86,15 +173,10 @@ func _physics_process(delta):
 			interact_check.scale.x = -1
 
 	# Current animation
-	sprite.play(get_animation())
+	sprite.play(_get_animation())
 
-	# Do not allow other movement while dashing
-	if is_dashing:
-		move_and_slide()
-		return
 
-	# Apply gravity
-
+func _apply_gravity(delta):
 	if (is_jumping or is_double_jumping) and absf(velocity.y) < JUMP_APEX and not is_wall_hanging:
 		velocity.y += gravity * delta * JUMP_APEX_MULTI
 	elif not is_on_floor():
@@ -106,94 +188,25 @@ func _physics_process(delta):
 	if velocity.y > FALL_CLAMP:
 		velocity.y = FALL_CLAMP
 
-	# Perform state checks
-	if is_on_floor():
-		has_double_jump = true
-		has_dash = true
-		is_jumping = false
-		is_double_jumping = false
-	elif is_on_wall() and can_wall_hang and not is_wall_hanging:
-		wall_hang_direction = 1 if is_wall_hanging_right else -1
-		is_wall_hanging = true
-		wall_hang_timer.start()
-		
-	if is_wall_hanging:
-		if not is_on_wall() or is_on_floor():
-			has_checkpoint = true
-			is_wall_hanging = false
-			wall_hang_timer.stop()
-			
-		else:
-			velocity.y *= 0.8
-	# Establish baseline horizontal movement
-	if wall_hang_timer.is_stopped():
-		if is_on_floor():
-			motion = Input.get_axis("left", "right") * SPEED
-		else:
-			motion = Input.get_axis("left", "right") * SPEED * AIR_SPEED_MULTI
-	else:
-		motion = 0
 
-	# Handle special movement.
-	if Input.is_action_just_pressed("jump"):
-		jump_buffer.start()
-
-	if not jump_buffer.is_stopped():
-		try_jump()
-
-	if Input.is_action_just_pressed("crouch"):
-		if double_tap.is_stopped():
-			double_tap.start()
-		else:
-			double_tap.stop()
-			try_drop()
-
-	if Input.is_action_pressed("crouch"):
-		try_crouch()
-	elif Input.is_action_just_released("crouch"):
-		stop_crouch()
-
-	# Variable jump
-	if Input.is_action_just_released("jump") and velocity.y < 0.0:
-		if is_jumping:
-			velocity.y -= velocity.y * VAR_JUMP_MULTI
-
-	gap_check.position = velocity.normalized() * NUDGE_RANGE
-
-	# Apply acceleration
-	
-	if motion:
-		velocity.x = move_toward(velocity.x, motion, accel())
-	else:
-		velocity.x = move_toward(velocity.x, 0, decel())
-
-	# Coyote timer
-	if is_on_floor():
-		was_on_floor = true
-	
-	move_and_slide()
-
-	if was_on_floor and not is_on_floor():
-		was_on_floor = false
-		coyote_timer.start()
-
-func try_crouch():
+func _try_crouch():
 	is_crouching = true
 	hitbox.scale.y = 0.5
 	hitbox.position.y = hitbox.scale.y * hitbox.shape.size[0]
-	
 
-func stop_crouch():
+
+func _stop_crouch():
 	is_crouching = false
 	hitbox.position.y = 0
 	hitbox.scale.y = 1
 
-func try_jump():
+
+func _try_jump():
 	if Input.is_action_pressed("crouch"):
-		try_drop()
+		_try_drop()
 	elif (is_on_floor() or not coyote_timer.is_stopped()) and not jump_buffer.is_stopped():
 		if is_sliding:
-			stop_slide()
+			_stop_slide()
 			velocity.x = motion * SLIDE_JUMP_MULTI
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
@@ -204,7 +217,7 @@ func try_jump():
 		is_jumping = true
 	elif has_double_jump:
 		if is_sliding:
-			stop_slide()
+			_stop_slide()
 		effects.play("double_jump")
 		has_double_jump = false
 		velocity.y = JUMP_VELOCITY * DOUBLE_JUMP_MULTI
@@ -215,7 +228,8 @@ func try_jump():
 		jump_sound.play()
 	jump_buffer.stop()
 
-func try_dash_and_slide():
+
+func _try_dash_and_slide():
 	if not motion:
 		return
 	if not is_sliding and is_on_floor():
@@ -234,72 +248,84 @@ func try_dash_and_slide():
 		return
 
 
-func stop_slide():
+func _stop_slide():
 	hitbox.position.y = 0
 	hitbox.scale.y = 1.0
 	is_sliding = false
 
-func try_drop():
+
+func _try_drop():
 	if drop_check.is_colliding():
 		position.y += 1
 
-func accel() -> float:
+
+func _accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
+	var accel
 	if is_on_floor():
 		if absf(velocity.x) > SPEED:
 			if is_sliding:
-				return SPEED / 20
-			return SPEED / 10
+				accel = SPEED / 20
+			accel = SPEED / 10
 		# Mostly for walking, I think
 		else:
 			if is_sliding:
-				stop_slide()
-			return SPEED / 5
+				_stop_slide()
+			accel = SPEED / 5
 	# For floatier movement when falling / jumping
 	else:
 		if absf(velocity.x) > SPEED:
-			return SPEED / 20
+			accel = SPEED / 20
 		else:
-			stop_slide()
-			return SPEED / 15
+			_stop_slide()
+			accel = SPEED / 15
+	return accel
 
-func decel() -> float:
+
+func _decel() -> float:
 	# Deceleration when direction keys are let go
+	var decel
 	if is_on_floor():
 		if absf(velocity.x) > SPEED:
-			return SPEED / 5
+			decel = SPEED / 5
 		else:
 			if is_sliding:
-				stop_slide()
-			return SPEED / 3
+				_stop_slide()
+			decel = SPEED / 3
 	else:
-		return SPEED / 10
+		decel = SPEED / 10
+	return decel
 
-func get_animation():
+
+func _get_animation():
+	var animation
 	if is_crouching:
-		return "crouching"
+		animation = "crouching"
 	elif is_sliding:
-		return "sliding"
+		animation = "sliding"
 	elif is_dashing:
-		return "dashing"
+		animation = "dashing"
 	elif is_wall_hanging:
-		return "wall"
+		animation = "wall"
 	elif is_on_floor():
 		if absf(velocity.x) > 0.1:
-			return "running"
+			animation = "running"
 		else:
-			return "idle"
+			animation = "idle"
 	else:
 		if velocity.y > -JUMP_VELOCITY:
-			return "falling"
+			animation = "falling"
 		else:
-			return "jumping"
+			animation = "jumping"
+	return animation
 
-func try_interact():
+
+func _try_interact():
 	if interact_check.is_colliding():
 		interact_check.get_collider().interact()
 
-func try_place_checkpoint():
+
+func _try_place_checkpoint():
 	var main = get_node("/root/Main")
 	if is_on_floor() and has_checkpoint:
 		var checkpoint = get_node_or_null("/root/Main/Checkpoint")
@@ -311,20 +337,23 @@ func try_place_checkpoint():
 		main.add_child(place_checkpoint)
 		main.scene_history = [main.current_scene]
 
+
 func try_recall():
 	var checkpoint = get_node_or_null("/root/Main/Checkpoint")
 	if long_reset:
-		hard_recall()
+		_hard_recall()
 	else:
 		if not checkpoint:
-			hard_recall()
+			_hard_recall()
 		else:
-			soft_recall()
+			_soft_recall()
 
-func hard_recall():
+
+func _hard_recall():
 	get_tree().call_deferred("reload_current_scene")
 
-func soft_recall():
+
+func _soft_recall():
 	var main = get_node("/root/Main")
 	var checkpoint = get_node("/root/Main/Checkpoint")
 	if main.scene_history.size() > 1:
@@ -339,30 +368,41 @@ func soft_recall():
 		main.scene_history = [main.current_scene]
 	var tween = create_tween()
 	collision(0)
-	tween.tween_property(self, "position", checkpoint.position, REWIND_DUR)\
-	.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
+	(
+		tween
+		. tween_property(self, "position", checkpoint.position, REWIND_DUR)
+		. set_trans(Tween.TRANS_ELASTIC)
+		. set_ease(Tween.EASE_IN_OUT)
+	)
 	tween.tween_callback(collision)
 
 
 func collision(state = 1):
 	set_deferred("collision_layer", state)
 
+
 func _on_dash_timer_timeout():
 	velocity.x = motion
 	is_dashing = false
 
+
 func _on_area_2d_left_body_entered(_body):
 	is_wall_hanging_left = true
+
 
 func _on_area_2d_left_body_exited(_body):
 	is_wall_hanging_left = false
 
+
 func _on_area_2d_right_body_entered(_body):
 	is_wall_hanging_right = true
+
 
 func _on_area_2d_right_body_exited(_body):
 	is_wall_hanging_right = false
 
+
 func _on_area_2d_collision_check_body_entered(_body):
+	gap_check.position = velocity.normalized() * NUDGE_RANGE
 	if not area_2d_gap_check.get_overlapping_bodies():
 		position += velocity.normalized() * NUDGE_MULTI
