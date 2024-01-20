@@ -1158,7 +1158,7 @@ position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_1xr62")
 
 [node name="Platform2" type="CharacterBody2D" parent="." groups=["platforms"]]
-position = Vector2(557, 314)
+position = Vector2(553, 288)
 scale = Vector2(0.920005, 0.48)
 collision_layer = 8
 collision_mask = 3

@@ -9,5 +9,5 @@ func _process(_delta):
 	pass
 
 func destroy():
-	get_node("/root/Main/Player").has_checkpoint = false
+	get_parent().remove_child(self)
 	queue_free()

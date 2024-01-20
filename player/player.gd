@@ -11,13 +11,12 @@ const FALL_CLAMP = 400.0
 const JUMP_APEX = 5
 const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
-const NUDGE_RANGE = 100
-const NUDGE_MULTI = 1.25
+const NUDGE_RANGE = 50
+const NUDGE_MULTI = 100
 const REWIND_DUR = 1
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
-@onready var drop_timer = $DropTimer
 @onready var coyote_timer = $CoyoteTimer
 @onready var wall_hang_timer = $WallHangTimer
 @onready var sprite = $AnimatedSprite2D
@@ -48,7 +47,7 @@ var platform
 var motion
 var was_on_floor = false
 var is_crouching = false
-var has_checkpoint = false
+var has_checkpoint = false 
 var long_reset = false
 
 func _physics_process(delta):
@@ -60,11 +59,14 @@ func _physics_process(delta):
 		long_press.start()
 	elif Input.is_action_just_released("reset") and not long_reset:
 		long_press.stop()
-		try_checkpoint()
+		try_recall()
 	elif Input.is_action_pressed("reset") and long_press.is_stopped() and not long_reset:
 		long_reset = true
-		try_checkpoint(true)
+		try_recall()
 
+	if Input.is_action_just_pressed("interact"):
+		try_place_checkpoint()
+	
 	if Input.is_action_just_pressed("interact"):
 		try_interact()
 
@@ -110,8 +112,10 @@ func _physics_process(delta):
 		
 	if is_wall_hanging:
 		if not is_on_wall() or is_on_floor():
+			has_checkpoint = true
 			is_wall_hanging = false
 			wall_hang_timer.stop()
+			
 		else:
 			velocity.y *= 0.8
 	# Establish baseline horizontal movement
@@ -155,7 +159,7 @@ func _physics_process(delta):
 	# Coyote timer
 	if is_on_floor():
 		was_on_floor = true
-
+	
 	move_and_slide()
 
 	if was_on_floor and not is_on_floor():
@@ -226,9 +230,6 @@ func stop_slide():
 func try_drop():
 	if drop_check.is_colliding():
 		position.y += 1
-		#platform = drop_check.get_collider().get_node("CollisionShape2D")
-		#platform.disabled = true
-		#drop_timer.start()
 
 func accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
@@ -284,46 +285,55 @@ func get_animation():
 
 func try_interact():
 	if interact_check.is_colliding():
-		print("huh")
 		interact_check.get_collider().interact()
 
-func try_checkpoint(recall = false):
+func try_place_checkpoint():
 	var main = get_node("/root/Main")
-	if not has_checkpoint:
-		has_checkpoint = true
+	if is_on_floor() and has_checkpoint:
+		var checkpoint = get_node_or_null("/root/Main/Checkpoint")
+		if checkpoint:
+			main.scene_history.clear()
+			checkpoint.destroy()
+		has_checkpoint = false
 		var place_checkpoint = load("res://player/checkpoint.tscn").instantiate()
 		main.add_child(place_checkpoint)
 		main.scene_history = [main.current_scene]
-	elif has_checkpoint and recall:
-		var checkpoint = get_node("/root/Main/Checkpoint")
-		main.scene_history.clear()
-		checkpoint.destroy()
-	elif has_checkpoint:
-		var checkpoint = get_node("/root/Main/Checkpoint")
-		if main.scene_history.size() > 1:
-			var delay = REWIND_DUR / main.scene_history.size()
-			main.scene_history.reverse()
-			for scene in main.scene_history:
-				var rewind_level = load(scene).instantiate()
-				main.add_child(rewind_level)
-				main.current_level.destroy(delay)
-				main.current_level = rewind_level
-				main.current_scene = scene
-			main.scene_history = [main.current_scene]
-		var tween = create_tween()
-		collision(0)
-		tween.tween_property(self, "position", checkpoint.position, REWIND_DUR)\
-		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
-		tween.tween_callback(collision)
 
-func reload():
+func try_recall():
+	var checkpoint = get_node_or_null("/root/Main/Checkpoint")
+	if long_reset:
+		hard_recall()
+	else:
+		if not checkpoint:
+			hard_recall()
+		else:
+			soft_recall()
+
+func hard_recall():
 	get_tree().call_deferred("reload_current_scene")
+
+func soft_recall():
+	var main = get_node("/root/Main")
+	var checkpoint = get_node("/root/Main/Checkpoint")
+	if main.scene_history.size() > 1:
+		var delay = REWIND_DUR / main.scene_history.size()
+		main.scene_history.reverse()
+		for scene in main.scene_history:
+			var rewind_level = load(scene).instantiate()
+			main.add_child(rewind_level)
+			main.current_level.destroy(delay)
+			main.current_level = rewind_level
+			main.current_scene = scene
+		main.scene_history = [main.current_scene]
+	var tween = create_tween()
+	collision(0)
+	tween.tween_property(self, "position", checkpoint.position, REWIND_DUR)\
+	.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(collision)
+
 
 func collision(state = 1):
 	set_deferred("collision_layer", state)
-
-#func _on_drop_timer_timeout():
-	#platform.disabled = false
 
 func _on_dash_timer_timeout():
 	velocity.x = motion
@@ -343,4 +353,4 @@ func _on_area_2d_right_body_exited(_body):
 
 func _on_area_2d_collision_check_body_entered(_body):
 	if not area_2d_gap_check.get_overlapping_bodies():
-		velocity *= NUDGE_MULTI
+		position += velocity.normalized() * NUDGE_MULTI
