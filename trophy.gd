@@ -1,7 +1,8 @@
 extends Node2D
 @export_file("*.tscn") var next_scene
 @onready var trophy = $"."
-	
+
+
 func interact():
 	trophy.collision_layer = 0
 	var main = get_node("/root/Main")

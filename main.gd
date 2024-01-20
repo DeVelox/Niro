@@ -1,8 +1,9 @@
 extends Node
 @export_file("*.tscn") var current_scene
 var current_level
-var scene_history : Array
+var scene_history: Array
 @onready var spawn = $Spawn
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,6 +14,7 @@ func _ready():
 	var load_player = load("res://player/player.tscn").instantiate()
 	load_player.position = spawn.position
 	add_child(load_player)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
