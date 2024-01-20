@@ -311,11 +311,16 @@ func try_checkpoint(recall = false):
 				main.current_scene = scene
 			main.scene_history = [main.current_scene]
 		var tween = create_tween()
+		collision(0)
 		tween.tween_property(self, "position", checkpoint.position, REWIND_DUR)\
 		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback(collision)
 
 func reload():
 	get_tree().reload_current_scene()
+
+func collision(state = 1):
+	collision_layer = state
 
 #func _on_drop_timer_timeout():
 	#platform.disabled = false
