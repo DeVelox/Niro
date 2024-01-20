@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfklibact60vv"]
+[gd_scene load_steps=6 format=3 uid="uid://cfklibact60vv"]
 
 [ext_resource type="Script" path="res://templates/level.gd" id="1_2l88x"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://templates/tilemap.tscn" id="2_vdjtn"]
 [ext_resource type="Texture2D" uid="uid://db77q8vpkwc6c" path="res://temp/terrain/Green.png" id="3_cafnh"]
+[ext_resource type="PackedScene" uid="uid://ci5vyem1ovtxr" path="res://templates/platform.tscn" id="4_yy47e"]
+[ext_resource type="PackedScene" uid="uid://bf8vfl1pp2oct" path="res://templates/platform_thin.tscn" id="5_ree8x"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_2l88x")
 
 [node name="Tilemap" parent="." instance=ExtResource("2_vdjtn")]
 position = Vector2(0, 360)
-layer_0/tile_data = PackedInt32Array(-131069, 786432, 4, -131068, 851968, 4, -131067, 917504, 4, -393198, 786432, 4, -393197, 851968, 4, -393196, 917504, 4, -851950, 983040, 5, -786414, 983040, 5, -720878, 983040, 6, -1048558, 983040, 5, -983022, 983040, 5, -917486, 983040, 5, -1245166, 983040, 4, -1179630, 983040, 5, -1114094, 983040, 5, -720874, 983040, 5, -655338, 983040, 5, -589802, 983040, 6, -917482, 983040, 5, -851946, 983040, 5, -786410, 983040, 5, -1114090, 983040, 5, -1048554, 983040, 5, -983018, 983040, 5, -1310698, 983040, 4, -1245162, 983040, 5, -1179626, 983040, 5, -1245169, 786432, 4, -1245168, 851968, 4, -1245167, 917504, 4, -1245172, 786432, 4, -1245171, 851968, 4, -1245170, 917504, 4, -327671, 786432, 4, -327670, 851968, 4, -327669, 917504, 4)
+layer_0/tile_data = PackedInt32Array(-1245163, 983040, 4, -1179627, 983040, 5, -1114091, 983040, 5)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -1
@@ -24,3 +26,30 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_cafnh")
 stretch_mode = 1
+
+[node name="Platform" parent="." instance=ExtResource("4_yy47e")]
+position = Vector2(56, 328)
+
+[node name="PlatformThin" parent="." instance=ExtResource("5_ree8x")]
+position = Vector2(56, 280)
+
+[node name="PlatformThin2" parent="." instance=ExtResource("5_ree8x")]
+position = Vector2(56, 208)
+
+[node name="Platform2" parent="." instance=ExtResource("4_yy47e")]
+position = Vector2(312, 64)
+
+[node name="Platform6" parent="." instance=ExtResource("4_yy47e")]
+position = Vector2(352, 136)
+
+[node name="Platform7" parent="." instance=ExtResource("4_yy47e")]
+position = Vector2(512, 136)
+
+[node name="Platform5" parent="." instance=ExtResource("4_yy47e")]
+position = Vector2(304, 136)
+
+[node name="Platform3" parent="." instance=ExtResource("4_yy47e")]
+position = Vector2(264, 64)
+
+[node name="Platform4" parent="." instance=ExtResource("4_yy47e")]
+position = Vector2(256, 136)

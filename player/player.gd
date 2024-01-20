@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
 const SPEED = 200.0
-const JUMP_VELOCITY = -300.0
+const AIR_SPEED_MULTI = 0.75
+const JUMP_VELOCITY = -290.0
+const DOUBLE_JUMP_MULTI = 0.95
 const DASH_LENGTH = 0.15
 const DASH_MULTI = 2.8
 const SLIDE_MULTI = 2.3
@@ -11,8 +13,8 @@ const FALL_CLAMP = 400.0
 const JUMP_APEX = 5
 const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
-const NUDGE_RANGE = 50
-const NUDGE_MULTI = 100
+const NUDGE_RANGE = 28
+const NUDGE_MULTI = 10
 const REWIND_DUR = 1
 
 @onready var dash_timer = $DashTimer
@@ -43,6 +45,7 @@ var is_dashing = false
 var has_dash = false
 var is_sliding = false
 var is_jumping = false
+var is_double_jumping = false
 var platform
 var motion
 var was_on_floor = false
@@ -92,10 +95,13 @@ func _physics_process(delta):
 
 	# Apply gravity
 
-	if is_jumping and absf(velocity.y) < JUMP_APEX and not is_wall_hanging:
+	if (is_jumping or is_double_jumping) and absf(velocity.y) < JUMP_APEX and not is_wall_hanging:
 		velocity.y += gravity * delta * JUMP_APEX_MULTI
 	elif not is_on_floor():
-		velocity.y += gravity * delta
+		if velocity.y > 0:
+			velocity.y += gravity * delta * 1.2
+		else:
+			velocity.y += gravity * delta
 
 	if velocity.y > FALL_CLAMP:
 		velocity.y = FALL_CLAMP
@@ -105,6 +111,7 @@ func _physics_process(delta):
 		has_double_jump = true
 		has_dash = true
 		is_jumping = false
+		is_double_jumping = false
 	elif is_on_wall() and can_wall_hang and not is_wall_hanging:
 		wall_hang_direction = 1 if is_wall_hanging_right else -1
 		is_wall_hanging = true
@@ -120,7 +127,10 @@ func _physics_process(delta):
 			velocity.y *= 0.8
 	# Establish baseline horizontal movement
 	if wall_hang_timer.is_stopped():
-		motion = Input.get_axis("left", "right") * SPEED
+		if is_on_floor():
+			motion = Input.get_axis("left", "right") * SPEED
+		else:
+			motion = Input.get_axis("left", "right") * SPEED * AIR_SPEED_MULTI
 	else:
 		motion = 0
 
@@ -145,7 +155,8 @@ func _physics_process(delta):
 
 	# Variable jump
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
-		velocity.y -= velocity.y * VAR_JUMP_MULTI
+		if is_jumping:
+			velocity.y -= velocity.y * VAR_JUMP_MULTI
 
 	gap_check.position = velocity.normalized() * NUDGE_RANGE
 
@@ -192,11 +203,12 @@ func try_jump():
 		velocity.y = JUMP_VELOCITY * 1
 		is_jumping = true
 	elif has_double_jump:
-		stop_slide()
+		if is_sliding:
+			stop_slide()
 		effects.play("double_jump")
 		has_double_jump = false
-		velocity.y = JUMP_VELOCITY
-		is_jumping = true
+		velocity.y = JUMP_VELOCITY * DOUBLE_JUMP_MULTI
+		is_double_jumping = true
 	else:
 		return
 	if is_jumping and not jump_sound.playing:
