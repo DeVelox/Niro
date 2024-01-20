@@ -225,10 +225,11 @@ offset = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_left = 0
-limit_top = 0
-limit_right = 704
-limit_bottom = 396
+limit_left = -16
+limit_top = -16
+limit_right = 656
+limit_bottom = 376
+limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="DropCheck" type="RayCast2D" parent="."]
