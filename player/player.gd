@@ -320,7 +320,7 @@ func reload():
 	get_tree().reload_current_scene()
 
 func collision(state = 1):
-	collision_layer = state
+	set_deferred("collision_layer", state)
 
 #func _on_drop_timer_timeout():
 	#platform.disabled = false
