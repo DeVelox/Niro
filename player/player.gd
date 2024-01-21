@@ -34,7 +34,6 @@ var has_dash := false
 var has_double_jump := false
 var has_checkpoint := false
 var was_on_floor := false
-var long_reset := false
 var motion: float
 var lock_x: float
 
@@ -107,15 +106,8 @@ func _state_checks():
 
 
 func _special_actions():
-	if Input.is_action_just_pressed("reset"):
-		long_reset = false
-		long_press.start()
-	elif Input.is_action_just_released("reset") and not long_reset:
-		long_press.stop()
-		try_recall()
-	elif Input.is_action_pressed("reset") and long_press.is_stopped() and not long_reset:
-		long_reset = true
-		try_recall()
+	_long_press("reset", try_recall)
+
 	if Input.is_action_just_pressed("interact"):
 		_try_interact()
 		_try_place_checkpoint()
@@ -333,6 +325,17 @@ func _get_animation():
 	return animation
 
 
+func _long_press(action: String, method: Callable):
+	if Input.is_action_just_pressed(action):
+		long_press.start()
+	elif Input.is_action_just_released(action) and not long_press.is_stopped():
+		long_press.stop()
+		method.call()
+	elif Input.is_action_pressed(action) and long_press.is_stopped():
+		method.call(true)
+		Input.action_release(action)
+
+
 func _try_interact():
 	if interact_check.is_colliding():
 		interact_check.get_collider().interact()
@@ -351,20 +354,17 @@ func _try_place_checkpoint():
 		main.scene_history = [main.current_scene]
 
 
-func try_recall():
+func try_recall(long_reset = false):
 	var checkpoint = get_node_or_null("/root/Main/Checkpoint")
 	if long_reset:
-		print("huh")
 		_hard_recall()
+	elif checkpoint:
+		_soft_recall()
 	else:
-		if not checkpoint:
-			_hard_recall()
-		else:
-			_soft_recall()
+		_hard_recall()
 
 
 func _hard_recall():
-	long_reset = false
 	get_tree().call_deferred("reload_current_scene")
 
 
