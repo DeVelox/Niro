@@ -17,7 +17,7 @@ position = Vector2(208, 128)
 position = Vector2(208, 240)
 
 [node name="Spikes" parent="." instance=ExtResource("2_wlfhr")]
-position = Vector2(137, 370)
+position = Vector2(135, 372)
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("4_eaweb")]
 position = Vector2(104, 32)
