@@ -71,7 +71,7 @@ func _physics_process(delta):
 
 	_climbing()
 
-	_animation_and_sound()
+	_animation()
 
 	# Coyote timer has to execute before and after move_and_slide, maybe put in a wrapper?
 	if is_on_floor():
@@ -284,7 +284,7 @@ func _decel() -> float:
 	return decel
 
 
-func _animation_and_sound():
+func _animation():
 	# Sprite direction
 	if not is_zero_approx(velocity.x) and not is_climbing:
 		if velocity.x > 0.0:
