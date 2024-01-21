@@ -18,26 +18,25 @@ const NUDGE_MULTI = 10
 const REWIND_DUR = 1
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var is_wall_hanging = false
-var can_wall_hang = false
-var is_wall_hanging_left = false
-var is_wall_hanging_right = false
-var wall_hang_direction = 0
-var has_double_jump = false
-var is_dashing = false
-var has_dash = false
-var is_sliding = false
-var is_jumping = false
-var is_double_jumping = false
-var platform
-var motion
-var was_on_floor = false
-var is_crouching = false
-var has_checkpoint = false
-var long_reset = false
-var is_climbing = false
-var lock_x
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var wall_hang_direction := 0
+var can_wall_hang := false
+var is_wall_hanging := false
+var is_wall_hanging_left := false
+var is_wall_hanging_right := false
+var is_crouching := false
+var is_climbing := false
+var is_dashing := false
+var is_sliding := false
+var is_jumping := false
+var is_double_jumping := false
+var has_dash := false
+var has_double_jump := false
+var has_checkpoint := false
+var was_on_floor := false
+var long_reset := false
+var motion: float
+var lock_x: float
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
@@ -309,16 +308,16 @@ func _animation_and_sound():
 
 func _get_animation():
 	var animation
-	if is_sliding:
+	if is_climbing and not Input.get_axis("up", "down"):
+		animation = "climbing_idle"
+	elif is_climbing:
+		animation = "climbing"
+	elif is_sliding:
 		animation = "sliding"
 	elif is_dashing:
 		animation = "dashing"
 	elif is_wall_hanging:
 		animation = "wall"
-	elif is_climbing and not Input.get_axis("up", "down"):
-		animation = "climbing_idle"
-	elif is_climbing:
-		animation = "climbing"
 	elif is_crouching:
 		animation = "crouching"
 	elif is_on_floor():
@@ -355,6 +354,7 @@ func _try_place_checkpoint():
 func try_recall():
 	var checkpoint = get_node_or_null("/root/Main/Checkpoint")
 	if long_reset:
+		print("huh")
 		_hard_recall()
 	else:
 		if not checkpoint:
@@ -364,6 +364,7 @@ func try_recall():
 
 
 func _hard_recall():
+	long_reset = false
 	get_tree().call_deferred("reload_current_scene")
 
 
