@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ba4txqq0320sd"]
+[gd_scene load_steps=4 format=3 uid="uid://ba4txqq0320sd"]
 
 [ext_resource type="Script" path="res://templates/spikes.gd" id="1_jtsut"]
 [ext_resource type="Texture2D" uid="uid://blgrwulqhngus" path="res://temp/traps/Spike Head/Idle.png" id="2_h0b2y"]
@@ -6,10 +6,6 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_c3oiv"]
 atlas = ExtResource("2_h0b2y")
 region = Rect2(6, 5, 43, 43)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_45qpy"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8k0q"]
 
 [node name="Spikes" type="StaticBody2D"]
 collision_layer = 16
@@ -20,12 +16,10 @@ margin = Vector2(14, 14)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_45qpy")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_u8k0q")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
