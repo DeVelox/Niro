@@ -50,8 +50,16 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("5_wt3hf")
 }],
-"loop": false,
+"loop": true,
 "name": &"climbing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ld6xd")
+}],
+"loop": true,
+"name": &"climbing_idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -183,7 +191,7 @@ size = Vector2(28, 50)
 size = Vector2(28, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obud4"]
-size = Vector2(2, 50)
+size = Vector2(5, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txqwi"]
 atlas = ExtResource("30_cadxq")
@@ -241,8 +249,9 @@ script = ExtResource("1_0if4t")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"climbing"
+animation = &"climbing_idle"
 autoplay = "idle"
+frame_progress = 0.481774
 offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -326,6 +335,7 @@ shape = SubResource("RectangleShape2D_0rk70")
 [node name="Area2DClimbing" type="Area2D" parent="." groups=["climbing"]]
 
 [node name="ClimbCheck" type="CollisionShape2D" parent="Area2DClimbing"]
+position = Vector2(-0.5, 4)
 shape = SubResource("RectangleShape2D_obud4")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]

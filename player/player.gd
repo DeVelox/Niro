@@ -182,7 +182,7 @@ func _apply_gravity(delta):
 func _climbing():
 	if is_climbing:
 		position.x = lock_x
-		velocity.y = Input.get_axis("jump", "crouch") * SPEED
+		velocity.y = Input.get_axis("up", "down") * SPEED
 
 
 func _try_crouch():
@@ -211,7 +211,7 @@ func _try_jump():
 		velocity.x = SPEED * WALL_JUMP_MULTI * -wall_hang_direction
 		velocity.y = JUMP_VELOCITY * 1
 		is_jumping = true
-	elif has_double_jump:
+	elif has_double_jump and not is_climbing:
 		if is_sliding:
 			_stop_slide()
 		effects.play("double_jump")
@@ -295,7 +295,7 @@ func _decel() -> float:
 
 func _animation_and_sound():
 	# Sprite direction
-	if not is_zero_approx(velocity.x):
+	if not is_zero_approx(velocity.x) and not is_climbing:
 		if velocity.x > 0.0:
 			sprite.flip_h = false
 			interact_check.scale.x = 1
@@ -309,16 +309,18 @@ func _animation_and_sound():
 
 func _get_animation():
 	var animation
-	if is_crouching:
-		animation = "crouching"
-	elif is_sliding:
+	if is_sliding:
 		animation = "sliding"
 	elif is_dashing:
 		animation = "dashing"
 	elif is_wall_hanging:
 		animation = "wall"
+	elif is_climbing and not Input.get_axis("up", "down"):
+		animation = "climbing_idle"
 	elif is_climbing:
 		animation = "climbing"
+	elif is_crouching:
+		animation = "crouching"
 	elif is_on_floor():
 		if absf(velocity.x) > 0.1:
 			animation = "running"
