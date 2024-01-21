@@ -36,6 +36,8 @@ var was_on_floor = false
 var is_crouching = false
 var has_checkpoint = false
 var long_reset = false
+var is_climbing = false
+var lock_x
 
 @onready var dash_timer = $DashTimer
 @onready var drop_check = $DropCheck
@@ -68,6 +70,8 @@ func _physics_process(delta):
 	_horizontal_movement()
 
 	_apply_gravity(delta)
+
+	_climbing()
 
 	_animation_and_sound()
 
@@ -162,20 +166,6 @@ func _horizontal_movement():
 		velocity.x = move_toward(velocity.x, 0, _decel())
 
 
-func _animation_and_sound():
-	# Sprite direction
-	if not is_zero_approx(velocity.x):
-		if velocity.x > 0.0:
-			sprite.flip_h = false
-			interact_check.scale.x = 1
-		else:
-			sprite.flip_h = true
-			interact_check.scale.x = -1
-
-	# Current animation
-	sprite.play(_get_animation())
-
-
 func _apply_gravity(delta):
 	if (is_jumping or is_double_jumping) and absf(velocity.y) < JUMP_APEX and not is_wall_hanging:
 		velocity.y += gravity * delta * JUMP_APEX_MULTI
@@ -187,6 +177,12 @@ func _apply_gravity(delta):
 
 	if velocity.y > FALL_CLAMP:
 		velocity.y = FALL_CLAMP
+
+
+func _climbing():
+	if is_climbing:
+		position.x = lock_x
+		velocity.y = Input.get_axis("jump", "crouch") * SPEED
 
 
 func _try_crouch():
@@ -297,6 +293,20 @@ func _decel() -> float:
 	return decel
 
 
+func _animation_and_sound():
+	# Sprite direction
+	if not is_zero_approx(velocity.x):
+		if velocity.x > 0.0:
+			sprite.flip_h = false
+			interact_check.scale.x = 1
+		else:
+			sprite.flip_h = true
+			interact_check.scale.x = -1
+
+	# Current animation
+	sprite.play(_get_animation())
+
+
 func _get_animation():
 	var animation
 	if is_crouching:
@@ -307,6 +317,8 @@ func _get_animation():
 		animation = "dashing"
 	elif is_wall_hanging:
 		animation = "wall"
+	elif is_climbing:
+		animation = "climbing"
 	elif is_on_floor():
 		if absf(velocity.x) > 0.1:
 			animation = "running"
@@ -406,3 +418,14 @@ func _on_area_2d_collision_check_body_entered(_body):
 	gap_check.position = velocity.normalized() * NUDGE_RANGE
 	if not area_2d_gap_check.get_overlapping_bodies():
 		position += velocity.normalized() * NUDGE_MULTI
+
+
+func _on_area_2d_climbing_area_entered(area):
+	if area.is_in_group("climbing"):
+		lock_x = position.x
+		is_climbing = true
+
+
+func _on_area_2d_climbing_area_exited(area):
+	if area.is_in_group("climbing"):
+		is_climbing = false

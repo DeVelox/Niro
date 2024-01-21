@@ -1,10 +1,14 @@
-[gd_scene load_steps=40 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=45 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_0if4t"]
 [ext_resource type="Texture2D" uid="uid://bxturgjbo7ee2" path="res://temp/adventurer/adventurer-crouch-00.png" id="2_jb7dh"]
+[ext_resource type="Texture2D" uid="uid://be4reg8w3lyro" path="res://temp/adventurer/adventurer-ladder-climb-00.png" id="2_p0kxa"]
 [ext_resource type="Texture2D" uid="uid://b47aj4nufrmuu" path="res://temp/adventurer/adventurer-crouch-01.png" id="3_18ewb"]
+[ext_resource type="Texture2D" uid="uid://5xrevgkb7wg4" path="res://temp/adventurer/adventurer-ladder-climb-01.png" id="3_ld6xd"]
 [ext_resource type="Texture2D" uid="uid://bsq04av12w0tw" path="res://temp/adventurer/adventurer-crouch-02.png" id="4_8ful6"]
+[ext_resource type="Texture2D" uid="uid://71r4r0yl4a8x" path="res://temp/adventurer/adventurer-ladder-climb-02.png" id="4_gflk0"]
 [ext_resource type="Texture2D" uid="uid://daoohjmoioc5d" path="res://temp/adventurer/adventurer-crouch-03.png" id="5_u0j8i"]
+[ext_resource type="Texture2D" uid="uid://d8oo8rnf5iw6" path="res://temp/adventurer/adventurer-ladder-climb-03.png" id="5_wt3hf"]
 [ext_resource type="Texture2D" uid="uid://cuewoa1mdhmde" path="res://temp/adventurer/adventurer-air-attack1-00.png" id="6_jyr4j"]
 [ext_resource type="Texture2D" uid="uid://bj045m6wrw6b4" path="res://temp/adventurer/adventurer-air-attack1-01.png" id="7_h3rj6"]
 [ext_resource type="Texture2D" uid="uid://7lro8yqo6cvr" path="res://temp/adventurer/adventurer-air-attack1-02.png" id="8_ta86v"]
@@ -33,6 +37,23 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_13nta"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p0kxa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ld6xd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gflk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wt3hf")
+}],
+"loop": false,
+"name": &"climbing",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_jb7dh")
@@ -161,6 +182,9 @@ size = Vector2(28, 50)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjvja"]
 size = Vector2(28, 50)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obud4"]
+size = Vector2(2, 50)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_txqwi"]
 atlas = ExtResource("30_cadxq")
 region = Rect2(0, 0, 32, 32)
@@ -217,7 +241,7 @@ script = ExtResource("1_0if4t")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"crouching"
+animation = &"climbing"
 autoplay = "idle"
 offset = Vector2(0, -1)
 
@@ -266,6 +290,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Area2DLeft" type="Area2D" parent="."]
+visible = false
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DLeft"]
@@ -274,6 +299,7 @@ scale = Vector2(0.4, 1)
 shape = SubResource("RectangleShape2D_kjvja")
 
 [node name="Area2DRight" type="Area2D" parent="."]
+visible = false
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DRight"]
@@ -282,6 +308,7 @@ scale = Vector2(0.4, 1)
 shape = SubResource("RectangleShape2D_kjvja")
 
 [node name="Area2DGapCheck" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 140
 
@@ -289,11 +316,17 @@ collision_mask = 140
 shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="Area2DCollisionCheck" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 140
 
 [node name="CollisionCheck" type="CollisionShape2D" parent="Area2DCollisionCheck"]
 shape = SubResource("RectangleShape2D_0rk70")
+
+[node name="Area2DClimbing" type="Area2D" parent="." groups=["climbing"]]
+
+[node name="ClimbCheck" type="CollisionShape2D" parent="Area2DClimbing"]
+shape = SubResource("RectangleShape2D_obud4")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_hpjs7")
@@ -312,3 +345,5 @@ animation = &"double_jump"
 [connection signal="body_entered" from="Area2DRight" to="." method="_on_area_2d_right_body_entered"]
 [connection signal="body_exited" from="Area2DRight" to="." method="_on_area_2d_right_body_exited"]
 [connection signal="body_entered" from="Area2DCollisionCheck" to="." method="_on_area_2d_collision_check_body_entered"]
+[connection signal="area_entered" from="Area2DClimbing" to="." method="_on_area_2d_climbing_area_entered"]
+[connection signal="area_exited" from="Area2DClimbing" to="." method="_on_area_2d_climbing_area_exited"]
