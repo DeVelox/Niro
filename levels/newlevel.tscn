@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://sujagm05aqbv"]
 
 [ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_7u1rj"]
-[ext_resource type="Script" path="res://levels/newlevel.gd" id="1_orbb2"]
+[ext_resource type="Script" path="res://templates/level.gd" id="1_bj1mm"]
 [ext_resource type="PackedScene" uid="uid://dwrmqyb742m6b" path="res://terrain/platform.tscn" id="2_4bgvd"]
 [ext_resource type="PackedScene" uid="uid://biarri6nepyei" path="res://trophy.tscn" id="4_usmut"]
 [ext_resource type="PackedScene" uid="uid://b7lw1iu6kcbpg" path="res://templates/rockfall.tscn" id="5_iu4fs"]
@@ -1112,7 +1112,7 @@ size = Vector2(16, 64)
 size = Vector2(114.286, 16.6666)
 
 [node name="NewLevel" type="Node2D"]
-script = ExtResource("1_orbb2")
+script = ExtResource("1_bj1mm")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 8)

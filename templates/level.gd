@@ -1,8 +1,11 @@
 extends Node2D
+@onready var spawn = $Spawn
 
 
 func _ready():
-	pass
+# Add a Marker2D called Spawn to change spawn location
+	if spawn:
+		DataStore.spawn_point = spawn.position
 
 
 func destroy(delay = 1.0):

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cewedqcc704ji"]
 
-[ext_resource type="Script" path="res://levels/nextlevel.gd" id="1_hejka"]
+[ext_resource type="Script" path="res://templates/level.gd" id="1_sfckv"]
 [ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_w0hpb"]
 [ext_resource type="PackedScene" uid="uid://dwrmqyb742m6b" path="res://terrain/platform.tscn" id="2_vrps5"]
 [ext_resource type="PackedScene" uid="uid://biarri6nepyei" path="res://trophy.tscn" id="3_r7w8q"]
@@ -1104,7 +1104,7 @@ size = Vector2(16, 64)
 size = Vector2(114.286, 16.6666)
 
 [node name="NextLevel" type="Node2D"]
-script = ExtResource("1_hejka")
+script = ExtResource("1_sfckv")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_0t85j")

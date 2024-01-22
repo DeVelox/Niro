@@ -11,7 +11,10 @@ func _ready():
 	add_child(load_level)
 
 	var load_player = load("res://player/player.tscn").instantiate()
-	load_player.position = spawn.position
+	if DataStore.spawn_point:
+		load_player.position = DataStore.spawn_point
+	else:
+		load_player.position = spawn.position
 	add_child(load_player)
 
 

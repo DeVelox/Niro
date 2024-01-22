@@ -52,6 +52,7 @@ var lock_x: float
 @onready var effects = $Effects
 @onready var long_press = $LongPress
 
+
 func _physics_process(delta):
 	# Do not allow other movement while dashing
 	if is_dashing:
@@ -102,16 +103,16 @@ func _state_checks():
 			wall_hang_timer.stop()
 		else:
 			velocity.y *= 0.8
-	
-	if is_crouching:	
-		hitbox.shape.size = Vector2(32,32)
-		hitbox.position = Vector2(0,9)
-	elif is_sliding:	
-		hitbox.shape.size = Vector2(32,22)
-		hitbox.position = Vector2(0,14)
+
+	if is_crouching:
+		hitbox.shape.size = Vector2(32, 32)
+		hitbox.position = Vector2(0, 9)
+	elif is_sliding:
+		hitbox.shape.size = Vector2(32, 22)
+		hitbox.position = Vector2(0, 14)
 	else:
-		hitbox.shape.size = Vector2(32,44)
-		hitbox.position = Vector2(0,3)
+		hitbox.shape.size = Vector2(32, 44)
+		hitbox.position = Vector2(0, 3)
 
 
 func _special_actions():
@@ -130,12 +131,7 @@ func _special_movement():
 	if not jump_buffer.is_stopped():
 		_try_jump()
 
-	if Input.is_action_just_pressed("crouch"):
-		if double_tap.is_stopped():
-			double_tap.start()
-		else:
-			double_tap.stop()
-			_try_drop()
+	_double_tap("crouch", _try_drop)
 
 	if Input.is_action_pressed("crouch"):
 		_try_crouch()
@@ -334,6 +330,15 @@ func _long_press(action: String, method: Callable):
 	elif Input.is_action_pressed(action) and long_press.is_stopped():
 		method.call(true)
 		Input.action_release(action)
+
+
+func _double_tap(action: String, method: Callable):
+	if Input.is_action_just_pressed(action):
+		if double_tap.is_stopped():
+			double_tap.start()
+		else:
+			double_tap.stop()
+			method.call()
 
 
 func _try_interact():
