@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=43 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_0if4t"]
 [ext_resource type="Texture2D" uid="uid://bxturgjbo7ee2" path="res://temp/adventurer/adventurer-crouch-00.png" id="2_jb7dh"]
@@ -18,8 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://d3hxvwhgjurv3" path="res://temp/adventurer/adventurer-idle-00.png" id="12_8yebu"]
 [ext_resource type="Texture2D" uid="uid://cguc3lg250vc5" path="res://temp/adventurer/adventurer-idle-01.png" id="13_8vfrw"]
 [ext_resource type="Texture2D" uid="uid://dydy0rxi5hud" path="res://temp/adventurer/adventurer-idle-02.png" id="14_p8q0y"]
-[ext_resource type="Texture2D" uid="uid://8gjboby860pg" path="res://temp/adventurer/adventurer-jump-00.png" id="15_4lgct"]
-[ext_resource type="Texture2D" uid="uid://xbdqrr8pvmll" path="res://temp/adventurer/adventurer-jump-01.png" id="16_4kr7a"]
 [ext_resource type="Texture2D" uid="uid://cbt242n5gkxx1" path="res://temp/adventurer/adventurer-jump-02.png" id="17_2v83y"]
 [ext_resource type="Texture2D" uid="uid://d26hkxldq7anf" path="res://temp/adventurer/adventurer-jump-03.png" id="18_3lmmi"]
 [ext_resource type="Texture2D" uid="uid://fqtym10beun8" path="res://temp/adventurer/adventurer-run-00.png" id="19_7yssc"]
@@ -123,12 +121,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("15_4lgct")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_4kr7a")
-}, {
-"duration": 1.0,
 "texture": ExtResource("17_2v83y")
 }, {
 "duration": 1.0,
@@ -185,13 +177,13 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rk70"]
-size = Vector2(28, 50)
+size = Vector2(32, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjvja"]
 size = Vector2(28, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obud4"]
-size = Vector2(5, 30)
+size = Vector2(5, 19)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txqwi"]
 atlas = ExtResource("30_cadxq")
@@ -250,12 +242,13 @@ script = ExtResource("1_0if4t")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"climbing_idle"
+animation = &"jumping"
 autoplay = "idle"
-frame_progress = 0.481774
+frame_progress = 0.925095
 offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -336,7 +329,7 @@ shape = SubResource("RectangleShape2D_0rk70")
 [node name="Area2DClimbing" type="Area2D" parent="." groups=["climbing"]]
 
 [node name="ClimbCheck" type="CollisionShape2D" parent="Area2DClimbing"]
-position = Vector2(-0.5, 4)
+position = Vector2(-0.5, 9.5)
 shape = SubResource("RectangleShape2D_obud4")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]

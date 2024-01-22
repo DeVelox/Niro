@@ -52,7 +52,6 @@ var lock_x: float
 @onready var effects = $Effects
 @onready var long_press = $LongPress
 
-
 func _physics_process(delta):
 	# Do not allow other movement while dashing
 	if is_dashing:
@@ -103,6 +102,16 @@ func _state_checks():
 			wall_hang_timer.stop()
 		else:
 			velocity.y *= 0.8
+	
+	if is_crouching:	
+		hitbox.shape.size = Vector2(32,32)
+		hitbox.position = Vector2(0,9)
+	elif is_sliding:	
+		hitbox.shape.size = Vector2(32,22)
+		hitbox.position = Vector2(0,14)
+	else:
+		hitbox.shape.size = Vector2(32,44)
+		hitbox.position = Vector2(0,3)
 
 
 func _special_actions():
@@ -160,7 +169,7 @@ func _horizontal_movement():
 func _apply_gravity(delta):
 	if (is_jumping or is_double_jumping) and absf(velocity.y) < JUMP_APEX and not is_wall_hanging:
 		velocity.y += gravity * delta * JUMP_APEX_MULTI
-	elif not is_on_floor():
+	if not is_on_floor():
 		if velocity.y > 0:
 			velocity.y += gravity * delta * 1.2
 		else:
@@ -178,14 +187,10 @@ func _climbing():
 
 func _try_crouch():
 	is_crouching = true
-	hitbox.scale.y = 0.5
-	hitbox.position.y = hitbox.scale.y * hitbox.shape.size[0]
 
 
 func _stop_crouch():
 	is_crouching = false
-	hitbox.position.y = 0
-	hitbox.scale.y = 1
 
 
 func _try_jump():
@@ -221,8 +226,6 @@ func _try_dash_and_slide():
 		return
 	if not is_sliding and is_on_floor():
 		velocity.x = motion * SLIDE_MULTI
-		hitbox.scale.y = 0.4
-		hitbox.position.y = hitbox.scale.y * hitbox.shape.size[0] * 1.2
 		is_sliding = true
 	elif has_dash and not is_on_floor():
 		dash_timer.wait_time = DASH_LENGTH
@@ -236,8 +239,6 @@ func _try_dash_and_slide():
 
 
 func _stop_slide():
-	hitbox.position.y = 0
-	hitbox.scale.y = 1.0
 	is_sliding = false
 
 

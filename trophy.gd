@@ -10,6 +10,5 @@ func interact():
 	main.current_level = next_level
 	main.current_scene = next_scene
 	main.scene_history.append(next_scene)
-	print(main.scene_history)
 	main.add_child(next_level)
 	get_parent().destroy()
