@@ -244,7 +244,7 @@ scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
 animation = &"jumping"
 autoplay = "idle"
-frame_progress = 0.925095
+frame_progress = 0.290991
 offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

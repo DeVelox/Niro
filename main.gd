@@ -1,14 +1,13 @@
 extends Node
 @export_file("*.tscn") var current_scene
-var current_level
-var scene_history: Array
 @onready var spawn = $Spawn
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var load_level = load(current_scene).instantiate()
-	current_level = load_level
+	DataStore.current_level = load_level
+	DataStore.current_scene = current_scene
 	add_child(load_level)
 
 	var load_player = load("res://player/player.tscn").instantiate()

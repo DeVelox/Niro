@@ -15,7 +15,7 @@ const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
 const NUDGE_RANGE = 28
 const NUDGE_MULTI = 10
-const REWIND_DUR = 1
+const REWIND_DUR = 1.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -119,7 +119,6 @@ func _special_actions():
 
 	if Input.is_action_just_pressed("interact"):
 		_try_interact()
-		_try_place_checkpoint()
 
 
 func _special_movement():
@@ -340,6 +339,8 @@ func _long_press(action: String, method: Callable):
 func _try_interact():
 	if interact_check.is_colliding():
 		interact_check.get_collider().interact()
+	else:
+		_try_place_checkpoint()
 
 
 func _try_place_checkpoint():
@@ -347,12 +348,12 @@ func _try_place_checkpoint():
 	if is_on_floor() and has_checkpoint:
 		var checkpoint = get_node_or_null("/root/Main/Checkpoint")
 		if checkpoint:
-			main.scene_history.clear()
+			DataStore.scene_history.clear()
 			checkpoint.destroy()
 		has_checkpoint = false
 		var place_checkpoint = load("res://player/checkpoint.tscn").instantiate()
 		main.add_child(place_checkpoint)
-		main.scene_history = [main.current_scene]
+		DataStore.scene_history = [DataStore.current_scene]
 
 
 func try_recall(long_reset = false):
@@ -372,16 +373,17 @@ func _hard_recall():
 func _soft_recall():
 	var main = get_node("/root/Main")
 	var checkpoint = get_node("/root/Main/Checkpoint")
-	if main.scene_history.size() > 1:
-		var delay = REWIND_DUR / main.scene_history.size()
-		main.scene_history.reverse()
-		for scene in main.scene_history:
+	if DataStore.scene_history.size() > 1:
+		@warning_ignore("integer_division")
+		var delay = REWIND_DUR / DataStore.scene_history.size()
+		DataStore.scene_history.reverse()
+		for scene in DataStore.scene_history:
 			var rewind_level = load(scene).instantiate()
 			main.add_child(rewind_level)
-			main.current_level.destroy(delay)
-			main.current_level = rewind_level
-			main.current_scene = scene
-		main.scene_history = [main.current_scene]
+			DataStore.current_level.destroy(delay)
+			DataStore.current_level = rewind_level
+			DataStore.current_scene = scene
+		DataStore.scene_history = [DataStore.current_scene]
 	var tween = create_tween()
 	collision(0)
 	(

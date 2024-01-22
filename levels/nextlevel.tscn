@@ -1188,4 +1188,4 @@ one_way_collision = true
 
 [node name="Trophy" parent="." instance=ExtResource("3_r7w8q")]
 position = Vector2(573, 294)
-next_scene = "res://levels/tutorial.tscn"
+next_scene = "res://levels/newlevel.tscn"
