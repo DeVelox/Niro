@@ -1,6 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwxw5lnpny8ql"]
+[gd_scene load_steps=7 format=3 uid="uid://cwxw5lnpny8ql"]
 
 [ext_resource type="Script" path="res://prefabs/level.gd" id="1_murt0"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="3_4kpti"]
+[ext_resource type="PackedScene" uid="uid://ba4txqq0320sd" path="res://prefabs/spikes.tscn" id="4_gaxiw"]
+[ext_resource type="Texture2D" uid="uid://dwk2vne1oi60e" path="res://temp/traps/Spikes/Idle.png" id="5_5me16"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level_switcher.tscn" id="5_f7ti7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kc6kh"]
+atlas = ExtResource("5_5me16")
+region = Rect2(0, 9, 15, 7)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_murt0")
+
+[node name="SceneSwitcher" parent="." instance=ExtResource("5_f7ti7")]
+position = Vector2(328, 40)
+next_scene = "res://boss1/phase1/scene2.tscn"
+
+[node name="Tilemap" parent="." instance=ExtResource("3_4kpti")]
+position = Vector2(0, 8)
+layer_0/tile_data = PackedInt32Array(1376264, 1114112, 1, 1376265, 1179648, 1, 1376266, 1245184, 1, 1245197, 1114112, 1, 1245198, 1179648, 1, 1245199, 1245184, 1, 1245211, 1114112, 1, 1245212, 1179648, 1, 1245213, 1245184, 1, 851995, 1114112, 1, 851996, 1179648, 1, 851997, 1245184, 1, 720909, 1114112, 1, 720910, 1179648, 1, 720911, 1245184, 1, 786458, 983040, 6, 720922, 983040, 4, 65548, 1179648, 4, 131084, 1179648, 5, 196620, 1179648, 5, 262156, 1179648, 5, 327692, 1179648, 5, 393228, 1179648, 6, 262162, 1179648, 6, 262163, 786432, 4, 262164, 851968, 4, 262165, 917504, 4, 524318, 1179648, 4, 589854, 1179648, 5, 1048603, 1114112, 1, 1048604, 1179648, 1, 1048605, 1245184, 1)
+
+[node name="Spikes" parent="." instance=ExtResource("4_gaxiw")]
+position = Vector2(424, 181)
+sprite = SubResource("AtlasTexture_kc6kh")
+margin = Vector2(1, 1)

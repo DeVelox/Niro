@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://buwbgoy582pkb"]
+[gd_scene load_steps=2 format=3 uid="uid://dbe5b8jc0rnbj"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_qd4cp"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_qd4cp")
-current_scene = "res://levels/lukas/Level1.tscn"
+current_scene = "res://boss1/phase1/scene1.tscn"
 
 [node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(50, 300)
+position = Vector2(130, 260)
