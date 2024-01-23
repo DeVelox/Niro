@@ -465,5 +465,6 @@ physics_layer_2/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_t8us2")
 
 [node name="Tilemap" type="TileMap"]
+position = Vector2(0, 360)
 tile_set = SubResource("TileSet_4vjsb")
 format = 2
