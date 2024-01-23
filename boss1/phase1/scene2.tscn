@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://bmvoi5ts3um6i"]
 
-[ext_resource type="Script" path="res://templates/level.gd" id="1_murt0"]
-[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://templates/tilemap.tscn" id="3_hw1uw"]
-[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://templates/level_switcher.tscn" id="4_5rb4p"]
-[ext_resource type="PackedScene" uid="uid://ba4txqq0320sd" path="res://templates/spikes.tscn" id="4_35kph"]
+[ext_resource type="Script" path="res://prefabs/level.gd" id="1_murt0"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="3_hw1uw"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level_switcher.tscn" id="4_5rb4p"]
+[ext_resource type="PackedScene" uid="uid://ba4txqq0320sd" path="res://prefabs/spikes.tscn" id="4_35kph"]
 [ext_resource type="Texture2D" uid="uid://dwk2vne1oi60e" path="res://temp/traps/Spikes/Idle.png" id="5_blhhe"]
-[ext_resource type="PackedScene" path="res://templates/bullet_spawner.tscn" id="6_ejqkt"]
+[ext_resource type="PackedScene" uid="uid://xb2j8y63c4j8" path="res://prefabs/bullet_spawner.tscn" id="6_ejqkt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bl33r"]
 atlas = ExtResource("5_blhhe")
