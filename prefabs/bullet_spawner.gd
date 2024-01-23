@@ -1,6 +1,6 @@
 extends Node2D
 
-const BULLET = preload("res://templates/bullet.tscn")
+const BULLET = preload("res://prefabs/bullet.tscn")
 const BULLET_SPEED = 500
 
 @onready var timer: Timer = $Timer
@@ -20,6 +20,6 @@ func _process(_delta: float) -> void:
 func _on_timer_timeout() -> void:
 	var bullet: Bullet = BULLET.instantiate()
 	var player: Player = get_node("/root/Main/Player")
-	var direction = player.global_position - bullet_spawner.global_position
+	var direction := player.global_position - bullet_spawner.global_position
 	bullet.direction = direction.normalized() * BULLET_SPEED
 	add_child(bullet)

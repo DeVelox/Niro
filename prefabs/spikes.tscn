@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ba4txqq0320sd"]
 
-[ext_resource type="Script" path="res://templates/spikes.gd" id="1_jtsut"]
+[ext_resource type="Script" path="res://prefabs/spikes.gd" id="1_jtsut"]
 [ext_resource type="Texture2D" uid="uid://blgrwulqhngus" path="res://temp/traps/Spike Head/Idle.png" id="2_h0b2y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1xi2b"]

@@ -26,12 +26,12 @@ extends StaticBody2D
 @onready var hitbox: CollisionShape2D = $Area2D/CollisionShape2D
 
 
-func _ready():
+func _ready() -> void:
 	if sprite or margin or align:
 		_update()
 
 
-func _update():
+func _update() -> void:
 	if sprite:
 		sprite_2d.texture = sprite
 
@@ -39,7 +39,7 @@ func _update():
 		hitbox.shape = RectangleShape2D.new()
 		collision.shape = RectangleShape2D.new()
 
-		var size = sprite_2d.texture.get_size()
+		var size := sprite_2d.texture.get_size()
 		hitbox.shape.size = size
 		if margin < size:
 			collision.shape.size = size - margin
@@ -57,6 +57,6 @@ func _update():
 				collision.position = Vector2(0, 0)
 
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(body: Node) -> void:
 	if body.has_method("try_recall"):
 		body.try_recall()

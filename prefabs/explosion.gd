@@ -1,6 +1,6 @@
 extends Area2D
 
-var exploded = false
+var exploded := false
 
 @onready var explosion: Area2D = $"."
 @onready var timer: Timer = $Timer
@@ -12,17 +12,17 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_delta) -> void:
 	pass
 
 
-func _on_body_entered(_body):
+func _on_body_entered(_body) -> void:
 	if not exploded:
 		scale *= 1.5
 		timer.start()
 
 
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
 	if not exploded:
 		exploded = true
 		scale *= 2

@@ -53,7 +53,7 @@ var lock_x: float
 @onready var effects: AnimatedSprite2D = $Effects
 
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	# Do not allow other movement while dashing
 	if is_dashing:
 		move_and_slide()
@@ -84,7 +84,7 @@ func _physics_process(delta):
 		coyote_timer.start()
 
 
-func _state_checks():
+func _state_checks() -> void:
 	can_wall_hang = is_wall_hanging_left != is_wall_hanging_right
 	if is_on_floor():
 		has_double_jump = true
@@ -115,14 +115,14 @@ func _state_checks():
 		hitbox.position = Vector2(0, 3)
 
 
-func _special_actions():
+func _special_actions() -> void:
 	_long_press("reset", try_recall)
 
 	if Input.is_action_just_pressed("interact"):
 		_try_interact()
 
 
-func _special_movement():
+func _special_movement() -> void:
 	if Input.is_action_just_pressed("dash"):
 		_try_dash_and_slide()
 
@@ -149,7 +149,7 @@ func _special_movement():
 			velocity.y -= velocity.y * VAR_JUMP_MULTI
 
 
-func _horizontal_movement():
+func _horizontal_movement() -> void:
 	# Establish baseline horizontal movement
 	if wall_hang_timer.is_stopped():
 		if is_on_floor():
@@ -166,7 +166,7 @@ func _horizontal_movement():
 		velocity.x = move_toward(velocity.x, 0, _decel())
 
 
-func _apply_gravity(delta):
+func _apply_gravity(delta) -> void:
 	if (is_jumping or is_double_jumping) and absf(velocity.y) < JUMP_APEX and not is_wall_hanging:
 		velocity.y += gravity * delta * JUMP_APEX_MULTI
 	if not is_on_floor():
@@ -179,7 +179,7 @@ func _apply_gravity(delta):
 		velocity.y = FALL_CLAMP
 
 
-func _climbing():
+func _climbing() -> void:
 	if is_climbing:
 		position.x = lock_x
 		velocity.y = Input.get_axis("up", "down") * SPEED
@@ -189,15 +189,15 @@ func _climbing():
 		velocity.y = JUMP_VELOCITY
 
 
-func _try_crouch():
+func _try_crouch() -> void:
 	is_crouching = true
 
 
-func _stop_crouch():
+func _stop_crouch() -> void:
 	is_crouching = false
 
 
-func _try_jump():
+func _try_jump() -> void:
 	if Input.is_action_pressed("crouch"):
 		_try_drop()
 	elif (is_on_floor() or not coyote_timer.is_stopped()) and not jump_buffer.is_stopped():
@@ -208,7 +208,7 @@ func _try_jump():
 		is_jumping = true
 
 
-func _special_jump():
+func _special_jump() -> void:
 	if is_wall_hanging:
 		# Apply a jump opposite of the wall hang
 		velocity.x = SPEED * WALL_JUMP_MULTI * -wall_hang_direction
@@ -223,7 +223,7 @@ func _special_jump():
 		is_double_jumping = true
 
 
-func _try_dash_and_slide():
+func _try_dash_and_slide() -> void:
 	if not motion:
 		return
 	if not is_sliding and is_on_floor():
@@ -240,18 +240,18 @@ func _try_dash_and_slide():
 		return
 
 
-func _stop_slide():
+func _stop_slide() -> void:
 	is_sliding = false
 
 
-func _try_drop():
+func _try_drop() -> void:
 	if drop_check.is_colliding():
 		position.y += 1
 
 
 func _accel() -> float:
 	# For dash/slide, effectively behaves as deceleration
-	var accel
+	var accel: float
 	if is_on_floor():
 		if absf(velocity.x) > SPEED:
 			if is_sliding:
@@ -275,7 +275,7 @@ func _accel() -> float:
 
 func _decel() -> float:
 	# Deceleration when direction keys are let go
-	var decel
+	var decel: float
 	if is_on_floor():
 		if absf(velocity.x) > SPEED:
 			decel = SPEED / 5
@@ -288,7 +288,7 @@ func _decel() -> float:
 	return decel
 
 
-func _animation():
+func _animation() -> void:
 	# Sprite direction
 	if not is_zero_approx(velocity.x) and not is_climbing:
 		if velocity.x > 0.0:
@@ -303,7 +303,7 @@ func _animation():
 
 
 func _get_animation() -> String:
-	var animation
+	var animation: String
 	if is_climbing and not Input.get_axis("up", "down"):
 		animation = "climbing_idle"
 	elif is_climbing:
@@ -329,7 +329,7 @@ func _get_animation() -> String:
 	return animation
 
 
-func _long_press(action: String, method: Callable):
+func _long_press(action: String, method: Callable) -> void:
 	if Input.is_action_just_pressed(action):
 		long_press.start()
 	elif Input.is_action_just_released(action) and not long_press.is_stopped():
@@ -340,7 +340,7 @@ func _long_press(action: String, method: Callable):
 		Input.action_release(action)
 
 
-func _double_tap(action: String, method: Callable):
+func _double_tap(action: String, method: Callable) -> void:
 	if Input.is_action_just_pressed(action):
 		if double_tap.is_stopped():
 			double_tap.start()
@@ -349,28 +349,28 @@ func _double_tap(action: String, method: Callable):
 			method.call()
 
 
-func _try_interact():
+func _try_interact() -> void:
 	if interact_check.is_colliding():
 		interact_check.get_collider().interact()
 	else:
 		_try_place_checkpoint()
 
 
-func _try_place_checkpoint():
-	var main = get_node("/root/Main")
+func _try_place_checkpoint() -> void:
+	var main := get_node("/root/Main")
 	if is_on_floor() and has_checkpoint:
-		var checkpoint = get_node_or_null("/root/Main/Checkpoint")
+		var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 		if checkpoint:
 			DataStore.scene_history.clear()
 			checkpoint.destroy()
 		has_checkpoint = false
-		var place_checkpoint = load("res://player/checkpoint.tscn").instantiate()
+		var place_checkpoint: Checkpoint = load("res://player/checkpoint.tscn").instantiate()
 		main.add_child(place_checkpoint)
 		DataStore.scene_history = [DataStore.current_scene]
 
 
-func try_recall(long_reset = false):
-	var checkpoint = get_node_or_null("/root/Main/Checkpoint")
+func try_recall(long_reset = false) -> void:
+	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 	if long_reset:
 		_hard_recall()
 	elif checkpoint:
@@ -379,25 +379,25 @@ func try_recall(long_reset = false):
 		_hard_recall()
 
 
-func _hard_recall():
+func _hard_recall() -> void:
 	get_tree().call_deferred("reload_current_scene")
 
 
-func _soft_recall():
-	var main = get_node("/root/Main")
-	var checkpoint = get_node("/root/Main/Checkpoint")
+func _soft_recall() -> void:
+	var main := get_node("/root/Main")
+	var checkpoint := get_node("/root/Main/Checkpoint")
 	if DataStore.scene_history.size() > 1:
 		@warning_ignore("integer_division")
-		var delay = REWIND_DUR / DataStore.scene_history.size()
+		var delay: float = REWIND_DUR / DataStore.scene_history.size()
 		DataStore.scene_history.reverse()
 		for scene in DataStore.scene_history:
-			var rewind_level = load(scene).instantiate()
+			var rewind_level: Node2D = load(scene).instantiate()
 			main.add_child(rewind_level)
 			DataStore.current_level.destroy(delay)
 			DataStore.current_level = rewind_level
 			DataStore.current_scene = scene
 		DataStore.scene_history = [DataStore.current_scene]
-	var tween = create_tween()
+	var tween := create_tween()
 	collision(0)
 	(
 		tween
@@ -408,43 +408,43 @@ func _soft_recall():
 	tween.tween_callback(collision)
 
 
-func collision(state = 1):
+func collision(state = 1) -> void:
 	set_deferred("collision_layer", state)
 
 
-func _on_dash_timer_timeout():
+func _on_dash_timer_timeout() -> void:
 	velocity.x = motion
 	is_dashing = false
 
 
-func _on_area_2d_left_body_entered(_body):
+func _on_area_2d_left_body_entered(_body) -> void:
 	is_wall_hanging_left = true
 
 
-func _on_area_2d_left_body_exited(_body):
+func _on_area_2d_left_body_exited(_body) -> void:
 	is_wall_hanging_left = false
 
 
-func _on_area_2d_right_body_entered(_body):
+func _on_area_2d_right_body_entered(_body) -> void:
 	is_wall_hanging_right = true
 
 
-func _on_area_2d_right_body_exited(_body):
+func _on_area_2d_right_body_exited(_body) -> void:
 	is_wall_hanging_right = false
 
 
-func _on_area_2d_collision_check_body_entered(_body):
+func _on_area_2d_collision_check_body_entered(_body) -> void:
 	gap_check.position = velocity.normalized() * NUDGE_RANGE
 	if not area_2d_gap_check.get_overlapping_bodies():
 		position += velocity.normalized() * NUDGE_MULTI
 
 
-func _on_area_2d_climbing_area_entered(area):
+func _on_area_2d_climbing_area_entered(area) -> void:
 	if area.is_in_group("climbing"):
 		lock_x = position.x
 		is_climbing = true
 
 
-func _on_area_2d_climbing_area_exited(area):
+func _on_area_2d_climbing_area_exited(area) -> void:
 	if area.is_in_group("climbing"):
 		is_climbing = false

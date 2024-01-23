@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cyhd4k3titmr"]
 
-[ext_resource type="Script" path="res://obstacles/explosion.gd" id="1_hxdhh"]
+[ext_resource type="Script" path="res://prefabs/explosion.gd" id="1_hxdhh"]
 [ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="2_n486s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ri0j5"]
