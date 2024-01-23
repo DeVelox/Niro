@@ -13,7 +13,7 @@ func _physics_process(delta: float) -> void:
 	move_and_collide(direction * delta)
 
 
-func _on_body_entered(body: Player) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("try_recall"):
 		body.try_recall()
 		queue_free()
