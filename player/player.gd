@@ -127,7 +127,12 @@ func _special_movement():
 		_try_dash_and_slide()
 
 	if Input.is_action_just_pressed("jump"):
-		jump_buffer.start()
+		if is_on_floor() or not coyote_timer.is_stopped():
+			jump_buffer.start()
+		else:
+			_special_jump()
+		if not is_climbing and not jump_sound.playing:
+			jump_sound.play()
 	if not jump_buffer.is_stopped():
 		_try_jump()
 
@@ -197,7 +202,10 @@ func _try_jump():
 			velocity.x = motion * SLIDE_JUMP_MULTI
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
-	elif is_wall_hanging:
+
+
+func _special_jump():
+	if is_wall_hanging:
 		# Apply a jump opposite of the wall hang
 		velocity.x = SPEED * WALL_JUMP_MULTI * -wall_hang_direction
 		velocity.y = JUMP_VELOCITY * 1
@@ -209,10 +217,6 @@ func _try_jump():
 		has_double_jump = false
 		velocity.y = JUMP_VELOCITY * DOUBLE_JUMP_MULTI
 		is_double_jumping = true
-	else:
-		return
-	if not is_climbing and is_jumping and not jump_sound.playing:
-		jump_sound.play()
 
 
 func _try_dash_and_slide():
