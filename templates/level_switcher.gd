@@ -1,6 +1,6 @@
 extends Node2D
 @export_file("*.tscn") var next_scene
-@onready var trophy = $"."
+@onready var trophy: Area2D = $"."
 
 
 func interact():

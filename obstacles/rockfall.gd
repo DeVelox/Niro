@@ -1,5 +1,6 @@
 extends Area2D
-@onready var rock = $Rock
+
+@onready var rock: RigidBody2D = $Rock
 
 
 # Called when the node enters the scene tree for the first time.

@@ -21,9 +21,9 @@ extends StaticBody2D
 			if Engine.is_editor_hint():
 				_update()
 
-@onready var sprite_2d = $Sprite2D
-@onready var collision = $CollisionShape2D
-@onready var hitbox = $Area2D/CollisionShape2D
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var hitbox: CollisionShape2D = $Area2D/CollisionShape2D
 
 
 func _ready():

@@ -2,8 +2,8 @@ extends Area2D
 
 var exploded = false
 
-@onready var timer = $Timer
-@onready var explosion = $"."
+@onready var explosion: Area2D = $"."
+@onready var timer: Timer = $Timer
 
 
 # Called when the node enters the scene tree for the first time.

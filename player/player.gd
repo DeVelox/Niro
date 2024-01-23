@@ -37,20 +37,20 @@ var was_on_floor := false
 var motion: float
 var lock_x: float
 
-@onready var dash_timer = $DashTimer
-@onready var drop_check = $DropCheck
-@onready var coyote_timer = $CoyoteTimer
-@onready var wall_hang_timer = $WallHangTimer
-@onready var sprite = $AnimatedSprite2D
-@onready var double_tap = $DoubleTap
-@onready var hitbox = $CollisionShape2D
-@onready var jump_buffer = $JumpBuffer
-@onready var interact_check = $InteractCheck
-@onready var gap_check = $Area2DGapCheck/GapCheck
-@onready var area_2d_gap_check = $Area2DGapCheck
-@onready var jump_sound = $JumpSound
-@onready var effects = $Effects
-@onready var long_press = $LongPress
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hitbox: CollisionShape2D = $CollisionShape2D
+@onready var drop_check: RayCast2D = $DropCheck
+@onready var interact_check: RayCast2D = $InteractCheck
+@onready var dash_timer: Timer = $DashTimer
+@onready var coyote_timer: Timer = $CoyoteTimer
+@onready var jump_buffer: Timer = $JumpBuffer
+@onready var double_tap: Timer = $DoubleTap
+@onready var wall_hang_timer: Timer = $WallHangTimer
+@onready var long_press: Timer = $LongPress
+@onready var area_2d_gap_check: Area2D = $Area2DGapCheck
+@onready var gap_check: CollisionShape2D = $Area2DGapCheck/GapCheck
+@onready var jump_sound: AudioStreamPlayer = $JumpSound
+@onready var effects: AnimatedSprite2D = $Effects
 
 
 func _physics_process(delta):

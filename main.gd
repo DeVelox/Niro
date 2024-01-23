@@ -1,6 +1,6 @@
 extends Node
 @export_file("*.tscn") var current_scene
-@onready var spawn = $Spawn
+@onready var spawn: Marker2D = $Spawn
 
 
 # Called when the node enters the scene tree for the first time.
