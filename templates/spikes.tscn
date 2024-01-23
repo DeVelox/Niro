@@ -10,8 +10,9 @@ region = Rect2(6, 5, 43, 43)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5jwq"]
 size = Vector2(28, 28)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ulnmx"]
-size = Vector2(43, 43)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohegu"]
+radius = 22.0
+height = 44.0
 
 [node name="Spikes" type="StaticBody2D"]
 collision_layer = 16
@@ -28,6 +29,6 @@ shape = SubResource("RectangleShape2D_p5jwq")
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_ulnmx")
+shape = SubResource("CapsuleShape2D_ohegu")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

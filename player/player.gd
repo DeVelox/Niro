@@ -183,6 +183,10 @@ func _climbing():
 	if is_climbing:
 		position.x = lock_x
 		velocity.y = Input.get_axis("up", "down") * SPEED
+	if is_climbing and Input.is_action_just_pressed("dedicated_jump"):
+		is_climbing = false
+		velocity.x = motion * WALL_JUMP_MULTI
+		velocity.y = JUMP_VELOCITY
 
 
 func _try_crouch():
@@ -208,7 +212,7 @@ func _special_jump():
 	if is_wall_hanging:
 		# Apply a jump opposite of the wall hang
 		velocity.x = SPEED * WALL_JUMP_MULTI * -wall_hang_direction
-		velocity.y = JUMP_VELOCITY * 1
+		velocity.y = JUMP_VELOCITY
 		is_jumping = true
 	elif has_double_jump and not is_climbing:
 		if is_sliding:
@@ -252,7 +256,8 @@ func _accel() -> float:
 		if absf(velocity.x) > SPEED:
 			if is_sliding:
 				accel = SPEED / 20
-			accel = SPEED / 10
+			else:
+				accel = SPEED / 10
 		# Mostly for walking, I think
 		else:
 			if is_sliding:
@@ -297,7 +302,7 @@ func _animation():
 	sprite.play(_get_animation())
 
 
-func _get_animation():
+func _get_animation() -> String:
 	var animation
 	if is_climbing and not Input.get_axis("up", "down"):
 		animation = "climbing_idle"
