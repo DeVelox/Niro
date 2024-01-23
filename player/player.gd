@@ -213,7 +213,6 @@ func _try_jump():
 		return
 	if not is_climbing and is_jumping and not jump_sound.playing:
 		jump_sound.play()
-	jump_buffer.stop()
 
 
 func _try_dash_and_slide():
