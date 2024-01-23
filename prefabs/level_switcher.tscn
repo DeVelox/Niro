@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://88mqupj5ekgp"]
 
-[ext_resource type="Script" path="res://templates/level_switcher.gd" id="1_yj4to"]
+[ext_resource type="Script" path="res://prefabs/level_switcher.gd" id="1_yj4to"]
 [ext_resource type="Texture2D" uid="uid://d3x5m852v0ujh" path="res://temp/trophy.png" id="2_4dle7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l4poy"]

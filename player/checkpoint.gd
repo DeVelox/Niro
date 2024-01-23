@@ -1,16 +1,16 @@
-extends Node2D
+class_name Checkpoint extends Node2D
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	position = get_node("/root/Main/Player").global_position
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_delta) -> void:
 	pass
 
 
-func destroy():
+func destroy() -> void:
 	get_parent().remove_child(self)
 	queue_free()
