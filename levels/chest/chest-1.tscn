@@ -10,7 +10,6 @@
 script = ExtResource("1_2l88x")
 
 [node name="Tilemap" parent="." instance=ExtResource("2_vdjtn")]
-position = Vector2(0, 360)
 layer_0/tile_data = PackedInt32Array(-1245163, 983040, 4, -1179627, 983040, 5, -1114091, 983040, 5)
 
 [node name="TextureRect" type="TextureRect" parent="."]
