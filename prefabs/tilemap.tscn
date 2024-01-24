@@ -457,7 +457,7 @@ texture = ExtResource("1_0j80b")
 8:10/0/physics_layer_2/angular_velocity = 0.0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5n8h1"]
-resource_name = "Crumble"
+resource_name = "Prefabs"
 scenes/1/scene = ExtResource("2_1n421")
 
 [sub_resource type="TileSet" id="TileSet_4vjsb"]

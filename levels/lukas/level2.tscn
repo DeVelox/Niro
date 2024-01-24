@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://prefabs/level.gd" id="1_fre70"]
 [ext_resource type="PackedScene" uid="uid://ba4txqq0320sd" path="res://prefabs/spikes.tscn" id="1_pylbm"]
 [ext_resource type="PackedScene" uid="uid://b7lw1iu6kcbpg" path="res://prefabs/rockfall.tscn" id="4_ri6rb"]
-[ext_resource type="PackedScene" uid="uid://bf8vfl1pp2oct" path="res://prefabs/platform_thin.tscn" id="5_6h0tq"]
+[ext_resource type="PackedScene" uid="uid://bf8vfl1pp2oct" path="res://prefabs/deprecated/platform_thin.tscn" id="5_6h0tq"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level_switcher.tscn" id="5_c138p"]
 
 [node name="level" type="Node2D"]

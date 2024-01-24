@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://53ls83xtsqte"]
+[gd_scene load_steps=9 format=3 uid="uid://53ls83xtsqte"]
 
 [ext_resource type="Script" path="res://prefabs/level.gd" id="1_7v4ea"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="2_28buv"]
 [ext_resource type="PackedScene" uid="uid://ba4txqq0320sd" path="res://prefabs/spikes.tscn" id="2_wlfhr"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level_switcher.tscn" id="4_eaweb"]
-[ext_resource type="PackedScene" uid="uid://bf8vfl1pp2oct" path="res://prefabs/platform_thin.tscn" id="5_040r7"]
+[ext_resource type="PackedScene" uid="uid://bf8vfl1pp2oct" path="res://prefabs/deprecated/platform_thin.tscn" id="5_040r7"]
 [ext_resource type="PackedScene" uid="uid://lnpjdxepd4ie" path="res://prefabs/rope_climb.tscn" id="6_rr3m4"]
 [ext_resource type="PackedScene" uid="uid://xb2j8y63c4j8" path="res://prefabs/bullet_spawner.tscn" id="7_puxd5"]
+[ext_resource type="PackedScene" uid="uid://blfhtcik60aay" path="res://prefabs/moving_platform.tscn" id="8_ecwq6"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_7v4ea")
@@ -40,3 +41,15 @@ layer_0/tile_data = PackedInt32Array(40, 1179648, 5, 65576, 1179648, 5, 131112, 
 
 [node name="BulletSpawner" parent="." instance=ExtResource("7_puxd5")]
 position = Vector2(628, 150)
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(16, 328)
+
+[node name="Tilemap2" parent="." instance=ExtResource("2_28buv")]
+collision_animatable = true
+layer_0/tile_data = PackedInt32Array(-131068, 393216, 0, -131067, 458752, 0, -131066, 524288, 0)
+
+[node name="MovingPlatform" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("8_ecwq6")]
+direction = Vector2(200, -20)
+speed = 0.5
+tilemap = NodePath("../Tilemap2")
