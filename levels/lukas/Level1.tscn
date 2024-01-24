@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://53ls83xtsqte"]
+[gd_scene load_steps=10 format=3 uid="uid://53ls83xtsqte"]
 
 [ext_resource type="Script" path="res://prefabs/level.gd" id="1_7v4ea"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="2_28buv"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://lnpjdxepd4ie" path="res://prefabs/rope_climb.tscn" id="6_rr3m4"]
 [ext_resource type="PackedScene" uid="uid://xb2j8y63c4j8" path="res://prefabs/bullet_spawner.tscn" id="7_puxd5"]
 [ext_resource type="PackedScene" uid="uid://blfhtcik60aay" path="res://prefabs/moving_platform.tscn" id="8_ecwq6"]
+[ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://temp/old_man.tscn" id="9_qhnuv"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_7v4ea")
@@ -43,6 +44,7 @@ layer_2/tile_data = PackedInt32Array(1441814, 1, 65536, 1441815, 1, 65536, 14418
 
 [node name="BulletSpawner" parent="." instance=ExtResource("7_puxd5")]
 position = Vector2(628, 150)
+delay = 2.0
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(16, 328)
@@ -54,3 +56,6 @@ speed = 0.5
 [node name="Tilemap3" parent="MovingPlatform" instance=ExtResource("2_28buv")]
 collision_animatable = true
 layer_0/tile_data = PackedInt32Array(-131068, 393216, 0, -131067, 458752, 0, -131066, 524288, 0)
+
+[node name="OldMan" parent="." instance=ExtResource("9_qhnuv")]
+position = Vector2(352, 208)

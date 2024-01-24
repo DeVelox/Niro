@@ -3,13 +3,15 @@ extends Node2D
 const BULLET = preload("res://prefabs/bullet.tscn")
 const BULLET_SPEED = 500
 
+@export var delay: float = 1
+
 @onready var timer: Timer = $Timer
 @onready var bullet_spawner: Node2D = $"."
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	timer.start()
+	timer.start(delay)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

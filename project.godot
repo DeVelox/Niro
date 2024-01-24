@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 DataStore="*res://data_store.gd"
+DialogManager="*res://dialog_manager.gd"
 
 [display]
 
