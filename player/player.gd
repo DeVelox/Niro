@@ -81,12 +81,13 @@ func _new_physics(delta):
 			elif is_wall_hanging:
 				if not _try_wall_jump():
 					_try_wall_move()
-			elif is_sliding:
-				_try_coyote_slide_jump()
 			else:
-				_try_dash()
-				if not _try_coyote_jump():
-					_try_double_jump()
+				if is_sliding:
+					_try_coyote_slide_jump()
+				else:
+					_try_dash()
+					if not _try_coyote_jump():
+						_try_double_jump()
 				_try_air_move(delta)
 	_animation()
 	move_and_slide()
@@ -137,10 +138,14 @@ func _try_climb_move() -> void:
 
 func _try_wall_move() -> void:
 	motion = Input.get_axis("left", "right") * SPEED
-	if wall_hang_timer.is_stopped() and motion:
+	if wall_hang_timer.is_stopped() and motion*wall_hang_direction<0:
 		velocity.x = move_toward(velocity.x, motion, SPEED)
 		is_wall_hanging = false
+	else:
+		velocity.x = SPEED * wall_hang_direction
+	print("before ", velocity.y)
 	velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
+	print("after ", velocity.y)
 
 func _try_jump() -> bool:
 	if Input.is_action_just_pressed("jump") or not jump_buffer.is_stopped():
@@ -240,10 +245,10 @@ func _try_slide() -> bool:
 
 func _try_wall_hang(direction) -> bool:
 	if not is_on_floor():
-		velocity.x = SPEED * direction
 		is_wall_hanging = true
 		wall_hang_direction = direction
 		has_checkpoint = true
+		wall_hang_timer.start()
 		return true
 	return false
 		
