@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bb44qdp7l5m62"]
+[gd_scene load_steps=6 format=3 uid="uid://bb44qdp7l5m62"]
 
 [ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_0j80b"]
+[ext_resource type="PackedScene" uid="uid://dlklgdcq4kqso" path="res://prefabs/crumble.tscn" id="2_1n421"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8us2"]
 resource_name = "Terrain"
@@ -455,6 +456,10 @@ texture = ExtResource("1_0j80b")
 8:10/0/physics_layer_2/linear_velocity = Vector2(0, 0)
 8:10/0/physics_layer_2/angular_velocity = 0.0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5n8h1"]
+resource_name = "Crumble"
+scenes/1/scene = ExtResource("2_1n421")
+
 [sub_resource type="TileSet" id="TileSet_4vjsb"]
 physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 3
@@ -463,8 +468,14 @@ physics_layer_1/collision_mask = 3
 physics_layer_2/collision_layer = 8
 physics_layer_2/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_t8us2")
+sources/1 = SubResource("TileSetScenesCollectionSource_5n8h1")
 
 [node name="Tilemap" type="TileMap"]
 position = Vector2(0, 360)
 tile_set = SubResource("TileSet_4vjsb")
 format = 2
+layer_0/name = "Background"
+layer_1/name = "Foreground"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Crumble"
+layer_2/tile_data = PackedInt32Array()
