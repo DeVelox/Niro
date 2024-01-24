@@ -1,15 +1,16 @@
 class_name Player extends CharacterBody2D
 
 const SPEED = 200.0
+const CROUCH_SPEED_MULTI = 0.6
 const AIR_SPEED_MULTI = 0.75
 const JUMP_VELOCITY = -290.0
 const DOUBLE_JUMP_MULTI = 0.95
-const DASH_LENGTH = 0.15
 const DASH_MULTI = 2.8
-const SLIDE_MULTI = 2.3
-const SLIDE_JUMP_MULTI = 2.2
+const SLIDE_MULTI = 1.6
+const SLIDE_JUMP_MULTI = 1
 const WALL_JUMP_MULTI = 2
 const FALL_CLAMP = 400.0
+const WALL_CLAMP_MULTI = 0.1
 const JUMP_APEX = 5
 const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
@@ -20,10 +21,7 @@ const REWIND_DUR = 1.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var wall_hang_direction := 0
-var can_wall_hang := false
 var is_wall_hanging := false
-var is_wall_hanging_left := false
-var is_wall_hanging_right := false
 var is_crouching := false
 var is_climbing := false
 var is_dashing := false
@@ -42,6 +40,7 @@ var lock_x: float
 @onready var drop_check: RayCast2D = $DropCheck
 @onready var interact_check: RayCast2D = $InteractCheck
 @onready var dash_timer: Timer = $DashTimer
+@onready var slide_timer: Timer = $SlideTimer
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var jump_buffer: Timer = $JumpBuffer
 @onready var double_tap: Timer = $DoubleTap
@@ -54,56 +53,210 @@ var lock_x: float
 
 
 func _physics_process(delta) -> void:
-	# Do not allow other movement while dashing
-	if is_dashing:
-		move_and_slide()
-		return
-
+	_new_physics(delta)
+	
+func _new_physics(delta):
 	_state_checks()
-
 	_special_actions()
-
-	_special_movement()
-
-	_horizontal_movement()
-
-	_apply_gravity(delta)
-
-	_climbing()
-
+	if not is_dashing:
+		if is_on_floor():
+			if is_sliding:
+				_try_slide_jump()
+				_try_slide_move()
+			else:
+				if is_crouching:
+					_try_crouch_move()
+					_try_drop()
+					_try_stop_crouch()
+				else:
+					_try_move()
+					if not _try_crouch():
+						if not _try_jump():
+							_try_slide()
+					
+		else:
+			if is_climbing:
+				if not _try_climb_jump():
+					_try_climb_move()
+			elif is_wall_hanging:
+				if not _try_wall_jump():
+					_try_wall_move()
+			elif is_sliding:
+				_try_coyote_slide_jump()
+			else:
+				_try_dash()
+				if not _try_coyote_jump():
+					_try_double_jump()
+				_try_air_move(delta)
 	_animation()
-
-	# Coyote timer has to execute before and after move_and_slide, maybe put in a wrapper?
-	if is_on_floor():
-		was_on_floor = true
-
 	move_and_slide()
-
 	if was_on_floor and not is_on_floor():
 		was_on_floor = false
 		coyote_timer.start()
 
+func _try_move() -> void:
+	var change_rate: float
+	motion = Input.get_axis("left", "right") * SPEED
+	if absf(velocity.x) > SPEED and motion:
+		change_rate = SPEED / 10
+	else:
+		change_rate = SPEED / 5
+	velocity.x = move_toward(velocity.x, motion, change_rate)
+
+func _try_air_move(delta) -> void:
+	var change_rate: float
+	motion = Input.get_axis("left", "right") * SPEED
+	if motion*velocity.x > 0 and absf(velocity.x) > SPEED:
+		change_rate = SPEED / 25
+	else:
+		change_rate = SPEED / 5
+	velocity.x = move_toward(velocity.x, motion, change_rate)
+	if velocity.y > FALL_CLAMP:
+		velocity.y = FALL_CLAMP
+	elif velocity.y > 0:
+		velocity.y += gravity * delta * 1.2
+	else:
+		velocity.y += gravity * delta
+
+func _try_crouch_move() -> void:
+	var change_rate: float
+	motion = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
+	change_rate = SPEED / 5
+	velocity.x = move_toward(velocity.x, motion, change_rate)
+
+func _try_slide_move() -> void:
+	var change_rate: float
+	motion = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
+	if motion*velocity.x < 0:
+		velocity.x = -motion
+		is_sliding = false
+
+func _try_climb_move() -> void:
+	motion = Input.get_axis("up", "down") * SPEED
+	velocity.y = motion
+
+func _try_wall_move() -> void:
+	motion = Input.get_axis("left", "right") * SPEED
+	if wall_hang_timer.is_stopped() and motion:
+		velocity.x = move_toward(velocity.x, motion, SPEED)
+		is_wall_hanging = false
+	velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
+
+func _try_jump() -> bool:
+	if Input.is_action_just_pressed("jump") or not jump_buffer.is_stopped():
+			velocity.y = JUMP_VELOCITY
+			is_jumping = true
+			return true
+	return false
+
+func _try_coyote_jump() -> bool:
+	if not coyote_timer.is_stopped():
+		if Input.is_action_just_pressed("jump") or not jump_buffer.is_stopped():
+				velocity.y = JUMP_VELOCITY
+				is_jumping = true
+				return true
+	return false
+
+func _try_slide_jump() -> bool:
+	if Input.is_action_just_pressed("jump"):
+		velocity.x *= SLIDE_JUMP_MULTI
+		velocity.y = JUMP_VELOCITY
+		is_jumping = true
+		is_sliding = false
+		return true
+	return false
+
+func _try_coyote_slide_jump() -> bool:
+	if Input.is_action_just_pressed("jump"):
+		if not coyote_timer.is_stopped():
+			velocity.x *= SLIDE_JUMP_MULTI
+			velocity.y = JUMP_VELOCITY
+			is_jumping = true
+			is_sliding = false
+			return true
+	return false
+	
+func _try_wall_jump() -> bool:
+	if Input.is_action_just_pressed("jump"):
+		velocity.x = SPEED * WALL_JUMP_MULTI * -wall_hang_direction
+		velocity.y = JUMP_VELOCITY
+		wall_hang_timer.stop()
+		is_jumping = true
+		is_wall_hanging = false
+		return true
+	return false
+
+func _try_climb_jump() -> bool:
+	if Input.is_action_just_pressed("dedicated_jump"):
+		velocity.x = motion * WALL_JUMP_MULTI
+		velocity.y = JUMP_VELOCITY
+		is_climbing = false
+		return true
+	return false
+
+func _try_double_jump() -> bool:
+	if Input.is_action_just_pressed("jump") and has_double_jump:
+		velocity.y = JUMP_VELOCITY
+		is_double_jumping = true
+		return true
+	return false
+
+func _try_crouch() -> bool:
+	if Input.is_action_just_pressed("down"):
+		is_crouching = true
+		return true
+	return false
+
+func _try_drop() -> bool:
+	if Input.is_action_just_pressed("jump"):
+		position.y -= 1
+		return true
+	return false
+
+func _try_stop_crouch() -> bool:
+	if not Input.is_action_pressed("down"):
+		is_crouching = false
+		return true
+	return false
+	
+func _try_dash() -> bool:
+	if Input.is_action_just_pressed("dash"):
+		motion = Input.get_axis("left", "right")
+		if motion and has_dash:
+			velocity.x = motion * DASH_MULTI
+			velocity.y = 0
+			is_dashing = true
+			has_dash = false
+			dash_timer.start()
+	return false
+		
+func _try_slide() -> bool:
+	if Input.is_action_just_pressed("dash"):
+		velocity.x = motion * SLIDE_MULTI
+		is_sliding = true
+		slide_timer.start()
+		return true
+	return false
+
+func _try_wall_hang(direction) -> bool:
+	if not is_on_floor():
+		velocity.x = SPEED * direction
+		is_wall_hanging = true
+		wall_hang_direction = direction
+		has_checkpoint = true
+		return true
+	return false
+		
 
 func _state_checks() -> void:
-	can_wall_hang = is_wall_hanging_left != is_wall_hanging_right
 	if is_on_floor():
+		was_on_floor = true
 		has_double_jump = true
 		has_dash = true
 		is_jumping = false
 		is_double_jumping = false
-	elif is_on_wall() and can_wall_hang and not is_wall_hanging:
-		wall_hang_direction = 1 if is_wall_hanging_right else -1
-		is_wall_hanging = true
-		wall_hang_timer.start()
-
-	if is_wall_hanging:
-		if not is_on_wall() or is_on_floor():
-			has_checkpoint = true
-			is_wall_hanging = false
-			wall_hang_timer.stop()
-		else:
-			velocity.y *= 0.8
-
+		is_wall_hanging = false
+			
 	if is_crouching:
 		hitbox.shape.size = Vector2(32, 32)
 		hitbox.position = Vector2(0, 9)
@@ -114,179 +267,11 @@ func _state_checks() -> void:
 		hitbox.shape.size = Vector2(32, 44)
 		hitbox.position = Vector2(0, 3)
 
-
 func _special_actions() -> void:
 	_long_press("reset", try_recall)
 
 	if Input.is_action_just_pressed("interact"):
 		_try_interact()
-
-
-func _special_movement() -> void:
-	if Input.is_action_just_pressed("dash"):
-		_try_dash_and_slide()
-
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor() or not coyote_timer.is_stopped():
-			jump_buffer.start()
-		else:
-			_special_jump()
-		if not is_climbing and not jump_sound.playing:
-			jump_sound.play()
-	if not jump_buffer.is_stopped():
-		_try_jump()
-
-	_double_tap("crouch", _try_drop)
-
-	if Input.is_action_pressed("crouch"):
-		_try_crouch()
-	elif Input.is_action_just_released("crouch"):
-		_stop_crouch()
-
-	# Variable jump
-	if Input.is_action_just_released("jump") and velocity.y < 0.0:
-		if is_jumping:
-			velocity.y -= velocity.y * VAR_JUMP_MULTI
-
-
-func _horizontal_movement() -> void:
-	# Establish baseline horizontal movement
-	if wall_hang_timer.is_stopped():
-		if is_on_floor():
-			motion = Input.get_axis("left", "right") * SPEED
-		else:
-			motion = Input.get_axis("left", "right") * SPEED * AIR_SPEED_MULTI
-	else:
-		motion = 0
-
-	# Apply acceleration
-	if motion:
-		velocity.x = move_toward(velocity.x, motion, _accel())
-	else:
-		velocity.x = move_toward(velocity.x, 0, _decel())
-
-
-func _apply_gravity(delta) -> void:
-	if (is_jumping or is_double_jumping) and absf(velocity.y) < JUMP_APEX and not is_wall_hanging:
-		velocity.y += gravity * delta * JUMP_APEX_MULTI
-	if not is_on_floor():
-		if velocity.y > 0:
-			velocity.y += gravity * delta * 1.2
-		else:
-			velocity.y += gravity * delta
-
-	if velocity.y > FALL_CLAMP:
-		velocity.y = FALL_CLAMP
-
-
-func _climbing() -> void:
-	if is_climbing:
-		position.x = lock_x
-		velocity.y = Input.get_axis("up", "down") * SPEED
-	if is_climbing and Input.is_action_just_pressed("dedicated_jump"):
-		is_climbing = false
-		velocity.x = motion * WALL_JUMP_MULTI
-		velocity.y = JUMP_VELOCITY
-
-
-func _try_crouch() -> void:
-	is_crouching = true
-
-
-func _stop_crouch() -> void:
-	is_crouching = false
-
-
-func _try_jump() -> void:
-	if Input.is_action_pressed("crouch"):
-		_try_drop()
-	elif (is_on_floor() or not coyote_timer.is_stopped()) and not jump_buffer.is_stopped():
-		if is_sliding:
-			_stop_slide()
-			velocity.x = motion * SLIDE_JUMP_MULTI
-		velocity.y = JUMP_VELOCITY
-		is_jumping = true
-
-
-func _special_jump() -> void:
-	if is_wall_hanging:
-		# Apply a jump opposite of the wall hang
-		velocity.x = SPEED * WALL_JUMP_MULTI * -wall_hang_direction
-		velocity.y = JUMP_VELOCITY
-		is_jumping = true
-	elif has_double_jump and not is_climbing:
-		if is_sliding:
-			_stop_slide()
-		effects.play("double_jump")
-		has_double_jump = false
-		velocity.y = JUMP_VELOCITY * DOUBLE_JUMP_MULTI
-		is_double_jumping = true
-
-
-func _try_dash_and_slide() -> void:
-	if not motion:
-		return
-	if not is_sliding and is_on_floor():
-		velocity.x = motion * SLIDE_MULTI
-		is_sliding = true
-	elif has_dash and not is_on_floor():
-		dash_timer.wait_time = DASH_LENGTH
-		velocity.x = motion * DASH_MULTI
-		is_dashing = true
-		has_dash = false
-		dash_timer.start()
-		velocity.y = 0
-	else:
-		return
-
-
-func _stop_slide() -> void:
-	is_sliding = false
-
-
-func _try_drop() -> void:
-	if drop_check.is_colliding():
-		position.y += 1
-
-
-func _accel() -> float:
-	# For dash/slide, effectively behaves as deceleration
-	var accel: float
-	if is_on_floor():
-		if absf(velocity.x) > SPEED:
-			if is_sliding:
-				accel = SPEED / 20
-			else:
-				accel = SPEED / 10
-		# Mostly for walking, I think
-		else:
-			if is_sliding:
-				_stop_slide()
-			accel = SPEED / 5
-	# For floatier movement when falling / jumping
-	else:
-		if absf(velocity.x) > SPEED:
-			accel = SPEED / 20
-		else:
-			_stop_slide()
-			accel = SPEED / 15
-	return accel
-
-
-func _decel() -> float:
-	# Deceleration when direction keys are let go
-	var decel: float
-	if is_on_floor():
-		if absf(velocity.x) > SPEED:
-			decel = SPEED / 5
-		else:
-			if is_sliding:
-				_stop_slide()
-			decel = SPEED / 3
-	else:
-		decel = SPEED / 10
-	return decel
-
 
 func _animation() -> void:
 	# Sprite direction
@@ -416,21 +401,16 @@ func _on_dash_timer_timeout() -> void:
 	velocity.x = motion
 	is_dashing = false
 
+func _on_slide_timer_timeout() -> void:
+	is_sliding = false
+
 
 func _on_area_2d_left_body_entered(_body) -> void:
-	is_wall_hanging_left = true
-
-
-func _on_area_2d_left_body_exited(_body) -> void:
-	is_wall_hanging_left = false
+	_try_wall_hang(-1)
 
 
 func _on_area_2d_right_body_entered(_body) -> void:
-	is_wall_hanging_right = true
-
-
-func _on_area_2d_right_body_exited(_body) -> void:
-	is_wall_hanging_right = false
+	_try_wall_hang(1)
 
 
 func _on_area_2d_collision_check_body_entered(_body) -> void:
@@ -441,7 +421,7 @@ func _on_area_2d_collision_check_body_entered(_body) -> void:
 
 func _on_area_2d_climbing_area_entered(area) -> void:
 	if area.is_in_group("climbing"):
-		lock_x = position.x
+		velocity.x = 0
 		is_climbing = true
 
 
