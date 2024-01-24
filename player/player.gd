@@ -51,9 +51,6 @@ var was_on_floor := false
 
 
 func _physics_process(delta) -> void:
-	_new_physics(delta)
-	
-func _new_physics(delta):
 	_state_checks()
 	_special_actions()
 	if not is_dashing:
