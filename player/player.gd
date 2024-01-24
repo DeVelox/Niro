@@ -6,8 +6,8 @@ const AIR_SPEED_MULTI = 0.75
 const JUMP_VELOCITY = -290.0
 const DOUBLE_JUMP_MULTI = 0.95
 const DASH_MULTI = 2.8
-const SLIDE_MULTI = 1.6
-const SLIDE_JUMP_MULTI = 1
+const SLIDE_MULTI = 1.8
+const SLIDE_JUMP_MULTI = 1.2
 const WALL_JUMP_MULTI = 2
 const FALL_CLAMP = 400.0
 const WALL_CLAMP_MULTI = 0.1
@@ -32,8 +32,6 @@ var has_dash := false
 var has_double_jump := false
 var has_checkpoint := false
 var was_on_floor := false
-var motion: float
-var lock_x: float
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: CollisionShape2D = $CollisionShape2D
@@ -82,13 +80,11 @@ func _new_physics(delta):
 				if not _try_wall_jump():
 					_try_wall_move()
 			else:
-				if is_sliding:
-					_try_coyote_slide_jump()
-				else:
-					_try_dash()
+				if not _try_coyote_slide_jump():
 					if not _try_coyote_jump():
-						_try_double_jump()
-				_try_air_move(delta)
+						if not _try_double_jump():
+							_try_air_move(delta)
+							_try_dash()
 	_animation()
 	move_and_slide()
 	if was_on_floor and not is_on_floor():
@@ -97,7 +93,7 @@ func _new_physics(delta):
 
 func _try_move() -> void:
 	var change_rate: float
-	motion = Input.get_axis("left", "right") * SPEED
+	var motion: float = Input.get_axis("left", "right") * SPEED
 	if absf(velocity.x) > SPEED and motion:
 		change_rate = SPEED / 10
 	else:
@@ -106,7 +102,7 @@ func _try_move() -> void:
 
 func _try_air_move(delta) -> void:
 	var change_rate: float
-	motion = Input.get_axis("left", "right") * SPEED
+	var motion: float = Input.get_axis("left", "right") * SPEED
 	if motion*velocity.x > 0 and absf(velocity.x) > SPEED:
 		change_rate = SPEED / 25
 	else:
@@ -121,31 +117,29 @@ func _try_air_move(delta) -> void:
 
 func _try_crouch_move() -> void:
 	var change_rate: float
-	motion = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
+	var motion: float = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
 	change_rate = SPEED / 5
 	velocity.x = move_toward(velocity.x, motion, change_rate)
 
 func _try_slide_move() -> void:
 	var change_rate: float
-	motion = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
+	var motion: float = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
 	if motion*velocity.x < 0:
 		velocity.x = -motion
 		is_sliding = false
 
 func _try_climb_move() -> void:
-	motion = Input.get_axis("up", "down") * SPEED
+	var motion: float = Input.get_axis("up", "down") * SPEED
 	velocity.y = motion
 
 func _try_wall_move() -> void:
-	motion = Input.get_axis("left", "right") * SPEED
+	var motion: float = Input.get_axis("left", "right") * SPEED
 	if wall_hang_timer.is_stopped() and motion*wall_hang_direction<0:
 		velocity.x = move_toward(velocity.x, motion, SPEED)
 		is_wall_hanging = false
 	else:
 		velocity.x = SPEED * wall_hang_direction
-	print("before ", velocity.y)
 	velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
-	print("after ", velocity.y)
 
 func _try_jump() -> bool:
 	if Input.is_action_just_pressed("jump") or not jump_buffer.is_stopped():
@@ -193,6 +187,7 @@ func _try_wall_jump() -> bool:
 
 func _try_climb_jump() -> bool:
 	if Input.is_action_just_pressed("dedicated_jump"):
+		var motion: float = Input.get_axis("left", "right") * SPEED
 		velocity.x = motion * WALL_JUMP_MULTI
 		velocity.y = JUMP_VELOCITY
 		is_climbing = false
@@ -202,6 +197,7 @@ func _try_climb_jump() -> bool:
 func _try_double_jump() -> bool:
 	if Input.is_action_just_pressed("jump") and has_double_jump:
 		velocity.y = JUMP_VELOCITY
+		has_double_jump = false
 		is_double_jumping = true
 		return true
 	return false
@@ -226,7 +222,7 @@ func _try_stop_crouch() -> bool:
 	
 func _try_dash() -> bool:
 	if Input.is_action_just_pressed("dash"):
-		motion = Input.get_axis("left", "right")
+		var motion: float = Input.get_axis("left", "right") * SPEED
 		if motion and has_dash:
 			velocity.x = motion * DASH_MULTI
 			velocity.y = 0
@@ -237,6 +233,7 @@ func _try_dash() -> bool:
 		
 func _try_slide() -> bool:
 	if Input.is_action_just_pressed("dash"):
+		var motion: float = Input.get_axis("left", "right") * SPEED
 		velocity.x = motion * SLIDE_MULTI
 		is_sliding = true
 		slide_timer.start()
@@ -403,6 +400,7 @@ func collision(state = 1) -> void:
 
 
 func _on_dash_timer_timeout() -> void:
+	var motion: float = Input.get_axis("left", "right") * SPEED
 	velocity.x = motion
 	is_dashing = false
 
@@ -428,6 +426,7 @@ func _on_area_2d_climbing_area_entered(area) -> void:
 	if area.is_in_group("climbing"):
 		velocity.x = 0
 		is_climbing = true
+		is_dashing = false
 
 
 func _on_area_2d_climbing_area_exited(area) -> void:
