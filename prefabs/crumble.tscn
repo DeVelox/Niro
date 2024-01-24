@@ -4,14 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://d18dncfbd0yv2" path="res://temp/crack.png" id="2_d5gob"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0xto"]
-size = Vector2(20, 18)
+size = Vector2(16, 17)
 
 [node name="Crumble" type="Area2D"]
 collision_layer = 0
 script = ExtResource("1_rfyar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_b0xto")
 
 [node name="TextureRect" type="TextureRect" parent="."]
