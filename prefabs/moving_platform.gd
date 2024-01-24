@@ -2,7 +2,6 @@ extends Node
 
 @export var direction: Vector2
 @export var speed: float
-@export var tilemap: TileMap
 
 @onready var path: Path2D = $Path2D
 @onready var animation: AnimationPlayer = $AnimationPlayer
@@ -11,14 +10,13 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var tilemap := get_child(2) as TileMap
 	if direction:
 		path.curve.set_point_position(1, direction)
 	if speed:
 		animation.speed_scale = speed
 	if tilemap:
-		path.add_child(tilemap.duplicate())
-		remote.remote_path = path.get_child(1).get_path()
-		tilemap.queue_free()
+		remote.remote_path = tilemap.get_path()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
