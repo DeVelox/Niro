@@ -5,7 +5,6 @@ extends Node
 @export var tilemap: TileMap
 
 @onready var path: Path2D = $Path2D
-@onready var follow: PathFollow2D = $Path2D/PathFollow2D
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var remote: RemoteTransform2D = $Path2D/PathFollow2D/RemoteTransform2D
 
