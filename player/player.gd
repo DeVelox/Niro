@@ -57,14 +57,14 @@ func _physics_process(delta) -> void:
 		if is_on_floor():
 			if is_sliding:
 				_try_slide_jump()
-				_try_slide_move()
+				_slide_move()
 			else:
 				if is_crouching:
-					_try_crouch_move()
+					_crouch_move()
 					_try_drop()
 					_try_stop_crouch()
 				else:
-					_try_move()
+					_move()
 					if not _try_crouch():
 						if not _try_jump():
 							_try_slide()
@@ -72,15 +72,15 @@ func _physics_process(delta) -> void:
 		else:
 			if is_climbing:
 				if not _try_climb_jump():
-					_try_climb_move()
+					_climb_move()
 			elif is_wall_hanging:
 				if not _try_wall_jump():
-					_try_wall_move()
+					_wall_move()
 			else:
 				if not _try_coyote_slide_jump():
 					if not _try_coyote_jump():
 						if not _try_double_jump():
-							_try_air_move(delta)
+							_air_move(delta)
 							_try_dash()
 	_animation()
 	move_and_slide()
@@ -88,7 +88,7 @@ func _physics_process(delta) -> void:
 		was_on_floor = false
 		coyote_timer.start()
 
-func _try_move() -> void:
+func _move() -> void:
 	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	if absf(velocity.x) > SPEED and motion:
@@ -97,7 +97,7 @@ func _try_move() -> void:
 		change_rate = SPEED / 5
 	velocity.x = move_toward(velocity.x, motion, change_rate)
 
-func _try_air_move(delta) -> void:
+func _air_move(delta) -> void:
 	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	if motion*velocity.x > 0 and absf(velocity.x) > SPEED:
@@ -112,24 +112,24 @@ func _try_air_move(delta) -> void:
 	else:
 		velocity.y += gravity * delta
 
-func _try_crouch_move() -> void:
+func _crouch_move() -> void:
 	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
 	change_rate = SPEED / 5
 	velocity.x = move_toward(velocity.x, motion, change_rate)
 
-func _try_slide_move() -> void:
+func _slide_move() -> void:
 	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
 	if motion*velocity.x < 0:
 		velocity.x = -motion
 		is_sliding = false
 
-func _try_climb_move() -> void:
+func _climb_move() -> void:
 	var motion: float = Input.get_axis("up", "down") * SPEED
 	velocity.y = motion
 
-func _try_wall_move() -> void:
+func _wall_move() -> void:
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	if wall_hang_timer.is_stopped() and motion*wall_hang_direction<0:
 		velocity.x = move_toward(velocity.x, motion, SPEED)
