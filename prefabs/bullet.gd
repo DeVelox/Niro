@@ -14,9 +14,14 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	if body.has_method("try_recall"):
-		body.try_recall()
+	if body.has_method("damage"):
+		body.damage()
 		queue_free()
+
+
+func _on_body_exited(body: Node) -> void:
+	if body.has_method("is_safe"):
+		body.is_safe()
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:

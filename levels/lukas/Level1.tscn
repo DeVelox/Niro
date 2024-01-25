@@ -53,7 +53,7 @@ position = Vector2(16, 328)
 direction = Vector2(200, -20)
 speed = 0.5
 
-[node name="Tilemap3" parent="MovingPlatform" instance=ExtResource("2_28buv")]
+[node name="TilemapHidden" parent="MovingPlatform" groups=["hidden"] instance=ExtResource("2_28buv")]
 collision_animatable = true
 layer_0/tile_data = PackedInt32Array(-131068, 393216, 0, -131067, 458752, 0, -131066, 524288, 0)
 

@@ -32,6 +32,8 @@ var has_dash := false
 var has_double_jump := false
 var has_checkpoint := false
 var was_on_floor := false
+var can_take_damage := true
+var should_take_damage := true
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: CollisionShape2D = $CollisionShape2D
@@ -49,6 +51,7 @@ var was_on_floor := false
 @onready var gap_check: CollisionShape2D = $Detectors/NudgeCheck/CollisionShape2D
 @onready var jump_sound: AudioStreamPlayer = $JumpSound
 @onready var effects: AnimatedSprite2D = $Effects
+@onready var invulnerability: Timer = $Timers/Invulnerability
 
 
 func _physics_process(delta: float) -> void:
@@ -298,7 +301,7 @@ func _state_checks() -> void:
 
 
 func _special_actions() -> void:
-	_long_press("reset", try_recall)
+	_long_press("reset", _try_recall)
 
 	if Input.is_action_just_pressed("interact"):
 		_try_interact()
@@ -374,7 +377,7 @@ func _try_interact() -> void:
 
 func _try_place_checkpoint() -> void:
 	var main := get_node("/root/Main")
-	if is_on_floor() and has_checkpoint:
+	if is_on_floor() and has_checkpoint and Upgrades.check(Upgrades.Type.RECALL):
 		var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 		if checkpoint:
 			DataStore.scene_history.clear()
@@ -385,11 +388,11 @@ func _try_place_checkpoint() -> void:
 		DataStore.scene_history = [DataStore.current_scene]
 
 
-func try_recall(long_reset = false) -> void:
+func _try_recall(long_reset = false) -> void:
 	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 	if long_reset:
 		_hard_recall()
-	elif checkpoint:
+	elif checkpoint and Upgrades.check(Upgrades.Type.RECALL):
 		_soft_recall()
 	else:
 		_hard_recall()
@@ -427,6 +430,26 @@ func _collision(state = 1) -> void:
 	set_deferred("collision_layer", state)
 
 
+func _absorb() -> void:
+	if Upgrades.use_heart():
+		invulnerability.start()
+		can_take_damage = false
+		modulate = Color(Color.BLUE, 0.9)
+	else:
+		_try_recall()
+
+
+func damage() -> void:
+	if Upgrades.check(Upgrades.Type.HEARTS):
+		_absorb()
+	elif can_take_damage:
+		_try_recall()
+
+
+func is_safe() -> void:
+	should_take_damage = false
+
+
 func _on_dash_finished() -> void:
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	velocity.x = motion
@@ -462,3 +485,11 @@ func _on_climbable_entered(area) -> void:
 func _on_climbable_exited(area) -> void:
 	if area.is_in_group("climbing"):
 		is_climbing = false
+
+
+func _on_invulnerability_timeout() -> void:
+	modulate = Color(1, 1, 1, 1)
+	if should_take_damage:
+		_try_recall()
+	should_take_damage = true
+	can_take_damage = true

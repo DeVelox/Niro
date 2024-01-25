@@ -293,6 +293,9 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
+[node name="Invulnerability" type="Timer" parent="Timers"]
+one_shot = true
+
 [node name="Detectors" type="Node2D" parent="."]
 
 [node name="DropCheck" type="RayCast2D" parent="Detectors"]
@@ -356,6 +359,7 @@ animation = &"double_jump"
 
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_finished"]
 [connection signal="timeout" from="Timers/SlideTimer" to="." method="_on_slide_finished"]
+[connection signal="timeout" from="Timers/Invulnerability" to="." method="_on_invulnerability_timeout"]
 [connection signal="body_entered" from="Detectors/WallHangLeft" to="." method="_on_left_wall_touched"]
 [connection signal="body_entered" from="Detectors/WallHangRight" to="." method="_on_right_wall_touched"]
 [connection signal="body_entered" from="Detectors/NudgeCheck" to="." method="_on_nudge_check"]
