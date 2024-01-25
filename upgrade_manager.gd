@@ -28,4 +28,5 @@ func use_heart() -> bool:
 
 
 func add_heart() -> void:
-	hearts += 1
+	if hearts == 0:
+		hearts += 1

@@ -27,6 +27,7 @@ func _process(_delta):
 func _on_hearts_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		Upgrades.buy(Upgrades.Type.HEARTS)
+		Upgrades.add_heart()
 	else:
 		Upgrades.sell(Upgrades.Type.HEARTS)
 	_reload()
