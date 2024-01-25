@@ -39,6 +39,7 @@ var was_on_floor := false
 @onready var interact_check: RayCast2D = $InteractCheck
 @onready var dash_timer: Timer = $DashTimer
 @onready var slide_timer: Timer = $SlideTimer
+@onready var slide_cooldown: Timer = $SlideCooldown
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var jump_buffer: Timer = $JumpBuffer
 @onready var double_tap: Timer = $DoubleTap
@@ -50,9 +51,16 @@ var was_on_floor := false
 @onready var effects: AnimatedSprite2D = $Effects
 
 
-func _physics_process(delta) -> void:
+func _physics_process(delta: float) -> void:
 	_state_checks()
 	_special_actions()
+	_movement(delta)
+	_animation()
+	move_and_slide()
+	_coyote()
+
+
+func _movement(delta: float) -> void:
 	if not is_dashing:
 		if is_on_floor():
 			if is_sliding:
@@ -68,7 +76,7 @@ func _physics_process(delta) -> void:
 					if not _try_crouch():
 						if not _try_jump():
 							_try_slide()
-					
+
 		else:
 			if is_climbing:
 				if not _try_climb_jump():
@@ -82,11 +90,7 @@ func _physics_process(delta) -> void:
 						if not _try_double_jump():
 							_air_move(delta)
 							_try_dash()
-	_animation()
-	move_and_slide()
-	if was_on_floor and not is_on_floor():
-		was_on_floor = false
-		coyote_timer.start()
+
 
 func _move() -> void:
 	var change_rate: float
@@ -97,10 +101,11 @@ func _move() -> void:
 		change_rate = SPEED / 5
 	velocity.x = move_toward(velocity.x, motion, change_rate)
 
-func _air_move(delta) -> void:
+
+func _air_move(delta: float) -> void:
 	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED
-	if motion*velocity.x > 0 and absf(velocity.x) > SPEED:
+	if motion * velocity.x > 0 and absf(velocity.x) > SPEED:
 		change_rate = SPEED / 25
 	else:
 		change_rate = SPEED / 5
@@ -112,46 +117,57 @@ func _air_move(delta) -> void:
 	else:
 		velocity.y += gravity * delta
 
+
 func _crouch_move() -> void:
 	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
 	change_rate = SPEED / 5
 	velocity.x = move_toward(velocity.x, motion, change_rate)
 
+
 func _slide_move() -> void:
-	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED * CROUCH_SPEED_MULTI
-	if motion*velocity.x < 0:
+	if motion * velocity.x < 0:
 		velocity.x = -motion
 		is_sliding = false
+
 
 func _climb_move() -> void:
 	var motion: float = Input.get_axis("up", "down") * SPEED
 	velocity.y = motion
 
+
 func _wall_move() -> void:
 	var motion: float = Input.get_axis("left", "right") * SPEED
-	if wall_hang_timer.is_stopped() and motion*wall_hang_direction<0:
+	if wall_hang_timer.is_stopped() and motion * wall_hang_direction < 0:
 		velocity.x = move_toward(velocity.x, motion, SPEED)
 		is_wall_hanging = false
 	else:
 		velocity.x = SPEED * wall_hang_direction
 	velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
 
+
 func _try_jump() -> bool:
+	# Jump buffer not functional
 	if Input.is_action_just_pressed("jump") or not jump_buffer.is_stopped():
-			velocity.y = JUMP_VELOCITY
-			is_jumping = true
-			return true
+		velocity.y = JUMP_VELOCITY
+		is_jumping = true
+		return true
 	return false
+
+
+func _coyote() -> void:
+	if was_on_floor and not is_on_floor():
+		was_on_floor = false
+		coyote_timer.start()
+
 
 func _try_coyote_jump() -> bool:
 	if not coyote_timer.is_stopped():
-		if Input.is_action_just_pressed("jump") or not jump_buffer.is_stopped():
-				velocity.y = JUMP_VELOCITY
-				is_jumping = true
-				return true
+		_try_jump()
+		return true
 	return false
+
 
 func _try_slide_jump() -> bool:
 	if Input.is_action_just_pressed("jump"):
@@ -162,16 +178,14 @@ func _try_slide_jump() -> bool:
 		return true
 	return false
 
+
 func _try_coyote_slide_jump() -> bool:
-	if Input.is_action_just_pressed("jump"):
-		if not coyote_timer.is_stopped():
-			velocity.x *= SLIDE_JUMP_MULTI
-			velocity.y = JUMP_VELOCITY
-			is_jumping = true
-			is_sliding = false
-			return true
+	if not coyote_timer.is_stopped():
+		_try_slide_jump()
+		return true
 	return false
-	
+
+
 func _try_wall_jump() -> bool:
 	if Input.is_action_just_pressed("jump"):
 		velocity.x = SPEED * WALL_JUMP_MULTI * -wall_hang_direction
@@ -182,6 +196,7 @@ func _try_wall_jump() -> bool:
 		return true
 	return false
 
+
 func _try_climb_jump() -> bool:
 	if Input.is_action_just_pressed("dedicated_jump"):
 		var motion: float = Input.get_axis("left", "right") * SPEED
@@ -191,6 +206,7 @@ func _try_climb_jump() -> bool:
 		return true
 	return false
 
+
 func _try_double_jump() -> bool:
 	if Input.is_action_just_pressed("jump") and has_double_jump:
 		velocity.y = JUMP_VELOCITY
@@ -199,11 +215,13 @@ func _try_double_jump() -> bool:
 		return true
 	return false
 
+
 func _try_crouch() -> bool:
 	if Input.is_action_just_pressed("down"):
 		is_crouching = true
 		return true
 	return false
+
 
 func _try_drop() -> bool:
 	if Input.is_action_just_pressed("jump"):
@@ -211,12 +229,14 @@ func _try_drop() -> bool:
 		return true
 	return false
 
+
 func _try_stop_crouch() -> bool:
 	if not Input.is_action_pressed("down"):
 		is_crouching = false
 		return true
 	return false
-	
+
+
 func _try_dash() -> bool:
 	if Input.is_action_just_pressed("dash"):
 		var motion: float = Input.get_axis("left", "right") * SPEED
@@ -226,16 +246,20 @@ func _try_dash() -> bool:
 			is_dashing = true
 			has_dash = false
 			dash_timer.start()
+		return true
 	return false
-		
+
+
 func _try_slide() -> bool:
 	if Input.is_action_just_pressed("dash"):
 		var motion: float = Input.get_axis("left", "right") * SPEED
-		velocity.x = motion * SLIDE_MULTI
-		is_sliding = true
-		slide_timer.start()
+		if motion and slide_cooldown.is_stopped():
+			velocity.x = motion * SLIDE_MULTI
+			is_sliding = true
+			slide_timer.start()
 		return true
 	return false
+
 
 func _try_wall_hang(direction) -> bool:
 	if not is_on_floor():
@@ -245,7 +269,7 @@ func _try_wall_hang(direction) -> bool:
 		wall_hang_timer.start()
 		return true
 	return false
-		
+
 
 func _state_checks() -> void:
 	if is_on_floor():
@@ -255,7 +279,7 @@ func _state_checks() -> void:
 		is_jumping = false
 		is_double_jumping = false
 		is_wall_hanging = false
-			
+
 	if is_crouching:
 		hitbox.shape.size = Vector2(32, 32)
 		hitbox.position = Vector2(0, 9)
@@ -266,11 +290,13 @@ func _state_checks() -> void:
 		hitbox.shape.size = Vector2(32, 44)
 		hitbox.position = Vector2(0, 3)
 
+
 func _special_actions() -> void:
 	_long_press("reset", try_recall)
 
 	if Input.is_action_just_pressed("interact"):
 		_try_interact()
+
 
 func _animation() -> void:
 	# Sprite direction
@@ -371,7 +397,6 @@ func _soft_recall() -> void:
 	var main := get_node("/root/Main")
 	var checkpoint := get_node("/root/Main/Checkpoint")
 	if DataStore.scene_history.size() > 1:
-		@warning_ignore("integer_division")
 		var delay: float = REWIND_DUR / DataStore.scene_history.size()
 		DataStore.scene_history.reverse()
 		for scene in DataStore.scene_history:
@@ -382,17 +407,17 @@ func _soft_recall() -> void:
 			DataStore.current_scene = scene
 		DataStore.scene_history = [DataStore.current_scene]
 	var tween := create_tween()
-	collision(0)
+	_collision(0)
 	(
 		tween
 		. tween_property(self, "position", checkpoint.position, REWIND_DUR)
 		. set_trans(Tween.TRANS_ELASTIC)
 		. set_ease(Tween.EASE_IN_OUT)
 	)
-	tween.tween_callback(collision)
+	tween.tween_callback(_collision)
 
 
-func collision(state = 1) -> void:
+func _collision(state = 1) -> void:
 	set_deferred("collision_layer", state)
 
 
@@ -401,7 +426,9 @@ func _on_dash_timer_timeout() -> void:
 	velocity.x = motion
 	is_dashing = false
 
+
 func _on_slide_timer_timeout() -> void:
+	slide_cooldown.start()
 	is_sliding = false
 
 

@@ -274,9 +274,10 @@ wait_time = 0.15
 one_shot = true
 
 [node name="SlideTimer" type="Timer" parent="."]
+wait_time = 0.3
 one_shot = true
 
-[node name="CoyoteTimer" type="Timer" parent="."]
+[node name="SlideCooldown" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
@@ -284,8 +285,8 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
-[node name="DoubleTap" type="Timer" parent="."]
-wait_time = 0.3
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [node name="WallHangTimer" type="Timer" parent="."]
@@ -294,6 +295,10 @@ one_shot = true
 
 [node name="LongPress" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
+
+[node name="DoubleTap" type="Timer" parent="."]
+wait_time = 0.3
 one_shot = true
 
 [node name="Area2DLeft" type="Area2D" parent="."]
