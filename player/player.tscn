@@ -293,7 +293,7 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
-[node name="Detectors" type="Node" parent="."]
+[node name="Detectors" type="Node2D" parent="."]
 
 [node name="DropCheck" type="RayCast2D" parent="Detectors"]
 target_position = Vector2(0, 100)
@@ -305,41 +305,41 @@ collision_mask = 32
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="Area2DLeft" type="Area2D" parent="Detectors"]
+[node name="WallHangLeft" type="Area2D" parent="Detectors"]
 collision_mask = 128
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/Area2DLeft"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/WallHangLeft"]
 position = Vector2(-14, 5)
 scale = Vector2(0.4, 0.6)
 shape = SubResource("RectangleShape2D_kjvja")
 
-[node name="Area2DRight" type="Area2D" parent="Detectors"]
+[node name="WallHangRight" type="Area2D" parent="Detectors"]
 collision_mask = 128
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/Area2DRight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/WallHangRight"]
 position = Vector2(14, 5)
 scale = Vector2(0.4, 0.6)
 shape = SubResource("RectangleShape2D_kjvja")
 
-[node name="Area2DGapCheck" type="Area2D" parent="Detectors"]
+[node name="GapCheck" type="Area2D" parent="Detectors"]
 visible = false
 collision_layer = 0
 collision_mask = 140
 
-[node name="GapCheck" type="CollisionShape2D" parent="Detectors/Area2DGapCheck"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/GapCheck"]
 shape = SubResource("RectangleShape2D_0rk70")
 
-[node name="Area2DCollisionCheck" type="Area2D" parent="Detectors"]
+[node name="NudgeCheck" type="Area2D" parent="Detectors"]
 visible = false
 collision_layer = 0
 collision_mask = 140
 
-[node name="CollisionCheck" type="CollisionShape2D" parent="Detectors/Area2DCollisionCheck"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/NudgeCheck"]
 shape = SubResource("RectangleShape2D_0rk70")
 
-[node name="Area2DClimbing" type="Area2D" parent="Detectors" groups=["climbing"]]
+[node name="Climbing" type="Area2D" parent="Detectors" groups=["climbing"]]
 
-[node name="ClimbCheck" type="CollisionShape2D" parent="Detectors/Area2DClimbing"]
+[node name="ColisionCheck" type="CollisionShape2D" parent="Detectors/Climbing"]
 position = Vector2(-0.5, 9.5)
 shape = SubResource("RectangleShape2D_obud4")
 
@@ -354,10 +354,10 @@ scale = Vector2(1, 0.4375)
 sprite_frames = SubResource("SpriteFrames_1xcut")
 animation = &"double_jump"
 
-[connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
-[connection signal="timeout" from="Timers/SlideTimer" to="." method="_on_slide_timer_timeout"]
-[connection signal="body_entered" from="Detectors/Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
-[connection signal="body_entered" from="Detectors/Area2DRight" to="." method="_on_area_2d_right_body_entered"]
-[connection signal="body_entered" from="Detectors/Area2DCollisionCheck" to="." method="_on_area_2d_collision_check_body_entered"]
-[connection signal="area_entered" from="Detectors/Area2DClimbing" to="." method="_on_area_2d_climbing_area_entered"]
-[connection signal="area_exited" from="Detectors/Area2DClimbing" to="." method="_on_area_2d_climbing_area_exited"]
+[connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_finished"]
+[connection signal="timeout" from="Timers/SlideTimer" to="." method="_on_slide_finished"]
+[connection signal="body_entered" from="Detectors/WallHangLeft" to="." method="_on_left_wall_touched"]
+[connection signal="body_entered" from="Detectors/WallHangRight" to="." method="_on_right_wall_touched"]
+[connection signal="body_entered" from="Detectors/NudgeCheck" to="." method="_on_nudge_check"]
+[connection signal="area_entered" from="Detectors/Climbing" to="." method="_on_climbable_entered"]
+[connection signal="area_exited" from="Detectors/Climbing" to="." method="_on_climbable_exited"]

@@ -45,8 +45,8 @@ var was_on_floor := false
 @onready var long_press: Timer = $Timers/LongPress
 @onready var drop_check: RayCast2D = $Detectors/DropCheck
 @onready var interact_check: RayCast2D = $Detectors/InteractCheck
-@onready var area_2d_gap_check: Area2D = $Detectors/Area2DGapCheck
-@onready var gap_check: CollisionShape2D = $Detectors/Area2DGapCheck/GapCheck
+@onready var area_2d_gap_check: Area2D = $Detectors/NudgeCheck
+@onready var gap_check: CollisionShape2D = $Detectors/NudgeCheck/CollisionShape2D
 @onready var jump_sound: AudioStreamPlayer = $JumpSound
 @onready var effects: AnimatedSprite2D = $Effects
 
@@ -427,38 +427,38 @@ func _collision(state = 1) -> void:
 	set_deferred("collision_layer", state)
 
 
-func _on_dash_timer_timeout() -> void:
+func _on_dash_finished() -> void:
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	velocity.x = motion
 	is_dashing = false
 
 
-func _on_slide_timer_timeout() -> void:
+func _on_slide_finished() -> void:
 	slide_cooldown.start()
 	is_sliding = false
 
 
-func _on_area_2d_left_body_entered(_body) -> void:
+func _on_left_wall_touched(_body) -> void:
 	_try_wall_hang(-1)
 
 
-func _on_area_2d_right_body_entered(_body) -> void:
+func _on_right_wall_touched(_body) -> void:
 	_try_wall_hang(1)
 
 
-func _on_area_2d_collision_check_body_entered(_body) -> void:
+func _on_nudge_check(_body) -> void:
 	gap_check.position = velocity.normalized() * NUDGE_RANGE
 	if not area_2d_gap_check.get_overlapping_bodies():
 		position += velocity.normalized() * NUDGE_MULTI
 
 
-func _on_area_2d_climbing_area_entered(area) -> void:
+func _on_climbable_entered(area) -> void:
 	if area.is_in_group("climbing"):
 		velocity.x = 0
 		is_climbing = true
 		is_dashing = false
 
 
-func _on_area_2d_climbing_area_exited(area) -> void:
+func _on_climbable_exited(area) -> void:
 	if area.is_in_group("climbing"):
 		is_climbing = false
