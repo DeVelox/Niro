@@ -35,18 +35,18 @@ var was_on_floor := false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: CollisionShape2D = $CollisionShape2D
-@onready var drop_check: RayCast2D = $DropCheck
-@onready var interact_check: RayCast2D = $InteractCheck
-@onready var dash_timer: Timer = $DashTimer
-@onready var slide_timer: Timer = $SlideTimer
-@onready var slide_cooldown: Timer = $SlideCooldown
-@onready var coyote_timer: Timer = $CoyoteTimer
-@onready var jump_buffer: Timer = $JumpBuffer
-@onready var double_tap: Timer = $DoubleTap
-@onready var wall_hang_timer: Timer = $WallHangTimer
-@onready var long_press: Timer = $LongPress
-@onready var area_2d_gap_check: Area2D = $Area2DGapCheck
-@onready var gap_check: CollisionShape2D = $Area2DGapCheck/GapCheck
+@onready var dash_timer: Timer = $Timers/DashTimer
+@onready var slide_timer: Timer = $Timers/SlideTimer
+@onready var slide_cooldown: Timer = $Timers/SlideCooldown
+@onready var coyote_timer: Timer = $Timers/CoyoteTimer
+@onready var jump_buffer: Timer = $Timers/JumpBuffer
+@onready var double_tap: Timer = $Timers/DoubleTap
+@onready var wall_hang_timer: Timer = $Timers/WallHangTimer
+@onready var long_press: Timer = $Timers/LongPress
+@onready var drop_check: RayCast2D = $Detectors/DropCheck
+@onready var interact_check: RayCast2D = $Detectors/InteractCheck
+@onready var area_2d_gap_check: Area2D = $Detectors/Area2DGapCheck
+@onready var gap_check: CollisionShape2D = $Detectors/Area2DGapCheck/GapCheck
 @onready var jump_sound: AudioStreamPlayer = $JumpSound
 @onready var effects: AnimatedSprite2D = $Effects
 
@@ -152,6 +152,7 @@ func _try_jump() -> bool:
 	if Input.is_action_just_pressed("jump") or not jump_buffer.is_stopped():
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
+		jump_sound.play()
 		return true
 	return false
 
@@ -175,6 +176,7 @@ func _try_slide_jump() -> bool:
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
 		is_sliding = false
+		jump_sound.play()
 		return true
 	return false
 
@@ -193,6 +195,7 @@ func _try_wall_jump() -> bool:
 		wall_hang_timer.stop()
 		is_jumping = true
 		is_wall_hanging = false
+		jump_sound.play()
 		return true
 	return false
 
@@ -203,6 +206,7 @@ func _try_climb_jump() -> bool:
 		velocity.x = motion * WALL_JUMP_MULTI
 		velocity.y = JUMP_VELOCITY
 		is_climbing = false
+		jump_sound.play()
 		return true
 	return false
 
@@ -212,6 +216,8 @@ func _try_double_jump() -> bool:
 		velocity.y = JUMP_VELOCITY
 		has_double_jump = false
 		is_double_jumping = true
+		effects.play("double_jump")
+		jump_sound.play()
 		return true
 	return false
 
