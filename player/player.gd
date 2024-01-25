@@ -32,6 +32,7 @@ var has_dash := false
 var has_double_jump := false
 var has_checkpoint := false
 var was_on_floor := false
+var can_take_damage := true
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: CollisionShape2D = $CollisionShape2D
@@ -49,6 +50,7 @@ var was_on_floor := false
 @onready var gap_check: CollisionShape2D = $Detectors/Area2DGapCheck/GapCheck
 @onready var jump_sound: AudioStreamPlayer = $JumpSound
 @onready var effects: AnimatedSprite2D = $Effects
+@onready var invulnerability: Timer = $Timers/Invulnerability
 
 
 func _physics_process(delta: float) -> void:
@@ -298,7 +300,7 @@ func _state_checks() -> void:
 
 
 func _special_actions() -> void:
-	_long_press("reset", try_recall)
+	_long_press("reset", _try_recall)
 
 	if Input.is_action_just_pressed("interact"):
 		_try_interact()
@@ -385,7 +387,7 @@ func _try_place_checkpoint() -> void:
 		DataStore.scene_history = [DataStore.current_scene]
 
 
-func try_recall(long_reset = false) -> void:
+func _try_recall(long_reset = false) -> void:
 	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 	if long_reset:
 		_hard_recall()
@@ -425,6 +427,17 @@ func _soft_recall() -> void:
 
 func _collision(state = 1) -> void:
 	set_deferred("collision_layer", state)
+	
+func _absorb() -> void:
+	modulate = Color(Color.BLUE, 0.9)
+	invulnerability.start()
+	can_take_damage = false
+	
+func damage() -> void:
+	if Upgrades.check(Upgrades.Type.HEARTS):
+		_absorb()
+	elif can_take_damage:
+		_try_recall()
 
 
 func _on_dash_timer_timeout() -> void:
@@ -462,3 +475,8 @@ func _on_area_2d_climbing_area_entered(area) -> void:
 func _on_area_2d_climbing_area_exited(area) -> void:
 	if area.is_in_group("climbing"):
 		is_climbing = false
+
+
+func _on_invulnerability_timeout() -> void:
+	modulate = Color(1,1,1,1)
+	can_take_damage = true

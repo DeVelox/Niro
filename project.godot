@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 DataStore="*res://data_store.gd"
 DialogManager="*res://dialog_manager.gd"
+Upgrades="*res://upgrade_manager.gd"
 
 [display]
 

@@ -58,5 +58,5 @@ func _update() -> void:
 
 
 func _on_area_2d_body_entered(body: Node) -> void:
-	if body.has_method("try_recall"):
-		body.try_recall()
+	if body.has_method("damage"):
+		body.damage()
