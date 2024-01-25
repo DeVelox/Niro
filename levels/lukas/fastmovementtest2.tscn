@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpcvmxd7s03fl"]
+
+[ext_resource type="Script" path="res://prefabs/level.gd" id="1_2gv45"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="2_ihba4"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level_switcher.tscn" id="4_2hgrj"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_2gv45")
+
+[node name="Tilemap" parent="." instance=ExtResource("2_ihba4")]
+layer_1/tile_data = PackedInt32Array(-786425, 1114112, 1, -786424, 1179648, 1, -786423, 1245184, 1, -1572847, 983040, 4, -1507311, 983040, 4, -1441775, 983040, 5, -1376239, 983040, 5, -1310703, 983040, 6, -1179627, 786432, 4, -1114091, 1114112, 4, -1048555, 1114112, 5, -983019, 1114112, 6, -1179626, 851968, 4, -1179625, 851968, 4, -1179624, 851968, 4, -1572839, 983040, 4, -1507303, 983040, 4, -1441767, 983040, 5, -1376231, 983040, 6, -1179623, 851968, 4, -1572838, 983040, 4, -1507302, 983040, 4, -1441766, 983040, 5, -1376230, 983040, 6, -1179622, 851968, 4, -1179621, 851968, 4, -1179620, 851968, 4, -1179619, 851968, 4, -1179618, 851968, 4, -1179617, 851968, 4, -1179616, 851968, 4, -1179615, 851968, 4, -1179614, 917504, 4)
+layer_2/tile_data = PackedInt32Array(-1179627, 1, 65536, -1114091, 1, 65536, -1048555, 1, 65536, -983019, 1, 65536, -1179626, 1, 65536, -1179625, 1, 65536, -1179624, 1, 65536, -1179623, 1, 65536, -1179622, 1, 65536, -1179621, 1, 65536, -1179620, 1, 65536, -1179619, 1, 65536, -1179618, 1, 65536, -1179617, 1, 65536, -1179616, 1, 65536, -1179615, 1, 65536, -1179614, 1, 65536)
+
+[node name="SceneSwitcher" parent="." instance=ExtResource("4_2hgrj")]
+position = Vector2(136, 136)
+next_scene = "res://levels/lukas/fastmovementtest3.tscn"
