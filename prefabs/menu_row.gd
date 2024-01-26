@@ -26,6 +26,19 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	player.debug_color(selected, inverted, tint)
+	_highlight()
+
+
+func _highlight() -> void:
+	var color: Color = Color.GREEN
+	var state = player.get(selected)
+	if inverted:
+		color = Color.RED
+		state = not state
+	if state:
+		menu.set("theme_override_colors/font_color", color)
+	else:
+		menu.set("theme_override_colors/font_color", Color.WHITE)
 
 
 func _on_menu_item_selected(index: int) -> void:

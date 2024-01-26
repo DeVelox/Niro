@@ -501,9 +501,7 @@ func _debug_clear() -> void:
 
 
 func debug_color(property: String, invert: bool, color: Color) -> void:
-	var state: bool
-	if get(property):
-		state = get(property)
+	var state = get(property)
 	if invert:
 		state = not state
 	if state:
