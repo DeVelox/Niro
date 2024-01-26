@@ -62,6 +62,7 @@ func _physics_process(delta: float) -> void:
 	_special_actions()
 	_movement(delta)
 	_animation()
+	_collision_update()
 	move_and_slide()
 	_coyote()
 
@@ -148,6 +149,8 @@ func _climb_move() -> void:
 
 
 func _wall_move() -> void:
+	velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
+	return
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	if wall_hang_timer.is_stopped() and motion * wall_hang_direction < 0:
 		velocity.x = move_toward(velocity.x, motion, SPEED)
@@ -213,7 +216,7 @@ func _try_wall_jump() -> bool:
 func _try_climb_jump() -> bool:
 	if Input.is_action_just_pressed("jump"):
 		var motion: float = Input.get_axis("left", "right") * SPEED
-		velocity.x = motion * WALL_JUMP_MULTI
+		velocity.x = motion
 		velocity.y = JUMP_VELOCITY
 		is_climbing = false
 		jump_sound.play()
@@ -222,6 +225,7 @@ func _try_climb_jump() -> bool:
 
 
 func _try_double_jump() -> bool:
+	return false
 	if Input.is_action_just_pressed("jump") and has_double_jump:
 		velocity.y = JUMP_VELOCITY
 		has_double_jump = false
@@ -300,6 +304,7 @@ func _state_checks() -> void:
 		if not (is_climbing_bottom or is_climbing_top):
 			is_climbing = false
 
+func _collision_update() -> void:
 	if is_crouching:
 		hitbox.shape.size = Vector2(32, 32)
 		hitbox.position = Vector2(0, 9)
@@ -421,7 +426,7 @@ func _soft_recall() -> void:
 		DataStore.scene_history.reverse()
 		for scene in DataStore.scene_history:
 			var rewind_level: Node2D = load(scene).instantiate()
-			main.add_child(rewind_level)
+			main.call_defered("add_child", rewind_level)
 			DataStore.current_level.destroy(delay)
 			DataStore.current_level = rewind_level
 			DataStore.current_scene = scene

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="2_yua35"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level_switcher.tscn" id="4_5u63x"]
 
-[node name="Level" type="Node2D"]
+[node name="Level2" type="Node2D"]
 script = ExtResource("1_5jw3d")
 
 [node name="Tilemap" parent="." instance=ExtResource("2_yua35")]
