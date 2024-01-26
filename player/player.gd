@@ -62,6 +62,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_coyote()
 
+	_clear()
+	_debug(!can_take_damage, Color.BLUE)
+
 
 func _movement(delta: float) -> void:
 	if not is_dashing:
@@ -434,7 +437,6 @@ func _absorb() -> void:
 	if Upgrades.use_heart():
 		invulnerability.start()
 		can_take_damage = false
-		modulate = Color(Color.BLUE, 0.9)
 	else:
 		_try_recall()
 
@@ -488,8 +490,16 @@ func _on_climbable_exited(area) -> void:
 
 
 func _on_invulnerability_timeout() -> void:
-	modulate = Color(1, 1, 1, 1)
 	if should_take_damage:
 		_try_recall()
 	should_take_damage = true
 	can_take_damage = true
+
+
+func _clear() -> void:
+	modulate = Color.WHITE
+
+
+func _debug(property: bool, color: Color) -> void:
+	if property:
+		modulate = color
