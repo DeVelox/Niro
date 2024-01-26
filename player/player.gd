@@ -70,7 +70,7 @@ func _physics_process(delta: float) -> void:
 
 func _debug():
 	_clear()
-	_debug_color(!is_climbing_top, Color.RED)
+	_debug_color(!is_climbing_bottom, Color.RED)
 
 
 func _movement(delta: float) -> void:
