@@ -491,20 +491,6 @@ func _on_nudge_check(_body: Node2D) -> void:
 		position += velocity.normalized() * NUDGE_MULTI
 
 
-func _on_climbable_entered(area) -> void:
-	return
-	if area.is_in_group("climbing"):
-		velocity.x = 0
-		is_climbing = true
-		is_dashing = false
-
-
-func _on_climbable_exited(area) -> void:
-	return
-	if area.is_in_group("climbing"):
-		is_climbing = false
-
-
 func _on_invulnerability_timeout() -> void:
 	if should_take_damage:
 		_try_recall()
