@@ -1,11 +1,14 @@
 extends CanvasLayer
 
 const MENU_ROW = preload("res://prefabs/menu_row.tscn")
+const DEBUG_PATH = preload("res://prefabs/debug_path.tscn")
 
-@onready var hearts: CheckBox = $MarginContainer/DebugUpgrades/MarginContainer/VBoxContainer/Hearts
-@onready var vision: CheckBox = $MarginContainer/DebugUpgrades/MarginContainer/VBoxContainer/Vision
-@onready var recall: CheckBox = $MarginContainer/DebugUpgrades/MarginContainer/VBoxContainer/Recall
+var debug_path: Node2D
 
+@onready var hearts: CheckBox = %Hearts
+@onready var vision: CheckBox = %Vision
+@onready var recall: CheckBox = %Recall
+@onready var player: Player = get_parent()
 
 func _ready() -> void:
 	DataStore.debug_properties = _init_properties(owner.get_property_list())
@@ -82,3 +85,11 @@ func _toggle() -> void:
 			hide()
 		else:
 			show()
+
+
+func _on_path_toggle(toggled_on: bool) -> void:
+	if toggled_on:
+		debug_path = DEBUG_PATH.instantiate()
+		player.add_sibling(debug_path)
+	else:
+		debug_path.queue_free()

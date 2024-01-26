@@ -2,6 +2,7 @@ extends Node2D
 
 @export_range(0.0, 1.0) var opacity: float = 0.5
 var pos: Vector2
+var debug_path: Array[Vector2]
 @onready var player: Player = $"../Player"
 
 
@@ -16,16 +17,16 @@ func _process(_delta: float) -> void:
 
 
 func _draw() -> void:
-	draw_polyline(DataStore.debug_path, Color.GREEN, 2)
+	draw_polyline(debug_path, Color.GREEN, 2)
 
 
 func _init_path() -> void:
 	modulate.a = opacity
-	DataStore.debug_path.append(player.global_position)
+	debug_path.append(player.global_position)
 
 
 func _draw_path() -> void:
 	pos = player.global_position
-	if DataStore.debug_path.back() != pos:
-		DataStore.debug_path.append(pos)
+	if debug_path.back() != pos:
+		debug_path.append(pos)
 		queue_redraw()
