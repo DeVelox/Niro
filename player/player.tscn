@@ -357,6 +357,9 @@ shape = SubResource("RectangleShape2D_0u0hd")
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_3xclq")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Detectors"]
+scale = Vector2(0.2, 0.2)
+
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_hpjs7")
 volume_db = -20.0
@@ -380,3 +383,4 @@ animation = &"double_jump"
 [connection signal="area_exited" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_exited"]
 [connection signal="area_entered" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_entered"]
 [connection signal="area_exited" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_exited"]
+[connection signal="screen_exited" from="Detectors/VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

@@ -538,3 +538,7 @@ func _on_climbing_top_exited(area: Area2D) -> void:
 func _on_climbing_bottom_exited(area: Area2D) -> void:
 	if area.is_in_group("climbing"):
 		is_climbing_bottom = false
+
+
+func _on_screen_exited() -> void:
+	_try_recall()
