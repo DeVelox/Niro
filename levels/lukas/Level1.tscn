@@ -59,9 +59,3 @@ layer_0/tile_data = PackedInt32Array(-131068, 393216, 0, -131067, 458752, 0, -13
 
 [node name="OldMan" parent="." instance=ExtResource("9_qhnuv")]
 position = Vector2(352, 208)
-
-[connection signal="body_entered" from="Tilemap/Crumble" to="Tilemap/Crumble" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@20072" to="Tilemap/@Area2D@20072" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@20073" to="Tilemap/@Area2D@20073" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@20074" to="Tilemap/@Area2D@20074" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@20075" to="Tilemap/@Area2D@20075" method="_on_body_entered"]
