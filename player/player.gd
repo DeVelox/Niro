@@ -61,10 +61,11 @@ func _physics_process(delta: float) -> void:
 	_animation()
 	move_and_slide()
 	_coyote()
+	
 
+func _debug():
 	_clear()
-	_debug(!can_take_damage, Color.BLUE)
-
+	_debug_color(!can_take_damage, Color.BLUE)
 
 func _movement(delta: float) -> void:
 	if not is_dashing:
@@ -500,6 +501,6 @@ func _clear() -> void:
 	modulate = Color.WHITE
 
 
-func _debug(property: bool, color: Color) -> void:
+func _debug_color(property: bool, color: Color) -> void:
 	if property:
 		modulate = color
