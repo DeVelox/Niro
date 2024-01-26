@@ -5,7 +5,8 @@ extends Node2D
 
 func interact() -> void:
 	_switch_level()
-	
+
+
 func _switch_level() -> void:
 	trophy.collision_layer = 0
 	var main := get_node("/root/Main")

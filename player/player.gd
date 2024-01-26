@@ -151,13 +151,13 @@ func _climb_move() -> void:
 func _wall_move() -> void:
 	velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
 	return
-	var motion: float = Input.get_axis("left", "right") * SPEED
-	if wall_hang_timer.is_stopped() and motion * wall_hang_direction < 0:
-		velocity.x = move_toward(velocity.x, motion, SPEED)
-		is_wall_hanging = false
-	else:
-		velocity.x = SPEED * wall_hang_direction
-	velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
+	#var motion: float = Input.get_axis("left", "right") * SPEED
+	#if wall_hang_timer.is_stopped() and motion * wall_hang_direction < 0:
+	#velocity.x = move_toward(velocity.x, motion, SPEED)
+	#is_wall_hanging = false
+	#else:
+	#velocity.x = SPEED * wall_hang_direction
+	#velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
 
 
 func _try_jump() -> bool:
@@ -226,14 +226,14 @@ func _try_climb_jump() -> bool:
 
 func _try_double_jump() -> bool:
 	return false
-	if Input.is_action_just_pressed("jump") and has_double_jump:
-		velocity.y = JUMP_VELOCITY
-		has_double_jump = false
-		is_double_jumping = true
-		effects.play("double_jump")
-		jump_sound.play()
-		return true
-	return false
+	#if Input.is_action_just_pressed("jump") and has_double_jump:
+	#velocity.y = JUMP_VELOCITY
+	#has_double_jump = false
+	#is_double_jumping = true
+	#effects.play("double_jump")
+	#jump_sound.play()
+	#return true
+	#return false
 
 
 func _try_crouch() -> bool:
@@ -303,6 +303,7 @@ func _state_checks() -> void:
 	if is_climbing:
 		if not (is_climbing_bottom or is_climbing_top):
 			is_climbing = false
+
 
 func _collision_update() -> void:
 	if is_crouching:

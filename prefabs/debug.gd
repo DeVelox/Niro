@@ -10,6 +10,7 @@ var debug_path: Node2D
 @onready var recall: CheckBox = %Recall
 @onready var player: Player = get_parent()
 
+
 func _ready() -> void:
 	DataStore.debug_properties = _init_properties(owner.get_property_list())
 	_init_menu(DataStore.debug_properties, MENU_ROW.instantiate())
