@@ -62,6 +62,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_coyote()
 	
+	_debug()
+	
 
 func _debug():
 	_clear()
