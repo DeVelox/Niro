@@ -64,13 +64,14 @@ func _physics_process(delta: float) -> void:
 	_animation()
 	move_and_slide()
 	_coyote()
-	
+
 	_debug()
-	
+
 
 func _debug():
 	_clear()
 	_debug_color(!is_climbing_top, Color.RED)
+
 
 func _movement(delta: float) -> void:
 	if not is_dashing:
@@ -215,7 +216,7 @@ func _try_wall_jump() -> bool:
 
 
 func _try_climb_jump() -> bool:
-	if Input.is_action_just_pressed("dedicated_jump"):
+	if Input.is_action_just_pressed("jump"):
 		var motion: float = Input.get_axis("left", "right") * SPEED
 		velocity.x = motion * WALL_JUMP_MULTI
 		velocity.y = JUMP_VELOCITY
@@ -299,11 +300,11 @@ func _state_checks() -> void:
 		is_jumping = false
 		is_double_jumping = false
 		is_wall_hanging = false
-	
+
 	if is_climbing:
 		if not (is_climbing_bottom or is_climbing_top):
 			is_climbing = false
-	
+
 	if is_crouching:
 		hitbox.shape.size = Vector2(32, 32)
 		hitbox.position = Vector2(0, 9)
@@ -478,8 +479,10 @@ func _on_slide_finished() -> void:
 func _on_left_wall_touched(_body: Node2D) -> void:
 	_try_wall_hang(-1)
 
+
 func _on_right_wall_touched(_body: Node2D) -> void:
 	_try_wall_hang(1)
+
 
 func _on_wall_exited(_body: Node2D) -> void:
 	is_wall_hanging = false
@@ -506,27 +509,32 @@ func _debug_color(property: bool, color: Color) -> void:
 	if property:
 		modulate = color
 
+
 func _start_climbing(area: Area2D) -> void:
 	if not is_climbing:
-		position.x = area.position.x
+		position.x = area.position.x + 2
 		velocity.x = 0
 		is_climbing = true
 		is_dashing = false
+
 
 func _on_climbing_top_entered(area: Area2D) -> void:
 	if area.is_in_group("climbing"):
 		is_climbing_top = true
 		_start_climbing(area)
 
+
 func _on_climbing_bottom_entered(area: Area2D) -> void:
 	if area.is_in_group("climbing"):
 		is_climbing_bottom = true
 		_start_climbing(area)
 
+
 func _on_climbing_top_exited(area: Area2D) -> void:
 	if area.is_in_group("climbing"):
 		is_climbing_top = false
-	
+
+
 func _on_climbing_bottom_exited(area: Area2D) -> void:
 	if area.is_in_group("climbing"):
 		is_climbing_bottom = false
