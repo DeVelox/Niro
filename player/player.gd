@@ -1,6 +1,6 @@
 class_name Player extends CharacterBody2D
 
-const SPEED = 200.0
+const SPEED = 170.0
 const CROUCH_SPEED_MULTI = 0.6
 const AIR_SPEED_MULTI = 0.75
 const JUMP_VELOCITY = -290.0
@@ -116,7 +116,7 @@ func _air_move(delta: float) -> void:
 	if motion * velocity.x > 0 and absf(velocity.x) > SPEED:
 		change_rate = SPEED / 25
 	else:
-		change_rate = SPEED / 5
+		change_rate = SPEED / 15
 	velocity.x = move_toward(velocity.x, motion, change_rate)
 	if velocity.y > FALL_CLAMP:
 		velocity.y = FALL_CLAMP
