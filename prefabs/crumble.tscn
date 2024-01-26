@@ -22,5 +22,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_d5gob")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
