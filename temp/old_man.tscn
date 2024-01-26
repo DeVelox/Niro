@@ -4,13 +4,8 @@
 
 [sub_resource type="GDScript" id="GDScript_i80cb"]
 script/source = "extends Area2D
+@export var lines : Array[String]
 
-const lines : Array[String] = [
-	\"Yo, what's poppin!\",
-	\"You go on then!\",
-	\"Come back when you need me!\",
-	\"I'll be here for a while!\"
-]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,6 +16,10 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+func say(new_lines: Array[String]) -> void:
+	DialogManager.end_dialog()
+	DialogManager.start_dialog(global_position, new_lines)
+	
 
 func _on_body_entered(_body: Node2D) -> void:
 	DialogManager.start_dialog(global_position, lines)
@@ -68,6 +67,7 @@ size = Vector2(10, 28)
 [node name="OldMan" type="Area2D"]
 scale = Vector2(1.6, 1.6)
 script = SubResource("GDScript_i80cb")
+lines = Array[String](["Yo, what's poppin!", "You go on then!", "Come back when you need me!", "I'll be here for a while!"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yyg2h")

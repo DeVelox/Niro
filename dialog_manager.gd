@@ -29,6 +29,12 @@ func start_dialog(position: Vector2, lines: Array[String]) -> void:
 	_show_text_box()
 
 
+func end_dialog() -> void:
+	if is_dialog_active:
+		current_line = 0
+		is_dialog_active = false
+
+
 func _show_text_box() -> void:
 	text_box = text_box_scene.instantiate() as TextBox
 	text_box.finished.connect(_on_text_box_finished)

@@ -183,7 +183,7 @@ size = Vector2(32, 22)
 size = Vector2(28, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obud4"]
-size = Vector2(5, 19)
+size = Vector2(5, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txqwi"]
 atlas = ExtResource("30_cadxq")
@@ -309,6 +309,7 @@ hit_from_inside = true
 collide_with_areas = true
 
 [node name="WallHangLeft" type="Area2D" parent="Detectors"]
+visible = false
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/WallHangLeft"]
@@ -317,6 +318,7 @@ scale = Vector2(0.4, 0.6)
 shape = SubResource("RectangleShape2D_kjvja")
 
 [node name="WallHangRight" type="Area2D" parent="Detectors"]
+visible = false
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/WallHangRight"]
@@ -343,7 +345,7 @@ shape = SubResource("RectangleShape2D_0rk70")
 [node name="Climbing" type="Area2D" parent="Detectors" groups=["climbing"]]
 
 [node name="ColisionCheck" type="CollisionShape2D" parent="Detectors/Climbing"]
-position = Vector2(-0.5, 9.5)
+position = Vector2(-0.5, 2.5)
 shape = SubResource("RectangleShape2D_obud4")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]

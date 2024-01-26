@@ -59,3 +59,4 @@ layer_0/tile_data = PackedInt32Array(-131068, 393216, 0, -131067, 458752, 0, -13
 
 [node name="OldMan" parent="." instance=ExtResource("9_qhnuv")]
 position = Vector2(352, 208)
+lines = Array[String](["Yo, what's poppin!", "You go on then!", "Come back when you need me!", "I'll be here for a while!"])

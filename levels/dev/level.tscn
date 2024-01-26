@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1w3ihqp66cmf"]
+
+[ext_resource type="Script" path="res://prefabs/level.gd" id="1_o6p58"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="2_sodgo"]
+[ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://temp/old_man.tscn" id="4_iyc0r"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level_switcher.tscn" id="6_yrd7g"]
+
+[sub_resource type="GDScript" id="GDScript_dol47"]
+script/source = "extends Area2D
+@onready var old_man: Area2D = $\"../OldMan\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+
+
+func _on_body_entered(_body: Node2D) -> void:
+	var lines: Array[String] = [\"Groovin!\"]
+	old_man.say(lines)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mep5j"]
+size = Vector2(96, 1.5)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_o6p58")
+
+[node name="Tilemap" parent="." instance=ExtResource("2_sodgo")]
+layer_1/tile_data = PackedInt32Array(0, 458752, 4, 1, 458752, 4, 2, 458752, 4, 3, 458752, 4, 4, 458752, 4, 5, 458752, 4, 6, 458752, 4, 7, 458752, 4, 8, 458752, 4, 9, 458752, 4, 10, 458752, 4, 11, 458752, 4, 12, 458752, 4, 13, 458752, 4, 14, 458752, 4, 15, 458752, 4, 16, 458752, 4, 17, 458752, 4, 18, 458752, 4, 19, 458752, 4, 20, 458752, 4, 21, 458752, 4, 22, 458752, 4, 23, 458752, 4, 24, 458752, 4, 25, 458752, 4, 26, 458752, 4, 27, 458752, 4, 28, 458752, 4, 29, 458752, 4, 30, 458752, 4, 31, 458752, 4, 32, 458752, 4, 33, 458752, 4, 34, 458752, 4, 35, 458752, 4, 36, 458752, 4, 37, 458752, 4, 38, 458752, 4, 39, 458752, 4, 40, 524288, 4, 65535, 393216, 4, -327644, 1114112, 5, -262108, 1114112, 6, -393180, 1114112, 4, -589795, 1245184, 5, -524259, 1245184, 6, -655331, 1245184, 4, -917469, 786432, 4, -917468, 851968, 4, -917467, 917504, 4, -1245149, 1114112, 2, -1245148, 1179648, 2, -1245147, 1245184, 2, -1048564, 851968, 4, -1048563, 917504, 4, -1048565, 851968, 4, -1048566, 851968, 4, -1048567, 851968, 4, -1048568, 786432, 4, -720895, 1, 131072)
+layer_2/tile_data = PackedInt32Array(40, 1, 65536, 39, 1, 65536, 38, 1, 65536, 37, 1, 65536, 36, 1, 65536, 35, 1, 65536, 34, 1, 65536, 33, 1, 65536, 32, 1, 65536, 31, 1, 65536, 30, 1, 65536, 29, 1, 65536, 28, 1, 65536, 27, 1, 65536, 26, 1, 65536, 25, 1, 65536)
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(20, 328)
+
+[node name="OldMan" parent="." instance=ExtResource("4_iyc0r")]
+position = Vector2(102, 336)
+
+[node name="Area2D" type="Area2D" parent="."]
+script = SubResource("GDScript_dol47")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(176, 104.25)
+shape = SubResource("RectangleShape2D_mep5j")
+
+[node name="SceneSwitcher" parent="." instance=ExtResource("6_yrd7g")]
+position = Vector2(176, 164)
+next_scene = "res://levels/dev/level.tscn"
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
