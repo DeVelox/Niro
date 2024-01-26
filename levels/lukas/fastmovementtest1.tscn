@@ -8,27 +8,9 @@
 script = ExtResource("1_5jw3d")
 
 [node name="Tilemap" parent="." instance=ExtResource("2_yua35")]
-layer_1/tile_data = PackedInt32Array(-131066, 1114112, 1, -131051, 786432, 4, -131065, 1179648, 1, -131064, 1179648, 1, -131063, 1179648, 1, -131050, 851968, 4, -131049, 851968, 4, -131048, 851968, 4, -131062, 1245184, 1, -131047, 917504, 4, -1179628, 786432, 4, -1179627, 851968, 4, -1179626, 917504, 4, -327653, 786432, 4, -327652, 851968, 4, -327651, 851968, 4, -327650, 917504, 4, -524268, 851968, 4, -524267, 851968, 4, -524266, 851968, 4, -524265, 917504, 4, -524269, 786432, 4, -720889, 1114112, 1, -720888, 1179648, 1, -720887, 1179648, 1, -720886, 1179648, 1, -720885, 1245184, 1, -983033, 1114112, 1, -983032, 1179648, 1, -983031, 1179648, 1, -983030, 1179648, 1, -983029, 1245184, 1, -1179616, 786432, 4, -1179615, 851968, 4, -1179614, 917504, 4)
-layer_2/tile_data = PackedInt32Array(-131051, 1, 65536, -131050, 1, 65536, -131049, 1, 65536, -131048, 1, 65536, -131047, 1, 65536, -327653, 1, 65536, -327652, 1, 65536, -327651, 1, 65536, -327650, 1, 65536, -524269, 1, 65536, -524268, 1, 65536, -524267, 1, 65536, -524266, 1, 65536, -524265, 1, 65536, -1179628, 1, 65536, -1179627, 1, 65536, -1179626, 1, 65536)
+layer_1/tile_data = PackedInt32Array(-65530, 1114112, 1, -851961, 1114112, 1, -655353, 1114112, 1, -65529, 1179648, 1, -851960, 1179648, 1, -655352, 1179648, 1, -65528, 1179648, 1, -851959, 1179648, 1, -655351, 1179648, 1, -65527, 1179648, 1, -851958, 1179648, 1, -655350, 1179648, 1, -65526, 1245184, 1, -851957, 1245184, 1, -655349, 1245184, 1, -1048561, 786432, 4, -1048560, 851968, 4, -1048559, 917504, 4, -458733, 786432, 4, -458732, 851968, 4, -1048555, 786432, 4, -458731, 851968, 4, -65515, 786432, 4, -1048554, 851968, 4, -458730, 851968, 4, -65514, 851968, 4, -1048553, 917504, 4, -458729, 917504, 4, -65513, 851968, 4, -65512, 851968, 4, -65511, 917504, 4, -262117, 786432, 4, -262116, 851968, 4, -262115, 851968, 4, -262114, 917504, 4, -1114080, 786432, 4, -1114079, 851968, 4, -1114078, 917504, 4)
+layer_2/tile_data = PackedInt32Array(-1048561, 1, 65536, -1048560, 1, 65536, -1048559, 1, 65536, -458733, 1, 65536, -458732, 1, 65536, -1048555, 1, 65536, -458731, 1, 65536, -65515, 1, 65536, -1048554, 1, 65536, -458730, 1, 65536, -65514, 1, 65536, -1048553, 1, 65536, -458729, 1, 65536, -65513, 1, 65536, -65512, 1, 65536, -65511, 1, 65536, -262117, 1, 65536, -262116, 1, 65536, -262115, 1, 65536, -262114, 1, 65536)
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("4_5u63x")]
-position = Vector2(536, 40)
+position = Vector2(536, 56)
 next_scene = "res://levels/lukas/fastmovementtest2.tscn"
-
-[connection signal="body_entered" from="Tilemap/Crumble" to="Tilemap/Crumble" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25516" to="Tilemap/@Area2D@25516" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25517" to="Tilemap/@Area2D@25517" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25518" to="Tilemap/@Area2D@25518" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25519" to="Tilemap/@Area2D@25519" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25520" to="Tilemap/@Area2D@25520" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25521" to="Tilemap/@Area2D@25521" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25522" to="Tilemap/@Area2D@25522" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25523" to="Tilemap/@Area2D@25523" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25524" to="Tilemap/@Area2D@25524" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25525" to="Tilemap/@Area2D@25525" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25526" to="Tilemap/@Area2D@25526" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25527" to="Tilemap/@Area2D@25527" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25528" to="Tilemap/@Area2D@25528" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25529" to="Tilemap/@Area2D@25529" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25530" to="Tilemap/@Area2D@25530" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@25531" to="Tilemap/@Area2D@25531" method="_on_body_entered"]
