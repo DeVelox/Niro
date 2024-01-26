@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=45 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_0if4t"]
 [ext_resource type="Texture2D" uid="uid://bxturgjbo7ee2" path="res://temp/adventurer/adventurer-crouch-00.png" id="2_jb7dh"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://cjayn8eck7ua6" path="res://temp/adventurer/adventurer-wall-slide-01.png" id="28_2yuen"]
 [ext_resource type="AudioStream" uid="uid://c3cry3vws4b6j" path="res://temp/jump.ogg" id="29_hpjs7"]
 [ext_resource type="Texture2D" uid="uid://dnm7ya8rtxqy1" path="res://temp/double_jump.png" id="30_cadxq"]
+[ext_resource type="PackedScene" uid="uid://jbo4xpcv06af" path="res://prefabs/debug.tscn" id="33_7luae"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_13nta"]
 animations = [{
@@ -370,6 +371,8 @@ position = Vector2(0, 24)
 scale = Vector2(1, 0.4375)
 sprite_frames = SubResource("SpriteFrames_1xcut")
 animation = &"double_jump"
+
+[node name="Debug" parent="." instance=ExtResource("33_7luae")]
 
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_finished"]
 [connection signal="timeout" from="Timers/SlideTimer" to="." method="_on_slide_finished"]

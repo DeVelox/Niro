@@ -65,12 +65,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_coyote()
 
-	_debug()
-
-
-func _debug():
-	_clear()
-	_debug_color(!is_climbing_bottom, Color.RED)
+	_debug_clear()
 
 
 func _movement(delta: float) -> void:
@@ -501,12 +496,17 @@ func _on_invulnerability_timeout() -> void:
 	can_take_damage = true
 
 
-func _clear() -> void:
+func _debug_clear() -> void:
 	modulate = Color.WHITE
 
 
-func _debug_color(property: bool, color: Color) -> void:
-	if property:
+func debug_color(property: String, invert: bool, color: Color) -> void:
+	var state: bool
+	if get(property):
+		state = get(property)
+	if invert:
+		state = not state
+	if state:
 		modulate = color
 
 

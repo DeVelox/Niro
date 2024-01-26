@@ -5,3 +5,6 @@ var current_level: Node2D
 var scene_history: Array[String]
 
 var spawn_point: Vector2
+
+var debug_path: Array[Vector2]
+var debug_properties: Array[String]
