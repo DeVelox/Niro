@@ -14,6 +14,7 @@ const WALL_CLAMP_MULTI = 0.1
 const JUMP_APEX = 5
 const JUMP_APEX_MULTI = 0.1
 const VAR_JUMP_MULTI = 0.25
+const CLIMB_SPEED_MULTI = 0.5
 const NUDGE_RANGE = 28
 const NUDGE_MULTI = 10
 const REWIND_DUR = 1.0
@@ -24,6 +25,8 @@ var wall_hang_direction := 0
 var is_wall_hanging := false
 var is_crouching := false
 var is_climbing := false
+var is_climbing_top := false
+var is_climbing_bottom := false
 var is_dashing := false
 var is_sliding := false
 var is_jumping := false
@@ -67,7 +70,7 @@ func _physics_process(delta: float) -> void:
 
 func _debug():
 	_clear()
-	_debug_color(!can_take_damage, Color.BLUE)
+	_debug_color(!is_climbing_top, Color.RED)
 
 func _movement(delta: float) -> void:
 	if not is_dashing:
@@ -142,7 +145,9 @@ func _slide_move() -> void:
 
 
 func _climb_move() -> void:
-	var motion: float = Input.get_axis("up", "down") * SPEED
+	var motion: float = Input.get_axis("up", "down") * SPEED * CLIMB_SPEED_MULTI
+	if not is_climbing_top and motion < 0:
+		motion = 0
 	velocity.y = motion
 
 
@@ -294,7 +299,11 @@ func _state_checks() -> void:
 		is_jumping = false
 		is_double_jumping = false
 		is_wall_hanging = false
-
+	
+	if is_climbing:
+		if not (is_climbing_bottom or is_climbing_top):
+			is_climbing = false
+	
 	if is_crouching:
 		hitbox.shape.size = Vector2(32, 32)
 		hitbox.position = Vector2(0, 9)
@@ -329,7 +338,7 @@ func _animation() -> void:
 
 func _get_animation() -> String:
 	var animation: String
-	if is_climbing and not Input.get_axis("up", "down"):
+	if is_climbing and velocity.y == 0:
 		animation = "climbing_idle"
 	elif is_climbing:
 		animation = "climbing"
@@ -466,21 +475,24 @@ func _on_slide_finished() -> void:
 	is_sliding = false
 
 
-func _on_left_wall_touched(_body) -> void:
+func _on_left_wall_touched(_body: Node2D) -> void:
 	_try_wall_hang(-1)
 
-
-func _on_right_wall_touched(_body) -> void:
+func _on_right_wall_touched(_body: Node2D) -> void:
 	_try_wall_hang(1)
 
+func _on_wall_exited(_body: Node2D) -> void:
+	is_wall_hanging = false
 
-func _on_nudge_check(_body) -> void:
+
+func _on_nudge_check(_body: Node2D) -> void:
 	gap_check.position = velocity.normalized() * NUDGE_RANGE
 	if not area_2d_gap_check.get_overlapping_bodies():
 		position += velocity.normalized() * NUDGE_MULTI
 
 
 func _on_climbable_entered(area) -> void:
+	return
 	if area.is_in_group("climbing"):
 		velocity.x = 0
 		is_climbing = true
@@ -488,6 +500,7 @@ func _on_climbable_entered(area) -> void:
 
 
 func _on_climbable_exited(area) -> void:
+	return
 	if area.is_in_group("climbing"):
 		is_climbing = false
 
@@ -506,3 +519,28 @@ func _clear() -> void:
 func _debug_color(property: bool, color: Color) -> void:
 	if property:
 		modulate = color
+
+func _start_climbing(area: Area2D) -> void:
+	if not is_climbing:
+		position.x = area.position.x
+		velocity.x = 0
+		is_climbing = true
+		is_dashing = false
+
+func _on_climbing_top_entered(area: Area2D) -> void:
+	if area.is_in_group("climbing"):
+		is_climbing_top = true
+		_start_climbing(area)
+
+func _on_climbing_bottom_entered(area: Area2D) -> void:
+	if area.is_in_group("climbing"):
+		is_climbing_bottom = true
+		_start_climbing(area)
+
+func _on_climbing_top_exited(area: Area2D) -> void:
+	if area.is_in_group("climbing"):
+		is_climbing_top = false
+	
+func _on_climbing_bottom_exited(area: Area2D) -> void:
+	if area.is_in_group("climbing"):
+		is_climbing_bottom = false

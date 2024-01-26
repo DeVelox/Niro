@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=44 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_0if4t"]
 [ext_resource type="Texture2D" uid="uid://bxturgjbo7ee2" path="res://temp/adventurer/adventurer-crouch-00.png" id="2_jb7dh"]
@@ -182,8 +182,11 @@ size = Vector2(32, 22)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjvja"]
 size = Vector2(28, 50)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_obud4"]
-size = Vector2(5, 5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0u0hd"]
+size = Vector2(14, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xclq"]
+size = Vector2(14, 2)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txqwi"]
 atlas = ExtResource("30_cadxq")
@@ -342,11 +345,17 @@ collision_mask = 140
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/NudgeCheck"]
 shape = SubResource("RectangleShape2D_0rk70")
 
-[node name="Climbing" type="Area2D" parent="Detectors" groups=["climbing"]]
+[node name="ClimbingTop" type="Area2D" parent="Detectors"]
 
-[node name="ColisionCheck" type="CollisionShape2D" parent="Detectors/Climbing"]
-position = Vector2(-0.5, 2.5)
-shape = SubResource("RectangleShape2D_obud4")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingTop"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_0u0hd")
+
+[node name="ClimbingBottom" type="Area2D" parent="Detectors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingBottom"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_3xclq")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_hpjs7")
@@ -363,7 +372,11 @@ animation = &"double_jump"
 [connection signal="timeout" from="Timers/SlideTimer" to="." method="_on_slide_finished"]
 [connection signal="timeout" from="Timers/Invulnerability" to="." method="_on_invulnerability_timeout"]
 [connection signal="body_entered" from="Detectors/WallHangLeft" to="." method="_on_left_wall_touched"]
+[connection signal="body_exited" from="Detectors/WallHangLeft" to="." method="_on_wall_exited"]
 [connection signal="body_entered" from="Detectors/WallHangRight" to="." method="_on_right_wall_touched"]
+[connection signal="body_exited" from="Detectors/WallHangRight" to="." method="_on_wall_exited"]
 [connection signal="body_entered" from="Detectors/NudgeCheck" to="." method="_on_nudge_check"]
-[connection signal="area_entered" from="Detectors/Climbing" to="." method="_on_climbable_entered"]
-[connection signal="area_exited" from="Detectors/Climbing" to="." method="_on_climbable_exited"]
+[connection signal="area_entered" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_entered"]
+[connection signal="area_exited" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_exited"]
+[connection signal="area_entered" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_entered"]
+[connection signal="area_exited" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_exited"]
