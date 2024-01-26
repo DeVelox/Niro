@@ -45,8 +45,6 @@ func _show_text_box() -> void:
 
 
 func _on_text_box_finished() -> void:
-	await get_tree().create_timer(1).timeout
-	text_box.queue_free()
 	can_advance = true
 	current_line += 1
 	if current_line >= dialog_lines.size():

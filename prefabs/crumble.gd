@@ -17,6 +17,6 @@ func _on_body_entered(_body: Node2D) -> void:
 	var tilemap := get_parent() as TileMap
 	var pos: Vector2 = tilemap.local_to_map(position)
 	var tween := create_tween()
-	tween.tween_property(crack, "modulate", Color(1, 1, 1, 1), 1)
+	tween.tween_property(crack, "modulate", Color(1, 1, 1, 1), 0.5)
 	tween.tween_callback(tilemap.erase_cell.bind(1, pos))
 	tween.tween_callback(tilemap.erase_cell.bind(2, pos))

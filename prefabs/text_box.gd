@@ -38,7 +38,9 @@ func _display_letter() -> void:
 	index += 1
 
 	if index >= text.length():
+		await get_tree().create_timer(1).timeout
 		finished.emit()
+		queue_free()
 		return
 	timer.start(time)
 
