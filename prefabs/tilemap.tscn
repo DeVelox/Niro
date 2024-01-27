@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bb44qdp7l5m62"]
+[gd_scene load_steps=8 format=3 uid="uid://bb44qdp7l5m62"]
 
 [ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_0j80b"]
 [ext_resource type="PackedScene" uid="uid://dlklgdcq4kqso" path="res://prefabs/crumble.tscn" id="2_1n421"]
 [ext_resource type="PackedScene" uid="uid://lnpjdxepd4ie" path="res://prefabs/rope_climb.tscn" id="3_vgvqj"]
+[ext_resource type="PackedScene" uid="uid://dp1stkmcgwbsy" path="res://prefabs/fade_out.tscn" id="4_gbmcw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8us2"]
 resource_name = "Terrain"
@@ -456,11 +457,25 @@ texture = ExtResource("1_0j80b")
 8:10/0/physics_layer_1/angular_velocity = 0.0
 8:10/0/physics_layer_2/linear_velocity = Vector2(0, 0)
 8:10/0/physics_layer_2/angular_velocity = 0.0
+12:0/animation_columns = 4
+12:0/animation_frame_0/duration = 1.0
+12:0/animation_frame_1/duration = 1.0
+12:0/animation_frame_2/duration = 1.0
+12:0/animation_frame_3/duration = 1.0
+12:0/0 = 0
+12:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+12:0/0/physics_layer_0/angular_velocity = 0.0
+12:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+12:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+12:0/0/physics_layer_1/angular_velocity = 0.0
+12:0/0/physics_layer_2/linear_velocity = Vector2(0, 0)
+12:0/0/physics_layer_2/angular_velocity = 0.0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5n8h1"]
 resource_name = "Prefabs"
 scenes/1/scene = ExtResource("2_1n421")
 scenes/2/scene = ExtResource("3_vgvqj")
+scenes/3/scene = ExtResource("4_gbmcw")
 
 [sub_resource type="TileSet" id="TileSet_4vjsb"]
 physics_layer_0/collision_layer = 4

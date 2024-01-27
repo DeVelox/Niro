@@ -11,16 +11,13 @@ func _ready() -> void:
 
 func _fade_in() -> void:
 	var tween = create_tween()
-	tween.tween_property(fade_in, "modulate", Color(1, 1, 1, 1), 1)
 	for i in fade_in.get_layers_count():
 		tween.tween_callback(fade_in.set_layer_enabled.bind(i, true))
+	tween.tween_property(fade_in, "modulate", Color(1, 1, 1, 1), 1)
 
 
 func _fade_out() -> void:
-	var tween = create_tween()
-	tween.tween_property(fade_out, "modulate", Color(1, 1, 1, 0), 1)
-	for i in fade_out.get_layers_count():
-		tween.tween_callback(fade_out.set_layer_enabled.bind(i, false))
+	get_tree().call_group("fade_out", "fade_out", fade_out)
 
 
 func _on_body_entered(body: Node2D) -> void:

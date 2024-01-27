@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://b12hj7neipff4"]
+
+[node name="FadeIn" type="Node2D" groups=["fade_in"]]

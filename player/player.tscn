@@ -351,7 +351,7 @@ shape = SubResource("RectangleShape2D_3xclq")
 
 [node name="GapCheck" type="Area2D" parent="Detectors"]
 visible = false
-collision_mask = 140
+collision_mask = 132
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/GapCheck"]
 position = Vector2(0, -8)
