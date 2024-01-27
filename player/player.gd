@@ -25,8 +25,8 @@ var wall_hang_direction := 0
 var is_wall_hanging := false
 var is_crouching := false
 var is_climbing := false
-var is_climbing_top := false
-var is_climbing_bottom := false
+var is_climbing_top := 0
+var is_climbing_bottom := 0
 var is_dashing := false
 var is_sliding := false
 var is_jumping := false
@@ -48,6 +48,7 @@ var should_take_damage := true
 @onready var double_tap: Timer = $Timers/DoubleTap
 @onready var wall_hang_timer: Timer = $Timers/WallHangTimer
 @onready var long_press: Timer = $Timers/LongPress
+@onready var climb_cooldown: Timer = $Timers/ClimbCooldown
 @onready var drop_check: RayCast2D = $Detectors/DropCheck
 @onready var interact_check: RayCast2D = $Detectors/InteractCheck
 @onready var jump_sound: AudioStreamPlayer = $JumpSound
@@ -142,7 +143,7 @@ func _slide_move() -> void:
 
 func _climb_move() -> void:
 	var motion: float = Input.get_axis("up", "down") * SPEED * CLIMB_SPEED_MULTI
-	if not is_climbing_top and motion < 0:
+	if is_climbing_top == 0 and motion < 0:
 		motion = 0
 	velocity.y = motion
 
@@ -218,6 +219,7 @@ func _try_climb_jump() -> bool:
 		velocity.x = motion
 		velocity.y = JUMP_VELOCITY
 		is_climbing = false
+		climb_cooldown.start()
 		jump_sound.play()
 		return true
 	return false
@@ -300,14 +302,14 @@ func _state_checks() -> void:
 		is_wall_hanging = false
 
 	if is_climbing:
-		if not (is_climbing_bottom or is_climbing_top):
+		if is_climbing_bottom + is_climbing_top == 0:
 			is_climbing = false
 
 
 func _collision_update() -> void:
 	#if is_crouching:
-		#hitbox.shape.size = Vector2(32, 32)
-		#hitbox.position = Vector2(0, 9)
+	#hitbox.shape.size = Vector2(32, 32)
+	#hitbox.position = Vector2(0, 9)
 	if is_crouching or is_sliding:
 		get_tree().call_group("noclimb", "set", "disabled", true)
 		hitbox.shape.size = Vector2(32, 22)
@@ -493,9 +495,9 @@ func _on_wall_exited(_body: Node2D) -> void:
 
 
 #func _on_nudge_check(_body: Node2D) -> void:
-	#gap_check.position = velocity.normalized() * NUDGE_RANGE
-	#if not area_2d_gap_check.get_overlapping_bodies():
-		#position += velocity.normalized() * NUDGE_MULTI
+#gap_check.position = velocity.normalized() * NUDGE_RANGE
+#if not area_2d_gap_check.get_overlapping_bodies():
+#position += velocity.normalized() * NUDGE_MULTI
 
 
 func _on_invulnerability_timeout() -> void:
@@ -518,8 +520,8 @@ func debug_color(property: String, invert: bool, color: Color) -> void:
 
 
 func _start_climbing(area: Area2D) -> void:
-	if not is_climbing:
-		position.x = area.position.x + 2
+	if not is_climbing and climb_cooldown.is_stopped():
+		position.x = area.position.x
 		velocity.x = 0
 		is_climbing = true
 		is_dashing = false
@@ -527,24 +529,26 @@ func _start_climbing(area: Area2D) -> void:
 
 func _on_climbing_top_entered(area: Area2D) -> void:
 	if area.is_in_group("climbing"):
-		is_climbing_top = true
-		_start_climbing(area)
+		if is_climbing_top == 0:
+			_start_climbing(area)
+		is_climbing_top += 1
 
 
 func _on_climbing_bottom_entered(area: Area2D) -> void:
 	if area.is_in_group("climbing"):
-		is_climbing_bottom = true
-		_start_climbing(area)
+		if is_climbing_bottom == 0:
+			_start_climbing(area)
+		is_climbing_bottom += 1
 
 
 func _on_climbing_top_exited(area: Area2D) -> void:
 	if area.is_in_group("climbing"):
-		is_climbing_top = false
+		is_climbing_top -= 1
 
 
 func _on_climbing_bottom_exited(area: Area2D) -> void:
 	if area.is_in_group("climbing"):
-		is_climbing_bottom = false
+		is_climbing_bottom -= 1
 
 
 func _on_screen_exited() -> void:
