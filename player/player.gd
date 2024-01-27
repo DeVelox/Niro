@@ -364,10 +364,10 @@ func _get_animation() -> String:
 			else:
 				animation = "jumping"
 	else:
-		if absf(velocity.x) > 0.1:
-			animation = "running"
-		elif is_crouching:
+		if is_crouching:
 			animation = "crouching"
+		elif absf(velocity.x) > 0.1:
+			animation = "running"
 		else:
 			animation = "idle"
 	return animation
@@ -525,7 +525,7 @@ func debug_color(property: String, invert: bool, color: Color) -> void:
 
 
 func _start_climbing(body: Node2D) -> void:
-	if not is_climbing and climb_cooldown.is_stopped():
+	if not is_climbing and climb_cooldown.is_stopped() and not is_on_floor():
 		var tile_pos = body.local_to_map(position)
 		var pos = body.map_to_local(tile_pos)
 		position.x = pos.x
