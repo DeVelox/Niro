@@ -58,8 +58,6 @@ var should_take_damage := true
 
 
 func _physics_process(delta: float) -> void:
-	print("top", is_climbing_top)
-	print("bottom", is_climbing_bottom)
 	_state_checks()
 	_special_actions()
 	_movement(delta)
@@ -310,8 +308,8 @@ func _state_checks() -> void:
 
 func _collision_update() -> void:
 	#if is_crouching:
-		#hitbox.shape.size = Vector2(32, 32)
-		#hitbox.position = Vector2(0, 9)
+	#hitbox.shape.size = Vector2(32, 32)
+	#hitbox.position = Vector2(0, 9)
 	if is_crouching or is_sliding:
 		get_tree().call_group("noclimb", "set", "disabled", true)
 		hitbox.shape.size = Vector2(32, 22)
@@ -497,9 +495,9 @@ func _on_wall_exited(_body: Node2D) -> void:
 
 
 #func _on_nudge_check(_body: Node2D) -> void:
-	#gap_check.position = velocity.normalized() * NUDGE_RANGE
-	#if not area_2d_gap_check.get_overlapping_bodies():
-		#position += velocity.normalized() * NUDGE_MULTI
+#gap_check.position = velocity.normalized() * NUDGE_RANGE
+#if not area_2d_gap_check.get_overlapping_bodies():
+#position += velocity.normalized() * NUDGE_MULTI
 
 
 func _on_invulnerability_timeout() -> void:
