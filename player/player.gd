@@ -102,6 +102,9 @@ func _movement(delta: float) -> void:
 
 
 func _move() -> void:
+	if is_climbing:
+		_climb_move()
+		return
 	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	if absf(velocity.x) > SPEED and motion:
@@ -519,36 +522,32 @@ func debug_color(property: String, invert: bool, color: Color) -> void:
 		modulate = color
 
 
-func _start_climbing(area: Area2D) -> void:
+func _start_climbing(_body: Node2D) -> void:
 	if not is_climbing and climb_cooldown.is_stopped():
-		position.x = area.position.x
+		position.x += 10 * velocity.normalized().x
 		velocity.x = 0
 		is_climbing = true
 		is_dashing = false
 
 
-func _on_climbing_top_entered(area: Area2D) -> void:
-	if area.is_in_group("climbing"):
-		if is_climbing_top == 0:
-			_start_climbing(area)
-		is_climbing_top += 1
+func _on_climbing_top_entered(body: Node2D) -> void:
+	if is_climbing_top == 0:
+		_start_climbing(body)
+	is_climbing_top += 1
 
 
-func _on_climbing_bottom_entered(area: Area2D) -> void:
-	if area.is_in_group("climbing"):
-		if is_climbing_bottom == 0:
-			_start_climbing(area)
-		is_climbing_bottom += 1
+func _on_climbing_bottom_entered(body: Node2D) -> void:
+	if is_climbing_bottom == 0:
+		_start_climbing(body)
+	is_climbing_bottom += 1
 
 
-func _on_climbing_top_exited(area: Area2D) -> void:
-	if area.is_in_group("climbing"):
-		is_climbing_top -= 1
+func _on_climbing_top_exited(_body: Node2D) -> void:
+	is_climbing_top -= 1
 
 
-func _on_climbing_bottom_exited(area: Area2D) -> void:
-	if area.is_in_group("climbing"):
-		is_climbing_bottom -= 1
+func _on_climbing_bottom_exited(_body: Node2D) -> void:
+	is_climbing_bottom -= 1
 
 
 func _on_screen_exited() -> void:

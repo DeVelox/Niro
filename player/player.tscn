@@ -249,9 +249,8 @@ script = ExtResource("1_0if4t")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"jumping"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.290991
 offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -338,12 +337,14 @@ scale = Vector2(0.4, 0.6)
 shape = SubResource("RectangleShape2D_kjvja")
 
 [node name="ClimbingTop" type="Area2D" parent="Detectors"]
+collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingTop" groups=["noclimb"]]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_0u0hd")
 
 [node name="ClimbingBottom" type="Area2D" parent="Detectors"]
+collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingBottom" groups=["noclimb"]]
 position = Vector2(0, 5)
@@ -380,8 +381,8 @@ animation = &"double_jump"
 [connection signal="body_exited" from="Detectors/WallHangLeft" to="." method="_on_wall_exited"]
 [connection signal="body_entered" from="Detectors/WallHangRight" to="." method="_on_right_wall_touched"]
 [connection signal="body_exited" from="Detectors/WallHangRight" to="." method="_on_wall_exited"]
-[connection signal="area_entered" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_entered"]
-[connection signal="area_exited" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_exited"]
-[connection signal="area_entered" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_entered"]
-[connection signal="area_exited" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_exited"]
+[connection signal="body_entered" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_entered"]
+[connection signal="body_exited" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_exited"]
+[connection signal="body_entered" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_entered"]
+[connection signal="body_exited" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_exited"]
 [connection signal="screen_exited" from="Detectors/VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]
