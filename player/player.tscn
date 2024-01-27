@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=46 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_0if4t"]
 [ext_resource type="Texture2D" uid="uid://bxturgjbo7ee2" path="res://temp/adventurer/adventurer-crouch-00.png" id="2_jb7dh"]
@@ -178,7 +178,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rk70"]
-size = Vector2(32, 22)
+size = Vector2(32, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjvja"]
 size = Vector2(28, 50)
@@ -188,6 +188,9 @@ size = Vector2(14, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3xclq"]
 size = Vector2(14, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hfvdp"]
+size = Vector2(32, 22)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txqwi"]
 atlas = ExtResource("30_cadxq")
@@ -252,7 +255,7 @@ frame_progress = 0.290991
 offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 14)
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -330,33 +333,26 @@ position = Vector2(14, 5)
 scale = Vector2(0.4, 0.6)
 shape = SubResource("RectangleShape2D_kjvja")
 
-[node name="GapCheck" type="Area2D" parent="Detectors"]
-visible = false
-collision_layer = 0
-collision_mask = 140
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/GapCheck"]
-shape = SubResource("RectangleShape2D_0rk70")
-
-[node name="NudgeCheck" type="Area2D" parent="Detectors"]
-visible = false
-collision_layer = 0
-collision_mask = 140
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/NudgeCheck"]
-shape = SubResource("RectangleShape2D_0rk70")
-
 [node name="ClimbingTop" type="Area2D" parent="Detectors"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingTop"]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_0u0hd")
 
 [node name="ClimbingBottom" type="Area2D" parent="Detectors"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingBottom"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_3xclq")
+
+[node name="GapCheck" type="Area2D" parent="Detectors"]
+collision_mask = 140
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/GapCheck"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_hfvdp")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Detectors"]
 scale = Vector2(0.2, 0.2)
@@ -381,7 +377,6 @@ animation = &"double_jump"
 [connection signal="body_exited" from="Detectors/WallHangLeft" to="." method="_on_wall_exited"]
 [connection signal="body_entered" from="Detectors/WallHangRight" to="." method="_on_right_wall_touched"]
 [connection signal="body_exited" from="Detectors/WallHangRight" to="." method="_on_wall_exited"]
-[connection signal="body_entered" from="Detectors/NudgeCheck" to="." method="_on_nudge_check"]
 [connection signal="area_entered" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_entered"]
 [connection signal="area_exited" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_exited"]
 [connection signal="area_entered" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_entered"]

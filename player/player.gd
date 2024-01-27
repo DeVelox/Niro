@@ -50,11 +50,10 @@ var should_take_damage := true
 @onready var long_press: Timer = $Timers/LongPress
 @onready var drop_check: RayCast2D = $Detectors/DropCheck
 @onready var interact_check: RayCast2D = $Detectors/InteractCheck
-@onready var area_2d_gap_check: Area2D = $Detectors/NudgeCheck
-@onready var gap_check: CollisionShape2D = $Detectors/NudgeCheck/CollisionShape2D
 @onready var jump_sound: AudioStreamPlayer = $JumpSound
 @onready var effects: AnimatedSprite2D = $Effects
 @onready var invulnerability: Timer = $Timers/Invulnerability
+@onready var gap_check: Area2D = $Detectors/GapCheck
 
 
 func _physics_process(delta: float) -> void:
@@ -251,7 +250,7 @@ func _try_drop() -> bool:
 
 
 func _try_stop_crouch() -> bool:
-	if not Input.is_action_pressed("down"):
+	if not Input.is_action_pressed("down") and not gap_check.get_overlapping_bodies():
 		is_crouching = false
 		return true
 	return false
@@ -306,10 +305,10 @@ func _state_checks() -> void:
 
 
 func _collision_update() -> void:
-	if is_crouching:
-		hitbox.shape.size = Vector2(32, 32)
-		hitbox.position = Vector2(0, 9)
-	elif is_sliding:
+	#if is_crouching:
+		#hitbox.shape.size = Vector2(32, 32)
+		#hitbox.position = Vector2(0, 9)
+	if is_crouching or is_sliding:
 		hitbox.shape.size = Vector2(32, 22)
 		hitbox.position = Vector2(0, 14)
 	else:
@@ -473,6 +472,8 @@ func _on_dash_finished() -> void:
 
 
 func _on_slide_finished() -> void:
+	if gap_check.get_overlapping_bodies():
+		is_crouching = true
 	slide_cooldown.start()
 	is_sliding = false
 
@@ -489,10 +490,10 @@ func _on_wall_exited(_body: Node2D) -> void:
 	is_wall_hanging = false
 
 
-func _on_nudge_check(_body: Node2D) -> void:
-	gap_check.position = velocity.normalized() * NUDGE_RANGE
-	if not area_2d_gap_check.get_overlapping_bodies():
-		position += velocity.normalized() * NUDGE_MULTI
+#func _on_nudge_check(_body: Node2D) -> void:
+	#gap_check.position = velocity.normalized() * NUDGE_RANGE
+	#if not area_2d_gap_check.get_overlapping_bodies():
+		#position += velocity.normalized() * NUDGE_MULTI
 
 
 func _on_invulnerability_timeout() -> void:
