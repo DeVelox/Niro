@@ -10,7 +10,6 @@ default_font_size = 10
 default_font_size = 10
 
 [node name="Debug" type="CanvasLayer"]
-visible = false
 script = ExtResource("1_htl8g")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -74,6 +73,12 @@ layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0
 theme = SubResource("Theme_whi27")
+
+[node name="ValueList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/DebugProperties"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 
 [node name="MenuList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/DebugProperties"]
 unique_name_in_owner = true

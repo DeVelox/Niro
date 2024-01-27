@@ -1,6 +1,7 @@
 extends CanvasLayer
 
-const MENU_ROW = preload("res://prefabs/menu_row.tscn")
+const MENU_BOOL = preload("res://prefabs/menu_row.tscn")
+const MENU_VALUE = preload("res://prefabs/menu_row_value.tscn")
 const DEBUG_PATH = preload("res://prefabs/debug_path.tscn")
 
 var debug_path: Node2D
@@ -12,8 +13,10 @@ var debug_path: Node2D
 
 
 func _ready() -> void:
-	DataStore.debug_properties = _init_properties(owner.get_property_list())
-	_init_menu(DataStore.debug_properties, MENU_ROW.instantiate())
+	DataStore.debug_bools = _init_properties(owner.get_property_list())
+	DataStore.debug_values = _init_values(owner.get_property_list())
+	_init_menu_bools(DataStore.debug_bools, MENU_BOOL.instantiate())
+	_init_menu_values(DataStore.debug_values, MENU_VALUE.instantiate())
 	_init_checkbox()
 
 
@@ -28,16 +31,32 @@ func _init_properties(_properties: Array[Dictionary]) -> Array[String]:
 		if property["type"] == 1 and property["usage"] == 4096:
 			list.append(property["name"])
 	return list
+	
+func _init_values(_properties: Array[Dictionary]) -> Array[String]:
+	var list: Array[String] = ["disabled"]
+	var types: Array[int] = [2, 3]
+	for property in _properties:
+		if property["type"] in types and property["usage"] == 4096:
+			list.append(property["name"])
+	return list
 
 
-func _init_menu(_properties: Array[String], _menu_row: Node) -> void:
+func _init_menu_bools(_properties: Array[String], _menu_row: Node) -> void:
 	var add = _menu_row.get_child(0).get_child(3)
 	add.pressed.connect(_on_add_pressed)
+	%MenuList.add_child(_menu_row)
+	
+func _init_menu_values(_properties: Array[String], _menu_row: Node) -> void:
+	var add = _menu_row.get_child(0).get_child(2)
+	add.pressed.connect(_on_add_value_pressed)
 	%MenuList.add_child(_menu_row)
 
 
 func _on_add_pressed() -> void:
-	_init_menu(DataStore.debug_properties, MENU_ROW.instantiate())
+	_init_menu_bools(DataStore.debug_bools, MENU_BOOL.instantiate())
+	
+func _on_add_value_pressed() -> void:
+	_init_menu_values(DataStore.debug_values, MENU_VALUE.instantiate())
 
 
 # Debug UI for testing the upgrade system

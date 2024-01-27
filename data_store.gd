@@ -6,4 +6,5 @@ var scene_history: Array[String]
 
 var spawn_point: Vector2
 
-var debug_properties: Array[String]
+var debug_bools: Array[String]
+var debug_values: Array[String]
