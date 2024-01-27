@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bb44qdp7l5m62"]
+[gd_scene load_steps=10 format=3 uid="uid://bb44qdp7l5m62"]
 
 [ext_resource type="Texture2D" uid="uid://dpcxojfu8adc6" path="res://temp/terrain/Terrain (16x16).png" id="1_0j80b"]
 [ext_resource type="PackedScene" uid="uid://dlklgdcq4kqso" path="res://prefabs/crumble.tscn" id="2_1n421"]
+[ext_resource type="PackedScene" uid="uid://b12hj7neipff4" path="res://prefabs/fade_in.tscn" id="3_h2qxq"]
 [ext_resource type="PackedScene" uid="uid://dp1stkmcgwbsy" path="res://prefabs/fade_out.tscn" id="4_gbmcw"]
 [ext_resource type="Texture2D" uid="uid://kvn6l81uo2s2" path="res://assets/Tileset_v1.png" id="5_dv1wt"]
 
@@ -586,6 +587,7 @@ texture = ExtResource("1_0j80b")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5n8h1"]
 resource_name = "Prefabs"
 scenes/1/scene = ExtResource("2_1n421")
+scenes/2/scene = ExtResource("3_h2qxq")
 scenes/3/scene = ExtResource("4_gbmcw")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bxd8i"]

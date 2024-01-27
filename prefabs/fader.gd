@@ -4,16 +4,12 @@ extends Area2D
 
 
 func _ready() -> void:
-	fade_in.modulate = Color(1, 1, 1, 0)
-	for i in fade_in.get_layers_count():
-		fade_in.set_layer_enabled(i, false)
+	_toggle_layers(fade_in, false)
 
 
 func _fade_in() -> void:
-	var tween = create_tween()
-	for i in fade_in.get_layers_count():
-		tween.tween_callback(fade_in.set_layer_enabled.bind(i, true))
-	tween.tween_property(fade_in, "modulate", Color(1, 1, 1, 1), 1)
+	_toggle_layers(fade_in, true)
+	get_tree().call_group.call_deferred("fade_in", "fade_in", fade_in)
 
 
 func _fade_out() -> void:
@@ -24,3 +20,9 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		_fade_in()
 		_fade_out()
+		queue_free()
+
+
+func _toggle_layers(tilemap: TileMap, state: bool) -> void:
+	for i in tilemap.get_layers_count():
+		tilemap.set_layer_enabled(i, state)

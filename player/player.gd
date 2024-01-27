@@ -103,7 +103,6 @@ func _movement(delta: float) -> void:
 
 
 func _move() -> void:
-
 	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	if absf(velocity.x) > SPEED and motion:
