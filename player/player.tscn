@@ -334,20 +334,19 @@ scale = Vector2(0.4, 0.6)
 shape = SubResource("RectangleShape2D_kjvja")
 
 [node name="ClimbingTop" type="Area2D" parent="Detectors"]
-visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingTop"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingTop" groups=["noclimb"]]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_0u0hd")
 
 [node name="ClimbingBottom" type="Area2D" parent="Detectors"]
-visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingBottom"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/ClimbingBottom" groups=["noclimb"]]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_3xclq")
 
 [node name="GapCheck" type="Area2D" parent="Detectors"]
+visible = false
 collision_mask = 140
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/GapCheck"]
