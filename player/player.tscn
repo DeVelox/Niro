@@ -249,7 +249,7 @@ script = ExtResource("1_0if4t")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"idle"
+animation = &"climbing_idle"
 autoplay = "idle"
 offset = Vector2(0, -1)
 
@@ -258,6 +258,7 @@ position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
 limit_left = -16
 limit_top = -16
 limit_right = 656

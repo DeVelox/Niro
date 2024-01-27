@@ -522,9 +522,11 @@ func debug_color(property: String, invert: bool, color: Color) -> void:
 		modulate = color
 
 
-func _start_climbing(_body: Node2D) -> void:
+func _start_climbing(body: Node2D) -> void:
 	if not is_climbing and climb_cooldown.is_stopped():
-		position.x += 10 * velocity.normalized().x
+		var tile_pos = body.local_to_map(position)
+		var pos = body.map_to_local(tile_pos)
+		position.x = pos.x
 		velocity.x = 0
 		is_climbing = true
 		is_dashing = false
