@@ -5,10 +5,11 @@ const CROUCH_SPEED_MULTI = 0.6
 const AIR_SPEED_MULTI = 0.75
 const JUMP_VELOCITY = -290.0
 const DOUBLE_JUMP_MULTI = 0.95
+const WALL_JUMP_HEIGHT_MULTI = 1.7
 const DASH_MULTI = 2.8
 const SLIDE_MULTI = 1.8
 const SLIDE_JUMP_MULTI = 1.2
-const WALL_JUMP_MULTI = 2
+const WALL_JUMP_MULTI = 1.7
 const FALL_CLAMP = 400.0
 const WALL_CLAMP_MULTI = 0.1
 const JUMP_APEX = 5
@@ -92,7 +93,7 @@ func _movement(delta: float) -> void:
 					_climb_move()
 			elif is_wall_hanging:
 				if not _try_wall_jump():
-					_wall_move()
+					_wall_move(delta)
 			else:
 				if not _try_coyote_slide_jump():
 					if not _try_coyote_jump():
@@ -102,9 +103,7 @@ func _movement(delta: float) -> void:
 
 
 func _move() -> void:
-	if is_climbing:
-		_climb_move()
-		return
+
 	var change_rate: float
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	if absf(velocity.x) > SPEED and motion:
@@ -151,8 +150,10 @@ func _climb_move() -> void:
 	velocity.y = motion
 
 
-func _wall_move() -> void:
-	velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
+func _wall_move(delta) -> void:
+	velocity.y += gravity * delta
+	if velocity.y > FALL_CLAMP * WALL_CLAMP_MULTI:
+		velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
 	return
 	#var motion: float = Input.get_axis("left", "right") * SPEED
 	#if wall_hang_timer.is_stopped() and motion * wall_hang_direction < 0:
@@ -346,28 +347,29 @@ func _animation() -> void:
 
 func _get_animation() -> String:
 	var animation: String
-	if is_climbing and velocity.y == 0:
-		animation = "climbing_idle"
-	elif is_climbing:
-		animation = "climbing"
-	elif is_sliding:
-		animation = "sliding"
-	elif is_dashing:
-		animation = "dashing"
-	elif is_wall_hanging:
-		animation = "wall"
-	elif is_crouching:
-		animation = "crouching"
-	elif is_on_floor():
+	if not is_on_floor():
+		if is_climbing and velocity.y == 0:
+			animation = "climbing_idle"
+		elif is_climbing:
+			animation = "climbing"
+		elif is_sliding:
+			animation = "sliding"
+		elif is_dashing:
+			animation = "dashing"
+		elif is_wall_hanging:
+			animation = "wall"
+		elif is_crouching:
+			animation = "crouching"
+		else:
+			if velocity.y > -JUMP_VELOCITY:
+				animation = "falling"
+			else:
+				animation = "jumping"
+	else:
 		if absf(velocity.x) > 0.1:
 			animation = "running"
 		else:
 			animation = "idle"
-	else:
-		if velocity.y > -JUMP_VELOCITY:
-			animation = "falling"
-		else:
-			animation = "jumping"
 	return animation
 
 
