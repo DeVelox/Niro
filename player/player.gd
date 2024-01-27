@@ -519,7 +519,7 @@ func debug_color(property: String, invert: bool, color: Color) -> void:
 
 func _start_climbing(area: Area2D) -> void:
 	if not is_climbing:
-		position.x = area.position.x + 2
+		position.x = area.position.x
 		velocity.x = 0
 		is_climbing = true
 		is_dashing = false
