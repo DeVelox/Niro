@@ -93,7 +93,7 @@ func _movement(delta: float) -> void:
 					_climb_move()
 			elif is_wall_hanging:
 				if not _try_wall_jump():
-					_wall_move()
+					_wall_move(delta)
 			else:
 				if not _try_coyote_slide_jump():
 					if not _try_coyote_jump():
@@ -150,8 +150,10 @@ func _climb_move() -> void:
 	velocity.y = motion
 
 
-func _wall_move() -> void:
-	velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
+func _wall_move(delta) -> void:
+	velocity.y += gravity * delta
+	if velocity.y > FALL_CLAMP * WALL_CLAMP_MULTI:
+		velocity.y = FALL_CLAMP * WALL_CLAMP_MULTI
 	return
 	#var motion: float = Input.get_axis("left", "right") * SPEED
 	#if wall_hang_timer.is_stopped() and motion * wall_hang_direction < 0:
