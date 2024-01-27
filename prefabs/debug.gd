@@ -31,7 +31,8 @@ func _init_properties(_properties: Array[Dictionary]) -> Array[String]:
 		if property["type"] == 1 and property["usage"] == 4096:
 			list.append(property["name"])
 	return list
-	
+
+
 func _init_values(_properties: Array[Dictionary]) -> Array[String]:
 	var list: Array[String] = ["disabled"]
 	var types: Array[int] = [2, 3]
@@ -45,7 +46,8 @@ func _init_menu_bools(_properties: Array[String], _menu_row: Node) -> void:
 	var add = _menu_row.get_child(0).get_child(3)
 	add.pressed.connect(_on_add_pressed)
 	%MenuList.add_child(_menu_row)
-	
+
+
 func _init_menu_values(_properties: Array[String], _menu_row: Node) -> void:
 	var add = _menu_row.get_child(0).get_child(2)
 	add.pressed.connect(_on_add_value_pressed)
@@ -54,7 +56,8 @@ func _init_menu_values(_properties: Array[String], _menu_row: Node) -> void:
 
 func _on_add_pressed() -> void:
 	_init_menu_bools(DataStore.debug_bools, MENU_BOOL.instantiate())
-	
+
+
 func _on_add_value_pressed() -> void:
 	_init_menu_values(DataStore.debug_values, MENU_VALUE.instantiate())
 

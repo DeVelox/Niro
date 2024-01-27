@@ -24,7 +24,6 @@ func _process(_delta: float) -> void:
 		label.text = str(value)
 
 
-
 func _on_menu_item_selected(index: int) -> void:
 	selected = menu.get_item_text(index)
 	label.text = ""
