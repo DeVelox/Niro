@@ -184,7 +184,7 @@ func _try_coyote_jump() -> bool:
 
 
 func _try_slide_jump() -> bool:
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and not gap_check.get_overlapping_bodies():
 		velocity.x *= SLIDE_JUMP_MULTI
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
