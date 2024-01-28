@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://06klc34tuvpk"]
+
+[ext_resource type="Script" path="res://prefabs/level.gd" id="1_aaiao"]
+[ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/tutorialPlaceholder1.png" id="4_tylv4"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_aaiao")
+
+[node name="Legs" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 656.0
+offset_bottom = 376.0
+texture = ExtResource("4_tylv4")
