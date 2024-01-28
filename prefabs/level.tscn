@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dshqa4djsi3mg"]
+[gd_scene load_steps=4 format=3 uid="uid://d3xvit2xb3p43"]
 
 [ext_resource type="Script" path="res://prefabs/level.gd" id="1_qtkw1"]
 [ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/stoneGiantPlaceholder1.png" id="2_cp41m"]
@@ -8,11 +8,13 @@
 script = ExtResource("1_qtkw1")
 
 [node name="Chest" type="TextureRect" parent="."]
+z_index = -1
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_cp41m")
 
 [node name="Legs" type="TextureRect" parent="."]
+z_index = -1
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 656.0

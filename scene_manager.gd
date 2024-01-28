@@ -2,25 +2,41 @@ extends Node
 
 signal destroy
 
-var stat_to_anim_map: Dictionary = {
-	Vector2i(8, 8): Vector2i(0, 1),
-	Vector2i(8, 9): Vector2i(5, 5),
-	Vector2i(9, 8): Vector2i(1, 1),
-	Vector2i(9, 9): Vector2i(6, 5),
-	Vector2i(10, 8): Vector2i(2, 1),
-	Vector2i(10, 9): Vector2i(7, 5),
-	Vector2i(11, 8): Vector2i(3, 1),
-	Vector2i(11, 9): Vector2i(8, 5),
-	Vector2i(12, 8): Vector2i(4, 1),
-	Vector2i(12, 9): Vector2i(9, 5)
+var fade_in_map: Dictionary = {
+	Vector2i(8, 8): Vector2i(0, 0),
+	Vector2i(8, 9): Vector2i(0, 1),
+	Vector2i(9, 8): Vector2i(1, 0),
+	Vector2i(9, 9): Vector2i(1, 1),
+	Vector2i(10, 8): Vector2i(2, 0),
+	Vector2i(10, 9): Vector2i(2, 1),
+	Vector2i(11, 8): Vector2i(3, 0),
+	Vector2i(11, 9): Vector2i(3, 1),
+	Vector2i(12, 8): Vector2i(4, 0),
+	Vector2i(12, 9): Vector2i(4, 1)
 }
 
-func get_anim(stat: Vector2i) -> Vector2i:
-	var conv := stat_to_anim_map[stat] as Vector2i
-	if conv:
-		return conv
-	else:
-		return stat
+var fade_out_map: Dictionary = {
+	Vector2i(8, 8): Vector2i(0, 1),
+	Vector2i(8, 9): Vector2i(0, 2),
+	Vector2i(9, 8): Vector2i(1, 1),
+	Vector2i(9, 9): Vector2i(1, 2),
+	Vector2i(10, 8): Vector2i(2, 1),
+	Vector2i(10, 9): Vector2i(2, 2),
+	Vector2i(11, 8): Vector2i(3, 1),
+	Vector2i(11, 9): Vector2i(3, 2),
+	Vector2i(12, 8): Vector2i(4, 1),
+	Vector2i(12, 9): Vector2i(4, 2)
+}
+
+
+# Might not be necessary #YOLO
+func get_anim(stat: Vector2i, fade: String) -> Vector2i:
+	var conv
+	if fade == "in":
+		conv = fade_in_map.get(stat)
+	elif fade == "out":
+		conv = fade_out_map.get(stat)
+	return conv if conv else stat
 
 
 func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
@@ -54,12 +70,14 @@ func fade_out(tilemap: TileMap) -> void:
 
 func fade_in_all(tilemap: TileMap) -> void:
 	toggle_layers(tilemap, true)
+	tilemap.set_layer_enabled(1, false)
 	var tiles = tilemap.get_used_cells(1)
 	var tile: Vector2i
 	for i in tiles:
 		tile = tilemap.get_cell_atlas_coords(1, i)
-		tilemap.set_cell(3, i, 3, Scene.stat_to_anim_map[tile])
+		tilemap.set_cell(3, i, 3, get_anim(tile, "in"))
 	await get_tree().create_timer(1).timeout
+	tilemap.set_layer_enabled(1, true)
 	for i in tiles:
 		tilemap.erase_cell(3, i)
 
@@ -69,7 +87,7 @@ func fade_out_all(tilemap: TileMap) -> void:
 	var tile: Vector2i
 	for i in tiles:
 		tile = tilemap.get_cell_atlas_coords(1, i)
-		tilemap.set_cell(3, i, 3, Scene.stat_to_anim_map[tile])
+		tilemap.set_cell(3, i, 4, get_anim(tile, "out"))
 	await get_tree().create_timer(1).timeout
 	destroy.emit()
 
