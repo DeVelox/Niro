@@ -56,6 +56,7 @@ var should_take_damage := true
 @onready var effects: AnimatedSprite2D = $Effects
 @onready var invulnerability: Timer = $Timers/Invulnerability
 @onready var gap_check: Area2D = $Detectors/GapCheck
+@onready var animations: AnimationPlayer = $Animations
 
 
 func _physics_process(delta: float) -> void:
@@ -509,6 +510,10 @@ func _on_invulnerability_timeout() -> void:
 		_try_recall()
 	should_take_damage = true
 	can_take_damage = true
+
+
+func camera_shake() -> void:
+	animations.play("camera_shake")
 
 
 func _debug_clear() -> void:

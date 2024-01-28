@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=48 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_0if4t"]
 [ext_resource type="Texture2D" uid="uid://bxturgjbo7ee2" path="res://temp/adventurer/adventurer-crouch-00.png" id="2_jb7dh"]
@@ -192,6 +192,27 @@ size = Vector2(14, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hfvdp"]
 size = Vector2(32, 22)
 
+[sub_resource type="Animation" id="Animation_6bft4"]
+resource_name = "camera_shake"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-16, -16), Vector2(16, 16), Vector2(-16, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8v87y"]
+_data = {
+"camera_shake": SubResource("Animation_6bft4")
+}
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_txqwi"]
 atlas = ExtResource("30_cadxq")
 region = Rect2(0, 0, 32, 32)
@@ -258,11 +279,10 @@ position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_0rk70")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_left = -16
-limit_top = -16
-limit_right = 656
-limit_bottom = 376
-position_smoothing_enabled = true
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
 
 [node name="Timers" type="Node" parent="."]
 
@@ -363,6 +383,11 @@ scale = Vector2(0.2, 0.2)
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_hpjs7")
 volume_db = -20.0
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8v87y")
+}
 
 [node name="Effects" type="AnimatedSprite2D" parent="."]
 z_index = -1
