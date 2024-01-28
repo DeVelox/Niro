@@ -83,6 +83,7 @@ func fade_in_all(tilemap: TileMap) -> void:
 
 
 func fade_out_all(tilemap: TileMap) -> void:
+	tilemap.set_layer_enabled(1, false)
 	var tiles = tilemap.get_used_cells(1)
 	var tile: Vector2i
 	for i in tiles:
