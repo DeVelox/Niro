@@ -1,5 +1,5 @@
 extends Node2D
-@export var first: TileMap
+@export var first: bool
 
 
 func _ready() -> void:
@@ -13,6 +13,8 @@ func _ready() -> void:
 
 
 func _initialise() -> void:
+	if first:
+		return
 	Scene.destroy.connect(queue_free, CONNECT_ONE_SHOT)
 
 	var tilemaps := get_tree().get_nodes_in_group("init")
