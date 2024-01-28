@@ -32,3 +32,6 @@ layer_1/tile_data = PackedInt32Array(-1179646, 524290, 8, -1114110, 524290, 9, -
 [node name="SceneSwitcher" parent="." instance=ExtResource("6_i37ls")]
 position = Vector2(71, 53)
 next_scene = "res://levels/tutorial/legs2.tscn"
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(54, 317)
