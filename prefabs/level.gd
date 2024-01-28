@@ -10,8 +10,6 @@ func _ready() -> void:
 		get_tree().call_group("hidden", "queue_free")
 
 	_initialise()
-	await get_tree().create_timer(2).timeout
-	destroy()
 
 
 func _initialise() -> void:
