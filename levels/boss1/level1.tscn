@@ -9,6 +9,7 @@
 script = ExtResource("1_77mbl")
 
 [node name="Chest" type="TextureRect" parent="."]
+z_index = -1
 offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("2_n8ftr")
@@ -23,3 +24,6 @@ layer_1/tile_data = PackedInt32Array(-524269, 1114114, 15, -458733, 1114114, 16,
 [node name="SceneSwitcher" parent="." instance=ExtResource("4_kux74")]
 position = Vector2(120, 69)
 next_scene = "res://levels/boss1/level2.tscn"
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(120, 333)
