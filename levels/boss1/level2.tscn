@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5phlinst64sp"]
+
+[ext_resource type="Script" path="res://prefabs/level.gd" id="1_quajw"]
+[ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/stoneGiantPlaceholder1.png" id="2_46bu1"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="3_d60pn"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_quajw")
+
+[node name="Chest" type="TextureRect" parent="."]
+z_index = -1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_46bu1")
+
+[node name="Tilemap" parent="." instance=ExtResource("3_d60pn")]
+layer_1/tile_data = PackedInt32Array(-1114106, 131074, 8, -1048570, 131074, 9, -1048569, 262146, 9, -1114105, 262146, 8, -1114104, 393218, 8, -1048568, 393218, 9)
