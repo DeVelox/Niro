@@ -17,12 +17,12 @@ func _process(_delta: float) -> void:
 	pass
 
 func say(new_lines: Array[String]) -> void:
-	DialogManager.end_dialog()
-	DialogManager.start_dialog(global_position, new_lines)
+	Dialog.end_dialog()
+	Dialog.start_dialog(global_position, new_lines)
 	
 
 func _on_body_entered(_body: Node2D) -> void:
-	DialogManager.start_dialog(global_position, lines)
+	Dialog.start_dialog(global_position, lines)
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tgdor"]

@@ -13,10 +13,10 @@ var debug_path: Node2D
 
 
 func _ready() -> void:
-	DataStore.debug_bools = _init_properties(owner.get_property_list())
-	DataStore.debug_values = _init_values(owner.get_property_list())
-	_init_menu_bools(DataStore.debug_bools, MENU_BOOL.instantiate())
-	_init_menu_values(DataStore.debug_values, MENU_VALUE.instantiate())
+	Data.debug_bools = _init_properties(owner.get_property_list())
+	Data.debug_values = _init_values(owner.get_property_list())
+	_init_menu_bools(Data.debug_bools, MENU_BOOL.instantiate())
+	_init_menu_values(Data.debug_values, MENU_VALUE.instantiate())
 	_init_checkbox()
 
 
@@ -55,11 +55,11 @@ func _init_menu_values(_properties: Array[String], _menu_row: Node) -> void:
 
 
 func _on_add_pressed() -> void:
-	_init_menu_bools(DataStore.debug_bools, MENU_BOOL.instantiate())
+	_init_menu_bools(Data.debug_bools, MENU_BOOL.instantiate())
 
 
 func _on_add_value_pressed() -> void:
-	_init_menu_values(DataStore.debug_values, MENU_VALUE.instantiate())
+	_init_menu_values(Data.debug_values, MENU_VALUE.instantiate())
 
 
 # Debug UI for testing the upgrade system
@@ -96,10 +96,10 @@ func _init_checkbox():
 
 func _reload():
 	var main = get_node("/root/Main")
-	var load_level = load(DataStore.current_scene).instantiate()
+	var load_level = load(Data.current_scene).instantiate()
 	main.add_child(load_level)
-	DataStore.current_level.queue_free()
-	DataStore.current_level = load_level
+	Data.current_level.queue_free()
+	Data.current_level = load_level
 
 
 func _toggle() -> void:

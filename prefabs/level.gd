@@ -1,10 +1,11 @@
 extends Node2D
+@export var first: TileMap
 
 
 func _ready() -> void:
 # Add a Marker2D called Spawn to change spawn location
 	if has_node("Spawn"):
-		DataStore.spawn_point = $Spawn.position
+		Data.spawn_point = $Spawn.position
 	if not Upgrades.check(Upgrades.Type.VISION):
 		get_tree().call_group("hidden", "queue_free")
 

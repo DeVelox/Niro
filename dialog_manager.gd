@@ -15,7 +15,7 @@ var can_advance := false
 
 
 func _ready() -> void:
-	DialogManager.next_line.connect(_on_dialog_next_line)
+	Dialog.next_line.connect(_on_dialog_next_line)
 
 
 func start_dialog(position: Vector2, lines: Array[String]) -> void:

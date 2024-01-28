@@ -17,9 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DataStore="*res://data_store.gd"
-DialogManager="*res://dialog_manager.gd"
+Data="*res://data_store.gd"
+Dialog="*res://dialog_manager.gd"
 Upgrades="*res://upgrade_manager.gd"
+Scene="*res://scene_manager.gd"
 
 [display]
 

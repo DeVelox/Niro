@@ -6,13 +6,13 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var load_level: Node2D = load(current_scene).instantiate()
-	DataStore.current_level = load_level
-	DataStore.current_scene = current_scene
+	Data.current_level = load_level
+	Data.current_scene = current_scene
 	add_child(load_level)
 
 	var load_player: Node2D = load("res://player/player.tscn").instantiate()
-	if DataStore.spawn_point:
-		load_player.position = DataStore.spawn_point
+	if Data.spawn_point:
+		load_player.position = Data.spawn_point
 	else:
 		load_player.position = spawn.position
 	add_child(load_player)

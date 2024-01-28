@@ -14,7 +14,7 @@ var tint: Color
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for property in DataStore.debug_bools:
+	for property in Data.debug_bools:
 		menu.add_item(property)
 	picker.color = Color.from_hsv(randf(), 1, 1)
 
