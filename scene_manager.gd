@@ -1,5 +1,47 @@
 extends Node
 
+signal destroy
+
+var stat_to_anim_map: Dictionary = {
+	Vector2i(8, 8): Vector2i(0, 1),
+	Vector2i(8, 9): Vector2i(5, 5),
+	Vector2i(9, 8): Vector2i(1, 1),
+	Vector2i(9, 9): Vector2i(6, 5),
+	Vector2i(10, 8): Vector2i(2, 1),
+	Vector2i(10, 9): Vector2i(7, 5),
+	Vector2i(11, 8): Vector2i(3, 1),
+	Vector2i(11, 9): Vector2i(8, 5),
+	Vector2i(12, 8): Vector2i(4, 1),
+	Vector2i(12, 9): Vector2i(9, 5)
+}
+
+func get_anim(stat: Vector2i) -> Vector2i:
+	var conv := stat_to_anim_map[stat] as Vector2i
+	if conv:
+		return conv
+	else:
+		return stat
+
+
+func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
+	# Get all static tiles
+	var static_atlas := _get_atlas_coords_for_all_tiles(tilemap, 1)
+	# Get all animated tiles
+	var animated_atlas := _get_atlas_coords_for_all_tiles(tilemap, 3)
+
+	var map: Dictionary = {}
+	for i in static_atlas.size():
+		map[static_atlas[i]] = animated_atlas[i]
+	return map
+
+
+func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vector2i]:
+	var atlas: Array[Vector2i] = []
+	var tiles = tilemap.get_used_cells(1)
+	for i in tiles:
+		atlas.append(tilemap.get_cell_atlas_coords(layer, i))
+	return atlas
+
 
 func fade_in(tilemap: TileMap) -> void:
 	toggle_layers(tilemap, true)
@@ -8,6 +50,28 @@ func fade_in(tilemap: TileMap) -> void:
 
 func fade_out(tilemap: TileMap) -> void:
 	get_tree().call_group("fade_out", "fade_out", tilemap)
+
+
+func fade_in_all(tilemap: TileMap) -> void:
+	toggle_layers(tilemap, true)
+	var tiles = tilemap.get_used_cells(1)
+	var tile: Vector2i
+	for i in tiles:
+		tile = tilemap.get_cell_atlas_coords(1, i)
+		tilemap.set_cell(3, i, 3, Scene.stat_to_anim_map[tile])
+	await get_tree().create_timer(1).timeout
+	for i in tiles:
+		tilemap.erase_cell(3, i)
+
+
+func fade_out_all(tilemap: TileMap) -> void:
+	var tiles = tilemap.get_used_cells(1)
+	var tile: Vector2i
+	for i in tiles:
+		tile = tilemap.get_cell_atlas_coords(1, i)
+		tilemap.set_cell(3, i, 3, Scene.stat_to_anim_map[tile])
+	await get_tree().create_timer(1).timeout
+	destroy.emit()
 
 
 func toggle_layers(tilemap: TileMap, state: bool) -> void:

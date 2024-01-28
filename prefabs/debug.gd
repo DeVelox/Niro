@@ -95,8 +95,8 @@ func _init_checkbox():
 
 
 func _reload():
-	var main = get_node("/root/Main")
-	var load_level = load(Data.current_scene).instantiate()
+	var main := get_node("/root/Main")
+	var load_level: Node2D = load(Data.current_scene).instantiate()
 	main.add_child(load_level)
 	Data.current_level.queue_free()
 	Data.current_level = load_level

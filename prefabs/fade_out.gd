@@ -7,5 +7,5 @@ func fade_out(tilemap: TileMap) -> void:
 	#var tile: Vector2i = tilemap.get_cell_atlas_coords(1, pos)
 	tilemap.set_cell(1, pos, 0, Vector2i(12, 0))
 	await get_tree().create_timer(1).timeout
-	tilemap.erase_cell(1, pos)
-	tilemap.erase_cell(2, pos)
+	for i in tilemap.get_layers_count():
+		tilemap.erase_cell(1, pos)

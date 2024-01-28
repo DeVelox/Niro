@@ -10,7 +10,7 @@ func _ready():
 	Data.current_scene = current_scene
 	add_child(load_level)
 
-	var load_player: Node2D = load("res://player/player.tscn").instantiate()
+	var load_player: Player = load("res://player/player.tscn").instantiate()
 	if Data.spawn_point:
 		load_player.position = Data.spawn_point
 	else:

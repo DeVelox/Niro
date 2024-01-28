@@ -591,6 +591,7 @@ scenes/2/scene = ExtResource("3_h2qxq")
 scenes/3/scene = ExtResource("4_gbmcw")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bxd8i"]
+resource_name = "Static"
 texture = ExtResource("5_dv1wt")
 2:4/0 = 0
 2:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
