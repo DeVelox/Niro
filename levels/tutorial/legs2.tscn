@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c00n5ql2q70u5"]
+
+[ext_resource type="Script" path="res://prefabs/level.gd" id="1_aaiao"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="3_gu4s5"]
+[ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/tutorialPlaceholder1.png" id="4_tylv4"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_aaiao")
+
+[node name="Legs" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 656.0
+offset_bottom = 376.0
+texture = ExtResource("4_tylv4")
+
+[node name="Tilemap" parent="." instance=ExtResource("3_gu4s5")]
+layer_1/tile_data = PackedInt32Array(-65535, 524290, 9, -65534, 589826, 9, -65533, 655362, 9, -65532, 720898, 9, -65531, 786434, 9, -131071, 524290, 8, -131070, 589826, 8, -131069, 655362, 8, -131068, 720898, 8, -131067, 786434, 8)
