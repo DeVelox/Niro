@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlklgdcq4kqso"]
+
+[ext_resource type="Script" path="res://scripts/crumble.gd" id="1_mpxbn"]
+[ext_resource type="Texture2D" uid="uid://d18dncfbd0yv2" path="res://assets/temp/crack.png" id="2_oyi1j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0xto"]
+size = Vector2(16, 17)
+
+[node name="Crumble" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_mpxbn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_b0xto")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_oyi1j")

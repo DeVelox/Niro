@@ -17,10 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Data="*res://data_store.gd"
-Dialog="*res://dialog_manager.gd"
-Upgrades="*res://upgrade_manager.gd"
-Scene="*res://scene_manager.gd"
+Data="*res://scripts/singleton/data_store.gd"
+Dialog="*res://scripts/singleton/dialog_manager.gd"
+Upgrades="*res://scripts/singleton/upgrade_manager.gd"
+Scene="*res://scripts/singleton/scene_manager.gd"
 
 [display]
 

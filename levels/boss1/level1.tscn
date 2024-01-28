@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dqaigl0shv1vy"]
 
-[ext_resource type="Script" path="res://prefabs/level.gd" id="1_77mbl"]
-[ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/stoneGiantPlaceholder1.png" id="2_n8ftr"]
-[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="3_op8ir"]
-[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level_switcher.tscn" id="4_kux74"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_77mbl"]
+[ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/elliot/stoneGiantPlaceholder1.png" id="2_n8ftr"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_op8ir"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_kux74"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_77mbl")

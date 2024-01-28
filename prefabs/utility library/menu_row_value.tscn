@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://3j4elh4ficqv"]
+
+[ext_resource type="Script" path="res://scripts/menu_row_value.gd" id="1_d8qlp"]
+
+[node name="MenuRow" type="MarginContainer"]
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+script = ExtResource("1_d8qlp")
+
+[node name="MenuItem" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Menu" type="OptionButton" parent="MenuItem"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+
+[node name="Panel" type="Panel" parent="MenuItem"]
+custom_minimum_size = Vector2(45, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MenuItem/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Add" type="Button" parent="MenuItem"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+text = "+"
+
+[node name="Remove" type="Button" parent="MenuItem"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+focus_mode = 0
+text = "-"
+
+[connection signal="item_selected" from="MenuItem/Menu" to="." method="_on_menu_item_selected"]
+[connection signal="pressed" from="MenuItem/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="MenuItem/Remove" to="." method="_on_remove_pressed"]

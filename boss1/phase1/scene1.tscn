@@ -1,13 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cwxw5lnpny8ql"]
+[gd_scene load_steps=6 format=3 uid="uid://d1rpn580xm05d"]
 
-[ext_resource type="Script" path="res://prefabs/level.gd" id="1_murt0"]
-[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/tilemap.tscn" id="3_4kpti"]
-[ext_resource type="PackedScene" uid="uid://ba4txqq0320sd" path="res://prefabs/spikes.tscn" id="4_gaxiw"]
-[ext_resource type="Texture2D" uid="uid://dwk2vne1oi60e" path="res://temp/traps/Spikes/Idle.png" id="5_5me16"]
-[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level_switcher.tscn" id="5_f7ti7"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_murt0"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_4kpti"]
+[ext_resource type="PackedScene" uid="uid://ba4txqq0320sd" path="res://prefabs/obstacle/spikes.tscn" id="4_gaxiw"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="5_f7ti7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kc6kh"]
-atlas = ExtResource("5_5me16")
 region = Rect2(0, 9, 15, 7)
 
 [node name="Level" type="Node2D"]

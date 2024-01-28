@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://c8rs6osmfarsa"]
 
-[ext_resource type="Script" path="res://player/checkpoint.gd" id="1_4tspx"]
-[ext_resource type="Texture2D" uid="uid://ch84dh65mxmru" path="res://temp/adventurer/adventurer-idle-2-00.png" id="1_r8uef"]
-[ext_resource type="Texture2D" uid="uid://b83ocqd284413" path="res://temp/adventurer/adventurer-idle-2-01.png" id="2_fbpvs"]
-[ext_resource type="Texture2D" uid="uid://bhrw68l6itegw" path="res://temp/adventurer/adventurer-idle-2-02.png" id="3_1s1jp"]
-[ext_resource type="Texture2D" uid="uid://c7i1wkfixtu44" path="res://temp/adventurer/adventurer-idle-2-03.png" id="4_2q0p8"]
+[ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_4tspx"]
+[ext_resource type="Texture2D" uid="uid://ch84dh65mxmru" path="res://assets/temp/adventurer/adventurer-idle-2-00.png" id="1_r8uef"]
+[ext_resource type="Texture2D" uid="uid://b83ocqd284413" path="res://assets/temp/adventurer/adventurer-idle-2-01.png" id="2_fbpvs"]
+[ext_resource type="Texture2D" uid="uid://bhrw68l6itegw" path="res://assets/temp/adventurer/adventurer-idle-2-02.png" id="3_1s1jp"]
+[ext_resource type="Texture2D" uid="uid://c7i1wkfixtu44" path="res://assets/temp/adventurer/adventurer-idle-2-03.png" id="4_2q0p8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lrn07"]
 animations = [{
