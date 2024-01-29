@@ -1,38 +1,37 @@
 extends Node2D
-@export var first: bool
+@export var first: TileMap
+@export var last: TileMap
+
+var set_player_spawn: bool
 
 
 func _ready() -> void:
-	# Add a Marker2D called Spawn to change spawn location
+	_set_spawn()
+	_check_vision()
+	_initialise()
+
+
+func _set_spawn() -> void:
 	if has_node("Spawn"):
 		Data.spawn_point = $Spawn.position
-	if not Upgrades.check(Upgrades.Type.VISION):
-		get_tree().call_group("hidden", "queue_free")
 
-	_initialise()
+	if set_player_spawn:
+		for player in get_tree().get_nodes_in_group("players"):
+			player.position = Data.spawn_point
+
+
+func _check_vision() -> void:
+	if not Upgrades.check(Upgrades.Type.VISION):
+		for tilemap in get_tree().get_nodes_in_group("hidden") as Array[TileMap]:
+			tilemap.set_layer_enabled(2, false)
 
 
 func _initialise() -> void:
 	if first:
-		return
-	Scene.destroy.connect(queue_free, CONNECT_ONE_SHOT)
-
-	var tilemaps := get_tree().get_nodes_in_group("init")
-	if not tilemaps:
-		modulate = Color(1, 1, 1, 0)
-		var tween := create_tween()
-		tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 1)
-		return
-	for i in tilemaps:
-		Scene.fade_in_all(i)
+		Scene.fade_in(first)
 
 
 func destroy() -> void:
-	var tilemaps := get_tree().get_nodes_in_group("free")
-	if not tilemaps:
-		var tween := create_tween()
-		tween.tween_property(self, "modulate", Color(1, 1, 1, 0), 1)
-		tween.tween_callback(self.queue_free)
-		return
-	for i in tilemaps:
-		Scene.fade_out_all(i)
+	if last:
+		Scene.fade_out(last)
+	queue_free()
