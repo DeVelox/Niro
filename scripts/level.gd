@@ -1,4 +1,4 @@
-extends Node2D
+class_name Level extends Node2D
 @export var first: TileMap
 @export var last: TileMap
 
@@ -34,4 +34,5 @@ func _initialise() -> void:
 func destroy() -> void:
 	if last:
 		Scene.fade_out(last)
+		await get_tree().create_timer(1).timeout
 	queue_free()

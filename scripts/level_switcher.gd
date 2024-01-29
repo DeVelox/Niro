@@ -1,4 +1,4 @@
-extends Node2D
+class_name Switcher extends Node2D
 
 @export_file("*.tscn") var next_scene: String
 @export var outro: TileMap
