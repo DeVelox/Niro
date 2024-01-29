@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/text_box.gd" id="1_xpnye"]
 [ext_resource type="Texture2D" uid="uid://yycyt4bwu50u" path="res://assets/temp/text-box.png" id="2_h5mwh"]
-[ext_resource type="FontFile" uid="uid://c8spxygxpfnlo" path="res://assets/temp/PixelifySans-VariableFont_wght.ttf" id="3_xpiyv"]
+[ext_resource type="FontFile" uid="uid://cxul4gjqdn5ua" path="res://assets/temp/04B_03__.TTF" id="3_pvrrm"]
 
 [node name="TextBox" type="MarginContainer"]
 offset_right = 96.0
@@ -29,8 +29,8 @@ theme_override_constants/margin_bottom = 14
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_xpiyv")
-theme_override_font_sizes/font_size = 21
+theme_override_fonts/font = ExtResource("3_pvrrm")
+text = "test"
 vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
