@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=47 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_0if4t"]
 [ext_resource type="Texture2D" uid="uid://bxturgjbo7ee2" path="res://assets/temp/adventurer/adventurer-crouch-00.png" id="2_jb7dh"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://daoohjmoioc5d" path="res://assets/temp/adventurer/adventurer-crouch-03.png" id="5_u0j8i"]
 [ext_resource type="Texture2D" uid="uid://d8oo8rnf5iw6" path="res://assets/temp/adventurer/adventurer-ladder-climb-03.png" id="5_wt3hf"]
 [ext_resource type="Texture2D" uid="uid://cuewoa1mdhmde" path="res://assets/temp/adventurer/adventurer-air-attack1-00.png" id="6_jyr4j"]
-[ext_resource type="Texture2D" uid="uid://bj045m6wrw6b4" path="res://assets/temp/adventurer/adventurer-air-attack1-01.png" id="7_h3rj6"]
 [ext_resource type="Texture2D" uid="uid://7lro8yqo6cvr" path="res://assets/temp/adventurer/adventurer-air-attack1-02.png" id="8_ta86v"]
 [ext_resource type="Texture2D" uid="uid://xqbodxrgkuwq" path="res://assets/temp/adventurer/adventurer-air-attack1-03.png" id="9_sfh7k"]
 [ext_resource type="Texture2D" uid="uid://cr3k75yor4ylk" path="res://assets/temp/adventurer/adventurer-fall-00.png" id="10_6yypp"]
@@ -82,10 +81,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("6_jyr4j")
 }, {
-"duration": 1.0,
-"texture": ExtResource("7_h3rj6")
-}, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("8_ta86v")
 }, {
 "duration": 2.0,
@@ -271,8 +267,9 @@ script = ExtResource("1_0if4t")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"crouching"
+animation = &"dashing"
 autoplay = "idle"
+frame_progress = 0.197213
 offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -290,6 +287,9 @@ limit_bottom = 360
 [node name="DashTimer" type="Timer" parent="Timers"]
 wait_time = 0.15
 one_shot = true
+
+[node name="DashGhost" type="Timer" parent="Timers"]
+wait_time = 0.035
 
 [node name="SlideTimer" type="Timer" parent="Timers"]
 wait_time = 0.3
@@ -400,6 +400,7 @@ animation = &"double_jump"
 [node name="Debug" parent="." instance=ExtResource("33_7luae")]
 
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_finished"]
+[connection signal="timeout" from="Timers/DashGhost" to="." method="_dash_ghost"]
 [connection signal="timeout" from="Timers/SlideTimer" to="." method="_on_slide_finished"]
 [connection signal="timeout" from="Timers/Invulnerability" to="." method="_on_invulnerability_timeout"]
 [connection signal="body_entered" from="Detectors/WallHangLeft" to="." method="_on_left_wall_touched"]

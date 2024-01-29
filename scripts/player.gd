@@ -57,6 +57,7 @@ var should_take_damage := true
 @onready var invulnerability: Timer = $Timers/Invulnerability
 @onready var gap_check: Area2D = $Detectors/GapCheck
 @onready var animations: AnimationPlayer = $Animations
+@onready var dash_ghost: Timer = $Timers/DashGhost
 
 
 func _physics_process(delta: float) -> void:
@@ -271,6 +272,7 @@ func _try_dash() -> bool:
 			is_dashing = true
 			has_dash = false
 			dash_timer.start()
+			dash_ghost.start()
 		return true
 	return false
 
@@ -331,6 +333,23 @@ func _special_actions() -> void:
 		_try_interact()
 
 
+func _dash_ghost() -> void:
+	var ghost: Sprite2D = Sprite2D.new()
+	var frame: Texture2D = sprite.get_sprite_frames().get_frame_texture(
+		sprite.get_animation(), sprite.get_frame()
+	)
+	ghost.global_position = global_position
+	ghost.texture = frame
+	ghost.flip_h = sprite.flip_h
+	ghost.scale = sprite.scale
+	ghost.modulate = Color(0.8, 0.9, 1)
+	get_parent().add_child(ghost)
+
+	var tween = create_tween()
+	tween.tween_property(ghost, "modulate:a", 0, 0.3)
+	tween.tween_callback(ghost.queue_free)
+
+
 func _animation() -> void:
 	# Sprite direction
 	if not is_zero_approx(velocity.x) and not is_climbing:
@@ -352,8 +371,6 @@ func _get_animation() -> String:
 			animation = "climbing_idle"
 		elif is_climbing:
 			animation = "climbing"
-		elif is_sliding:
-			animation = "sliding"
 		elif is_dashing:
 			animation = "dashing"
 		elif is_wall_hanging:
@@ -364,7 +381,9 @@ func _get_animation() -> String:
 			else:
 				animation = "jumping"
 	else:
-		if is_crouching:
+		if is_sliding:
+			animation = "sliding"
+		elif is_crouching:
 			animation = "crouching"
 		elif absf(velocity.x) > 0.1:
 			animation = "running"
@@ -478,6 +497,7 @@ func _on_dash_finished() -> void:
 	var motion: float = Input.get_axis("left", "right") * SPEED
 	velocity.x = motion
 	is_dashing = false
+	dash_ghost.stop()
 
 
 func _on_slide_finished() -> void:
