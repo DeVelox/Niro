@@ -1,14 +1,24 @@
 class_name Level extends Node2D
 @export var first: TileMap
 @export var last: TileMap
+@export var checkpoint: bool
 
 var set_player_spawn: bool
 
 
 func _ready() -> void:
 	_set_spawn()
+	_set_checkpoint()
 	_check_vision()
 	_initialise()
+
+
+func _set_checkpoint() -> void:
+	if checkpoint:
+		var main := get_node("/root/Main")
+		var place_checkpoint: Checkpoint = load("res://player/checkpoint.tscn").instantiate()
+		main.add_child(place_checkpoint)
+		Data.scene_history = [Data.current_scene]
 
 
 func _set_spawn() -> void:
