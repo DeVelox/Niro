@@ -1,4 +1,4 @@
-extends Area2D
+class_name Fader extends Area2D
 @export var set_fade_in: TileMap
 @export var set_fade_out: TileMap
 

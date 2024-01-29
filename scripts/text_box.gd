@@ -4,7 +4,6 @@ signal finished
 
 const MAX_WIDTH = 256
 
-var text := ""
 var index := 0
 
 var time := 0.03
@@ -14,7 +13,6 @@ var time := 0.03
 
 
 func display_text(text_to_display: String) -> void:
-	text = text_to_display
 	label.text = text_to_display
 
 	await resized
@@ -29,15 +27,14 @@ func display_text(text_to_display: String) -> void:
 	global_position.x -= size.x / 2
 	global_position.y -= size.y + 24
 
-	label.text = ""
 	_display_letter()
 
 
 func _display_letter() -> void:
-	label.text += text[index]
+	label.visible_characters = index
 	index += 1
 
-	if index >= text.length():
+	if index >= label.text.length():
 		await get_tree().create_timer(1).timeout
 		finished.emit()
 		queue_free()

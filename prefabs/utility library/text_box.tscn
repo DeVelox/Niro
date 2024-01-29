@@ -1,12 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqto3j4dbl4g"]
+[gd_scene load_steps=6 format=3 uid="uid://bqto3j4dbl4g"]
 
 [ext_resource type="Script" path="res://scripts/text_box.gd" id="1_xpnye"]
 [ext_resource type="Texture2D" uid="uid://yycyt4bwu50u" path="res://assets/temp/text-box.png" id="2_h5mwh"]
 [ext_resource type="FontFile" uid="uid://cxul4gjqdn5ua" path="res://assets/temp/04B_03__.TTF" id="3_pvrrm"]
+[ext_resource type="Shader" path="res://scripts/shader/glitch.gdshader" id="4_o73vw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mel5"]
+shader = ExtResource("4_o73vw")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.2
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
 
 [node name="TextBox" type="MarginContainer"]
-offset_right = 96.0
-offset_bottom = 48.0
+z_index = 2
+z_as_relative = false
+offset_right = 56.0
+offset_bottom = 38.0
 script = ExtResource("1_xpnye")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
@@ -20,21 +31,23 @@ patch_margin_bottom = 10
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 14
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
 
 [node name="Label" type="Label" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_pvrrm")
-text = "test"
 vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_1mel5")
+layout_mode = 2
 
 [connection signal="finished" from="." to="." method="_on_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

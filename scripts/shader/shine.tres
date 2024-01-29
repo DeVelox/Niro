@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://diy1xmerah5yb"]
+
+[ext_resource type="Shader" path="res://scripts/shader/shine.gdshader" id="1_stvep"]
+
+[resource]
+shader = ExtResource("1_stvep")
+shader_parameter/speed = 1.0
+shader_parameter/tint = Color(0, 1, 1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/span = 0.3

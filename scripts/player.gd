@@ -342,11 +342,13 @@ func _dash_ghost() -> void:
 	ghost.texture = frame
 	ghost.flip_h = sprite.flip_h
 	ghost.scale = sprite.scale
-	ghost.modulate = Color(0.8, 0.9, 1)
+
+	ghost.material = load("res://scripts/shader/shine.tres")
+
 	get_parent().add_child(ghost)
 
 	var tween = create_tween()
-	tween.tween_property(ghost, "modulate:a", 0, 0.3)
+	tween.tween_property(ghost.material, "shader_parameter/alpha", 0, 0.5)
 	tween.tween_callback(ghost.queue_free)
 
 
