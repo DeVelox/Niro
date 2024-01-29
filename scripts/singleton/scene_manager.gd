@@ -2,6 +2,9 @@ extends Node
 
 signal destroy
 
+var can_fade := true
+var is_fading := false
+
 var fade_in_map: Dictionary = {
 	Vector2i(8, 8): Vector2i(0, 0),
 	Vector2i(8, 9): Vector2i(0, 1),

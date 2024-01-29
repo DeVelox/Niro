@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://06klc34tuvpk"]
+[gd_scene load_steps=5 format=3 uid="uid://06klc34tuvpk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_07drl"]
 [ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/elliot/tutorialPlaceholder1.png" id="2_edlv4"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_s1u40"]
-[ext_resource type="PackedScene" uid="uid://divg2wpskqech" path="res://prefabs/level design/fader.tscn" id="4_f1h4t"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="6_i37ls"]
 
 [node name="Level" type="Node2D"]
@@ -17,17 +16,15 @@ offset_right = 656.0
 offset_bottom = 376.0
 texture = ExtResource("2_edlv4")
 
-[node name="Scene1" parent="." instance=ExtResource("3_s1u40")]
+[node name="Scene1" parent="." node_paths=PackedStringArray("set_fade_in") instance=ExtResource("3_s1u40")]
 layer_1/tile_data = PackedInt32Array(-131071, 524290, 8, -65535, 524290, 9, -131070, 589826, 8, -65534, 589826, 9, -131069, 655362, 8, -65533, 655362, 9, -131068, 720898, 8, -65532, 720898, 9, -131067, 786434, 8, -65531, 786434, 9, -327678, 1048578, 15, -262142, 1048578, 16, -327677, 1114114, 15, -262141, 1114114, 16, -327676, 1179650, 15, -262140, 1179650, 16, -589812, 524290, 8, -524276, 524290, 9, -589811, 589826, 8, -524275, 589826, 9, -589810, 655362, 8, -524274, 655362, 9, -589809, 720898, 8, -524273, 720898, 9, -589808, 786434, 8, -524272, 786434, 9)
+layer_3/tile_data = PackedInt32Array(-589812, 1, 262144, -589811, 1, 262144, -589810, 1, 262144, -589809, 1, 262144, -589808, 1, 262144)
 layer_5/tile_data = PackedInt32Array(-131071, 1, 196608, -65535, 1, 196608, -327678, 1, 196608, -262142, 1, 196608, -131070, 1, 196608, -65534, 1, 196608, -327677, 1, 196608, -262141, 1, 196608, -131069, 1, 196608, -65533, 1, 196608, -327676, 1, 196608, -262140, 1, 196608, -131068, 1, 196608, -65532, 1, 196608, -131067, 1, 196608, -65531, 1, 196608)
+set_fade_in = NodePath("../Scene2")
 
-[node name="Fader" parent="Scene1" instance=ExtResource("4_f1h4t")]
-position = Vector2(229, -139)
-scale = Vector2(3, 1)
-
-[node name="Scene2" parent="Scene1/Fader" groups=["free"] instance=ExtResource("3_s1u40")]
-position = Vector2(-76.3333, 139)
-scale = Vector2(0.333333, 1)
+[node name="Scene2" parent="." instance=ExtResource("3_s1u40")]
+position = Vector2(0.000106812, 360)
+scale = Vector2(0.999999, 1)
 layer_1/tile_data = PackedInt32Array(-1179646, 524290, 8, -1114110, 524290, 9, -1179645, 589826, 8, -1114109, 589826, 9, -1179644, 655362, 8, -1114108, 655362, 9, -1179643, 720898, 8, -1114107, 720898, 9, -1179642, 786434, 8, -1114106, 786434, 9, -589812, 524290, 8, -524276, 524290, 9, -589811, 589826, 8, -524275, 589826, 9, -589810, 655362, 8, -524274, 655362, 9, -589809, 720898, 8, -524273, 720898, 9, -589808, 786434, 8, -524272, 786434, 9, -1114100, 1441794, 10, -1048564, 1441794, 11, -983028, 1441794, 12, -917492, 1441794, 13, -917497, 1441794, 268435466, -851961, 1441794, 268435467, -786425, 1441794, 268435468, -720889, 1441794, 268435469)
 layer_4/tile_data = PackedInt32Array(-917497, 1, 131072, -851961, 1, 131072, -786425, 1, 131072, -720889, 1, 131072, -1114100, 1, 131072, -1048564, 1, 131072, -983028, 1, 131072, -917492, 1, 131072)
 layer_5/tile_data = PackedInt32Array(-917497, 1, 196608, -851961, 1, 196608, -786425, 1, 196608, -720889, 1, 196608, -1114100, 1, 196608, -1048564, 1, 196608, -983028, 1, 196608, -917492, 1, 196608, -589812, 1, 196608, -524276, 1, 196608, -589811, 1, 196608, -524275, 1, 196608, -589810, 1, 196608, -524274, 1, 196608, -589809, 1, 196608, -524273, 1, 196608, -589808, 1, 196608, -524272, 1, 196608)
@@ -35,7 +32,7 @@ layer_5/tile_data = PackedInt32Array(-917497, 1, 196608, -851961, 1, 196608, -78
 [node name="SceneSwitcher" parent="." node_paths=PackedStringArray("outro") instance=ExtResource("6_i37ls")]
 position = Vector2(71, 53)
 next_scene = "res://levels/tutorial/legs2.tscn"
-outro = NodePath("../Scene1/Fader/Scene2")
+outro = NodePath("../Scene2")
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(54, 317)
@@ -44,3 +41,9 @@ position = Vector2(54, 317)
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Scene 1"
+
+[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@84635" to="Scene1/@Area2D@84635" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@84636" to="Scene1/@Area2D@84636" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@84637" to="Scene1/@Area2D@84637" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@84638" to="Scene1/@Area2D@84638" method="_on_body_entered"]

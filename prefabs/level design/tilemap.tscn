@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bb44qdp7l5m62"]
+[gd_scene load_steps=14 format=3 uid="uid://bb44qdp7l5m62"]
 
 [ext_resource type="PackedScene" uid="uid://dlklgdcq4kqso" path="res://prefabs/utility library/crumble.tscn" id="2_1n421"]
 [ext_resource type="PackedScene" uid="uid://b12hj7neipff4" path="res://prefabs/utility library/fade_in.tscn" id="3_h2qxq"]
+[ext_resource type="PackedScene" uid="uid://divg2wpskqech" path="res://prefabs/level design/fader.tscn" id="4_abu28"]
 [ext_resource type="PackedScene" uid="uid://dp1stkmcgwbsy" path="res://prefabs/utility library/fade_out.tscn" id="4_gbmcw"]
 [ext_resource type="Texture2D" uid="uid://kvn6l81uo2s2" path="res://assets/elliot/Tileset_v1.png" id="5_dv1wt"]
 [ext_resource type="Texture2D" uid="uid://deta4w743l42v" path="res://assets/elliot/fadein v1.png" id="6_uke8l"]
+[ext_resource type="Script" path="res://scripts/tilemap.gd" id="7_ljndr"]
 [ext_resource type="Texture2D" uid="uid://c0xe52h2ypsux" path="res://assets/elliot/fadeout v1.png" id="7_pgacq"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5n8h1"]
@@ -12,6 +14,7 @@ resource_name = "Prefabs"
 scenes/1/scene = ExtResource("2_1n421")
 scenes/2/scene = ExtResource("3_h2qxq")
 scenes/3/scene = ExtResource("4_gbmcw")
+scenes/4/scene = ExtResource("4_abu28")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bxd8i"]
 resource_name = "Static"
@@ -2526,3 +2529,4 @@ layer_4/name = "Fade in"
 layer_4/tile_data = PackedInt32Array()
 layer_5/name = "Fade out"
 layer_5/tile_data = PackedInt32Array()
+script = ExtResource("7_ljndr")

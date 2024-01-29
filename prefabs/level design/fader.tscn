@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://scripts/fader.gd" id="1_88vjt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2fqhl"]
+size = Vector2(14, 14)
 
-[node name="Fader" type="Area2D"]
+[node name="Fader" type="Area2D" groups=["fader"]]
 script = ExtResource("1_88vjt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
