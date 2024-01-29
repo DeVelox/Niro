@@ -16,4 +16,9 @@ offset_bottom = 376.0
 texture = ExtResource("4_tylv4")
 
 [node name="Tilemap" parent="." instance=ExtResource("3_gu4s5")]
-layer_1/tile_data = PackedInt32Array(-65535, 524290, 9, -65534, 589826, 9, -65533, 655362, 9, -65532, 720898, 9, -65531, 786434, 9, -131071, 524290, 8, -131070, 589826, 8, -131069, 655362, 8, -131068, 720898, 8, -131067, 786434, 8)
+layer_1/tile_data = PackedInt32Array(-1179646, 524290, 8, -1179645, 589826, 8, -1179644, 655362, 8, -1179643, 720898, 8, -1179642, 786434, 8, -1114110, 524290, 9, -1114109, 589826, 9, -1114108, 655362, 9, -1114107, 720898, 9, -1114106, 786434, 9)
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Scene 2"

@@ -51,14 +51,6 @@ func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
 	return map
 
 
-func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vector2i]:
-	var atlas: Array[Vector2i] = []
-	var tiles = tilemap.get_used_cells(1)
-	for i in tiles:
-		atlas.append(tilemap.get_cell_atlas_coords(layer, i))
-	return atlas
-
-
 func fade_in(tilemap: TileMap) -> void:
 	toggle_layers(tilemap, true)
 	get_tree().call_group.call_deferred("fade_in", "fade_in", tilemap)
@@ -68,31 +60,39 @@ func fade_out(tilemap: TileMap) -> void:
 	get_tree().call_group("fade_out", "fade_out", tilemap)
 
 
-func fade_in_all(tilemap: TileMap) -> void:
-	toggle_layers(tilemap, true)
-	tilemap.set_layer_enabled(1, false)
-	var tiles = tilemap.get_used_cells(1)
-	var tile: Vector2i
-	for i in tiles:
-		tile = tilemap.get_cell_atlas_coords(1, i)
-		tilemap.set_cell(3, i, 3, get_anim(tile, "in"))
-	await get_tree().create_timer(1).timeout
-	tilemap.set_layer_enabled(1, true)
-	for i in tiles:
-		tilemap.erase_cell(3, i)
-
-
-func fade_out_all(tilemap: TileMap) -> void:
-	tilemap.set_layer_enabled(1, false)
-	var tiles = tilemap.get_used_cells(1)
-	var tile: Vector2i
-	for i in tiles:
-		tile = tilemap.get_cell_atlas_coords(1, i)
-		tilemap.set_cell(3, i, 4, get_anim(tile, "out"))
-	await get_tree().create_timer(1).timeout
-	destroy.emit()
-
-
 func toggle_layers(tilemap: TileMap, state: bool) -> void:
 	for i in tilemap.get_layers_count():
 		tilemap.set_layer_enabled(i, state)
+
+
+func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vector2i]:
+	var atlas: Array[Vector2i] = []
+	var tiles = tilemap.get_used_cells(1)
+	for i in tiles:
+		atlas.append(tilemap.get_cell_atlas_coords(layer, i))
+	return atlas
+
+# Never operate on all tiles
+#func fade_in_all(tilemap: TileMap) -> void:
+#toggle_layers(tilemap, true)
+#tilemap.set_layer_enabled(1, false)
+#var tiles = tilemap.get_used_cells(1)
+#var tile: Vector2i
+#for i in tiles:
+#tile = tilemap.get_cell_atlas_coords(1, i)
+#tilemap.set_cell(3, i, 3, get_anim(tile, "in"))
+#await get_tree().create_timer(1).timeout
+#tilemap.set_layer_enabled(1, true)
+#for i in tiles:
+#tilemap.erase_cell(3, i)
+#
+#
+#func fade_out_all(tilemap: TileMap) -> void:
+#tilemap.set_layer_enabled(1, false)
+#var tiles = tilemap.get_used_cells(1)
+#var tile: Vector2i
+#for i in tiles:
+#tile = tilemap.get_cell_atlas_coords(1, i)
+#tilemap.set_cell(3, i, 4, get_anim(tile, "out"))
+#await get_tree().create_timer(1).timeout
+#destroy.emit()
