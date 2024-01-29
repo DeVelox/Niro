@@ -26,4 +26,4 @@ position = Vector2(120, 69)
 next_scene = "res://levels/boss1/level2.tscn"
 
 [node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(120, 333)
+position = Vector2(121, 311)
