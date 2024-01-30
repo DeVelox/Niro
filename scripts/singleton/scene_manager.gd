@@ -64,6 +64,7 @@ func fade_in(tilemap: TileMap) -> void:
 
 func fade_out(tilemap: TileMap) -> void:
 	get_tree().call_group("fade_out", "fade_out", tilemap)
+	toggle_layers.call_deferred(tilemap, false)
 
 
 func toggle_layers(tilemap: TileMap, state: bool) -> void:

@@ -6,7 +6,6 @@ func fade_out(tilemap: TileMap) -> void:
 	if vision:
 		_fade(tilemap, 2)
 	_fade(tilemap, 1)
-	Scene.toggle_layers(tilemap, false)
 
 
 func _fade(tilemap: TileMap, layer: int) -> void:
@@ -18,4 +17,4 @@ func _fade(tilemap: TileMap, layer: int) -> void:
 	else:
 		tilemap.set_cell(layer, pos, 2, tile)
 	await get_tree().create_timer(1).timeout
-	tilemap.erase_cell(layer, pos)
+	tilemap.set_cell(layer, pos, 2, tile)
