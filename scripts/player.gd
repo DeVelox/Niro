@@ -366,7 +366,10 @@ func _animation() -> void:
 			sprite.flip_h = true
 			interact_check.scale.x = -1
 		if is_wall_hanging:
-			sprite.flip_h = not sprite.flip_h
+			if wall_hang_direction > 0.0:
+				sprite.flip_h = true
+			else:
+				sprite.flip_h = false
 
 	# Current animation
 	sprite.play(_get_animation())
