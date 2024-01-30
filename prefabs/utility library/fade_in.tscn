@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://b12hj7neipff4"]
+[gd_scene load_steps=3 format=3 uid="uid://b12hj7neipff4"]
 
 [ext_resource type="Script" path="res://scripts/fade_in.gd" id="1_gypuk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dtfpb"]
 
 [node name="FadeIn" type="Node2D" groups=["fade_in"]]
 script = ExtResource("1_gypuk")
 
-[node name="Marker2D" type="Marker2D" parent="."]
+[node name="marker" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marker"]
+position = Vector2(-5, -5)
+scale = Vector2(0.15, 0.15)
+shape = SubResource("RectangleShape2D_dtfpb")

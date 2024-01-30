@@ -15,10 +15,13 @@ offset_right = 656.0
 offset_bottom = 376.0
 texture = ExtResource("4_tylv4")
 
-[node name="Tilemap" parent="." instance=ExtResource("3_gu4s5")]
-layer_1/tile_data = PackedInt32Array(-1179646, 524290, 8, -1179645, 589826, 8, -1179644, 655362, 8, -1179643, 720898, 8, -1179642, 786434, 8, -1114110, 524290, 9, -1114109, 589826, 9, -1114108, 655362, 9, -1114107, 720898, 9, -1114106, 786434, 9)
+[node name="Scene1" parent="." instance=ExtResource("3_gu4s5")]
+layer_1/tile_data = PackedInt32Array(-1179645, 1048578, 15, -1114109, 1048578, 16, -1179644, 1114114, 15, -1114108, 1114114, 16, -1179643, 1179650, 15, -1114107, 1179650, 16)
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Scene 2"
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(171, 21)

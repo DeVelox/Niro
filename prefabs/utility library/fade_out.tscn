@@ -5,4 +5,9 @@
 [node name="FadeOut" type="Node2D" groups=["fade_out"]]
 script = ExtResource("1_7qd56")
 
-[node name="Marker2D" type="Marker2D" parent="."]
+[node name="marker" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="marker"]
+position = Vector2(5, -5)
+scale = Vector2(0.15, 0.15)
+polygon = PackedVector2Array(0, -10, -10, 10, 10, 10)
