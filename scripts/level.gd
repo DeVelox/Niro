@@ -23,11 +23,11 @@ func _set_checkpoint() -> void:
 
 func _set_spawn() -> void:
 	if has_node("Spawn"):
-		Data.spawn_point = $Spawn.position
+		Scene.spawn_point = $Spawn.position
 
 	if set_player_spawn:
 		for player in get_tree().get_nodes_in_group("players"):
-			player.position = Data.spawn_point
+			player.position = Scene.spawn_point
 
 
 func _check_vision() -> void:
