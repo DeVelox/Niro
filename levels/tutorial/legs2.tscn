@@ -15,13 +15,33 @@ offset_right = 656.0
 offset_bottom = 376.0
 texture = ExtResource("4_tylv4")
 
-[node name="Scene1" parent="." instance=ExtResource("3_gu4s5")]
-layer_1/tile_data = PackedInt32Array(-1179645, 1048578, 15, -1114109, 1048578, 16, -1179644, 1114114, 15, -1114108, 1114114, 16, -1179643, 1179650, 15, -1114107, 1179650, 16)
-
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Scene 2"
 
 [node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(171, 21)
+position = Vector2(71, 53)
+
+[node name="Scene1" parent="." node_paths=PackedStringArray("set_fade_in") instance=ExtResource("3_gu4s5")]
+layer_1/tile_data = PackedInt32Array(-1179645, 1048578, 15, -1114109, 1048578, 16, -1179644, 1114114, 15, -1114108, 1114114, 16, -1179643, 1179650, 15, -1114107, 1179650, 16)
+layer_3/tile_data = PackedInt32Array(-1179645, 1, 262144, -1179644, 1, 262144, -1179643, 1, 262144)
+set_fade_in = NodePath("../Scene2")
+
+[node name="Scene2" parent="." node_paths=PackedStringArray("set_fade_in") instance=ExtResource("3_gu4s5")]
+layer_1/tile_data = PackedInt32Array(-1179645, 1048578, 15, -1114109, 1048578, 16, -1179644, 1114114, 15, -1114108, 1114114, 16, -1179643, 1179650, 15, -1114107, 1179650, 16, -1507322, 589826, 10, -1441786, 589826, 11, -1376250, 589826, 12, -1310714, 589826, 13, -1245178, 589826, 14, -1179642, 589826, 15, -1114106, 589826, 16, -1048570, 589826, 17, -655352, 524290, 8, -655351, 589826, 8, -655350, 655362, 8, -655349, 720898, 8, -655348, 786434, 8, -589816, 524290, 9, -589815, 589826, 9, -589814, 655362, 9, -589813, 720898, 9, -589812, 786434, 9)
+layer_3/tile_data = PackedInt32Array(-983029, 1, 262144, -983028, 1, 262144, -983027, 1, 262144, -983026, 1, 262144, -983025, 1, 262144)
+set_fade_in = NodePath("../Scene3")
+
+[node name="Scene3" parent="." instance=ExtResource("3_gu4s5")]
+visible = false
+layer_1/tile_data = PackedInt32Array(-524277, 524290, 8, -458741, 524290, 9, -524276, 589826, 8, -458740, 589826, 9, -524275, 655362, 8, -458739, 655362, 9, -524274, 720898, 8, -458738, 720898, 9, -524273, 786434, 8, -458737, 786434, 9, -589800, 720898, 12, -524264, 720898, 13, -589799, 524290, 8, -524263, 524290, 9, -589798, 589826, 8, -524262, 589826, 9, -589797, 655362, 8, -524261, 655362, 9, -720872, 720898, 10, -655336, 720898, 11, -589796, 720898, 8, -524260, 720898, 9, -589795, 786434, 8, -524259, 786434, 9)
+
+[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@189108" to="Scene1/@Area2D@189108" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@189109" to="Scene1/@Area2D@189109" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@208760" to="Scene2/@Area2D@208760" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@208761" to="Scene2/@Area2D@208761" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@208762" to="Scene2/@Area2D@208762" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@208763" to="Scene2/@Area2D@208763" method="_on_body_entered"]

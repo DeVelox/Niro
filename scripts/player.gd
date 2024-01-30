@@ -251,7 +251,7 @@ func _try_crouch() -> bool:
 
 func _try_drop() -> bool:
 	if Input.is_action_just_pressed("jump"):
-		position.y += 1
+		position.y += 5
 		return true
 	return false
 
