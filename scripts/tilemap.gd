@@ -6,13 +6,11 @@ extends TileMap
 func _ready() -> void:
 	if set_fade_in:
 		Scene.toggle_layers(set_fade_in, false)
+		Scene.should_fade.connect(_fade)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if Scene.should_fade and set_fade_in:
-		Scene.should_fade = false
-		Scene.can_fade = false
+func _fade(tilemap: TileMap) -> void:
+	if tilemap == self:
+		Scene.should_fade.disconnect(_fade)
 		Scene.fade_in(set_fade_in)
 		Scene.fade_out(self)
-		Scene.can_fade = true
