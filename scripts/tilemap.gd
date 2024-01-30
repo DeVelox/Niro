@@ -1,5 +1,6 @@
 extends TileMap
 @export var set_fade_in: TileMap
+@export var delay: float
 
 
 # Called when the node enters the scene tree for the first time.

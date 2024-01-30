@@ -4,7 +4,10 @@ class_name Fader extends Area2D
 
 
 func _on_body_entered(body: Node2D) -> void:
+	var tilemap: TileMap = get_parent() as TileMap
 	if body.is_in_group("players"):
+		if tilemap.delay:
+			await get_tree().create_timer(tilemap.delay).timeout
 		Scene.should_fade.emit(get_parent())
 		_disable_collision()
 
