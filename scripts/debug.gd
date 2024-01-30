@@ -69,7 +69,7 @@ func _on_hearts_toggled(toggled_on: bool) -> void:
 		Upgrades.add_heart()
 	else:
 		Upgrades.sell(Upgrades.Type.HEARTS)
-	_reload()
+	Scene.reload()
 
 
 func _on_vision_toggled(toggled_on: bool) -> void:
@@ -77,7 +77,7 @@ func _on_vision_toggled(toggled_on: bool) -> void:
 		Upgrades.buy(Upgrades.Type.VISION)
 	else:
 		Upgrades.sell(Upgrades.Type.VISION)
-	_reload()
+	Scene.reload()
 
 
 func _on_recall_toggled(toggled_on: bool) -> void:
@@ -85,21 +85,13 @@ func _on_recall_toggled(toggled_on: bool) -> void:
 		Upgrades.buy(Upgrades.Type.RECALL)
 	else:
 		Upgrades.sell(Upgrades.Type.RECALL)
-	_reload()
+	Scene.reload()
 
 
 func _init_checkbox():
 	hearts.set_pressed_no_signal(Upgrades.check(Upgrades.Type.HEARTS))
 	vision.set_pressed_no_signal(Upgrades.check(Upgrades.Type.VISION))
 	recall.set_pressed_no_signal(Upgrades.check(Upgrades.Type.RECALL))
-
-
-func _reload():
-	var main := get_node("/root/Main")
-	var load_level: Node2D = load(Data.current_scene).instantiate()
-	main.add_child(load_level)
-	Data.current_level.queue_free()
-	Data.current_level = load_level
 
 
 func _toggle() -> void:

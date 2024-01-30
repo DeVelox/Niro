@@ -35,7 +35,7 @@ next_scene = "res://levels/tutorial/legs2.tscn"
 outro = NodePath("../Scene2")
 
 [node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(54, 317)
+position = Vector2(54, 310)
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0

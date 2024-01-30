@@ -1,6 +1,7 @@
 extends Node
 
 signal next_line
+signal confirmed
 
 var dialog_lines: Array[String] = []
 var current_line := 0
@@ -10,23 +11,30 @@ var text_box_position: Vector2
 
 var is_dialog_active := false
 var can_advance := false
+var buying := false
+var hold := false
 
 @onready var text_box_scene = preload("res://prefabs/utility library/text_box.tscn")
 
 
-func _ready() -> void:
-	Dialog.next_line.connect(_on_dialog_next_line)
+func _process(_delta: float) -> void:
+	if hold and Input.is_action_just_pressed("interact"):
+		text_box.accepted.emit()
 
 
-func start_dialog(position: Vector2, lines: Array[String]) -> void:
-	if is_dialog_active:
-		next_line.emit()
+func start_dialog(position: Vector2, lines: Array[String], is_buying: bool = false) -> void:
+	if not buying:
+		buying = is_buying
+
+	if is_dialog_active and can_advance:
+		_show_text_box()
 		return
 
-	dialog_lines = lines
-	text_box_position = position
-	is_dialog_active = true
-	_show_text_box()
+	if lines.size() > 0:
+		dialog_lines = lines
+		text_box_position = position
+		is_dialog_active = true
+		_show_text_box()
 
 
 func end_dialog() -> void:
@@ -36,23 +44,23 @@ func end_dialog() -> void:
 
 
 func _show_text_box() -> void:
+	can_advance = false
 	text_box = text_box_scene.instantiate() as TextBox
 	text_box.finished.connect(_on_text_box_finished)
 	get_tree().root.add_child(text_box)
 	text_box.global_position = text_box_position
 	text_box.display_text(dialog_lines[current_line])
-	can_advance = false
 
 
 func _on_text_box_finished() -> void:
-	can_advance = true
+	var size = dialog_lines.size()
+	if buying and current_line == size - 2:
+		buying = false
+		hold = true
 	current_line += 1
-	if current_line >= dialog_lines.size():
+	if current_line >= size:
 		is_dialog_active = false
 		current_line = 0
 		return
-
-
-func _on_dialog_next_line() -> void:
-	if is_dialog_active and can_advance:
-		_show_text_box()
+	can_advance = true
+	next_line.emit()

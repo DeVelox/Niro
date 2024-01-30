@@ -1,6 +1,7 @@
 class_name TextBox extends MarginContainer
 
 signal finished
+signal accepted
 
 const MAX_WIDTH = 256
 
@@ -33,9 +34,14 @@ func display_text(text_to_display: String) -> void:
 func _display_letter() -> void:
 	label.visible_characters = index
 	index += 1
-
-	if index >= label.text.length():
-		await get_tree().create_timer(1).timeout
+	if index > label.text.length():
+		if Dialog.hold:
+			await accepted
+			Dialog.hold = false
+			Dialog.buying = false
+			Dialog.confirmed.emit()
+		else:
+			await get_tree().create_timer(1).timeout
 		finished.emit()
 		queue_free()
 		return

@@ -16,9 +16,9 @@ func _switch_level() -> void:
 	var main := get_node("/root/Main")
 	var next_level: Node2D = load(next_scene).instantiate()
 	next_level.set_player_spawn = set_player_spawn
-	Data.current_level = next_level
-	Data.current_scene = next_scene
-	Data.scene_history.append(next_scene)
+	Scene.current_level = next_level
+	Scene.current_scene = next_scene
+	Scene.scene_history.append(next_scene)
 	main.call_deferred("add_child", next_level)
 	get_parent().destroy()
 

@@ -432,12 +432,12 @@ func _try_place_checkpoint() -> void:
 	if is_on_floor() and has_checkpoint and Upgrades.check(Upgrades.Type.RECALL):
 		var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 		if checkpoint:
-			Data.scene_history.clear()
+			Scene.scene_history.clear()
 			checkpoint.destroy()
 		has_checkpoint = false
 		var place_checkpoint: Checkpoint = load("res://player/checkpoint.tscn").instantiate()
 		main.add_child(place_checkpoint)
-		Data.scene_history = [Data.current_scene]
+		Scene.scene_history = [Scene.current_scene]
 
 
 func _try_recall(long_reset = false) -> void:
@@ -457,16 +457,16 @@ func _hard_recall() -> void:
 func _soft_recall() -> void:
 	var main := get_node("/root/Main")
 	var checkpoint := get_node("/root/Main/Checkpoint")
-	if Data.scene_history.size() > 1:
-		var delay: float = REWIND_DUR / Data.scene_history.size()
-		Data.scene_history.reverse()
-		for scene in Data.scene_history:
+	if Scene.scene_history.size() > 1:
+		var delay: float = REWIND_DUR / Scene.scene_history.size()
+		Scene.scene_history.reverse()
+		for scene in Scene.scene_history:
 			var rewind_level: Node2D = load(scene).instantiate()
 			main.call_defered("add_child", rewind_level)
-			Data.current_level.destroy(delay)
-			Data.current_level = rewind_level
-			Data.current_scene = scene
-		Data.scene_history = [Data.current_scene]
+			Scene.current_level.destroy(delay)
+			Scene.current_level = rewind_level
+			Scene.current_scene = scene
+		Scene.scene_history = [Scene.current_scene]
 	var tween := create_tween()
 	_collision(0)
 	(
@@ -587,4 +587,6 @@ func _on_climbing_bottom_exited(_body: Node2D) -> void:
 
 
 func _on_screen_exited() -> void:
+	if global_position.y > 0:
+		return
 	_try_recall()

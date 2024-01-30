@@ -2,8 +2,10 @@ extends Node
 
 enum Type { HEARTS, VISION, RECALL }
 
-var active_upgrades: Array[Type] = [Type.RECALL]
+var active_upgrades: Array[Type] = []
 var hearts := 1
+
+var buying: Type
 
 
 func check(upgrade: Type) -> bool:

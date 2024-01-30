@@ -3,6 +3,11 @@ extends Node
 signal destroy
 signal should_fade(tilemap: TileMap)
 
+var current_scene: String
+var current_level: Node2D
+var scene_history: Array[String]
+
+var spawn_point: Vector2
 var fade_in_map: Dictionary = {
 	Vector2i(8, 8): Vector2i(0, 0),
 	Vector2i(8, 9): Vector2i(0, 1),
@@ -72,6 +77,14 @@ func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vect
 	for i in tiles:
 		atlas.append(tilemap.get_cell_atlas_coords(layer, i))
 	return atlas
+
+
+func reload():
+	var main := get_node("/root/Main")
+	var load_level: Node2D = load(current_scene).instantiate()
+	main.add_child(load_level)
+	current_level.queue_free()
+	current_level = load_level
 
 # Never operate on all tiles
 #func fade_in_all(tilemap: TileMap) -> void:

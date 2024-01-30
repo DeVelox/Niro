@@ -244,9 +244,8 @@ script = ExtResource("1_0if4t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"wall"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.643485
 offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

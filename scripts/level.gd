@@ -1,7 +1,7 @@
 class_name Level extends Node2D
 @export var first: TileMap
 @export var last: TileMap
-@export var checkpoint: bool
+@export var checkpoint: bool = true
 
 var set_player_spawn: bool
 
@@ -14,11 +14,11 @@ func _ready() -> void:
 
 
 func _set_checkpoint() -> void:
-	if checkpoint:
+	if checkpoint and Upgrades.check(Upgrades.Type.RECALL):
 		var main := get_node("/root/Main")
 		var place_checkpoint: Checkpoint = load("res://player/checkpoint.tscn").instantiate()
 		main.add_child(place_checkpoint)
-		Data.scene_history = [Data.current_scene]
+		Scene.scene_history = [Scene.current_scene]
 
 
 func _set_spawn() -> void:

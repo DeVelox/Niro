@@ -1,29 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://f6yb2sek4ils"]
 
 [ext_resource type="Texture2D" uid="uid://cix8widrpdkm2" path="res://assets/temp/ground_monk.png" id="1_4yqqk"]
-
-[sub_resource type="GDScript" id="GDScript_i80cb"]
-script/source = "extends Area2D
-@export var lines : Array[String]
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
-func say(new_lines: Array[String]) -> void:
-	Dialog.end_dialog()
-	Dialog.start_dialog(global_position, new_lines)
-	
-
-func _on_body_entered(_body: Node2D) -> void:
-	Dialog.start_dialog(global_position, lines)
-"
+[ext_resource type="Script" path="res://scripts/old_man.gd" id="1_lmwb7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tgdor"]
 atlas = ExtResource("1_4yqqk")
@@ -66,8 +44,13 @@ size = Vector2(10, 28)
 
 [node name="OldMan" type="Area2D"]
 scale = Vector2(1.6, 1.6)
-script = SubResource("GDScript_i80cb")
-lines = Array[String](["Yo, what's poppin!", "You go on then!", "Come back when you need me!", "I'll be here for a while!"])
+script = ExtResource("1_lmwb7")
+lines = Array[String](["Yo, what's poppin'!", "You go on then.
+I'll be here a while longer.", "Come talk to me if you need me."])
+buy_text = Array[String](["You suck at this. Wanna buy an upgrade?", "Upgrade: Recall
+Cost: Everything
+Buy: [F]"])
+upgrade = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yyg2h")
@@ -77,4 +60,4 @@ autoplay = "default"
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_wedis")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_walk_by"]
