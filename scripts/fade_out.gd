@@ -6,6 +6,7 @@ func fade_out(tilemap: TileMap) -> void:
 	if vision:
 		_fade(tilemap, 2)
 	_fade(tilemap, 1)
+	Scene.toggle_layers(tilemap, true)
 
 
 func _fade(tilemap: TileMap, layer: int) -> void:
