@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b83ocqd284413"
-path="res://.godot/imported/adventurer-idle-2-01.png-db8ee95f7982adee8af2cbb20bc27a14.ctex"
+uid="uid://wjiimoskmn0n"
+path="res://.godot/imported/CharacterAnimationv1.png-c6effb9813910af2a7994e6dc3ab78c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/temp/adventurer/adventurer-idle-2-01.png"
-dest_files=["res://.godot/imported/adventurer-idle-2-01.png-db8ee95f7982adee8af2cbb20bc27a14.ctex"]
+source_file="res://assets/elliot/CharacterAnimationv1.png"
+dest_files=["res://.godot/imported/CharacterAnimationv1.png-c6effb9813910af2a7994e6dc3ab78c9.ctex"]
 
 [params]
 

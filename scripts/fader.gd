@@ -6,7 +6,7 @@ class_name Fader extends Area2D
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		if Scene.can_fade:
-			Scene.is_fading = true
+			Scene.should_fade = true
 		get_tree().call_group("fader", "disable_collision")
 
 

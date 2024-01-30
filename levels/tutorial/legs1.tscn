@@ -41,9 +41,3 @@ position = Vector2(54, 317)
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Scene 1"
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@84635" to="Scene1/@Area2D@84635" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@84636" to="Scene1/@Area2D@84636" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@84637" to="Scene1/@Area2D@84637" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@84638" to="Scene1/@Area2D@84638" method="_on_body_entered"]

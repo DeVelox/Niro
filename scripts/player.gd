@@ -318,12 +318,14 @@ func _collision_update() -> void:
 	#hitbox.position = Vector2(0, 9)
 	if is_crouching or is_sliding:
 		get_tree().call_group("noclimb", "set", "disabled", true)
-		hitbox.shape.size = Vector2(32, 22)
-		hitbox.position = Vector2(0, 14)
+		hitbox.shape.radius = 12
+		hitbox.shape.height = 28
+		hitbox.position = Vector2(0, 20)
 	else:
 		get_tree().call_group("noclimb", "set", "disabled", false)
-		hitbox.shape.size = Vector2(32, 44)
-		hitbox.position = Vector2(0, 3)
+		hitbox.shape.radius = 12
+		hitbox.shape.height = 48
+		hitbox.position = Vector2(0, 10)
 
 
 func _special_actions() -> void:
@@ -361,6 +363,8 @@ func _animation() -> void:
 		else:
 			sprite.flip_h = true
 			interact_check.scale.x = -1
+		if is_wall_hanging:
+			sprite.flip_h = not sprite.flip_h
 
 	# Current animation
 	sprite.play(_get_animation())

@@ -10,10 +10,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Scene.is_fading and set_fade_in:
-		Scene.is_fading = false
+	if Scene.should_fade and set_fade_in:
+		Scene.should_fade = false
 		Scene.can_fade = false
 		Scene.fade_in(set_fade_in)
 		Scene.fade_out(self)
-		await get_tree().create_timer(1).timeout
 		Scene.can_fade = true
