@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgur0k5oxc14t"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_o3cvd"]
+[ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/elliot/stoneGiantPlaceholder1.png" id="2_k5usc"]
+[ext_resource type="Texture2D" uid="uid://by88pqvsnr0kq" path="res://assets/elliot/tutorialPlaceholder.png" id="3_3gsqm"]
+[ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/elliot/tutorialPlaceholder1.png" id="4_h12x4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_o3cvd")
+
+[node name="Chest" type="TextureRect" parent="."]
+visible = false
+z_index = -1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_k5usc")
+
+[node name="Feet" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 656.0
+offset_bottom = 376.0
+texture = ExtResource("3_3gsqm")
+
+[node name="Legs" type="TextureRect" parent="."]
+visible = false
+z_index = -1
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 656.0
+offset_bottom = 376.0
+texture = ExtResource("4_h12x4")
+
+[node name="Spawn" type="Marker2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_m7p01")
