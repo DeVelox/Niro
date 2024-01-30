@@ -13,6 +13,7 @@ height = 48.0
 script = ExtResource("1_qtkw1")
 
 [node name="Chest" type="TextureRect" parent="."]
+visible = false
 z_index = -1
 offset_right = 40.0
 offset_bottom = 40.0
@@ -27,6 +28,7 @@ offset_bottom = 376.0
 texture = ExtResource("3_o2fs5")
 
 [node name="Legs" type="TextureRect" parent="."]
+visible = false
 z_index = -1
 offset_left = -16.0
 offset_top = -16.0

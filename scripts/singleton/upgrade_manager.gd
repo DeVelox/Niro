@@ -2,7 +2,7 @@ extends Node
 
 enum Type { HEARTS, VISION, RECALL }
 
-var active_upgrades: Array[Type] = []
+var active_upgrades: Array[Type] = [Type.RECALL]
 var hearts := 1
 
 var buying: Type
