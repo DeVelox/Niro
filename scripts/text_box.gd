@@ -1,12 +1,10 @@
 class_name TextBox extends MarginContainer
 
 signal finished
-signal accepted
 
 const MAX_WIDTH = 256
 
 var index := 0
-
 var time := 0.03
 
 @onready var label: Label = $MarginContainer/Label
@@ -14,6 +12,8 @@ var time := 0.03
 
 
 func display_text(text_to_display: String) -> void:
+	Dialog.skip_line.connect(_on_skip_line, CONNECT_ONE_SHOT)
+
 	label.text = text_to_display
 
 	await resized
@@ -35,17 +35,15 @@ func _display_letter() -> void:
 	label.visible_characters = index
 	index += 1
 	if index > label.text.length():
-		if Dialog.hold:
-			await accepted
-			Dialog.hold = false
-			Dialog.buying = false
-			Dialog.confirmed.emit()
-		else:
-			await get_tree().create_timer(1).timeout
+		await Dialog.next_line
 		finished.emit()
 		queue_free()
 		return
 	timer.start(time)
+
+
+func _on_skip_line() -> void:
+	index = label.text.length()
 
 
 func _on_timer_timeout() -> void:

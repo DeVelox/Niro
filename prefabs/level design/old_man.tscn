@@ -44,12 +44,13 @@ size = Vector2(10, 28)
 
 [node name="OldMan" type="Area2D"]
 scale = Vector2(1.6, 1.6)
+collision_layer = 32
 script = ExtResource("1_lmwb7")
-lines = Array[String](["Yo, what's poppin'!", "You go on then.
-I'll be here a while longer.", "Come talk to me if you need me."])
-buy_text = Array[String](["You suck at this. Wanna buy an upgrade?", "Upgrade: Recall
+default_lines = Array[String](["Yo, what's poppin'!", "You go on then.
+I'll be around for a while.", "Come talk to me if you need me."])
+upgrade_lines = Array[String](["You suck at this. Wanna exchange your humanity for an upgrade?", "Upgrade: Recall
 Cost: Everything
-Buy: [F]"])
+Exchange: [F]"])
 upgrade = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -59,5 +60,3 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_wedis")
-
-[connection signal="body_entered" from="." to="." method="_on_walk_by"]
