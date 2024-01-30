@@ -587,6 +587,6 @@ func _on_climbing_bottom_exited(_body: Node2D) -> void:
 
 
 func _on_screen_exited() -> void:
-	if global_position.y > 0:
+	if global_position.y < 0:
 		return
 	_try_recall()
