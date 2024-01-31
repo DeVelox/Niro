@@ -213,19 +213,50 @@ func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
 
 
 func fade_in(tilemap: TileMap) -> void:
-	toggle_layers(tilemap, true)
+	_toggle_layers(tilemap, false)
+	var temp = _add_temp_layer(tilemap)
+	
 	get_tree().call_group.call_deferred("fade_in", "fade_in", tilemap)
+	await get_tree().create_timer(1).timeout
+	
+	_remove_temp_layer(tilemap, temp)
+	_toggle_layers.call_deferred(tilemap, true)
 
 
 func fade_out(tilemap: TileMap) -> void:
-	get_tree().call_group("fade_out", "fade_out", tilemap)
+	_toggle_layers(tilemap, false)
+	var temp = _add_temp_layer(tilemap)
+	
+	get_tree().call_group.call_deferred("fade_out", "fade_out", tilemap)
 	await get_tree().create_timer(1).timeout
-	toggle_layers.call_deferred(tilemap, false)
+	
+	_remove_temp_layer(tilemap, temp)
+		
 
 
-func toggle_layers(tilemap: TileMap, state: bool) -> void:
+func _add_temp_layer(tilemap: TileMap) -> int:
+	var layer := tilemap.get_layers_count()
+	tilemap.add_layer(-1)
+	tilemap.set_layer_enabled(layer, true)
+	return layer
+	
+func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
+	tilemap.remove_layer(layer)
+	
+	
+func _toggle_layers(tilemap: TileMap, state: bool) -> void:
 	for i in tilemap.get_layers_count():
 		tilemap.set_layer_enabled(i, state)
+
+
+
+func fade_animation(tilemap: TileMap, layer: int, position: Vector2, fade: bool, temp: int) -> void:
+	var pos: Vector2i = tilemap.local_to_map(position)
+	var tile: Vector2i = tilemap.get_cell_atlas_coords(layer, pos)
+	var anim: Vector2i = Scene.get_anim(tile)
+	var srcid: int = 5 if fade else 6
+	
+	tilemap.set_cell(temp, pos, srcid, anim)
 
 
 func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vector2i]:

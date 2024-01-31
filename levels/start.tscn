@@ -17,7 +17,7 @@ position = Vector2(38, 287)
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("3_8np6h")]
 position = Vector2(232, 248)
-next_scene = "res://levels/tutorial/legs2.tscn"
+next_scene = "res://levels/tutorial/legs1.tscn"
 set_player_spawn = true
 
 [node name="SceneSwitcher2" parent="." instance=ExtResource("3_8np6h")]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://dp1stkmcgwbsy"]
 
-[ext_resource type="Script" path="res://scripts/fade_out.gd" id="1_7qd56"]
+[ext_resource type="Script" path="res://scripts/fade.gd" id="1_16lrk"]
 
 [node name="FadeOut" type="Node2D" groups=["fade_out"]]
-script = ExtResource("1_7qd56")
+script = ExtResource("1_16lrk")
 
 [node name="marker" type="Area2D" parent="."]
 
