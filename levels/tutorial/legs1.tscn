@@ -33,7 +33,7 @@ text = "Scene 1"
 layer_1/tile_data = PackedInt32Array(-131071, 524290, 8, -65535, 524290, 9, -131070, 589826, 8, -65534, 589826, 9, -131069, 655362, 8, -65533, 655362, 9, -131068, 720898, 8, -65532, 720898, 9, -131067, 786434, 8, -65531, 786434, 9)
 layer_3/tile_data = PackedInt32Array(-131071, 1, 262144, -131070, 1, 262144, -131069, 1, 262144, -131068, 1, 262144, -131067, 1, 262144)
 next = NodePath("../Scene2")
-delay = 5.0
+delay = 1.0
 
 [node name="Scene2" parent="." node_paths=PackedStringArray("prev", "next") instance=ExtResource("3_s1u40")]
 position = Vector2(0.000106812, 360)
