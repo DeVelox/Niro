@@ -16,6 +16,6 @@ func _ready() -> void:
 func _fade(tilemap: TileMap) -> void:
 	if tilemap == self:
 		Scene.should_fade.disconnect(_fade)
-		Scene.fade_in(next)
-		await Scene.fade_out(self)
+		Scene.fade_out(self)
+		await Scene.fade_in(next)
 		Scene.active_tilemap.append(next)

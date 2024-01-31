@@ -1,6 +1,5 @@
 extends Node
 
-signal destroy
 signal should_fade(tilemap: TileMap)
 
 enum Source { TILE = 2, FADEIN = 5, FADEOUT = 6 }
@@ -217,7 +216,7 @@ func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
 
 func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
 	toggle_layers(tilemap, false)
-	var temp = _add_temp_layer(tilemap)
+	var temp_layer = _add_temp_layer(tilemap)
 
 	var anim: String
 	if is_recall:
@@ -225,17 +224,17 @@ func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
 	else:
 		anim = "fade_in"
 
-	get_tree().call_group("stay", "stay", tilemap, temp)
-	get_tree().call_group("fade_in", anim, tilemap, temp)
+	get_tree().call_group("stay", "stay", tilemap, temp_layer)
+	get_tree().call_group("fade_in", anim, tilemap, temp_layer)
 	await get_tree().create_timer(1).timeout
 
-	_remove_temp_layer(tilemap, temp)
+	_remove_temp_layer(tilemap, temp_layer)
 	toggle_layers(tilemap, true)
 
 
 func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 	toggle_layers(tilemap, false)
-	var temp = _add_temp_layer(tilemap)
+	var temp_layer = _add_temp_layer(tilemap)
 
 	var anim: String
 	if is_recall:
@@ -243,11 +242,11 @@ func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 	else:
 		anim = "fade_out"
 
-	get_tree().call_group("stay", "stay", tilemap, temp)
-	get_tree().call_group("fade_out", anim, tilemap, temp)
+	get_tree().call_group("stay", "stay", tilemap, temp_layer)
+	get_tree().call_group("fade_out", anim, tilemap, temp_layer)
 	await get_tree().create_timer(1).timeout
 
-	_remove_temp_layer(tilemap, temp)
+	_remove_temp_layer(tilemap, temp_layer)
 
 
 func _add_temp_layer(tilemap: TileMap) -> int:
@@ -258,7 +257,7 @@ func _add_temp_layer(tilemap: TileMap) -> int:
 
 
 func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
-	tilemap.remove_layer(layer)
+	tilemap.remove_layer.call_deferred(layer)
 
 
 func toggle_layers(tilemap: TileMap, state: bool) -> void:
@@ -267,15 +266,15 @@ func toggle_layers(tilemap: TileMap, state: bool) -> void:
 
 
 func fade_animation(
-	tilemap: TileMap, layer: int, position: Vector2, source: int, temp: int
+	tilemap: TileMap, layer: int, position: Vector2, source: int, temp_layer: int
 ) -> void:
 	var pos: Vector2i = tilemap.local_to_map(position)
 	var tile: Vector2i = tilemap.get_cell_atlas_coords(layer, pos)
 	var anim: Vector2i = Scene.get_anim(tile)
 	if source == Source.TILE:
-		tilemap.set_cell(temp, pos, source, tile)
+		tilemap.set_cell(temp_layer, pos, source, tile)
 	else:
-		tilemap.set_cell(temp, pos, source, anim)
+		tilemap.set_cell(temp_layer, pos, source, anim)
 
 
 func recall():
@@ -283,17 +282,17 @@ func recall():
 	for tilemap in active_tilemap:
 		if not tilemap.prev:
 			break
-		recall_out(tilemap)
-		await recall_in(tilemap.prev)
+		_recall_out(tilemap)
+		await _recall_in(tilemap.prev)
 	active_tilemap.clear()
 	reload()
 
 
-func recall_in(tilemap: TileMap):
+func _recall_in(tilemap: TileMap):
 	await fade_in(tilemap, true)
 
 
-func recall_out(tilemap: TileMap):
+func _recall_out(tilemap: TileMap):
 	await fade_out(tilemap, true)
 
 

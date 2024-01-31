@@ -18,7 +18,6 @@ const VAR_JUMP_MULTI = 0.25
 const CLIMB_SPEED_MULTI = 0.5
 const NUDGE_RANGE = 28
 const NUDGE_MULTI = 10
-const REWIND_DUR = 1.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -313,9 +312,6 @@ func _state_checks() -> void:
 
 
 func _collision_update() -> void:
-	#if is_crouching:
-	#hitbox.shape.size = Vector2(32, 32)
-	#hitbox.position = Vector2(0, 9)
 	if is_crouching or is_sliding:
 		get_tree().call_group("noclimb", "set", "disabled", true)
 		hitbox.shape.radius = 12
@@ -430,20 +426,6 @@ func _try_interact() -> void:
 		interact_check.get_collider().interact()
 
 
-# Deprecated
-#func _try_place_checkpoint() -> void:
-#var main := get_node("/root/Main")
-#if is_on_floor() and has_checkpoint and Upgrades.check(Upgrades.Type.RECALL):
-#var checkpoint := get_node_or_null("/root/Main/Checkpoint")
-#if checkpoint:
-#Scene.scene_history.clear()
-#checkpoint.destroy()
-#has_checkpoint = false
-#var place_checkpoint: Checkpoint = load("res://player/checkpoint.tscn").instantiate()
-#main.add_child(place_checkpoint)
-#Scene.scene_history = [Scene.current_scene]
-
-
 func _try_recall(long_reset = false) -> void:
 	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 	if long_reset:
@@ -476,27 +458,12 @@ func _soft_recall() -> void:
 	tween.tween_callback(_collision)
 
 
-# Deprecated
-#func _soft_recall() -> void:
-#var main := get_node("/root/Main")
-#if Scene.scene_history.size() > 1:
-#var delay: float = REWIND_DUR / Scene.scene_history.size()
-#Scene.scene_history.reverse()
-#for scene in Scene.scene_history:
-#var rewind_level: Node2D = load(scene).instantiate()
-#main.call_defered("add_child", rewind_level)
-#Scene.current_level.destroy(delay)
-#Scene.current_level = rewind_level
-#Scene.current_scene = scene
-#Scene.scene_history = [Scene.current_scene]
-
-
 func _collision(state = 1) -> void:
 	set_deferred("collision_layer", state)
 
 
 func _absorb() -> void:
-	if Upgrades.use_heart():
+	if Upgrades.use_shield():
 		invulnerability.start()
 		can_take_damage = false
 	else:
@@ -504,7 +471,7 @@ func _absorb() -> void:
 
 
 func damage() -> void:
-	if Upgrades.check(Upgrades.Type.HEARTS):
+	if Upgrades.check(Upgrades.Type.SHIELDS):
 		_absorb()
 	elif can_take_damage:
 		_try_recall()
@@ -538,12 +505,6 @@ func _on_right_wall_touched(_body: Node2D) -> void:
 
 func _on_wall_exited(_body: Node2D) -> void:
 	is_wall_hanging = false
-
-
-#func _on_nudge_check(_body: Node2D) -> void:
-#gap_check.position = velocity.normalized() * NUDGE_RANGE
-#if not area_2d_gap_check.get_overlapping_bodies():
-#position += velocity.normalized() * NUDGE_MULTI
 
 
 func _on_invulnerability_timeout() -> void:

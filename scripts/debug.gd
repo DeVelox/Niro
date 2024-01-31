@@ -6,7 +6,7 @@ const DEBUG_PATH = preload("res://prefabs/utility library/debug_path.tscn")
 
 var debug_path: Node2D
 
-@onready var hearts: CheckBox = %Hearts
+@onready var shields: CheckBox = %Shields
 @onready var vision: CheckBox = %Vision
 @onready var recall: CheckBox = %Recall
 @onready var player: Player = get_parent()
@@ -63,12 +63,12 @@ func _on_add_value_pressed() -> void:
 
 
 # Debug UI for testing the upgrade system
-func _on_hearts_toggled(toggled_on: bool) -> void:
+func _on_shields_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		Upgrades.buy(Upgrades.Type.HEARTS)
-		Upgrades.add_heart()
+		Upgrades.buy(Upgrades.Type.SHIELDS)
+		Upgrades.add_shield()
 	else:
-		Upgrades.sell(Upgrades.Type.HEARTS)
+		Upgrades.sell(Upgrades.Type.SHIELDS)
 	Scene.reload()
 
 
@@ -89,7 +89,7 @@ func _on_recall_toggled(toggled_on: bool) -> void:
 
 
 func _init_checkbox():
-	hearts.set_pressed_no_signal(Upgrades.check(Upgrades.Type.HEARTS))
+	shields.set_pressed_no_signal(Upgrades.check(Upgrades.Type.SHIELDS))
 	vision.set_pressed_no_signal(Upgrades.check(Upgrades.Type.VISION))
 	recall.set_pressed_no_signal(Upgrades.check(Upgrades.Type.RECALL))
 
