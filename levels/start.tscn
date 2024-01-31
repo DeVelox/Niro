@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="3_8np6h"]
 [ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="4_5i88s"]
 
-[node name="Level" type="Node2D"]
+[node name="Level3" type="Node2D"]
 script = ExtResource("1_2xunh")
 checkpoint = false
 
