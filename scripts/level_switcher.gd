@@ -18,15 +18,14 @@ func _switch_level() -> void:
 	next_level.set_player_spawn = set_player_spawn
 	Scene.current_level = next_level
 	Scene.current_scene = next_scene
-	Scene.scene_history.append(next_scene)
+	Scene.active_tilemap.clear()
 	main.call_deferred("add_child", next_level)
 	get_parent().destroy()
 
 
 func _play_outro() -> void:
 	if outro:
-		Scene.fade_out(outro)
-		await get_tree().create_timer(1).timeout
+		await Scene.fade_out(outro)
 		return
 
 

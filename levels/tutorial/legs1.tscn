@@ -16,10 +16,9 @@ offset_right = 656.0
 offset_bottom = 376.0
 texture = ExtResource("2_edlv4")
 
-[node name="SceneSwitcher" parent="." node_paths=PackedStringArray("outro") instance=ExtResource("6_i37ls")]
+[node name="SceneSwitcher" parent="." instance=ExtResource("6_i37ls")]
 position = Vector2(149, 35)
 next_scene = "res://levels/tutorial/legs2.tscn"
-outro = NodePath("../Scene2")
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(59, 237)

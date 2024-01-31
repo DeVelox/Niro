@@ -14,11 +14,12 @@ func _ready() -> void:
 
 
 func _set_checkpoint() -> void:
+	if get_node_or_null("/root/Main/Checkpoint"):
+		return
 	if checkpoint and Upgrades.check(Upgrades.Type.RECALL):
 		var main := get_node("/root/Main")
 		var place_checkpoint: Checkpoint = load("res://player/checkpoint.tscn").instantiate()
 		main.add_child(place_checkpoint)
-		Scene.scene_history = [Scene.current_scene]
 
 
 func _set_spawn() -> void:

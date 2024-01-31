@@ -428,21 +428,20 @@ func _double_tap(action: String, method: Callable) -> void:
 func _try_interact() -> void:
 	if interact_check.is_colliding():
 		interact_check.get_collider().interact()
-	else:
-		_try_place_checkpoint()
 
 
-func _try_place_checkpoint() -> void:
-	var main := get_node("/root/Main")
-	if is_on_floor() and has_checkpoint and Upgrades.check(Upgrades.Type.RECALL):
-		var checkpoint := get_node_or_null("/root/Main/Checkpoint")
-		if checkpoint:
-			Scene.scene_history.clear()
-			checkpoint.destroy()
-		has_checkpoint = false
-		var place_checkpoint: Checkpoint = load("res://player/checkpoint.tscn").instantiate()
-		main.add_child(place_checkpoint)
-		Scene.scene_history = [Scene.current_scene]
+# Deprecated
+#func _try_place_checkpoint() -> void:
+#var main := get_node("/root/Main")
+#if is_on_floor() and has_checkpoint and Upgrades.check(Upgrades.Type.RECALL):
+#var checkpoint := get_node_or_null("/root/Main/Checkpoint")
+#if checkpoint:
+#Scene.scene_history.clear()
+#checkpoint.destroy()
+#has_checkpoint = false
+#var place_checkpoint: Checkpoint = load("res://player/checkpoint.tscn").instantiate()
+#main.add_child(place_checkpoint)
+#Scene.scene_history = [Scene.current_scene]
 
 
 func _try_recall(long_reset = false) -> void:
@@ -460,27 +459,36 @@ func _hard_recall() -> void:
 
 
 func _soft_recall() -> void:
-	var main := get_node("/root/Main")
 	var checkpoint := get_node("/root/Main/Checkpoint")
-	if Scene.scene_history.size() > 1:
-		var delay: float = REWIND_DUR / Scene.scene_history.size()
-		Scene.scene_history.reverse()
-		for scene in Scene.scene_history:
-			var rewind_level: Node2D = load(scene).instantiate()
-			main.call_defered("add_child", rewind_level)
-			Scene.current_level.destroy(delay)
-			Scene.current_level = rewind_level
-			Scene.current_scene = scene
-		Scene.scene_history = [Scene.current_scene]
+	var rewind_dur := Scene.active_tilemap.size() - 1
 	var tween := create_tween()
+
+	if rewind_dur:
+		Scene.recall()
+
 	_collision(0)
 	(
 		tween
-		. tween_property(self, "position", checkpoint.position, REWIND_DUR)
+		. tween_property(self, "position", checkpoint.position, max(1, rewind_dur))
 		. set_trans(Tween.TRANS_ELASTIC)
 		. set_ease(Tween.EASE_IN_OUT)
 	)
 	tween.tween_callback(_collision)
+
+
+# Deprecated
+#func _soft_recall() -> void:
+#var main := get_node("/root/Main")
+#if Scene.scene_history.size() > 1:
+#var delay: float = REWIND_DUR / Scene.scene_history.size()
+#Scene.scene_history.reverse()
+#for scene in Scene.scene_history:
+#var rewind_level: Node2D = load(scene).instantiate()
+#main.call_defered("add_child", rewind_level)
+#Scene.current_level.destroy(delay)
+#Scene.current_level = rewind_level
+#Scene.current_scene = scene
+#Scene.scene_history = [Scene.current_scene]
 
 
 func _collision(state = 1) -> void:
