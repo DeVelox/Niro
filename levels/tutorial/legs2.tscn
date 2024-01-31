@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c00n5ql2q70u5"]
+[gd_scene load_steps=5 format=3 uid="uid://c00n5ql2q70u5"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_aaiao"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_gu4s5"]
 [ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/elliot/tutorialPlaceholder1.png" id="4_tylv4"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_wwubl"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_aaiao")
@@ -15,13 +16,35 @@ offset_right = 656.0
 offset_bottom = 376.0
 texture = ExtResource("4_tylv4")
 
-[node name="Scene1" parent="." instance=ExtResource("3_gu4s5")]
-layer_1/tile_data = PackedInt32Array(-1179645, 1048578, 15, -1114109, 1048578, 16, -1179644, 1114114, 15, -1114108, 1114114, 16, -1179643, 1179650, 15, -1114107, 1179650, 16)
-
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Scene 2"
 
 [node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(171, 21)
+position = Vector2(71, 53)
+
+[node name="Scene1" parent="." node_paths=PackedStringArray("set_fade_in") instance=ExtResource("3_gu4s5")]
+layer_1/tile_data = PackedInt32Array(-1179645, 1048578, 15, -1114109, 1048578, 16, -1179644, 1114114, 15, -1114108, 1114114, 16, -1179643, 1179650, 15, -1114107, 1179650, 16)
+layer_3/tile_data = PackedInt32Array(-1179645, 1, 262144, -1179644, 1, 262144, -1179643, 1, 262144)
+set_fade_in = NodePath("../Scene2")
+
+[node name="Scene2" parent="." node_paths=PackedStringArray("set_fade_in") instance=ExtResource("3_gu4s5")]
+layer_1/tile_data = PackedInt32Array(-1179645, 1048578, 15, -1114109, 1048578, 16, -1179644, 1114114, 15, -1114108, 1114114, 16, -1179643, 1179650, 15, -1114107, 1179650, 16, -1507322, 589826, 10, -1441786, 589826, 11, -1376250, 589826, 12, -1310714, 589826, 13, -1245178, 589826, 14, -1179642, 589826, 15, -1114106, 589826, 16, -1048570, 589826, 17, -655352, 524290, 8, -655351, 589826, 8, -655350, 655362, 8, -655349, 720898, 8, -655348, 786434, 8, -589816, 524290, 9, -589815, 589826, 9, -589814, 655362, 9, -589813, 720898, 9, -589812, 786434, 9)
+layer_3/tile_data = PackedInt32Array(-655352, 1, 262144, -655351, 1, 262144, -655350, 1, 262144, -655349, 1, 262144, -655348, 1, 262144)
+set_fade_in = NodePath("../Scene3")
+
+[node name="Scene3" parent="." instance=ExtResource("3_gu4s5")]
+layer_1/tile_data = PackedInt32Array(-655352, 524290, 8, -589816, 524290, 9, -655351, 589826, 8, -589815, 589826, 9, -655350, 655362, 8, -589814, 655362, 9, -655349, 720898, 8, -589813, 720898, 9, -655348, 786434, 8, -589812, 786434, 9, -720872, 720898, 12, -655336, 720898, 13, -851944, 720898, 10, -786408, 720898, 11, -720871, 524290, 8, -655335, 524290, 9, -720870, 589826, 8, -655334, 589826, 9, -720869, 655362, 8, -655333, 655362, 9, -720868, 720898, 8, -655332, 720898, 9, -720867, 786434, 8, -655331, 786434, 9, -655347, 655362, 8, -589811, 655362, 9, -655346, 720898, 8, -589810, 720898, 9, -655345, 786434, 8, -589809, 786434, 9, -983026, 720898, 10, -917490, 720898, 11, -851954, 720898, 12, -786418, 720898, 13)
+
+[node name="SceneSwitcher" parent="." instance=ExtResource("4_wwubl")]
+position = Vector2(438, 164)
+
+[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@214065" to="Scene1/@Area2D@214065" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@214066" to="Scene1/@Area2D@214066" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@214067" to="Scene2/@Area2D@214067" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@214068" to="Scene2/@Area2D@214068" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@214069" to="Scene2/@Area2D@214069" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@214070" to="Scene2/@Area2D@214070" method="_on_body_entered"]
