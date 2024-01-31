@@ -249,7 +249,7 @@ func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
 
 
 func toggle_layers(tilemap: TileMap, state: bool) -> void:
-	for i in tilemap.get_layers_count():
+	for i in [1,2]:
 		tilemap.set_layer_enabled(i, state)
 
 
