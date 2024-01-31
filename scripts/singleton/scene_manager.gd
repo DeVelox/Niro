@@ -196,7 +196,6 @@ var fade_map: Dictionary = {
 }
 
 
-# Might not be necessary #YOLO
 func get_anim(tile: Vector2i) -> Vector2i:
 	return fade_map.get(tile)
 
@@ -243,28 +242,3 @@ func reload():
 	main.add_child(load_level)
 	current_level.queue_free()
 	current_level = load_level
-
-# Never operate on all tiles
-#func fade_in_all(tilemap: TileMap) -> void:
-#toggle_layers(tilemap, true)
-#tilemap.set_layer_enabled(1, false)
-#var tiles = tilemap.get_used_cells(1)
-#var tile: Vector2i
-#for i in tiles:
-#tile = tilemap.get_cell_atlas_coords(1, i)
-#tilemap.set_cell(3, i, 3, get_anim(tile, "in"))
-#await get_tree().create_timer(1).timeout
-#tilemap.set_layer_enabled(1, true)
-#for i in tiles:
-#tilemap.erase_cell(3, i)
-#
-#
-#func fade_out_all(tilemap: TileMap) -> void:
-#tilemap.set_layer_enabled(1, false)
-#var tiles = tilemap.get_used_cells(1)
-#var tile: Vector2i
-#for i in tiles:
-#tile = tilemap.get_cell_atlas_coords(1, i)
-#tilemap.set_cell(3, i, 4, get_anim(tile, "out"))
-#await get_tree().create_timer(1).timeout
-#destroy.emit()
