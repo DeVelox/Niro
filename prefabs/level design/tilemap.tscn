@@ -2604,3 +2604,4 @@ layer_4/tile_data = PackedInt32Array()
 layer_5/name = "Fade out"
 layer_5/tile_data = PackedInt32Array()
 script = ExtResource("7_ljndr")
+delay = null

@@ -223,7 +223,7 @@ func fade_in(tilemap: TileMap) -> void:
 	await get_tree().create_timer(1).timeout
 
 	_remove_temp_layer(tilemap, temp)
-	toggle_layers(tilemap, true)
+	toggle_layers(tilemap, true, true)
 
 
 func fade_out(tilemap: TileMap) -> void:
@@ -248,9 +248,13 @@ func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
 	tilemap.remove_layer(layer)
 
 
-func toggle_layers(tilemap: TileMap, state: bool) -> void:
-	for i in [1,2]:
-		tilemap.set_layer_enabled(i, state)
+func toggle_layers(tilemap: TileMap, state: bool, all: bool = false) -> void:
+	if all:
+		for i in tilemap.get_layers_count():
+			tilemap.set_layer_enabled(i, state)
+	else:
+		for i in [1,2]:
+			tilemap.set_layer_enabled(i, state)
 
 
 func fade_animation(tilemap: TileMap, layer: int, position: Vector2, source: int, temp: int) -> void:
