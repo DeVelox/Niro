@@ -19,7 +19,7 @@ func _switch_level() -> void:
 	Scene.current_level = next_level
 	Scene.current_scene = next_scene
 	Scene.active_tilemap.clear()
-	main.call_deferred("add_child", next_level)
+	main.add_child.call_deferred(next_level)
 	get_parent().destroy()
 
 

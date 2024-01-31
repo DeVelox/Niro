@@ -33,7 +33,6 @@ var is_jumping := false
 var is_double_jumping := false
 var has_dash := false
 var has_double_jump := false
-var has_checkpoint := false
 var was_on_floor := false
 var can_take_damage := true
 var should_take_damage := true
@@ -291,7 +290,6 @@ func _try_wall_hang(direction) -> bool:
 	if not is_on_floor():
 		is_wall_hanging = true
 		wall_hang_direction = direction
-		has_checkpoint = true
 		wall_hang_timer.start()
 		return true
 	return false
@@ -437,7 +435,7 @@ func _try_recall(long_reset = false) -> void:
 
 
 func _hard_recall() -> void:
-	get_tree().call_deferred("reload_current_scene")
+	get_tree().reload_current_scene.call_deferred()
 
 
 func _soft_recall() -> void:

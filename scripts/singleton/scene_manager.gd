@@ -202,19 +202,9 @@ func get_anim(tile: Vector2i) -> Vector2i:
 	return fade_map.get(tile)
 
 
-func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
-	# Get all static tiles
-	var static_atlas := _get_atlas_coords_for_all_tiles(tilemap, 0)
-	# Get all animated tiles
-	var animated_atlas := _get_atlas_coords_for_all_tiles(tilemap, 1)
-
-	var map: Dictionary = {}
-	for i in static_atlas.size():
-		map[static_atlas[i]] = animated_atlas[i]
-	return map
-
-
 func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
+	if not tilemap:
+		return
 	toggle_layers(tilemap, false)
 	var temp_layer = _add_temp_layer(tilemap)
 
@@ -228,11 +218,14 @@ func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
 	get_tree().call_group("fade_in", anim, tilemap, temp_layer)
 	await get_tree().create_timer(1).timeout
 
-	_remove_temp_layer(tilemap, temp_layer)
-	toggle_layers(tilemap, true)
+	if is_instance_valid(tilemap):
+		_remove_temp_layer(tilemap, temp_layer)
+		toggle_layers(tilemap, true)
 
 
 func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
+	if not tilemap:
+		return
 	toggle_layers(tilemap, false)
 	var temp_layer = _add_temp_layer(tilemap)
 
@@ -246,18 +239,8 @@ func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 	get_tree().call_group("fade_out", anim, tilemap, temp_layer)
 	await get_tree().create_timer(1).timeout
 
-	_remove_temp_layer(tilemap, temp_layer)
-
-
-func _add_temp_layer(tilemap: TileMap) -> int:
-	var layer := tilemap.get_layers_count()
-	tilemap.add_layer(-1)
-	tilemap.set_layer_enabled(layer, true)
-	return layer
-
-
-func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
-	tilemap.remove_layer.call_deferred(layer)
+	if is_instance_valid(tilemap):
+		_remove_temp_layer(tilemap, temp_layer)
 
 
 func toggle_layers(tilemap: TileMap, state: bool) -> void:
@@ -277,6 +260,18 @@ func fade_animation(
 		tilemap.set_cell(temp_layer, pos, source, anim)
 
 
+func _add_temp_layer(tilemap: TileMap) -> int:
+	var layer := tilemap.get_layers_count()
+	tilemap.add_layer(-1)
+	tilemap.set_layer_enabled(layer, true)
+	return layer
+
+
+func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
+	if tilemap.get_layers_count() > layer:
+		tilemap.remove_layer(layer)
+
+
 func recall():
 	active_tilemap.reverse()
 	for tilemap in active_tilemap:
@@ -288,6 +283,14 @@ func recall():
 	reload()
 
 
+func reload():
+	var main := get_node("/root/Main")
+	var load_level: Node2D = load(current_scene).instantiate()
+	main.add_child(load_level)
+	current_level.queue_free()
+	current_level = load_level
+
+
 func _recall_in(tilemap: TileMap):
 	await fade_in(tilemap, true)
 
@@ -296,17 +299,21 @@ func _recall_out(tilemap: TileMap):
 	await fade_out(tilemap, true)
 
 
+func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
+	# Get all static tiles
+	var static_atlas := _get_atlas_coords_for_all_tiles(tilemap, 0)
+	# Get all animated tiles
+	var animated_atlas := _get_atlas_coords_for_all_tiles(tilemap, 1)
+
+	var map: Dictionary = {}
+	for i in static_atlas.size():
+		map[static_atlas[i]] = animated_atlas[i]
+	return map
+
+
 func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vector2i]:
 	var atlas: Array[Vector2i] = []
 	var tiles = tilemap.get_used_cells(1)
 	for i in tiles:
 		atlas.append(tilemap.get_cell_atlas_coords(layer, i))
 	return atlas
-
-
-func reload():
-	var main := get_node("/root/Main")
-	var load_level: Node2D = load(current_scene).instantiate()
-	main.add_child(load_level)
-	current_level.queue_free()
-	current_level = load_level
