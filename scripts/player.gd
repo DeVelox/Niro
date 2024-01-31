@@ -350,7 +350,7 @@ func _dash_ghost() -> void:
 
 	get_parent().add_child(ghost)
 
-	var tween = create_tween()
+	var tween := create_tween()
 	tween.tween_property(ghost, "modulate:a", 0, 0.3)
 	#tween.tween_property(ghost.material, "shader_parameter/alpha", 0, 0.5)
 	tween.tween_callback(ghost.queue_free)
@@ -359,17 +359,19 @@ func _dash_ghost() -> void:
 func _animation() -> void:
 	# Sprite direction
 	if not is_zero_approx(velocity.x) and not is_climbing:
-		if velocity.x > 0.0:
+		if is_wall_hanging:
+			if wall_hang_direction > 0.0:
+				sprite.flip_h = true
+				interact_check.scale.x = -1
+			else:
+				sprite.flip_h = false
+				interact_check.scale.x = 1
+		elif velocity.x > 0.0:
 			sprite.flip_h = false
 			interact_check.scale.x = 1
 		else:
 			sprite.flip_h = true
 			interact_check.scale.x = -1
-		if is_wall_hanging:
-			if wall_hang_direction > 0.0:
-				sprite.flip_h = true
-			else:
-				sprite.flip_h = false
 
 	# Current animation
 	sprite.play(_get_animation())
