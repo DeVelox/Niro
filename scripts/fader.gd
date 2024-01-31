@@ -8,7 +8,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		if tilemap.delay:
 			await get_tree().create_timer(tilemap.delay).timeout
-		Scene.should_fade.emit(get_parent())
+		Scene.should_fade.emit(tilemap)
 		_disable_collision()
 
 
