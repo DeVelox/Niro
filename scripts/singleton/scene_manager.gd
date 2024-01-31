@@ -3,7 +3,7 @@ extends Node
 signal destroy
 signal should_fade(tilemap: TileMap)
 
-enum Source {TILE = 2, FADEIN = 5, FADEOUT = 6}
+enum Source { TILE = 2, FADEIN = 5, FADEOUT = 6 }
 
 var current_scene: String
 var current_level: Node2D
@@ -223,13 +223,13 @@ func fade_in(tilemap: TileMap) -> void:
 	await get_tree().create_timer(1).timeout
 
 	_remove_temp_layer(tilemap, temp)
-	toggle_layers(tilemap, true, true)
+	toggle_layers(tilemap, true)
 
 
 func fade_out(tilemap: TileMap) -> void:
 	toggle_layers(tilemap, false)
 	var temp = _add_temp_layer(tilemap)
-	
+
 	get_tree().call_group("stay", "stay", tilemap, temp)
 	get_tree().call_group("fade_out", "fade_out", tilemap, temp)
 	await get_tree().create_timer(1).timeout
@@ -248,16 +248,14 @@ func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
 	tilemap.remove_layer(layer)
 
 
-func toggle_layers(tilemap: TileMap, state: bool, all: bool = false) -> void:
-	if all:
-		for i in tilemap.get_layers_count():
-			tilemap.set_layer_enabled(i, state)
-	else:
-		for i in [1,2]:
-			tilemap.set_layer_enabled(i, state)
+func toggle_layers(tilemap: TileMap, state: bool) -> void:
+	for i in [1, 2]:
+		tilemap.set_layer_enabled(i, state)
 
 
-func fade_animation(tilemap: TileMap, layer: int, position: Vector2, source: int, temp: int) -> void:
+func fade_animation(
+	tilemap: TileMap, layer: int, position: Vector2, source: int, temp: int
+) -> void:
 	var pos: Vector2i = tilemap.local_to_map(position)
 	var tile: Vector2i = tilemap.get_cell_atlas_coords(layer, pos)
 	var anim: Vector2i = Scene.get_anim(tile)
@@ -265,6 +263,7 @@ func fade_animation(tilemap: TileMap, layer: int, position: Vector2, source: int
 		tilemap.set_cell(temp, pos, source, tile)
 	else:
 		tilemap.set_cell(temp, pos, source, anim)
+
 
 func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vector2i]:
 	var atlas: Array[Vector2i] = []
