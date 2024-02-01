@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dlklgdcq4kqso"]
 
 [ext_resource type="Script" path="res://scripts/crumble.gd" id="1_mpxbn"]
-[ext_resource type="Texture2D" uid="uid://d18dncfbd0yv2" path="res://assets/temp/crack.png" id="2_oyi1j"]
 [ext_resource type="Material" uid="uid://bhq1uq0nwbohg" path="res://scripts/shader/crumble_crack.tres" id="2_txtrl"]
+[ext_resource type="Texture2D" uid="uid://br8bqlprhv1ul" path="res://assets/elliot/crack.png" id="3_2w6a3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0xto"]
 size = Vector2(16, 17)
@@ -22,4 +22,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_oyi1j")
+texture = ExtResource("3_2w6a3")
