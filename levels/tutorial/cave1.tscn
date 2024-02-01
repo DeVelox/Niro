@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqtmdcfe4ssxq"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_ynigr"]
+[ext_resource type="PackedScene" uid="uid://003busc8drrl" path="res://prefabs/level design/cave.tscn" id="2_h276l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_ynigr")
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(151, 262)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+shape = SubResource("CapsuleShape2D_m7p01")
+
+[node name="Tilemap" parent="." instance=ExtResource("2_h276l")]
