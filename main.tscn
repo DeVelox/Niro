@@ -42,50 +42,50 @@ grow_vertical = 2
 
 [node name="Music" type="Node" parent="."]
 
-[node name="Menu" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track1" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("3_8veaq")
 bus = &"Music"
 
-[node name="Tutorial" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track2" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("4_r4jj7")
 bus = &"Music"
 
-[node name="Phase1" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track3" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("5_vskql")
 bus = &"Music"
 
-[node name="Phase2" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track4" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("6_mh2ub")
 bus = &"Music"
 
-[node name="Phase3" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track5" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("7_bhp2t")
 bus = &"Music"
 
-[node name="Credits" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track6" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("8_d8qfx")
 bus = &"Music"
 
-[node name="Option1" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track7" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("9_78xnm")
 bus = &"Music"
 
-[node name="Option2" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track8" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("10_rle7h")
 bus = &"Music"
 
-[node name="Option3" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track9" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("11_3068b")
 bus = &"Music"
 
-[node name="Option4" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track10" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("12_uk60m")
 bus = &"Music"
 
-[node name="Option5" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track11" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("13_app77")
 bus = &"Music"
 
-[node name="Option6" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+[node name="Track12" type="AudioStreamPlayer" parent="Music" groups=["music"]]
 stream = ExtResource("14_qv0vo")
 bus = &"Music"
