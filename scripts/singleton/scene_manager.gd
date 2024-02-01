@@ -233,7 +233,6 @@ func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 		anim = "fade_in"
 	else:
 		anim = "fade_out"
-		
 
 	get_tree().call_group("stay", "stay", tilemap, temp_layer)
 	get_tree().call_group("fade_out", anim, tilemap, temp_layer)
@@ -244,7 +243,7 @@ func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 
 
 func toggle_layers(tilemap: TileMap, state: bool) -> void:
-	for i in [1, 2]:
+	for i in [1, 2, 3]:
 		tilemap.set_layer_enabled(i, state)
 
 
