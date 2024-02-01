@@ -1,9 +1,16 @@
 class_name Switcher extends Node2D
 
 @export_file("*.tscn") var next_scene: String
+@export var enable_on: TileMap
 @export var outro: TileMap
 @export var set_player_spawn: bool
 @onready var trophy: Area2D = $"."
+
+
+func _ready() -> void:
+	if enable_on:
+		Scene.active_tilemap_changed.connect(_on_active_tilemap_change)
+		trophy.collision_layer = 0
 
 
 func interact() -> void:
@@ -36,3 +43,8 @@ func _on_player_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		await _play_outro()
 		_switch_level()
+
+
+func _on_active_tilemap_change() -> void:
+	if enable_on == Scene.active_tilemap.back():
+		trophy.collision_layer = 0
