@@ -19,7 +19,7 @@ func _ready() -> void:
 	next_line.connect(_on_next_line)
 
 
-func start_dialog(position: Vector2, lines: Array[String]) -> void:
+func start_dialog(lines: Array[String], position: Vector2) -> void:
 	if is_dialog_active:
 		return
 	if lines.size() > 0:

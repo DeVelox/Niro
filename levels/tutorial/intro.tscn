@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://obg267ikr2uh"]
+[gd_scene load_steps=10 format=3 uid="uid://jjonqbhottmy"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ynigr"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_53irg"]
@@ -22,7 +22,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 "
 
@@ -40,7 +40,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 

@@ -5,11 +5,14 @@ extends Area2D
 
 var seenthisbozobefore: bool = false
 
+@onready var default_timer: Timer = $DefaultTimer
+
 
 # For remotely initiated lines only
 func say(lines: Array[String], text_position: Vector2 = global_position) -> void:
 	Dialog.end_dialog()
-	Dialog.start_dialog(text_position, lines)
+	Dialog.start_dialog(lines, text_position)
+	default_timer.start()
 
 
 func interact() -> void:
@@ -33,4 +36,4 @@ func _continue_dialog() -> void:
 
 
 func _say(lines: Array[String]) -> void:
-	Dialog.start_dialog(global_position, lines)
+	Dialog.start_dialog(lines, global_position)

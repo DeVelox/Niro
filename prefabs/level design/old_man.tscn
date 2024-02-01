@@ -60,3 +60,8 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_wedis")
+
+[node name="DefaultTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="DefaultTimer" to="." method="_continue_dialog"]
