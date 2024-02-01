@@ -47,4 +47,4 @@ func _on_player_entered(body: Node2D) -> void:
 
 func _on_active_tilemap_change() -> void:
 	if enable_on == Scene.active_tilemap.back():
-		trophy.collision_layer = 0
+		trophy.collision_layer = 6
