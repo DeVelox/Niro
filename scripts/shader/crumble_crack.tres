@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bhq1uq0nwbohg"]
+
+[ext_resource type="Shader" path="res://scripts/shader/crack.gdshader" id="1_a8wfo"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_a8wfo")
+shader_parameter/alpha = null

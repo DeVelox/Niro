@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://guh0nrh84gwq"]
-
-[ext_resource type="Shader" path="res://scripts/shader/dissolve.gdshader" id="1_hwesp"]
-
-[resource]
-shader = ExtResource("1_hwesp")
-shader_parameter/sensitivity = 0.5
