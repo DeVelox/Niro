@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dfew7o1k3pqcc"
+path="res://.godot/imported/672783__bertsz__cyberpunk_metal.ogg-c5b897fbd11c4faa46f8508b8771cf49.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/more options/672783__bertsz__cyberpunk_metal.ogg"
+dest_files=["res://.godot/imported/672783__bertsz__cyberpunk_metal.ogg-c5b897fbd11c4faa46f8508b8771cf49.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
