@@ -51,10 +51,10 @@ next_scene = "res://levels/tutorial/legs3.tscn"
 outro = NodePath("../Scene3")
 
 [connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@35307" to="Scene1/@Area2D@35307" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@35308" to="Scene1/@Area2D@35308" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@48805" to="Scene1/@Area2D@48805" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@48806" to="Scene1/@Area2D@48806" method="_on_body_entered"]
 [connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@35320" to="Scene2/@Area2D@35320" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@35321" to="Scene2/@Area2D@35321" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@35322" to="Scene2/@Area2D@35322" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@35323" to="Scene2/@Area2D@35323" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@48812" to="Scene2/@Area2D@48812" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@48813" to="Scene2/@Area2D@48813" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@48814" to="Scene2/@Area2D@48814" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@48815" to="Scene2/@Area2D@48815" method="_on_body_entered"]
