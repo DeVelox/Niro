@@ -45,12 +45,3 @@ layer_5/tile_data = PackedInt32Array(-589811, 1, 196608, -655347, 1, 196608, -65
 position = Vector2(438, 164)
 next_scene = "res://levels/tutorial/legs3.tscn"
 outro = NodePath("../Scene3")
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@76126" to="Scene1/@Area2D@76126" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@76127" to="Scene1/@Area2D@76127" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@76139" to="Scene2/@Area2D@76139" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@76140" to="Scene2/@Area2D@76140" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@76141" to="Scene2/@Area2D@76141" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@76142" to="Scene2/@Area2D@76142" method="_on_body_entered"]
