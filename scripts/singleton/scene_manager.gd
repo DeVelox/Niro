@@ -292,11 +292,11 @@ func reload():
 
 
 func _recall_in(tilemap: TileMap):
-	await fade_in(tilemap, true)
+	await fade_out(tilemap, true)
 
 
 func _recall_out(tilemap: TileMap):
-	await fade_out(tilemap, true)
+	await fade_in(tilemap, true)
 
 
 func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
