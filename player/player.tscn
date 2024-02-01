@@ -358,7 +358,7 @@ scale = Vector2(0.2, 0.2)
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_hpjs7")
-volume_db = -20.0
+bus = &"Sounds"
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {

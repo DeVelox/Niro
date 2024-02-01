@@ -1,9 +1,9 @@
 extends Node
 
-enum Type { SHIELDS, VISION, RECALL }
+enum Type { SHIELD, VISION, RECALL }
 
 var active_upgrades: Array[Type] = [Type.RECALL]
-var shields := 1
+var shield := 1
 
 var buying: Type
 
@@ -23,12 +23,12 @@ func sell(upgrade: Type) -> void:
 
 
 func use_shield() -> bool:
-	if shields > 0:
-		shields -= 1
+	if shield > 0:
+		shield -= 1
 		return true
 	return false
 
 
 func add_shield() -> void:
-	if shields == 0:
-		shields += 1
+	if shield == 0:
+		shield += 1

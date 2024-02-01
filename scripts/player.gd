@@ -469,7 +469,7 @@ func _absorb() -> void:
 
 
 func damage() -> void:
-	if Upgrades.check(Upgrades.Type.SHIELDS):
+	if Upgrades.check(Upgrades.Type.SHIELD):
 		_absorb()
 	elif can_take_damage:
 		_try_recall()

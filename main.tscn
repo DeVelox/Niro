@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://buwbgoy582pkb"]
+[gd_scene load_steps=10 format=3 uid="uid://buwbgoy582pkb"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_qd4cp"]
 [ext_resource type="Shader" path="res://scripts/shader/aberration.gdshader" id="2_vcgex"]
+[ext_resource type="AudioStream" uid="uid://dgo46p4ell6ho" path="res://assets/music/menu/Rising Tide.ogg" id="3_8veaq"]
+[ext_resource type="AudioStream" uid="uid://dgvlfoa6cc2q1" path="res://assets/music/tutorial/Severe Tire Damage.ogg" id="4_r4jj7"]
+[ext_resource type="AudioStream" uid="uid://cbry4uciruh74" path="res://assets/music/phase1/Cut and Run.ogg" id="5_vskql"]
+[ext_resource type="AudioStream" uid="uid://jqh2yebdhdnr" path="res://assets/music/phase2/Club Diver.ogg" id="6_mh2ub"]
+[ext_resource type="AudioStream" uid="uid://ceoqn40q5ivqw" path="res://assets/music/phase3/Harmful or Fatal.ogg" id="7_bhp2t"]
+[ext_resource type="AudioStream" uid="uid://b483clmun3qyt" path="res://assets/music/credits/Spellbound.ogg" id="8_d8qfx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_prtvb"]
 shader = ExtResource("2_vcgex")
@@ -27,3 +33,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Music" type="Node" parent="."]
+
+[node name="Menu" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+stream = ExtResource("3_8veaq")
+bus = &"Music"
+
+[node name="Tutorial" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+stream = ExtResource("4_r4jj7")
+bus = &"Music"
+
+[node name="Phase1" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+stream = ExtResource("5_vskql")
+bus = &"Music"
+
+[node name="Phase2" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+stream = ExtResource("6_mh2ub")
+bus = &"Music"
+
+[node name="Phase3" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+stream = ExtResource("7_bhp2t")
+bus = &"Music"
+
+[node name="Credits" type="AudioStreamPlayer" parent="Music" groups=["music"]]
+stream = ExtResource("8_d8qfx")
+bus = &"Music"

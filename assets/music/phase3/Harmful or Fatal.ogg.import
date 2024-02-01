@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ceoqn40q5ivqw"
+path="res://.godot/imported/Harmful or Fatal.ogg-448fb07211bc060878f0737cf7b42eb6.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/phase3/Harmful or Fatal.ogg"
+dest_files=["res://.godot/imported/Harmful or Fatal.ogg-448fb07211bc060878f0737cf7b42eb6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

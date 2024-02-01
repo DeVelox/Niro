@@ -1,16 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://jbo4xpcv06af"]
+[gd_scene load_steps=4 format=3 uid="uid://jbo4xpcv06af"]
 
 [ext_resource type="Script" path="res://scripts/debug.gd" id="1_htl8g"]
 [ext_resource type="Texture2D" uid="uid://bnkhfi0h3nxvh" path="res://assets/temp/route.png" id="2_15wnm"]
 
-[sub_resource type="Theme" id="Theme_rs50g"]
-default_font_size = 10
-
-[sub_resource type="Theme" id="Theme_whi27"]
+[sub_resource type="Theme" id="Theme_oh0yy"]
 default_font_size = 10
 
 [node name="Debug" type="CanvasLayer"]
-visible = false
 script = ExtResource("1_htl8g")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -19,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_oh0yy")
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -31,7 +28,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme = SubResource("Theme_rs50g")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/DebugUpgrades"]
 layout_mode = 2
@@ -39,11 +35,11 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer"]
 layout_mode = 2
 
-[node name="Shields" type="CheckBox" parent="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer"]
+[node name="Shield" type="CheckBox" parent="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-text = "Shields"
+text = "Shield"
 
 [node name="Vision" type="CheckBox" parent="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -69,11 +65,21 @@ focus_mode = 0
 toggle_mode = true
 icon = ExtResource("2_15wnm")
 
+[node name="DebugMusic" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="MusicList" type="OptionButton" parent="MarginContainer/HBoxContainer/DebugMusic"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+
 [node name="DebugProperties" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0
-theme = SubResource("Theme_whi27")
 
 [node name="ValueList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/DebugProperties"]
 unique_name_in_owner = true
@@ -85,7 +91,8 @@ size_flags_vertical = 4
 unique_name_in_owner = true
 layout_mode = 2
 
-[connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Shields" to="." method="_on_shields_toggled"]
+[connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Shield" to="." method="_on_shield_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Vision" to="." method="_on_vision_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Recall" to="." method="_on_recall_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugPath/PathToggle" to="." method="_on_path_toggle"]
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/DebugMusic/MusicList" to="." method="_on_music_list_item_selected"]
