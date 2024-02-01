@@ -44,6 +44,5 @@ func _initialise() -> void:
 
 func destroy() -> void:
 	if last:
-		Scene.fade_out(last)
-		await get_tree().create_timer(1).timeout
+		await Scene.fade_out(last)
 	queue_free()

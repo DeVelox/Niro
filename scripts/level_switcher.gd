@@ -14,12 +14,15 @@ func interact() -> void:
 func _switch_level() -> void:
 	trophy.collision_layer = 0
 	var main := get_node("/root/Main")
+	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 	var next_level: Node2D = load(next_scene).instantiate()
 	next_level.set_player_spawn = set_player_spawn
 	Scene.current_level = next_level
 	Scene.current_scene = next_scene
 	Scene.active_tilemap.clear()
 	main.add_child.call_deferred(next_level)
+	if checkpoint:
+		checkpoint.destroy()
 	get_parent().destroy()
 
 
