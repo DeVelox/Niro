@@ -22,12 +22,17 @@ set_player_spawn = true
 
 [node name="SceneSwitcher2" parent="." instance=ExtResource("3_8np6h")]
 position = Vector2(312, 248)
-next_scene = "res://levels/boss1/level1.tscn"
+next_scene = "res://levels/boss1/level3.tscn"
 set_player_spawn = true
 
 [node name="SceneSwitcher3" parent="." instance=ExtResource("3_8np6h")]
 position = Vector2(392, 248)
 next_scene = "res://levels/boss1/level2.tscn"
+set_player_spawn = true
+
+[node name="SceneSwitcher4" parent="." instance=ExtResource("3_8np6h")]
+position = Vector2(107, 246)
+next_scene = "res://levels/tutorial/intro.tscn"
 set_player_spawn = true
 
 [node name="OldMan" parent="." instance=ExtResource("4_5i88s")]
