@@ -211,10 +211,10 @@ func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
 	var anim: String
 	if is_recall:
 		anim = "fade_out"
+		get_tree().call_group("stay", "stay", tilemap, temp_layer)
 	else:
 		anim = "fade_in"
 
-	get_tree().call_group("stay", "stay", tilemap, temp_layer)
 	get_tree().call_group("fade_in", anim, tilemap, temp_layer)
 	await get_tree().create_timer(1).timeout
 
@@ -234,8 +234,9 @@ func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 		anim = "fade_in"
 	else:
 		anim = "fade_out"
+		get_tree().call_group("stay", "stay", tilemap, temp_layer)
 
-	get_tree().call_group("stay", "stay", tilemap, temp_layer)
+	
 	get_tree().call_group("fade_out", anim, tilemap, temp_layer)
 	await get_tree().create_timer(1).timeout
 
