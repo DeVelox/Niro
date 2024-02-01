@@ -7,9 +7,9 @@ var seenthisbozobefore: bool = false
 
 
 # For remotely initiated lines only
-func say(lines: Array[String]) -> void:
+func say(lines: Array[String], position: Vector2 = global_position) -> void:
 	Dialog.end_dialog()
-	Dialog.start_dialog(global_position, lines)
+	Dialog.start_dialog(position, lines)
 
 
 func interact() -> void:
