@@ -1,15 +1,17 @@
 extends Node
 
 signal should_fade(tilemap: TileMap)
+signal active_tilemap_changed
 
 enum Source { TILE = 2, FADEIN = 5, FADEOUT = 6 }
 
 var current_scene: String
 var current_level: Node2D
 
+var spawn_point: Vector2
+
 var active_tilemap: Array[TileMap]
 
-var spawn_point: Vector2
 var fade_map: Dictionary = {
 	Vector2i(2, 5): Vector2i(0, 0),
 	Vector2i(3, 5): Vector2i(0, 0),
@@ -253,7 +255,7 @@ func fade_animation(
 	var pos: Vector2i = tilemap.local_to_map(position)
 	var tile: Vector2i = tilemap.get_cell_atlas_coords(layer, pos)
 	var anim: Vector2i = Scene.get_anim(tile)
-	tilemap.get_cell_tile_data(layer, anim).flip_h = tilemap.get_cell_tile_data(layer, tile).flip_h
+	#tilemap.get_cell_tile_data(layer, anim).flip_h = tilemap.get_cell_tile_data(layer, tile).flip_h
 	if source == Source.TILE:
 		tilemap.set_cell(temp_layer, pos, source, tile)
 	else:
