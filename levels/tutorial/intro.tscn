@@ -45,8 +45,8 @@ func _process(delta: float) -> void:
 
 
 func _on_player_entered(body: Node2D) -> void:
-	if body.is_in_group(\"player\"):
-		var lines = [\"Catch the rope quick!\", \"Go on climb it\", \"You know how to climb right? (up)\"]
+	if body.is_in_group(\"players\"):
+		var lines: Array[String] = [\"Catch the rope quick!\", \"Go on climb it\", \"You know how to climb right? (up)\"]
 		body_entered.disconnect(_on_player_entered)
 		for i in range(0,10):
 			old_man.say(lines, text_box_position.global_position)
@@ -55,7 +55,7 @@ func _on_player_entered(body: Node2D) -> void:
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bnkkp"]
 
-[node name="Level" type="Node2D"]
+[node name="Level3" type="Node2D"]
 script = ExtResource("1_ynigr")
 
 [node name="Feet" type="TextureRect" parent="."]
