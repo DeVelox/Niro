@@ -1,6 +1,6 @@
 extends Node
 
-enum Type { SHIELD, VISION, RECALL }
+enum Type { SHIELD, VISION, RECALL, SLOWMO }
 
 var active_upgrades: Array[Type] = [Type.RECALL]
 var shield := 1
@@ -20,6 +20,14 @@ func buy(upgrade: Type) -> void:
 func sell(upgrade: Type) -> void:
 	if active_upgrades.has(upgrade):
 		active_upgrades.erase(upgrade)
+
+
+func use_slowmo() -> void:
+	Engine.time_scale = 0.5
+
+
+func end_slowmo() -> void:
+	Engine.time_scale = 1.0
 
 
 func use_shield() -> bool:
