@@ -11,6 +11,7 @@ func _ready() -> void:
 	if enable_on:
 		Scene.active_tilemap_changed.connect(_on_active_tilemap_change)
 		trophy.collision_layer = 0
+		trophy.collision_mask = 0
 
 
 func interact() -> void:
@@ -20,6 +21,7 @@ func interact() -> void:
 
 func _switch_level() -> void:
 	trophy.collision_layer = 0
+	trophy.collision_mask = 0
 	var main := get_node("/root/Main")
 	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 	var next_level: Node2D = load(next_scene).instantiate()
@@ -48,3 +50,4 @@ func _on_player_entered(body: Node2D) -> void:
 func _on_active_tilemap_change() -> void:
 	if enable_on == Scene.active_tilemap.back():
 		trophy.collision_layer = 6
+		trophy.collision_mask = 1
