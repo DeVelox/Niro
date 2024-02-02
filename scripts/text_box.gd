@@ -1,6 +1,7 @@
 class_name TextBox extends MarginContainer
 
 signal finished
+signal line_fully_displayed
 
 const MAX_WIDTH = 256
 
@@ -35,6 +36,7 @@ func _display_letter() -> void:
 	label.visible_characters = index
 	index += 1
 	if index > label.text.length():
+		line_fully_displayed.emit()
 		await Dialog.next_line
 		finished.emit()
 		queue_free()

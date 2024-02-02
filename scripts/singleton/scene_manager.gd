@@ -274,7 +274,10 @@ func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
 		tilemap.remove_layer(layer)
 
 
-func recall():
+func recall(tilemap_count) -> void:	
+	if not tilemap_count:
+		reload()
+		return
 	active_tilemap.reverse()
 	for tilemap in active_tilemap:
 		if not tilemap.prev:
@@ -288,8 +291,8 @@ func recall():
 func reload():
 	var main := get_node("/root/Main")
 	var load_level: Node2D = load(current_scene).instantiate()
+	current_level.destroy()
 	main.add_child(load_level)
-	current_level.queue_free()
 	current_level = load_level
 
 

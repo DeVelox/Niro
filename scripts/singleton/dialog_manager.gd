@@ -2,6 +2,7 @@ extends Node
 
 signal next_line
 signal skip_line
+signal finished_line
 
 var dialog_lines: Array[String] = []
 var current_line := 0
@@ -31,14 +32,17 @@ func start_dialog(lines: Array[String], position: Vector2) -> void:
 
 func end_dialog() -> void:
 	if is_dialog_active:
+		next_line.emit()
 		current_line = 0
 		is_dialog_active = false
+		
 
 
 func _show_text_box() -> void:
 	can_advance = false
 	text_box = text_box_scene.instantiate() as TextBox
 	text_box.finished.connect(_on_text_box_finished)
+	text_box.line_fully_displayed.connect(_line_displayed)
 	get_tree().root.add_child(text_box)
 	text_box.global_position = text_box_position
 	text_box.display_text(dialog_lines[current_line])
@@ -57,3 +61,6 @@ func _on_text_box_finished() -> void:
 func _on_next_line() -> void:
 	if is_dialog_active and can_advance:
 		_show_text_box()
+
+func _line_displayed() -> void:
+	finished_line.emit()

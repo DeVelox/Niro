@@ -48,9 +48,7 @@ func _on_player_entered(body: Node2D) -> void:
 	if body.is_in_group(\"players\"):
 		var lines: Array[String] = [\"Catch the rope quick!\", \"Go on climb it\", \"You know how to climb right? (up)\"]
 		body_entered.disconnect(_on_player_entered)
-		for i in range(0,10):
-			old_man.say(lines, text_box_position.global_position)
-			await get_tree().create_timer(3).timeout
+		old_man.say(lines, text_box_position.global_position)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bnkkp"]

@@ -45,4 +45,5 @@ func _initialise() -> void:
 func destroy() -> void:
 	if last:
 		await Scene.fade_out(last)
+	get_parent().remove_child(self)
 	queue_free()

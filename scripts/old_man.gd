@@ -5,14 +5,17 @@ extends Area2D
 
 var seenthisbozobefore: bool = false
 
-@onready var default_timer: Timer = $DefaultTimer
+@onready var text_show_timer: Timer = $text_show_timer
+@onready var text_between_timer: Timer = $text_between_timer
 
 
 # For remotely initiated lines only
 func say(lines: Array[String], text_position: Vector2 = global_position) -> void:
+	Dialog.finished_line.connect(_delay_text_show)
 	Dialog.end_dialog()
 	Dialog.start_dialog(lines, text_position)
-	default_timer.start()
+	text_show_timer.stop()
+	text_between_timer.stop()
 
 
 func interact() -> void:
@@ -29,6 +32,8 @@ func interact() -> void:
 
 
 func _continue_dialog() -> void:
+	text_between_timer.stop()
+	text_between_timer.stop()
 	if Dialog.is_dialog_active:
 		if not Dialog.can_advance:
 			Dialog.skip_line.emit()
@@ -37,3 +42,19 @@ func _continue_dialog() -> void:
 
 func _say(lines: Array[String]) -> void:
 	Dialog.start_dialog(lines, global_position)
+	
+
+func _delay_between_words() -> void:
+	text_between_timer.start()
+	
+func _next_line() -> void:
+	if Dialog.is_dialog_active:
+		Dialog.next_line.emit()
+		
+func _delay_text_show() -> void:
+	text_show_timer.start()
+	
+func _skip_line() -> void:
+	if Dialog.is_dialog_active:
+		Dialog.next_line.emit()
+		_delay_between_words()

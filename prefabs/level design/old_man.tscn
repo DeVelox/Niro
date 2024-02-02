@@ -61,7 +61,13 @@ autoplay = "default"
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_wedis")
 
-[node name="DefaultTimer" type="Timer" parent="."]
-wait_time = 5.0
+[node name="text_show_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
-[connection signal="timeout" from="DefaultTimer" to="." method="_continue_dialog"]
+[node name="text_between_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="text_show_timer" to="." method="_skip_line"]
+[connection signal="timeout" from="text_between_timer" to="." method="_next_line"]
