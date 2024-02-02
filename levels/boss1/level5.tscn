@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b108fsdwed7x"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_j3ybu"]
+[ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/elliot/stoneGiantPlaceholder1.png" id="2_nwcar"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_j3ybu")
+
+[node name="Chest" type="TextureRect" parent="."]
+z_index = -1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_nwcar")
+
+[node name="Spawn" type="Marker2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_m7p01")
