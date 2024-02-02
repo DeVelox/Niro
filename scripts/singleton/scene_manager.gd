@@ -30,7 +30,10 @@ func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
 		anim = "fade_in"
 
 	get_tree().call_group("fade_in", anim, tilemap, temp_layer)
+	await get_tree().create_timer(0.1).timeout
+	Scene.resume_animation(tilemap, Scene.Source.FADEIN)
 	await get_tree().create_timer(1).timeout
+	Scene.pause_animation(tilemap, Scene.Source.FADEIN)
 
 	if is_instance_valid(tilemap):
 		_remove_temp_layer(tilemap, temp_layer)
@@ -51,7 +54,10 @@ func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 
 	get_tree().call_group("stay", "stay", tilemap, temp_layer)
 	get_tree().call_group("fade_out", anim, tilemap, temp_layer)
+	await get_tree().create_timer(0.1).timeout
+	Scene.resume_animation(tilemap, Scene.Source.FADEOUT)
 	await get_tree().create_timer(1).timeout
+	Scene.pause_animation(tilemap, Scene.Source.FADEOUT)
 
 	if is_instance_valid(tilemap):
 		_remove_temp_layer(tilemap, temp_layer)
@@ -142,5 +148,7 @@ func pause_animation(tilemap: TileMap, source: Source) -> void:
 
 func resume_animation(tilemap: TileMap, source: Source) -> void:
 	var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
+	var atlas_texture = atlas.texture.duplicate()
 	for i in atlas.get_tiles_count():
-		atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, 1)
+		atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, 1.0)
+	atlas.texture = atlas_texture
