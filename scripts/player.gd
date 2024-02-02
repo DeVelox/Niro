@@ -442,9 +442,9 @@ func _soft_recall() -> void:
 	var checkpoint := get_node("/root/Main/Checkpoint")
 	var rewind_dur: int = Scene.active_tilemap.size() - 1
 	var tween := create_tween()
-	
+
 	Scene.recall(rewind_dur)
-	
+
 	_collision(0)
 	(
 		tween

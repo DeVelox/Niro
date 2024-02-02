@@ -35,7 +35,6 @@ func end_dialog() -> void:
 		next_line.emit()
 		current_line = 0
 		is_dialog_active = false
-		
 
 
 func _show_text_box() -> void:
@@ -61,6 +60,7 @@ func _on_text_box_finished() -> void:
 func _on_next_line() -> void:
 	if is_dialog_active and can_advance:
 		_show_text_box()
+
 
 func _line_displayed() -> void:
 	finished_line.emit()

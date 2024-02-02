@@ -42,18 +42,21 @@ func _continue_dialog() -> void:
 
 func _say(lines: Array[String]) -> void:
 	Dialog.start_dialog(lines, global_position)
-	
+
 
 func _delay_between_words() -> void:
 	text_between_timer.start()
-	
+
+
 func _next_line() -> void:
 	if Dialog.is_dialog_active:
 		Dialog.next_line.emit()
-		
+
+
 func _delay_text_show() -> void:
 	text_show_timer.start()
-	
+
+
 func _skip_line() -> void:
 	if Dialog.is_dialog_active:
 		Dialog.next_line.emit()

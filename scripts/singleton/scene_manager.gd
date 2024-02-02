@@ -76,7 +76,7 @@ func toggle_layers(tilemap: TileMap, state: bool) -> void:
 #tilemap.remove_layer(layer)
 
 
-func recall(tilemap_count) -> void:	
+func recall(tilemap_count) -> void:
 	if not tilemap_count:
 		reload()
 		return
