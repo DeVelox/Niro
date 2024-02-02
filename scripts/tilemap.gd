@@ -6,7 +6,6 @@ extends TileMap
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_pause_animations(self)
 	if not prev:
 		Scene.active_tilemap.append(self)
 		Scene.active_tilemap_changed.emit()
@@ -19,10 +18,6 @@ func _fade(tilemap: TileMap) -> void:
 	if tilemap == self:
 		Scene.should_fade.disconnect(_fade)
 		Scene.fade_out(self)
-		await Scene.fade_in(next)
+		Scene.fade_in(next)
 		Scene.active_tilemap.append(next)
 		Scene.active_tilemap_changed.emit()
-		
-func _pause_animations(tilemap: TileMap) -> void:
-	Scene.pause_animation(tilemap, Scene.Source.FADEIN)
-	Scene.pause_animation(tilemap, Scene.Source.FADEOUT)

@@ -44,5 +44,5 @@ func _initialise() -> void:
 
 func destroy() -> void:
 	if last:
-		await Scene.fade_out(last)
+		Scene.fade_out(last)
 	queue_free()

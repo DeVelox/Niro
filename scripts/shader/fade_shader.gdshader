@@ -1,9 +1,11 @@
 shader_type canvas_item;
 
 uniform sampler2D atlas;
-uniform int frame : hint_range(0, 10) = 0;
+uniform int frame : hint_range(0, 9) = 0;
+uniform int frames : hint_range(1, 10, 10) = 10;
 uniform int atlas_x = 0;
 uniform int atlas_y = 0;
+uniform bool toggle = false;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -14,7 +16,7 @@ void fragment() {
 	float tiles_x = 27.0;
 	float tiles_y = 20.0;
 	float frames_x = 1.0;
-	float frames_y = 10.0;
+	float frames_y = float(frames);
 	float grid_x = frames_x * tiles_x;
 	float grid_y = frames_y * tiles_y;
 	float tile_h = UV.x / grid_x;
@@ -24,7 +26,7 @@ void fragment() {
 	float current_frame = float(frame) / frames_y;
 	
 	
-	COLOR = texture(atlas, vec2(tile_h + coord_x, tile_v + coord_y + current_frame));
+	COLOR = texture(atlas, vec2(tile_h + coord_x, tile_v + coord_y + current_frame)) * float(toggle);
 }
 
 //void light() {

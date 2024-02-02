@@ -21,7 +21,6 @@ func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
 	if not tilemap:
 		return
 	toggle_layers(tilemap, false)
-	var temp_layer = _add_temp_layer(tilemap)
 
 	var anim: String
 	if is_recall:
@@ -29,22 +28,13 @@ func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
 	else:
 		anim = "fade_in"
 
-	get_tree().call_group("fade_in", anim, tilemap, temp_layer)
-	await get_tree().create_timer(0.1).timeout
-	Scene.resume_animation(tilemap, Scene.Source.FADEIN)
-	await get_tree().create_timer(1).timeout
-	Scene.pause_animation(tilemap, Scene.Source.FADEIN)
-
-	if is_instance_valid(tilemap):
-		_remove_temp_layer(tilemap, temp_layer)
-		toggle_layers(tilemap, true)
+	get_tree().call_group("fade_in", anim, tilemap)
 
 
 func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 	if not tilemap:
 		return
 	toggle_layers(tilemap, false)
-	var temp_layer = _add_temp_layer(tilemap)
 
 	var anim: String
 	if is_recall:
@@ -52,15 +42,8 @@ func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 	else:
 		anim = "fade_out"
 
-	get_tree().call_group("stay", "stay", tilemap, temp_layer)
-	get_tree().call_group("fade_out", anim, tilemap, temp_layer)
-	await get_tree().create_timer(0.1).timeout
-	Scene.resume_animation(tilemap, Scene.Source.FADEOUT)
-	await get_tree().create_timer(1).timeout
-	Scene.pause_animation(tilemap, Scene.Source.FADEOUT)
-
-	if is_instance_valid(tilemap):
-		_remove_temp_layer(tilemap, temp_layer)
+	get_tree().call_group("stay", "stay", tilemap)
+	get_tree().call_group("fade_out", anim, tilemap)
 
 
 func toggle_layers(tilemap: TileMap, state: bool) -> void:
@@ -68,29 +51,29 @@ func toggle_layers(tilemap: TileMap, state: bool) -> void:
 		tilemap.set_layer_enabled(i, state)
 
 
-func fade_animation(
-	tilemap: TileMap, layer: int, position: Vector2, source: int, temp_layer: int
-) -> void:
-	var pos: Vector2i = tilemap.local_to_map(position)
-	var tile: Vector2i = tilemap.get_cell_atlas_coords(layer, pos)
-	var anim: Vector2i = Scene.get_anim(tile)
-	#tilemap.get_cell_tile_data(layer, anim).flip_h = tilemap.get_cell_tile_data(layer, tile).flip_h
-	if source == Source.TILE:
-		tilemap.set_cell(temp_layer, pos, source, tile)
-	else:
-		tilemap.set_cell(temp_layer, pos, source, anim)
-
-
-func _add_temp_layer(tilemap: TileMap) -> int:
-	var layer := tilemap.get_layers_count()
-	tilemap.add_layer(-1)
-	tilemap.set_layer_enabled(layer, true)
-	return layer
-
-
-func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
-	if tilemap.get_layers_count() > layer:
-		tilemap.remove_layer(layer)
+#func fade_animation(
+#tilemap: TileMap, layer: int, position: Vector2, source: int, temp_layer: int
+#) -> void:
+#var pos: Vector2i = tilemap.local_to_map(position)
+#var tile: Vector2i = tilemap.get_cell_atlas_coords(layer, pos)
+#var anim: Vector2i = Scene.get_anim(tile)
+##tilemap.get_cell_tile_data(layer, anim).flip_h = tilemap.get_cell_tile_data(layer, tile).flip_h
+#if source == Source.TILE:
+#tilemap.set_cell(temp_layer, pos, source, tile)
+#else:
+#tilemap.set_cell(temp_layer, pos, source, anim)
+#
+#
+#func _add_temp_layer(tilemap: TileMap) -> int:
+#var layer := tilemap.get_layers_count()
+#tilemap.add_layer(-1)
+#tilemap.set_layer_enabled(layer, true)
+#return layer
+#
+#
+#func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
+#if tilemap.get_layers_count() > layer:
+#tilemap.remove_layer(layer)
 
 
 func recall():
@@ -113,11 +96,12 @@ func reload():
 
 
 func _recall_in(tilemap: TileMap):
-	await fade_out(tilemap, true)
+	fade_out(tilemap, true)
+	await get_tree().create_timer(1).timeout
 
 
 func _recall_out(tilemap: TileMap):
-	await fade_in(tilemap, true)
+	fade_in(tilemap, true)
 
 
 func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
@@ -139,16 +123,15 @@ func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vect
 		atlas.append(tilemap.get_cell_atlas_coords(layer, i))
 	return atlas
 
-
-func pause_animation(tilemap: TileMap, source: Source) -> void:
-	var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
-	for i in atlas.get_tiles_count():
-		atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, INF)
-
-
-func resume_animation(tilemap: TileMap, source: Source) -> void:
-	var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
-	var atlas_texture = atlas.texture.duplicate()
-	for i in atlas.get_tiles_count():
-		atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, 1.0)
-	atlas.texture = atlas_texture
+#func pause_animation(tilemap: TileMap, source: Source) -> void:
+#var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
+#for i in atlas.get_tiles_count():
+#atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, INF)
+#
+#
+#func resume_animation(tilemap: TileMap, source: Source) -> void:
+#var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
+#var atlas_texture = atlas.texture.duplicate()
+#for i in atlas.get_tiles_count():
+#atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, 1.0)
+#atlas.texture = atlas_texture
