@@ -3,7 +3,7 @@ extends Node
 signal should_fade(tilemap: TileMap)
 signal active_tilemap_changed
 
-enum Source { TILE = 2, FADEIN = 5, FADEOUT = 6 }
+enum Source { TILE = 7, FADEIN = 8, FADEOUT = 9 }
 
 var current_scene: String
 var current_level: Node2D
@@ -12,203 +12,15 @@ var spawn_point: Vector2
 
 var active_tilemap: Array[TileMap]
 
-var fade_map: Dictionary = {
-	Vector2i(2, 5): Vector2i(0, 0),
-	Vector2i(3, 5): Vector2i(0, 0),
-	Vector2i(4, 5): Vector2i(0, 0),
-	Vector2i(5, 5): Vector2i(0, 0),
-	Vector2i(6, 5): Vector2i(0, 0),
-	Vector2i(8, 5): Vector2i(0, 0),
-	Vector2i(9, 5): Vector2i(0, 0),
-	Vector2i(10, 5): Vector2i(0, 0),
-	Vector2i(11, 5): Vector2i(0, 0),
-	Vector2i(12, 5): Vector2i(0, 0),
-	Vector2i(8, 6): Vector2i(0, 0),
-	Vector2i(9, 6): Vector2i(0, 0),
-	Vector2i(10, 6): Vector2i(0, 0),
-	Vector2i(11, 6): Vector2i(0, 0),
-	Vector2i(12, 6): Vector2i(0, 0),
-	Vector2i(14, 4): Vector2i(0, 0),
-	Vector2i(14, 5): Vector2i(0, 0),
-	Vector2i(14, 6): Vector2i(0, 0),
-	Vector2i(14, 7): Vector2i(0, 0),
-	Vector2i(14, 8): Vector2i(0, 0),
-	Vector2i(15, 8): Vector2i(0, 0),
-	Vector2i(16, 8): Vector2i(0, 0),
-	Vector2i(17, 8): Vector2i(0, 0),
-	Vector2i(18, 8): Vector2i(0, 0),
-	Vector2i(18, 7): Vector2i(0, 0),
-	Vector2i(18, 6): Vector2i(0, 0),
-	Vector2i(18, 5): Vector2i(0, 0),
-	Vector2i(18, 4): Vector2i(0, 0),
-	Vector2i(17, 4): Vector2i(0, 0),
-	Vector2i(16, 4): Vector2i(0, 0),
-	Vector2i(15, 4): Vector2i(0, 0),
-	Vector2i(21, 4): Vector2i(0, 0),
-	Vector2i(21, 5): Vector2i(0, 0),
-	Vector2i(21, 6): Vector2i(0, 0),
-	Vector2i(21, 7): Vector2i(0, 0),
-	Vector2i(21, 8): Vector2i(0, 0),
-	Vector2i(22, 8): Vector2i(0, 0),
-	Vector2i(23, 8): Vector2i(0, 0),
-	Vector2i(24, 8): Vector2i(0, 0),
-	Vector2i(25, 8): Vector2i(0, 0),
-	Vector2i(25, 7): Vector2i(0, 0),
-	Vector2i(25, 6): Vector2i(0, 0),
-	Vector2i(25, 5): Vector2i(0, 0),
-	Vector2i(25, 4): Vector2i(0, 0),
-	Vector2i(24, 4): Vector2i(0, 0),
-	Vector2i(23, 4): Vector2i(0, 0),
-	Vector2i(22, 4): Vector2i(0, 0),
-	Vector2i(2, 9): Vector2i(0, 0),
-	Vector2i(3, 9): Vector2i(0, 0),
-	Vector2i(4, 9): Vector2i(0, 0),
-	Vector2i(5, 9): Vector2i(0, 0),
-	Vector2i(6, 9): Vector2i(0, 0),
-	Vector2i(8, 9): Vector2i(0, 0),
-	Vector2i(9, 9): Vector2i(0, 0),
-	Vector2i(10, 9): Vector2i(0, 0),
-	Vector2i(11, 9): Vector2i(0, 0),
-	Vector2i(12, 9): Vector2i(0, 0),
-	Vector2i(9, 17): Vector2i(0, 0),
-	Vector2i(9, 16): Vector2i(0, 0),
-	Vector2i(9, 15): Vector2i(0, 0),
-	Vector2i(9, 14): Vector2i(0, 0),
-	Vector2i(9, 13): Vector2i(0, 0),
-	Vector2i(9, 11): Vector2i(0, 0),
-	Vector2i(9, 12): Vector2i(0, 0),
-	Vector2i(11, 11): Vector2i(0, 0),
-	Vector2i(11, 12): Vector2i(0, 0),
-	Vector2i(11, 13): Vector2i(0, 0),
-	Vector2i(13, 11): Vector2i(0, 0),
-	Vector2i(13, 12): Vector2i(0, 0),
-	Vector2i(13, 13): Vector2i(0, 0),
-	Vector2i(20, 11): Vector2i(0, 0),
-	Vector2i(20, 12): Vector2i(0, 0),
-	Vector2i(20, 13): Vector2i(0, 0),
-	Vector2i(20, 14): Vector2i(0, 0),
-	Vector2i(20, 15): Vector2i(0, 0),
-	Vector2i(20, 16): Vector2i(0, 0),
-	Vector2i(20, 17): Vector2i(0, 0),
-	Vector2i(22, 11): Vector2i(0, 0),
-	Vector2i(22, 12): Vector2i(0, 0),
-	Vector2i(22, 13): Vector2i(0, 0),
-	Vector2i(24, 11): Vector2i(0, 0),
-	Vector2i(24, 12): Vector2i(0, 0),
-	Vector2i(24, 13): Vector2i(0, 0),
-	Vector2i(16, 14): Vector2i(0, 0),
-	Vector2i(17, 14): Vector2i(0, 0),
-	Vector2i(16, 16): Vector2i(0, 0),
-	Vector2i(17, 16): Vector2i(0, 0),
-	Vector2i(18, 16): Vector2i(0, 0),
-	Vector2i(2, 4): Vector2i(1, 0),
-	Vector2i(3, 4): Vector2i(1, 0),
-	Vector2i(4, 4): Vector2i(1, 0),
-	Vector2i(5, 4): Vector2i(1, 0),
-	Vector2i(6, 4): Vector2i(1, 0),
-	Vector2i(8, 4): Vector2i(1, 0),
-	Vector2i(9, 4): Vector2i(1, 0),
-	Vector2i(10, 4): Vector2i(1, 0),
-	Vector2i(11, 4): Vector2i(1, 0),
-	Vector2i(12, 4): Vector2i(1, 0),
-	Vector2i(15, 5): Vector2i(1, 0),
-	Vector2i(16, 5): Vector2i(1, 0),
-	Vector2i(17, 5): Vector2i(1, 0),
-	Vector2i(17, 6): Vector2i(1, 0),
-	Vector2i(16, 6): Vector2i(1, 0),
-	Vector2i(15, 6): Vector2i(1, 0),
-	Vector2i(15, 7): Vector2i(1, 0),
-	Vector2i(16, 7): Vector2i(1, 0),
-	Vector2i(17, 7): Vector2i(1, 0),
-	Vector2i(22, 5): Vector2i(1, 0),
-	Vector2i(23, 5): Vector2i(1, 0),
-	Vector2i(24, 5): Vector2i(1, 0),
-	Vector2i(24, 6): Vector2i(1, 0),
-	Vector2i(-1, -1): Vector2i(1, 0),
-	Vector2i(22, 6): Vector2i(1, 0),
-	Vector2i(22, 7): Vector2i(1, 0),
-	Vector2i(23, 7): Vector2i(1, 0),
-	Vector2i(24, 7): Vector2i(1, 0),
-	Vector2i(2, 8): Vector2i(1, 0),
-	Vector2i(3, 8): Vector2i(1, 0),
-	Vector2i(4, 8): Vector2i(1, 0),
-	Vector2i(5, 8): Vector2i(1, 0),
-	Vector2i(6, 8): Vector2i(1, 0),
-	Vector2i(8, 8): Vector2i(1, 0),
-	Vector2i(9, 8): Vector2i(1, 0),
-	Vector2i(10, 8): Vector2i(1, 0),
-	Vector2i(11, 8): Vector2i(1, 0),
-	Vector2i(12, 8): Vector2i(1, 0),
-	Vector2i(9, 10): Vector2i(1, 0),
-	Vector2i(11, 10): Vector2i(1, 0),
-	Vector2i(13, 10): Vector2i(1, 0),
-	Vector2i(20, 10): Vector2i(1, 0),
-	Vector2i(22, 10): Vector2i(1, 0),
-	Vector2i(24, 10): Vector2i(1, 0),
-	Vector2i(16, 13): Vector2i(1, 0),
-	Vector2i(17, 13): Vector2i(1, 0),
-	Vector2i(16, 15): Vector2i(1, 0),
-	Vector2i(17, 15): Vector2i(1, 0),
-	Vector2i(18, 15): Vector2i(1, 0),
-	Vector2i(17, 11): Vector2i(1, 0),
-	Vector2i(18, 11): Vector2i(1, 0),
-	Vector2i(9, 21): Vector2i(0, 0),
-	Vector2i(10, 21): Vector2i(0, 0),
-	Vector2i(11, 21): Vector2i(0, 0),
-	Vector2i(12, 21): Vector2i(0, 0),
-	Vector2i(13, 21): Vector2i(0, 0),
-	Vector2i(14, 21): Vector2i(0, 0),
-	Vector2i(15, 21): Vector2i(0, 0),
-	Vector2i(16, 21): Vector2i(0, 0),
-	Vector2i(17, 21): Vector2i(0, 0),
-	Vector2i(18, 21): Vector2i(0, 0),
-	Vector2i(19, 21): Vector2i(0, 0),
-	Vector2i(20, 21): Vector2i(0, 0),
-	Vector2i(21, 21): Vector2i(0, 0),
-	Vector2i(8, 20): Vector2i(1, 0),
-	Vector2i(9, 20): Vector2i(1, 0),
-	Vector2i(10, 20): Vector2i(1, 0),
-	Vector2i(11, 20): Vector2i(1, 0),
-	Vector2i(12, 20): Vector2i(1, 0),
-	Vector2i(13, 20): Vector2i(1, 0),
-	Vector2i(14, 20): Vector2i(1, 0),
-	Vector2i(15, 20): Vector2i(1, 0),
-	Vector2i(16, 20): Vector2i(1, 0),
-	Vector2i(17, 20): Vector2i(1, 0),
-	Vector2i(18, 20): Vector2i(1, 0),
-	Vector2i(19, 20): Vector2i(1, 0),
-	Vector2i(20, 20): Vector2i(1, 0),
-	Vector2i(21, 20): Vector2i(1, 0),
-	Vector2i(22, 20): Vector2i(1, 0),
-	Vector2i(22, 21): Vector2i(1, 0),
-	Vector2i(22, 22): Vector2i(1, 0),
-	Vector2i(21, 22): Vector2i(1, 0),
-	Vector2i(20, 22): Vector2i(1, 0),
-	Vector2i(19, 22): Vector2i(1, 0),
-	Vector2i(18, 22): Vector2i(1, 0),
-	Vector2i(17, 22): Vector2i(1, 0),
-	Vector2i(16, 22): Vector2i(1, 0),
-	Vector2i(15, 22): Vector2i(1, 0),
-	Vector2i(14, 22): Vector2i(1, 0),
-	Vector2i(13, 22): Vector2i(1, 0),
-	Vector2i(12, 22): Vector2i(1, 0),
-	Vector2i(11, 22): Vector2i(1, 0),
-	Vector2i(10, 22): Vector2i(1, 0),
-	Vector2i(9, 22): Vector2i(1, 0),
-	Vector2i(8, 22): Vector2i(1, 0),
-	Vector2i(8, 21): Vector2i(1, 0)
-}
-
 
 func get_anim(tile: Vector2i) -> Vector2i:
-	return fade_map.get(tile)
+	return tile
 
 
 func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
 	if not tilemap:
 		return
 	toggle_layers(tilemap, false)
-	var temp_layer = _add_temp_layer(tilemap)
 
 	var anim: String
 	if is_recall:
@@ -216,19 +28,13 @@ func fade_in(tilemap: TileMap, is_recall: bool = false) -> void:
 	else:
 		anim = "fade_in"
 
-	get_tree().call_group("fade_in", anim, tilemap, temp_layer)
-	await get_tree().create_timer(1).timeout
-
-	if is_instance_valid(tilemap):
-		_remove_temp_layer(tilemap, temp_layer)
-		toggle_layers(tilemap, true)
+	get_tree().call_group("fade_in", anim, tilemap)
 
 
 func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 	if not tilemap:
 		return
 	toggle_layers(tilemap, false)
-	var temp_layer = _add_temp_layer(tilemap)
 
 	var anim: String
 	if is_recall:
@@ -236,12 +42,8 @@ func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 	else:
 		anim = "fade_out"
 
-	get_tree().call_group("stay", "stay", tilemap, temp_layer)
-	get_tree().call_group("fade_out", anim, tilemap, temp_layer)
-	await get_tree().create_timer(1).timeout
-
-	if is_instance_valid(tilemap):
-		_remove_temp_layer(tilemap, temp_layer)
+	get_tree().call_group("stay", "stay", tilemap)
+	get_tree().call_group("fade_out", anim, tilemap)
 
 
 func toggle_layers(tilemap: TileMap, state: bool) -> void:
@@ -249,29 +51,29 @@ func toggle_layers(tilemap: TileMap, state: bool) -> void:
 		tilemap.set_layer_enabled(i, state)
 
 
-func fade_animation(
-	tilemap: TileMap, layer: int, position: Vector2, source: int, temp_layer: int
-) -> void:
-	var pos: Vector2i = tilemap.local_to_map(position)
-	var tile: Vector2i = tilemap.get_cell_atlas_coords(layer, pos)
-	var anim: Vector2i = Scene.get_anim(tile)
-	#tilemap.get_cell_tile_data(layer, anim).flip_h = tilemap.get_cell_tile_data(layer, tile).flip_h
-	if source == Source.TILE:
-		tilemap.set_cell(temp_layer, pos, source, tile)
-	else:
-		tilemap.set_cell(temp_layer, pos, source, anim)
-
-
-func _add_temp_layer(tilemap: TileMap) -> int:
-	var layer := tilemap.get_layers_count()
-	tilemap.add_layer(-1)
-	tilemap.set_layer_enabled(layer, true)
-	return layer
-
-
-func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
-	if tilemap.get_layers_count() > layer:
-		tilemap.remove_layer(layer)
+#func fade_animation(
+#tilemap: TileMap, layer: int, position: Vector2, source: int, temp_layer: int
+#) -> void:
+#var pos: Vector2i = tilemap.local_to_map(position)
+#var tile: Vector2i = tilemap.get_cell_atlas_coords(layer, pos)
+#var anim: Vector2i = Scene.get_anim(tile)
+##tilemap.get_cell_tile_data(layer, anim).flip_h = tilemap.get_cell_tile_data(layer, tile).flip_h
+#if source == Source.TILE:
+#tilemap.set_cell(temp_layer, pos, source, tile)
+#else:
+#tilemap.set_cell(temp_layer, pos, source, anim)
+#
+#
+#func _add_temp_layer(tilemap: TileMap) -> int:
+#var layer := tilemap.get_layers_count()
+#tilemap.add_layer(-1)
+#tilemap.set_layer_enabled(layer, true)
+#return layer
+#
+#
+#func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
+#if tilemap.get_layers_count() > layer:
+#tilemap.remove_layer(layer)
 
 
 func recall(tilemap_count) -> void:	
@@ -297,11 +99,12 @@ func reload():
 
 
 func _recall_in(tilemap: TileMap):
-	await fade_out(tilemap, true)
+	fade_out(tilemap, true)
+	await get_tree().create_timer(1).timeout
 
 
 func _recall_out(tilemap: TileMap):
-	await fade_in(tilemap, true)
+	fade_in(tilemap, true)
 
 
 func generate_static_to_animated_map(tilemap: TileMap) -> Dictionary:
@@ -322,3 +125,16 @@ func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vect
 	for i in tiles:
 		atlas.append(tilemap.get_cell_atlas_coords(layer, i))
 	return atlas
+
+#func pause_animation(tilemap: TileMap, source: Source) -> void:
+#var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
+#for i in atlas.get_tiles_count():
+#atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, INF)
+#
+#
+#func resume_animation(tilemap: TileMap, source: Source) -> void:
+#var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
+#var atlas_texture = atlas.texture.duplicate()
+#for i in atlas.get_tiles_count():
+#atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, 1.0)
+#atlas.texture = atlas_texture

@@ -33,6 +33,7 @@ position = Vector2(130, 260)
 follow_viewport_enabled = true
 
 [node name="ChromaticAberration" type="ColorRect" parent="CanvasLayer"]
+visible = false
 material = SubResource("ShaderMaterial_prtvb")
 anchors_preset = 15
 anchor_right = 1.0
