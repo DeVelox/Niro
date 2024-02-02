@@ -132,3 +132,15 @@ func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vect
 	for i in tiles:
 		atlas.append(tilemap.get_cell_atlas_coords(layer, i))
 	return atlas
+
+
+func pause_animation(tilemap: TileMap, source: Source) -> void:
+	var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
+	for i in atlas.get_tiles_count():
+		atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, INF)
+
+
+func resume_animation(tilemap: TileMap, source: Source) -> void:
+	var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
+	for i in atlas.get_tiles_count():
+		atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, 1)
