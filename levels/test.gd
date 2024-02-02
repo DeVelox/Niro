@@ -18,10 +18,11 @@ func _ready() -> void:
 	
 	# Manual call of the animation function (works correctly both ways, but starts on a random frame)
 	Scene.toggle_layers(tilemap, false)
+	tilemap.update_internals()
 	for i in tilemap.get_used_cells(1):
 		Scene.fade_animation.call_deferred(tilemap, 1, tilemap.map_to_local(i), Scene.Source.FADEOUT, Scene._add_temp_layer(tilemap))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
