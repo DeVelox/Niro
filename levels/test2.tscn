@@ -66,3 +66,6 @@ layer_1/tile_data = PackedInt32Array(-1245165, 720903, 1, -1245164, 786439, 1, -
 layer_4/tile_data = PackedInt32Array(-1048557, 1, 458752, -1048556, 1, 458752, -1114092, 1, 458752, -1179628, 1, 458752, -1245164, 1, 458752, -1245165, 1, 458752, -1179629, 1, 458752, -1114093, 1, 458752, -1114088, 1, 458752, -1114087, 1, 458752, -1048551, 1, 458752, -983015, 1, 458752, -917479, 1, 458752, -917480, 1, 458752, -983016, 1, 458752, -1048552, 1, 458752)
 layer_5/tile_data = PackedInt32Array(-720879, 1, 524288, -655343, 1, 524288, -589807, 1, 524288, -524271, 1, 524288, -458735, 1, 524288, -393199, 1, 524288)
 prev = NodePath("../Tilemap2")
+
+[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
