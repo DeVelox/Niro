@@ -1,15 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://b12hj7neipff4"]
+[gd_scene load_steps=6 format=3 uid="uid://d10oed7vuoa2u"]
 
-[ext_resource type="Script" path="res://scripts/fade.gd" id="1_m38g0"]
+[ext_resource type="Material" uid="uid://b5a65v18rfjqv" path="res://scripts/shader/fade_shader.tres" id="2_l0r3h"]
+[ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="2_ule1n"]
+[ext_resource type="Script" path="res://scripts/fade_shader.gd" id="4_xe6r1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dtfpb"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhho4"]
 
-[node name="FadeIn" type="Node2D" groups=["fade_in"]]
-script = ExtResource("1_m38g0")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ea4oa"]
+size = Vector2(16, 0)
+
+[node name="Node2D" type="StaticBody2D" groups=["fade_in"]]
+script = ExtResource("4_xe6r1")
+
+[node name="FadeShader" type="TextureRect" parent="."]
+material = ExtResource("2_l0r3h")
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 120.0
+offset_bottom = 120.0
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_ule1n")
 
 [node name="marker" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="marker"]
 position = Vector2(-5, -5)
 scale = Vector2(0.15, 0.15)
-shape = SubResource("RectangleShape2D_dtfpb")
+shape = SubResource("RectangleShape2D_bhho4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_ea4oa")
+disabled = true
