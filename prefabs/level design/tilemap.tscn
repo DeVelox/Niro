@@ -20,9 +20,6 @@ scenes/3/scene = ExtResource("8_hgtpm")
 scenes/4/scene = ExtResource("4_abu28")
 scenes/5/scene = ExtResource("9_vxyj3")
 scenes/6/scene = ExtResource("6_txvxk")
-scenes/7/scene = ExtResource("7_yyvyj")
-scenes/8/scene = ExtResource("8_hgtpm")
-scenes/9/scene = ExtResource("9_vxyj3")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bxd8i"]
 resource_name = "Static"
