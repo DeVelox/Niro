@@ -12,5 +12,5 @@ func _on_body_entered(body: Node2D) -> void:
 		_disable_collision()
 
 
-func _disable_collision():
+func _disable_collision() -> void:
 	collision.set_deferred("disabled", true)

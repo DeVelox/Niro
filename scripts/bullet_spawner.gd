@@ -9,9 +9,8 @@ var point: Vector2
 var i: float = 0
 var bullet_count: int = 4
 var groups: int = 3
-var step: float = PI/(bullet_count*groups - 1)
-var speed_variant_array = [0,80,50,-20]
-
+var step: float = PI / (bullet_count * groups - 1)
+var speed_variant_array = [0, 80, 50, -20]
 
 @onready var timer: Timer = $Timer
 @onready var bullet_spawner: Node2D = $"."
@@ -27,10 +26,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+
 func _on_timer_timeout() -> void:
 	if i > PI:
 		i = 0
-	for count in range(0,bullet_count):
+	for count in range(0, bullet_count):
 		var x: float = cos(i)
 		var y: float = sin(i) if sin(i) > 0 else -sin(i)
 		var direction := Vector2(x, y)

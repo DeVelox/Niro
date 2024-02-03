@@ -97,7 +97,7 @@ func _on_recall_toggled(toggled_on: bool) -> void:
 	Scene.reload()
 
 
-func _init_checkbox():
+func _init_checkbox() -> void:
 	shield.set_pressed_no_signal(Upgrades.check(Upgrades.Type.SHIELD))
 	vision.set_pressed_no_signal(Upgrades.check(Upgrades.Type.VISION))
 	recall.set_pressed_no_signal(Upgrades.check(Upgrades.Type.RECALL))

@@ -65,7 +65,7 @@ func recall(tilemap_count) -> void:
 	reload()
 
 
-func reload():
+func reload() -> void:
 	var main := get_node("/root/Main")
 	var load_level: Node2D = load(current_scene).instantiate()
 	current_level.destroy()
@@ -73,12 +73,12 @@ func reload():
 	current_level = load_level
 
 
-func _recall_in(tilemap: TileMap):
+func _recall_in(tilemap: TileMap) -> void:
 	fade_out(tilemap, true)
 	await get_tree().create_timer(1).timeout
 
 
-func _recall_out(tilemap: TileMap):
+func _recall_out(tilemap: TileMap) -> void:
 	fade_in(tilemap, true)
 
 
