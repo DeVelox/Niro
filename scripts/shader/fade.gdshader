@@ -6,6 +6,8 @@ uniform int frames : hint_range(1, 10, 10) = 10;
 uniform int atlas_x = 0;
 uniform int atlas_y = 0;
 uniform bool toggle = false;
+uniform bool flip_h = false;
+uniform bool flip_v = false;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -24,9 +26,16 @@ void fragment() {
 	float coord_x = float(atlas_x) / grid_x;
 	float coord_y = float(atlas_y) / grid_y;
 	float current_frame = float(frame) / frames_y;
-	
-	
-	COLOR = texture(atlas, vec2(tile_h + coord_x, tile_v + coord_y + current_frame)) * float(toggle);
+	vec2 uv;
+	if (flip_h){
+	uv.x = 1.0/tiles_x - tile_h + coord_x;}
+	else{
+	uv.x = tile_h + coord_x;}
+	if (flip_v){
+	uv.y = 1.0/(tiles_y * frames_y) - tile_v + coord_y + current_frame;}
+	else{
+	uv.y = tile_v + coord_y + current_frame;}
+	COLOR = texture(atlas, vec2(uv.x, uv.y) * float(toggle));
 }
 
 //void light() {

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://rdw6q6sigi4l"]
 
 [ext_resource type="Script" path="res://scripts/fade.gd" id="1_lp1eo"]
-[ext_resource type="Material" uid="uid://b5a65v18rfjqv" path="res://scripts/shader/fade_shader.tres" id="2_qnjuj"]
+[ext_resource type="Material" uid="uid://b5a65v18rfjqv" path="res://scripts/shader/fade.tres" id="2_qnjuj"]
 [ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="4_ceu3v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vevwm"]
