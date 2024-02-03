@@ -24,9 +24,9 @@ func fade_in(tilemap: TileMap) -> void:
 	if tilemap != get_parent():
 		return
 	if vision:
-		var tile_hidden = tilemap.get_cell_tile_data(2, atlas_coords_hidden)
+		var tile_hidden = tilemap.get_cell_tile_data(2, tilemap.local_to_map(position))
 		_fade(tilemap, FADEIN, atlas_coords_hidden, tile_hidden.flip_h, tile_hidden.flip_v)
-	var tile = tilemap.get_cell_tile_data(1, atlas_coords)
+	var tile = tilemap.get_cell_tile_data(1, tilemap.local_to_map(position))
 	_fade(tilemap, FADEIN, atlas_coords, tile.flip_h, tile.flip_v)
 
 
@@ -34,9 +34,9 @@ func fade_out(tilemap: TileMap) -> void:
 	if tilemap != get_parent():
 		return
 	if vision:
-		var tile_hidden = tilemap.get_cell_tile_data(2, atlas_coords_hidden)
+		var tile_hidden = tilemap.get_cell_tile_data(2, tilemap.local_to_map(position))
 		_fade(tilemap, FADEOUT, atlas_coords_hidden, tile_hidden.flip_h, tile_hidden.flip_v)
-	var tile = tilemap.get_cell_tile_data(1, atlas_coords)
+	var tile = tilemap.get_cell_tile_data(1, tilemap.local_to_map(position))
 	_fade(tilemap, FADEOUT, atlas_coords, tile.flip_h, tile.flip_v)
 
 
@@ -44,13 +44,19 @@ func stay(tilemap: TileMap) -> void:
 	if tilemap != get_parent():
 		return
 	if vision:
-		var tile_hidden = tilemap.get_cell_tile_data(2, atlas_coords_hidden)
+		var tile_hidden = tilemap.get_cell_tile_data(2, tilemap.local_to_map(position))
 		_fade(tilemap, STATIC, atlas_coords_hidden, tile_hidden.flip_h, tile_hidden.flip_v)
-	var tile = tilemap.get_cell_tile_data(1, atlas_coords)
+	var tile = tilemap.get_cell_tile_data(1, tilemap.local_to_map(position))
 	_fade(tilemap, STATIC, atlas_coords, tile.flip_h, tile.flip_v)
 
 
-func _fade(_tilemap: TileMap, _atlas_texture: CompressedTexture2D, _atlas_coords: Vector2i, _flip_x: bool, _flip_y: bool) -> void:
+func _fade(
+	_tilemap: TileMap,
+	_atlas_texture: CompressedTexture2D,
+	_atlas_coords: Vector2i,
+	_flip_x: bool = false,
+	_flip_y: bool = false
+) -> void:
 	fade_shader.material.set_shader_parameter("atlas", _atlas_texture)
 	fade_shader.material.set_shader_parameter("atlas_x", _atlas_coords.x)
 	fade_shader.material.set_shader_parameter("atlas_y", _atlas_coords.y)
