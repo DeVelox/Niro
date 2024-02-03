@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://b5a65v18rfjqv" path="res://scripts/shader/fade_shader.tres" id="2_l0r3h"]
 [ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="2_ule1n"]
-[ext_resource type="Script" path="res://scripts/fade.gd" id="4_xe6r1"]
+[ext_resource type="Script" path="res://scripts/fade_shader.gd" id="4_xe6r1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhho4"]
 

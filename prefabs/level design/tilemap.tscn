@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://kvn6l81uo2s2" path="res://assets/elliot/Tileset_v1.png" id="5_dv1wt"]
 [ext_resource type="PackedScene" uid="uid://da02tw8iwrkpf" path="res://prefabs/obstacle/kill_zone.tscn" id="6_txvxk"]
 [ext_resource type="Script" path="res://scripts/tilemap.gd" id="7_ljndr"]
-[ext_resource type="PackedScene" uid="uid://d10oed7vuoa2u" path="res://prefabs/utility library/fade_in.tscn" id="7_yyvyj"]
+[ext_resource type="PackedScene" uid="uid://b12hj7neipff4" path="res://prefabs/utility library/fade_in.tscn" id="7_yyvyj"]
 [ext_resource type="PackedScene" uid="uid://rdw6q6sigi4l" path="res://prefabs/utility library/fade_out.tscn" id="8_hgtpm"]
 [ext_resource type="PackedScene" uid="uid://bhkisaumipg51" path="res://prefabs/utility library/stay.tscn" id="9_vxyj3"]
 [ext_resource type="Texture2D" uid="uid://dayyrpji0wcwd" path="res://assets/elliot/TilesetV4.png" id="12_o76do"]
