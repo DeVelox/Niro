@@ -57,9 +57,3 @@ position = Vector2(167, 85)
 next_scene = "res://levels/boss1/level5.tscn"
 enable_on = NodePath("../Tilemap3")
 set_player_spawn = true
-
-[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@52760" to="Tilemap/@Area2D@52760" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@52842" to="Tilemap2/@Area2D@52842" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@52843" to="Tilemap2/@Area2D@52843" method="_on_body_entered"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ucx0x7enyjcx"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ynigr"]
-[ext_resource type="PackedScene" path="res://prefabs/level design/cave.tscn" id="2_h276l"]
+[ext_resource type="PackedScene" uid="uid://003busc8drrl" path="res://prefabs/level design/cave.tscn" id="2_h276l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
 radius = 12.0
