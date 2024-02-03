@@ -310,7 +310,12 @@ func _state_checks() -> void:
 
 
 func _collision_update() -> void:
-	if is_crouching or is_sliding:
+	if is_sliding:
+		get_tree().call_group("noclimb", "set", "disabled", true)
+		hitbox.shape.radius = 12
+		hitbox.shape.height = 16
+		hitbox.position = Vector2(0, 26)
+	elif is_crouching:
 		get_tree().call_group("noclimb", "set", "disabled", true)
 		hitbox.shape.radius = 12
 		hitbox.shape.height = 28

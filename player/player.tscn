@@ -152,7 +152,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x2pdt"]
 radius = 12.0
-height = 48.0
+height = 46.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjvja"]
 size = Vector2(28, 50)
@@ -249,7 +249,7 @@ autoplay = "idle"
 offset = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 10)
+position = Vector2(0, 11)
 shape = SubResource("CapsuleShape2D_x2pdt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
