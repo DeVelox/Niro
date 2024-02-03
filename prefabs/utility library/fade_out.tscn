@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://rdw6q6sigi4l"]
+[gd_scene load_steps=6 format=3 uid="uid://rdw6q6sigi4l"]
 
 [ext_resource type="Script" path="res://scripts/fade.gd" id="1_lp1eo"]
-[ext_resource type="Material" uid="uid://b5a65v18rfjqv" path="res://scripts/shader/fade.tres" id="2_qnjuj"]
+[ext_resource type="Material" uid="uid://b5a65v18rfjqv" path="res://scripts/shader/fade.tres" id="2_752py"]
 [ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="4_ceu3v"]
+[ext_resource type="PackedScene" uid="uid://bggq4cp7uimpx" path="res://prefabs/utility library/rubble.tscn" id="4_v0q18"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vevwm"]
 size = Vector2(16, 0)
@@ -11,7 +12,7 @@ size = Vector2(16, 0)
 script = ExtResource("1_lp1eo")
 
 [node name="FadeShader" type="TextureRect" parent="."]
-material = ExtResource("2_qnjuj")
+material = ExtResource("2_752py")
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 120.0
@@ -29,3 +30,5 @@ polygon = PackedVector2Array(0, -10, -10, 10, 10, 10)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_vevwm")
+
+[node name="CPUParticles2D" parent="." instance=ExtResource("4_v0q18")]

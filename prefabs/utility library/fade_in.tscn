@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d10oed7vuoa2u"]
+[gd_scene load_steps=7 format=3 uid="uid://d10oed7vuoa2u"]
 
 [ext_resource type="Script" path="res://scripts/fade.gd" id="1_1sgxf"]
 [ext_resource type="Material" uid="uid://b5a65v18rfjqv" path="res://scripts/shader/fade.tres" id="2_3vfvf"]
 [ext_resource type="Texture2D" uid="uid://da1teyfixnggi" path="res://icon.svg" id="3_tajjb"]
+[ext_resource type="PackedScene" uid="uid://bggq4cp7uimpx" path="res://prefabs/utility library/rubble.tscn" id="4_3oaxm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhho4"]
 
@@ -32,3 +33,5 @@ shape = SubResource("RectangleShape2D_bhho4")
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_ea4oa")
 disabled = true
+
+[node name="CPUParticles2D" parent="." instance=ExtResource("4_3oaxm")]

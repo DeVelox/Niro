@@ -7,17 +7,26 @@ const FADEOUT = preload("res://assets/elliot/TilesetV4_Animation_Reverse.png")
 var vision: bool = Upgrades.check(Upgrades.Type.VISION)
 var atlas_coords: Vector2i
 var atlas_coords_hidden: Vector2i
+var is_bottom: bool
 var tween: Tween
 
 @onready var fade_shader: TextureRect = $FadeShader
 @onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var rubble: CPUParticles2D = $CPUParticles2D
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var tilemap := get_parent() as TileMap
-	atlas_coords = tilemap.get_cell_atlas_coords(1, tilemap.local_to_map(position))
-	atlas_coords_hidden = tilemap.get_cell_atlas_coords(2, tilemap.local_to_map(position))
+	var map_pos := tilemap.local_to_map(position)
+	atlas_coords = tilemap.get_cell_atlas_coords(1, map_pos)
+	atlas_coords_hidden = tilemap.get_cell_atlas_coords(2, map_pos)
+	var tile := tilemap.get_cell_atlas_coords(1, Vector2(map_pos.x, map_pos.y + 1))
+	if (
+		tile == Vector2i(-1, -1)
+		and Scene.attachments.has(tilemap.get_cell_atlas_coords(1, map_pos))
+	):
+		is_bottom = true
 
 
 func fade_in(tilemap: TileMap) -> void:
@@ -76,6 +85,9 @@ func _fade(
 		if _atlas_texture == FADEOUT:
 			tween.tween_property(collision, "disabled", true, 0.5)
 		tween.parallel().tween_property(fade_shader.material, "shader_parameter/frame", 9, 1.0)
+		if is_bottom:
+			tween.parallel().tween_property(rubble, "emitting", true, 0.0)
+			tween.tween_property(rubble, "emitting", false, 0.0)
 		tween.tween_property(fade_shader.material, "shader_parameter/toggle", false, 0.0)
 		if _atlas_texture == FADEIN:
 			tween.tween_callback(Scene.toggle_layers.bind(_tilemap, true))
