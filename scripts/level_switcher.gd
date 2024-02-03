@@ -44,6 +44,7 @@ func _play_outro() -> void:
 func _on_player_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		_play_outro()
+		await get_tree().create_timer(1).timeout
 		_switch_level()
 
 

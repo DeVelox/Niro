@@ -51,31 +51,6 @@ func toggle_layers(tilemap: TileMap, state: bool) -> void:
 		tilemap.set_layer_enabled(i, state)
 
 
-#func fade_animation(
-#tilemap: TileMap, layer: int, position: Vector2, source: int, temp_layer: int
-#) -> void:
-#var pos: Vector2i = tilemap.local_to_map(position)
-#var tile: Vector2i = tilemap.get_cell_atlas_coords(layer, pos)
-#var anim: Vector2i = Scene.get_anim(tile)
-##tilemap.get_cell_tile_data(layer, anim).flip_h = tilemap.get_cell_tile_data(layer, tile).flip_h
-#if source == Source.TILE:
-#tilemap.set_cell(temp_layer, pos, source, tile)
-#else:
-#tilemap.set_cell(temp_layer, pos, source, anim)
-#
-#
-#func _add_temp_layer(tilemap: TileMap) -> int:
-#var layer := tilemap.get_layers_count()
-#tilemap.add_layer(-1)
-#tilemap.set_layer_enabled(layer, true)
-#return layer
-#
-#
-#func _remove_temp_layer(tilemap: TileMap, layer: int) -> void:
-#if tilemap.get_layers_count() > layer:
-#tilemap.remove_layer(layer)
-
-
 func recall(tilemap_count) -> void:
 	if not tilemap_count:
 		reload()
@@ -125,16 +100,3 @@ func _get_atlas_coords_for_all_tiles(tilemap: TileMap, layer: int) -> Array[Vect
 	for i in tiles:
 		atlas.append(tilemap.get_cell_atlas_coords(layer, i))
 	return atlas
-
-#func pause_animation(tilemap: TileMap, source: Source) -> void:
-#var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
-#for i in atlas.get_tiles_count():
-#atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, INF)
-#
-#
-#func resume_animation(tilemap: TileMap, source: Source) -> void:
-#var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(source)
-#var atlas_texture = atlas.texture.duplicate()
-#for i in atlas.get_tiles_count():
-#atlas.set_tile_animation_frame_duration(atlas.get_tile_id(i), 0, 1.0)
-#atlas.texture = atlas_texture

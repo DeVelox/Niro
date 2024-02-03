@@ -1,11 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://bb44qdp7l5m62"]
+[gd_scene load_steps=18 format=3 uid="uid://bb44qdp7l5m62"]
 
 [ext_resource type="PackedScene" uid="uid://dlklgdcq4kqso" path="res://prefabs/utility library/crumble.tscn" id="2_1n421"]
-[ext_resource type="PackedScene" uid="uid://b12hj7neipff4" path="res://prefabs/utility library/fade_in.tscn" id="3_h2qxq"]
 [ext_resource type="PackedScene" uid="uid://divg2wpskqech" path="res://prefabs/level design/fader.tscn" id="4_abu28"]
-[ext_resource type="PackedScene" uid="uid://dp1stkmcgwbsy" path="res://prefabs/utility library/fade_out.tscn" id="4_gbmcw"]
 [ext_resource type="Texture2D" uid="uid://kvn6l81uo2s2" path="res://assets/elliot/Tileset_v1.png" id="5_dv1wt"]
-[ext_resource type="PackedScene" uid="uid://dw02qg7s6csb2" path="res://prefabs/utility library/stay.tscn" id="5_kmng6"]
 [ext_resource type="PackedScene" uid="uid://da02tw8iwrkpf" path="res://prefabs/obstacle/kill_zone.tscn" id="6_txvxk"]
 [ext_resource type="Script" path="res://scripts/tilemap.gd" id="7_ljndr"]
 [ext_resource type="PackedScene" uid="uid://d10oed7vuoa2u" path="res://prefabs/utility library/fade_in_shader.tscn" id="7_yyvyj"]
@@ -18,10 +15,10 @@
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5n8h1"]
 resource_name = "Prefabs"
 scenes/1/scene = ExtResource("2_1n421")
-scenes/2/scene = ExtResource("3_h2qxq")
-scenes/3/scene = ExtResource("4_gbmcw")
+scenes/2/scene = ExtResource("7_yyvyj")
+scenes/3/scene = ExtResource("8_hgtpm")
 scenes/4/scene = ExtResource("4_abu28")
-scenes/5/scene = ExtResource("5_kmng6")
+scenes/5/scene = ExtResource("9_vxyj3")
 scenes/6/scene = ExtResource("6_txvxk")
 scenes/7/scene = ExtResource("7_yyvyj")
 scenes/8/scene = ExtResource("8_hgtpm")
