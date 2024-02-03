@@ -1,17 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://xb2j8y63c4j8"]
+[gd_scene load_steps=2 format=3 uid="uid://xb2j8y63c4j8"]
 
 [ext_resource type="Script" path="res://scripts/bullet_spawner.gd" id="1_lck6t"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vxoxp"]
-
 [node name="BulletSpawner" type="Marker2D"]
 script = ExtResource("1_lck6t")
+delay = null
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Target" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_vxoxp")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
