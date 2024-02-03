@@ -35,7 +35,6 @@ layer_5/tile_data = PackedInt32Array(-524262, 1, 327680, -458726, 1, 327680, -39
 next = NodePath("../Scene2")
 
 [node name="Scene2" parent="." node_paths=PackedStringArray("prev") instance=ExtResource("5_q68go")]
-visible = false
 layer_1/tile_data = PackedInt32Array(-524262, 1245191, 5, -458726, 1245191, 6, -524261, 1310727, 5, -458725, 1310727, 6, -524260, 1376263, 5, -458724, 1376263, 6, -524259, 1441799, 5, -458723, 1441799, 6, -524258, 1507335, 5, -458722, 1507335, 6, -393190, 524295, 8, -393189, 589831, 8, -393188, 655367, 8, -393187, 786439, 6, -393186, 851975, 6, -720863, 1048583, 8, -720865, 983047, 8, -458719, 1048583, 9, -458721, 983047, 9, -458720, 1376263, 536870922, -720864, 1376263, 10, -655327, 1507335, 7, -589791, 1507335, 8, -524255, 1507335, 9, -393184, 655367, 6)
 layer_4/tile_data = PackedInt32Array(-720865, 1, 131072, -720864, 1, 131072, -720863, 1, 131072, -655327, 1, 131072, -589791, 1, 131072, -524255, 1, 131072, -458719, 1, 131072, -458720, 1, 131072, -458721, 1, 131072, -393184, 1, 131072)
 layer_5/tile_data = PackedInt32Array(-524262, 1, 196608, -458726, 1, 196608, -393190, 1, 196608, -393189, 1, 196608, -458725, 1, 196608, -524261, 1, 196608, -524260, 1, 196608, -458724, 1, 196608, -458723, 1, 196608, -393187, 1, 196608, -393188, 1, 196608, -393186, 1, 196608, -458722, 1, 196608, -524258, 1, 196608, -524259, 1, 196608, -720865, 1, 327680, -720864, 1, 327680, -720863, 1, 327680, -655327, 1, 327680, -589791, 1, 327680, -524255, 1, 327680, -458719, 1, 327680, -458720, 1, 327680, -458721, 1, 327680, -393184, 1, 327680)
@@ -46,9 +45,3 @@ position = Vector2(522, 226)
 next_scene = "res://levels/boss2/cave1.tscn"
 enable_on = NodePath("../Scene2")
 set_player_spawn = true
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@102965" to="Scene1/@Area2D@102965" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@102966" to="Scene1/@Area2D@102966" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@102967" to="Scene1/@Area2D@102967" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@102968" to="Scene1/@Area2D@102968" method="_on_body_entered"]

@@ -1,7 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdb50hs4pp5a1"]
+[gd_scene load_steps=6 format=3 uid="uid://cdb50hs4pp5a1"]
 
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="1_6ypji"]
 [ext_resource type="Texture2D" uid="uid://b4tvj6fewpt1l" path="res://assets/temp/bullet.png" id="2_ckspv"]
+
+[sub_resource type="Shader" id="Shader_fi6vh"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	float time = clamp(abs(sin(TIME)), 0.0, 1.0);
+	COLOR.rgb = vec3(time, 1.0 - time, 1.0 + time);
+	COLOR.a = texture(TEXTURE, UV).a;
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gg6xl"]
+resource_local_to_scene = true
+shader = SubResource("Shader_fi6vh")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wf4kf"]
 
@@ -12,6 +36,7 @@ contact_monitor = true
 script = ExtResource("1_6ypji")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_gg6xl")
 scale = Vector2(2, 2)
 texture = ExtResource("2_ckspv")
 
