@@ -22,11 +22,12 @@ func _ready() -> void:
 	var map_pos := tilemap.local_to_map(position)
 	atlas_coords = tilemap.get_cell_atlas_coords(1, map_pos)
 	atlas_coords_hidden = tilemap.get_cell_atlas_coords(2, map_pos)
-	for i in range(0,3):
+	for i in [1, 2]:
 		var tile: TileData = tilemap.get_cell_tile_data(i, map_pos)
-		if is_instance_valid(tile):
-			if tile.get_collision_polygons_count(i) > 0:
-				enable_collision = true
+		for j in range(0, 3):
+			if is_instance_valid(tile):
+				if tile.get_collision_polygons_count(j) > 0:
+					enable_collision = true
 	var tile := tilemap.get_cell_atlas_coords(1, Vector2(map_pos.x, map_pos.y + 1))
 	if (
 		tile == Vector2i(-1, -1)
