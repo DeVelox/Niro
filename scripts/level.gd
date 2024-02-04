@@ -11,7 +11,6 @@ func _ready() -> void:
 	_set_checkpoint()
 	_check_vision()
 	_initialise()
-	Sound.music(Sound.TRACK1)
 
 
 func _set_checkpoint() -> void:

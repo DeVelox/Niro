@@ -50,7 +50,6 @@ var should_take_damage := true
 @onready var climb_cooldown: Timer = $Timers/ClimbCooldown
 @onready var drop_check: RayCast2D = $Detectors/DropCheck
 @onready var interact_check: RayCast2D = $Detectors/InteractCheck
-@onready var jump_sound: AudioStreamPlayer = $JumpSound
 @onready var effects: AnimatedSprite2D = $Effects
 @onready var invulnerability: Timer = $Timers/Invulnerability
 @onready var gap_check: Area2D = $Detectors/GapCheck
@@ -168,7 +167,7 @@ func _try_jump() -> bool:
 	if Input.is_action_just_pressed("jump") or not jump_buffer.is_stopped():
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
-		jump_sound.play()
+		Sound.sfx(Sound.JUMP)
 		return true
 	return false
 
@@ -192,7 +191,7 @@ func _try_slide_jump() -> bool:
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
 		is_sliding = false
-		jump_sound.play()
+		Sound.sfx(Sound.JUMP, 1.1)
 		return true
 	return false
 
@@ -211,7 +210,7 @@ func _try_wall_jump() -> bool:
 		wall_hang_timer.stop()
 		is_jumping = true
 		is_wall_hanging = false
-		jump_sound.play()
+		Sound.sfx(Sound.JUMP, 0.9)
 		return true
 	return false
 
@@ -222,8 +221,8 @@ func _try_climb_jump() -> bool:
 		velocity.x = motion
 		velocity.y = JUMP_VELOCITY
 		is_climbing = false
+		Sound.sfx(Sound.JUMP, 0.9)
 		climb_cooldown.start()
-		jump_sound.play()
 		return true
 	return false
 
@@ -235,7 +234,7 @@ func _try_double_jump() -> bool:
 	#has_double_jump = false
 	#is_double_jumping = true
 	#effects.play("double_jump")
-	#jump_sound.play()
+	#Sound.sfx(Sound.DOUBLE_JUMP)
 	#return true
 	#return false
 
@@ -243,6 +242,7 @@ func _try_double_jump() -> bool:
 func _try_crouch() -> bool:
 	if Input.is_action_just_pressed("down"):
 		is_crouching = true
+		Sound.sfx(Sound.CROUCH)
 		return true
 	return false
 
@@ -269,6 +269,7 @@ func _try_dash() -> bool:
 			velocity.y = 0
 			is_dashing = true
 			has_dash = false
+			Sound.sfx(Sound.DASH)
 			dash_timer.start()
 			dash_ghost.start()
 		return true
@@ -281,6 +282,7 @@ func _try_slide() -> bool:
 		if motion and slide_cooldown.is_stopped():
 			velocity.x = motion * SLIDE_MULTI
 			is_sliding = true
+			Sound.sfx(Sound.SLIDE)
 			slide_timer.start()
 		return true
 	return false
@@ -290,6 +292,7 @@ func _try_wall_hang(direction) -> bool:
 	if not is_on_floor():
 		is_wall_hanging = true
 		wall_hang_direction = direction
+		Sound.sfx(Sound.CLIMB_CATCH)
 		wall_hang_timer.start()
 		return true
 	return false
@@ -467,6 +470,7 @@ func _collision(state = 1) -> void:
 
 func _absorb() -> void:
 	if Upgrades.use_shield():
+		Sound.sfx(Sound.SHIELD_HIT)
 		invulnerability.start()
 		can_take_damage = false
 	else:
@@ -519,6 +523,7 @@ func _on_invulnerability_timeout() -> void:
 		_try_recall()
 	should_take_damage = true
 	can_take_damage = true
+	Sound.sfx(Sound.SHIELD_CHARGE)
 
 
 func camera_shake() -> void:
@@ -545,6 +550,7 @@ func _start_climbing(body: Node2D) -> void:
 		velocity.x = 0
 		is_climbing = true
 		is_dashing = false
+		Sound.sfx(Sound.CLIMB_CATCHddd)
 
 
 func _on_climbing_top_entered(body: Node2D) -> void:

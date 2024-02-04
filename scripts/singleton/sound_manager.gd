@@ -1,23 +1,39 @@
 extends Node
 # Music
-const TRACK1 = preload("res://assets/music/more options/344252__suchthefool88__psychic-cm.ogg")
-const TRACK2 = preload(
-	"res://assets/music/more options/488362__soundflakes__dark-dramatic-atmospheric-soundscape.ogg"
-)
-const TRACK3 = preload(
-	"res://assets/music/more options/524309__bertsz__dark-cyberpunk-orchestral-music.ogg"
-)
-const TRACK4 = preload("res://assets/music/more options/525290__disquantic__cyberpunk-beat.ogg")
-const TRACK5 = preload(
-	"res://assets/music/more options/611305__szegvari__new-york-cyberpunk-synth-analogue-drums-bass-dance-retro-atmo-ambience-pad-drone-cinematic-action-music-surround.ogg"
-)
-const TRACK6 = preload("res://assets/music/more options/672783__bertsz__cyberpunk_metal.ogg")
+const TRACK_1 = preload("res://assets/music/Track1.ogg")
+const TRACK_2 = preload("res://assets/music/Track2.ogg")
+const TRACK_3 = preload("res://assets/music/Track3.ogg")
+const TRACK_4 = preload("res://assets/music/Track4.ogg")
+const TRACK_5 = preload("res://assets/music/Track5.ogg")
+const TRACK_6 = preload("res://assets/music/Track6.ogg")
+const TRACK_7 = preload("res://assets/music/Track7.ogg")
+const TRACK_8 = preload("res://assets/music/Track8.ogg")
+const TRACK_9 = preload("res://assets/music/Track9.ogg")
+const TRACK_10 = preload("res://assets/music/Track10.ogg")
+const TRACK_11 = preload("res://assets/music/Track11.ogg")
+const TRACK_12 = preload("res://assets/music/Track12.ogg")
 
 # SFX
+const CLIMB_CATCH = preload("res://assets/sfx/climb_catch.ogg")
+const CROUCH = preload("res://assets/sfx/crouch.ogg")
+const DASH = preload("res://assets/sfx/dash.ogg")
+const DOUBLE_JUMP = preload("res://assets/sfx/double_jump.ogg")
+const FALLING = preload("res://assets/sfx/falling.ogg")
+const JUMP = preload("res://assets/sfx/jump.ogg")
+const LANDING = preload("res://assets/sfx/landing.ogg")
+const LANDING_STOMP = preload("res://assets/sfx/landing_stomp.ogg")
 const RECALL = preload("res://assets/sfx/recall.ogg")
+const ROCK_HIT = preload("res://assets/sfx/rock_hit.ogg")
+const RUNNING = preload("res://assets/sfx/running.ogg")
+const SHIELD_CHARGE = preload("res://assets/sfx/shield_charge.ogg")
+const SHIELD_HIT = preload("res://assets/sfx/shield_hit.ogg")
+const SLIDE = preload("res://assets/sfx/slide.ogg")
+const SPIKE_HIT = preload("res://assets/sfx/spike_hit.ogg")
+const UPGRADE_GET = preload("res://assets/sfx/upgrade_get.ogg")
 
 # Events
 const GIANT = preload("res://assets/sfx/El Gigante.ogg")
+const GIANT_DISTANT = preload("res://assets/sfx/Distant El Gigante.ogg")
 
 var current_track: AudioStreamPlayer
 

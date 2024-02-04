@@ -23,14 +23,14 @@ func _ready() -> void:
 	atlas_coords = tilemap.get_cell_atlas_coords(1, map_pos)
 	atlas_coords_hidden = tilemap.get_cell_atlas_coords(2, map_pos)
 	for i in [1, 2]:
-		var tile: TileData = tilemap.get_cell_tile_data(i, map_pos)
+		var tile_check: TileData = tilemap.get_cell_tile_data(i, map_pos)
 		for j in range(0, 3):
-			if is_instance_valid(tile):
-				if tile.get_collision_polygons_count(j) > 0:
+			if is_instance_valid(tile_check):
+				if tile_check.get_collision_polygons_count(j) > 0:
 					enable_collision = true
-	var tile := tilemap.get_cell_atlas_coords(1, Vector2(map_pos.x, map_pos.y + 1))
+	var tile_bottom := tilemap.get_cell_atlas_coords(1, Vector2(map_pos.x, map_pos.y + 1))
 	if (
-		tile == Vector2i(-1, -1)
+		tile_bottom == Vector2i(-1, -1)
 		and Scene.attachments.has(tilemap.get_cell_atlas_coords(1, map_pos))
 	):
 		is_bottom = true
