@@ -24,6 +24,8 @@ const LANDING = preload("res://assets/sfx/landing.ogg")
 const LANDING_STOMP = preload("res://assets/sfx/landing_stomp.ogg")
 const RECALL = preload("res://assets/sfx/recall.ogg")
 const ROCK_HIT = preload("res://assets/sfx/rock_hit.ogg")
+const ROCK_SHIFT = preload("res://assets/sfx/rock_shift.ogg")
+const ROCK_SHIFT_REVERSE = preload("res://assets/sfx/rock_shift_reverse.ogg")
 const RUNNING = preload("res://assets/sfx/running.ogg")
 const SHIELD_CHARGE = preload("res://assets/sfx/shield_charge.ogg")
 const SHIELD_HIT = preload("res://assets/sfx/shield_hit.ogg")
@@ -36,6 +38,7 @@ const GIANT = preload("res://assets/sfx/El Gigante.ogg")
 const GIANT_DISTANT = preload("res://assets/sfx/Distant El Gigante.ogg")
 
 var current_track: AudioStreamPlayer
+var rock_shift: AudioStreamPlayer
 
 
 func sfx(sound: AudioStream, pitch: float = 1) -> AudioStreamPlayer:
