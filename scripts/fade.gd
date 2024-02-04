@@ -111,3 +111,6 @@ func _fade(
 		if _atlas_texture == FADEIN:
 			tween.tween_callback(Scene.toggle_layers.bind(_tilemap, true))
 	tween.tween_callback(fade_shader.material.set_shader_parameter.bind("toggle", false))
+
+	if not is_instance_valid(Sound.rock_shift):
+		Sound.rock_shift = Sound.sfx(Sound.ROCK_SHIFT)
