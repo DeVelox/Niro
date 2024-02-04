@@ -7,6 +7,7 @@ const FADEOUT = preload("res://assets/elliot/TilesetV5 Fade Out.png")
 var vision: bool = Upgrades.check(Upgrades.Type.VISION)
 var atlas_coords: Vector2i
 var atlas_coords_hidden: Vector2i
+var enable_collision: bool
 var is_bottom: bool
 var tween: Tween
 
@@ -21,6 +22,9 @@ func _ready() -> void:
 	var map_pos := tilemap.local_to_map(position)
 	atlas_coords = tilemap.get_cell_atlas_coords(1, map_pos)
 	atlas_coords_hidden = tilemap.get_cell_atlas_coords(2, map_pos)
+	for i in [1, 2]:
+		if tilemap.get_cell_tile_data(i, map_pos).get_collision_polygons_count(i):
+			enable_collision = true
 	var tile := tilemap.get_cell_atlas_coords(1, Vector2(map_pos.x, map_pos.y + 1))
 	if (
 		tile == Vector2i(-1, -1)
@@ -87,7 +91,7 @@ func _fade(
 		tween.kill()
 	tween = create_tween()
 
-	if _atlas_texture != FADEIN:
+	if enable_collision and _atlas_texture != FADEIN:
 		tween.tween_callback(collision.set_disabled.bind(false))
 
 	if _atlas_texture == STATIC:
