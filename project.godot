@@ -21,6 +21,7 @@ Data="*res://scripts/singleton/data_store.gd"
 Dialog="*res://scripts/singleton/dialog_manager.gd"
 Upgrades="*res://scripts/singleton/upgrade_manager.gd"
 Scene="*res://scripts/singleton/scene_manager.gd"
+Sound="*res://scripts/singleton/sound_manager.gd"
 
 [display]
 

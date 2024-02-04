@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bk6f4lpq5dj1l"
+path="res://.godot/imported/El Gigante.ogg-4f1ca32d1a6eb1e08f57c80c418bdd2f.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sfx/El Gigante.ogg"
+dest_files=["res://.godot/imported/El Gigante.ogg-4f1ca32d1a6eb1e08f57c80c418bdd2f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
