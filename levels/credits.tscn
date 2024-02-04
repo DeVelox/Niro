@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=3 uid="uid://y037n1wlchmo"]
+
+[ext_resource type="Script" path="res://scripts/credits.gd" id="1_ur8mp"]
+[ext_resource type="FontFile" uid="uid://cxul4gjqdn5ua" path="res://assets/temp/04B_03__.TTF" id="3_0dhve"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="5_kqadd"]
+
+[sub_resource type="Gradient" id="Gradient_qd0ge"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3nn3w"]
+gradient = SubResource("Gradient_qd0ge")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_ur8mp")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+light_mask = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 288.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="Tilemap" parent="." instance=ExtResource("5_kqadd")]
+layer_0/tile_data = PackedInt32Array(-458719, 458759, 15, -393183, 458759, 16, -327647, 458759, 17, -262111, 458759, 18, -458718, 524295, 15, -393182, 524295, 16, -327646, 524295, 17, -262110, 524295, 18, -458717, 589831, 15, -393181, 589831, 16, -327645, 589831, 17, -262109, 589831, 18, -458716, 655367, 15, -393180, 655367, 16, -327644, 655367, 17, -262108, 655367, 18, -196575, 524295, 12, -196574, 589831, 12, -196573, 655367, 12, -196572, 786439, 12)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(564, 277)
+scale = Vector2(2.29688, 2.29688)
+color = Color(1, 1, 0.694179, 1)
+texture = SubResource("GradientTexture2D_3nn3w")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/normal_font = ExtResource("3_0dhve")
+theme_override_fonts/bold_font = ExtResource("3_0dhve")
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "[center]
+
+
+
+
+
+[b]
+Boss Man: MrRgon
+Art Man: EjayFreeKAI
+Level Man: LilNumbers
+Code Monkey: DeVelox
+[/b]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\"Club Diver\" Kevin MacLeod (incompetech.com)
+\"Cut and Run\" Kevin MacLeod (incompetech.com)
+\"Harmful or Fatal\" Kevin MacLeod (incompetech.com)
+\"Rising Tide\" Kevin MacLeod (incompetech.com)
+\"Severe Tire Damage\" Kevin MacLeod (incompetech.com)
+\"Spellbound\" Kevin MacLeod (incompetech.com)
+
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/
+[/center]"
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
