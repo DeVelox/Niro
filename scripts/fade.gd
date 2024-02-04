@@ -23,8 +23,10 @@ func _ready() -> void:
 	atlas_coords = tilemap.get_cell_atlas_coords(1, map_pos)
 	atlas_coords_hidden = tilemap.get_cell_atlas_coords(2, map_pos)
 	for i in [1, 2]:
-		if tilemap.get_cell_tile_data(i, map_pos).get_collision_polygons_count(i):
-			enable_collision = true
+		var tile: TileData = tilemap.get_cell_tile_data(i, map_pos)
+		if is_instance_valid(tile):
+			if tile.get_collision_polygons_count(i):
+				enable_collision = true
 	var tile := tilemap.get_cell_atlas_coords(1, Vector2(map_pos.x, map_pos.y + 1))
 	if (
 		tile == Vector2i(-1, -1)
