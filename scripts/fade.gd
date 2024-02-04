@@ -22,7 +22,7 @@ func _ready() -> void:
 	var map_pos := tilemap.local_to_map(position)
 	atlas_coords = tilemap.get_cell_atlas_coords(1, map_pos)
 	atlas_coords_hidden = tilemap.get_cell_atlas_coords(2, map_pos)
-	for i in [1, 2]:
+	for i in range(0,3):
 		var tile: TileData = tilemap.get_cell_tile_data(i, map_pos)
 		if is_instance_valid(tile):
 			if tile.get_collision_polygons_count(i) > 0:
