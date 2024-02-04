@@ -36,9 +36,11 @@ func fade_in(tilemap: TileMap) -> void:
 		return
 	if vision:
 		var tile_hidden = tilemap.get_cell_tile_data(2, tilemap.local_to_map(position))
-		_fade(tilemap, FADEIN, atlas_coords_hidden, tile_hidden.flip_h, tile_hidden.flip_v)
+		if is_instance_valid(tile_hidden):
+			_fade(tilemap, FADEIN, atlas_coords_hidden, tile_hidden.flip_h, tile_hidden.flip_v)
 	var tile = tilemap.get_cell_tile_data(1, tilemap.local_to_map(position))
-	_fade(tilemap, FADEIN, atlas_coords, tile.flip_h, tile.flip_v)
+	if is_instance_valid(tile):
+		_fade(tilemap, FADEIN, atlas_coords, tile.flip_h, tile.flip_v)
 
 
 func fade_out(tilemap: TileMap) -> void:
@@ -46,9 +48,11 @@ func fade_out(tilemap: TileMap) -> void:
 		return
 	if vision:
 		var tile_hidden = tilemap.get_cell_tile_data(2, tilemap.local_to_map(position))
-		_fade(tilemap, FADEOUT, atlas_coords_hidden, tile_hidden.flip_h, tile_hidden.flip_v)
+		if is_instance_valid(tile_hidden):
+			_fade(tilemap, FADEOUT, atlas_coords_hidden, tile_hidden.flip_h, tile_hidden.flip_v)
 	var tile = tilemap.get_cell_tile_data(1, tilemap.local_to_map(position))
-	_fade(tilemap, FADEOUT, atlas_coords, tile.flip_h, tile.flip_v)
+	if is_instance_valid(tile):
+		_fade(tilemap, FADEOUT, atlas_coords, tile.flip_h, tile.flip_v)
 
 
 func stay(tilemap: TileMap) -> void:
@@ -56,9 +60,11 @@ func stay(tilemap: TileMap) -> void:
 		return
 	if vision:
 		var tile_hidden = tilemap.get_cell_tile_data(2, tilemap.local_to_map(position))
-		_fade(tilemap, STATIC, atlas_coords_hidden, tile_hidden.flip_h, tile_hidden.flip_v)
+		if is_instance_valid(tile_hidden):
+			_fade(tilemap, STATIC, atlas_coords_hidden, tile_hidden.flip_h, tile_hidden.flip_v)
 	var tile = tilemap.get_cell_tile_data(1, tilemap.local_to_map(position))
-	_fade(tilemap, STATIC, atlas_coords, tile.flip_h, tile.flip_v)
+	if is_instance_valid(tile):
+		_fade(tilemap, STATIC, atlas_coords, tile.flip_h, tile.flip_v)
 
 
 func _fade(
