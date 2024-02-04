@@ -151,6 +151,7 @@ func toggle_layers(tilemap: TileMap, state: bool) -> void:
 
 
 func recall(tilemap_count) -> void:
+	Sound.sfx(Sound.RECALL)
 	if not tilemap_count:
 		reload()
 		return

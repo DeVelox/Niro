@@ -9,7 +9,7 @@ script/source = "extends Level
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Sound.crossfade(Sound.current_track, Sound.TRACK6)
+	Sound.crossfade(Sound.TRACK6)
 	await get_tree().create_timer(5).timeout
 	Sound.event(Sound.GIANT)
 
