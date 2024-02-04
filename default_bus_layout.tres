@@ -14,8 +14,7 @@ wet = 0.05
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_8ptsg"]
 resource_name = "Compressor"
-threshold = -18.0
-ratio = 6.0
+threshold = -9.0
 sidechain = &"Events"
 
 [resource]
