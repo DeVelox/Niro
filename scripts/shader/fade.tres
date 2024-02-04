@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b5a65v18rfjqv"]
 
 [ext_resource type="Shader" path="res://scripts/shader/fade.gdshader" id="1_is8ln"]
-[ext_resource type="Texture2D" uid="uid://djpl4d2yjekbk" path="res://assets/elliot/TilesetV4_Animation_Reverse.png" id="2_rv5yv"]
+[ext_resource type="Texture2D" uid="uid://daerjbthowjgl" path="res://assets/elliot/TilesetV5 Fade Out.png" id="2_seajs"]
 
 [resource]
 resource_local_to_scene = true
@@ -13,4 +13,4 @@ shader_parameter/atlas_y = 0
 shader_parameter/toggle = false
 shader_parameter/flip_h = false
 shader_parameter/flip_v = false
-shader_parameter/atlas = ExtResource("2_rv5yv")
+shader_parameter/atlas = ExtResource("2_seajs")

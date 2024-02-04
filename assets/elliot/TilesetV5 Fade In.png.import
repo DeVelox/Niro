@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q08hfrvh6kc5"
-path="res://.godot/imported/dustwhat.png-787b1ad7f94986a1899eb11fbc06ab4d.ctex"
+uid="uid://bife3li56v8p8"
+path="res://.godot/imported/TilesetV5 Fade In.png-ce7bf65b94d8486c7e85f97c4da407bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/elliot/dustwhat.png"
-dest_files=["res://.godot/imported/dustwhat.png-787b1ad7f94986a1899eb11fbc06ab4d.ctex"]
+source_file="res://assets/elliot/TilesetV5 Fade In.png"
+dest_files=["res://.godot/imported/TilesetV5 Fade In.png-ce7bf65b94d8486c7e85f97c4da407bc.ctex"]
 
 [params]
 
