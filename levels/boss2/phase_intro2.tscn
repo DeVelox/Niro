@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bof7x5nvjy5s6"]
+[gd_scene load_steps=6 format=3 uid="uid://bof7x5nvjy5s6"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ng6xm"]
 [ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/elliot/tutorialPlaceholder1.png" id="4_a5ave"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_vv31t"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="5_q68go"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
@@ -37,7 +38,7 @@ next = NodePath("../Scene3")
 [node name="Scene3" parent="." node_paths=PackedStringArray("prev") groups=["hidden"] instance=ExtResource("5_q68go")]
 layer_1/tile_data = PackedInt32Array(-1179646, 1310727, 3, -1179645, 1376263, 3, -1179644, 1441799, 3, -1245182, 1310727, 1, -1245181, 1376263, 1, -1245180, 1441799, 1, -1245172, 1310727, 5, -1179636, 1310727, 6, -1245169, 1376263, 5, -1179633, 1376263, 6, -1245168, 1441799, 5, -1179632, 1441799, 6, -1245170, 1376263, 5, -1179634, 1376263, 6, -1245171, 1376263, 5, -1179635, 1376263, 6, -1310713, 720903, 0, -1245177, 720903, 2, -1179641, 720903, 3, -1114105, 720903, 4, -1310712, 786439, 0, -1245176, 786439, 2, -1179640, 786439, 3, -1114104, 786439, 4, -1179617, 1310727, 6, -1179616, 1376263, 6, -1179615, 1441799, 6, -1245153, 1310727, 5, -1245152, 1376263, 5, -1245151, 1441799, 5, -1245162, 1310727, 9, -1179626, 1310727, 10, -1245161, 1376263, 9, -1179625, 1376263, 10, -1245160, 1441799, 9, -1179624, 1441799, 10, -1114090, 720903, 10, -1114089, 786439, 10, -1114088, 851975, 10, -1114081, 524295, 10, -1114080, 589831, 10, -1114079, 655367, 10, -1114100, 851975, 12, -1114099, 917511, 12, -1114098, 983047, 12, -1114097, 1048583, 12, -1114096, 1114119, 12)
 layer_2/tile_data = PackedInt32Array(-1114084, 1441799, 1, -1048548, 1441799, 2, -1114086, 1310727, 1, -1048550, 1310727, 2, -1114085, 1376263, 1, -1048549, 1376263, 2)
-layer_3/tile_data = PackedInt32Array(-1310713, 1, 393216, -1245177, 1, 393216, -1179641, 1, 393216, -1114105, 1, 393216, -1114104, 1, 393216, -1179640, 1, 393216, -1245176, 1, 393216, -1310712, 1, 393216, -1245162, 1, 393216, -1245161, 1, 393216, -1245160, 1, 393216)
+layer_3/tile_data = PackedInt32Array(-1310713, 1, 393216, -1245177, 1, 393216, -1179641, 1, 393216, -1114105, 1, 393216, -1114104, 1, 393216, -1179640, 1, 393216, -1245176, 1, 393216, -1310712, 1, 393216, -1245162, 1, 393216, -1245161, 1, 393216, -1245160, 1, 393216, -1507296, 1114119, 2, -1441760, 1114119, 3, -1376224, 1114119, 4, -1310688, 1114119, 5)
 layer_4/tile_data = PackedInt32Array(-1310713, 1, 131072, -1245177, 1, 131072, -1179641, 1, 131072, -1114105, 1, 131072, -1310712, 1, 131072, -1245176, 1, 131072, -1179640, 1, 131072, -1114104, 1, 131072, -1179636, 1, 131072, -1245172, 1, 131072, -1245171, 1, 131072, -1245170, 1, 131072, -1179635, 1, 131072, -1179634, 1, 131072, -1179633, 1, 131072, -1245169, 1, 131072, -1245168, 1, 131072, -1179632, 1, 131072, -1245162, 1, 131072, -1179626, 1, 131072, -1179625, 1, 131072, -1245161, 1, 131072, -1245160, 1, 131072, -1179624, 1, 131072, -1114086, 1, 131072, -1048550, 1, 131072, -1048549, 1, 131072, -1114085, 1, 131072, -1114084, 1, 131072, -1048548, 1, 131072, -1245153, 1, 131072, -1179617, 1, 131072, -1179616, 1, 131072, -1245152, 1, 131072, -1245151, 1, 131072, -1179615, 1, 131072, -1114100, 1, 131072, -1114099, 1, 131072, -1114098, 1, 131072, -1114097, 1, 131072, -1114096, 1, 131072, -1114090, 1, 131072, -1114089, 1, 131072, -1114088, 1, 131072, -1114081, 1, 131072, -1114080, 1, 131072, -1114079, 1, 131072)
 prev = NodePath("../Scene2")
 
@@ -49,27 +50,5 @@ metadata/_edit_group_ = true
 position = Vector2(0, 10)
 shape = SubResource("CapsuleShape2D_m7p01")
 
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@44599" to="Scene1/@Area2D@44599" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@44600" to="Scene1/@Area2D@44600" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@44601" to="Scene1/@Area2D@44601" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/KillZone" to="Scene2/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@44625" to="Scene2/@Area2D@44625" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@44626" to="Scene2/@Area2D@44626" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@44627" to="Scene2/@Area2D@44627" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@44628" to="Scene2/@Area2D@44628" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@44629" to="Scene2/@Area2D@44629" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@44630" to="Scene2/@Area2D@44630" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@44631" to="Scene2/@Area2D@44631" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/KillZone" to="Scene3/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58624" to="Scene3/@Area2D@58624" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58625" to="Scene3/@Area2D@58625" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58626" to="Scene3/@Area2D@58626" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58627" to="Scene3/@Area2D@58627" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58628" to="Scene3/@Area2D@58628" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58629" to="Scene3/@Area2D@58629" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58630" to="Scene3/@Area2D@58630" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58631" to="Scene3/@Area2D@58631" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58632" to="Scene3/@Area2D@58632" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@58633" to="Scene3/@Area2D@58633" method="_on_body_entered"]
+[node name="SceneSwitcher" parent="." instance=ExtResource("4_vv31t")]
+next_scene = "res://levels/boss2/level1.tscn"
