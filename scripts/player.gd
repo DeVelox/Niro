@@ -435,8 +435,9 @@ func _try_recall(long_reset = false) -> void:
 		_hard_recall()
 	elif checkpoint and Upgrades.check(Upgrades.Type.RECALL):
 		_soft_recall()
-	else:
-		_hard_recall()
+	# Don't send the player to the shadow realm on accidental press
+	#else:
+	#_hard_recall()
 
 
 func _hard_recall() -> void:
