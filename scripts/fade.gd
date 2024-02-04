@@ -28,6 +28,8 @@ func _ready() -> void:
 	):
 		is_bottom = true
 
+	collision.set_disabled.call_deferred("true")
+
 
 func fade_in(tilemap: TileMap) -> void:
 	if tilemap != get_parent():
@@ -75,19 +77,24 @@ func _fade(
 	fade_shader.material.set_shader_parameter("frames", 10)
 	fade_shader.material.set_shader_parameter("toggle", true)
 
+	if is_instance_valid(tween):
+		tween.kill()
+	tween = create_tween()
+
+	if _atlas_texture != FADEIN:
+		tween.tween_callback(collision.set_disabled.bind(false))
+
 	if _atlas_texture == STATIC:
 		fade_shader.material.set_shader_parameter("frame", 0)
 		fade_shader.material.set_shader_parameter("frames", 1)
+		tween.tween_callback(collision.set_disabled.bind(true)).set_delay(1.0)
 	else:
-		if is_instance_valid(tween):
-			tween.kill()
-		tween = create_tween()
 		if _atlas_texture == FADEOUT:
-			tween.tween_property(collision, "disabled", true, 0.5)
+			tween.tween_callback(collision.set_disabled.bind(true)).set_delay(0.5)
 		tween.parallel().tween_property(fade_shader.material, "shader_parameter/frame", 9, 1.0)
 		if is_bottom:
 			tween.parallel().tween_property(rubble, "emitting", true, 0.0)
 			tween.tween_property(rubble, "emitting", false, 0.0)
-		tween.tween_property(fade_shader.material, "shader_parameter/toggle", false, 0.0)
 		if _atlas_texture == FADEIN:
 			tween.tween_callback(Scene.toggle_layers.bind(_tilemap, true))
+	tween.tween_callback(fade_shader.material.set_shader_parameter.bind("toggle", false))
