@@ -157,10 +157,11 @@ func recall(tilemap_count) -> void:
 		return
 	active_tilemap.reverse()
 	for tilemap in active_tilemap:
-		if not tilemap.prev:
-			break
-		_recall_out(tilemap)
-		await _recall_in(tilemap.prev)
+		if is_instance_valid(tilemap):
+			if not tilemap.prev:
+				break
+			_recall_out(tilemap)
+			await _recall_in(tilemap.prev)
 	active_tilemap.clear()
 	reload()
 
