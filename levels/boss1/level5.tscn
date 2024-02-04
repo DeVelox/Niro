@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b108fsdwed7x"]
+[gd_scene load_steps=5 format=3 uid="uid://b108fsdwed7x"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_j3ybu"]
 [ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/elliot/stoneGiantPlaceholder1.png" id="2_nwcar"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_31hk2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
 radius = 12.0
@@ -17,7 +18,12 @@ offset_bottom = 40.0
 texture = ExtResource("2_nwcar")
 
 [node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(170, 65)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
 position = Vector2(0, 10)
 shape = SubResource("CapsuleShape2D_m7p01")
+
+[node name="Tilemap" parent="." instance=ExtResource("3_31hk2")]
+layer_1/tile_data = PackedInt32Array(-1114104, 1310727, 1, -1048568, 1310727, 2, -1114103, 1376263, 1, -1048567, 1376263, 2, -1114102, 1376263, 1, -1048566, 1376263, 2, -1114101, 1376263, 1, -1048565, 1376263, 2, -1114100, 1441799, 1, -1048564, 1441799, 2, -1441771, 1114119, 2, -1376235, 1114119, 3, -1310699, 1114119, 4, -1245163, 1114119, 5)
+layer_4/tile_data = PackedInt32Array(-1245163, 1, 131072, -1310699, 1, 131072, -1376235, 1, 131072, -1441771, 1, 131072)
