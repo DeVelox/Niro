@@ -38,7 +38,7 @@ const GIANT_DISTANT = preload("res://assets/sfx/Distant El Gigante.ogg")
 var current_track: AudioStreamPlayer
 
 
-func sfx(sound: AudioStream, pitch: float = 1) -> void:
+func sfx(sound: AudioStream, pitch: float = 1) -> AudioStreamPlayer:
 	var audio: AudioStreamPlayer = AudioStreamPlayer.new()
 	audio.bus = "Sounds"
 	audio.stream = sound
@@ -47,9 +47,10 @@ func sfx(sound: AudioStream, pitch: float = 1) -> void:
 	get_tree().current_scene.add_child(audio)
 	audio.finished.connect(audio.queue_free)
 	audio.play()
+	return audio
 
 
-func event(sound: AudioStream) -> void:
+func event(sound: AudioStream) -> AudioStreamPlayer:
 	var audio: AudioStreamPlayer = AudioStreamPlayer.new()
 	audio.bus = "Events"
 	audio.stream = sound
@@ -57,6 +58,7 @@ func event(sound: AudioStream) -> void:
 	get_tree().current_scene.add_child(audio)
 	audio.finished.connect(audio.queue_free)
 	audio.play()
+	return audio
 
 
 func music(track: AudioStream, loop: bool = true) -> AudioStreamPlayer:

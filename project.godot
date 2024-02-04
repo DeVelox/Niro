@@ -123,6 +123,7 @@ debug={
 2d_physics/layer_7="prop"
 2d_physics/layer_8="wall"
 2d_physics/layer_9="rope"
+2d_physics/layer_10="pegs"
 
 [rendering]
 

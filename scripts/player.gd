@@ -550,7 +550,7 @@ func _start_climbing(body: Node2D) -> void:
 		velocity.x = 0
 		is_climbing = true
 		is_dashing = false
-		Sound.sfx(Sound.CLIMB_CATCHddd)
+		Sound.sfx(Sound.CLIMB_CATCH)
 
 
 func _on_climbing_top_entered(body: Node2D) -> void:
