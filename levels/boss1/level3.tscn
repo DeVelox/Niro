@@ -19,7 +19,7 @@ offset_bottom = 40.0
 texture = ExtResource("2_bj2au")
 
 [node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(484, 123)
+position = Vector2(484, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
 shape = SubResource("CapsuleShape2D_m7p01")
@@ -41,7 +41,3 @@ prev = NodePath("../Tilemap")
 [node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on") instance=ExtResource("5_3lahn")]
 position = Vector2(521, 292)
 enable_on = NodePath("../Tilemap2")
-
-[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@67120" to="Tilemap/@Area2D@67120" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@67121" to="Tilemap/@Area2D@67121" method="_on_body_entered"]
