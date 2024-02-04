@@ -301,6 +301,10 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="RepeatSound" type="Timer" parent="Timers"]
+wait_time = 0.3
+autostart = true
+
 [node name="Detectors" type="Node2D" parent="."]
 
 [node name="DropCheck" type="RayCast2D" parent="Detectors"]
@@ -373,6 +377,7 @@ animation = &"double_jump"
 [connection signal="timeout" from="Timers/DashGhost" to="." method="_dash_ghost"]
 [connection signal="timeout" from="Timers/SlideTimer" to="." method="_on_slide_finished"]
 [connection signal="timeout" from="Timers/Invulnerability" to="." method="_on_invulnerability_timeout"]
+[connection signal="timeout" from="Timers/RepeatSound" to="." method="_on_repeat_sound_timeout"]
 [connection signal="body_entered" from="Detectors/WallHangLeft" to="." method="_on_left_wall_touched"]
 [connection signal="body_exited" from="Detectors/WallHangLeft" to="." method="_on_wall_exited"]
 [connection signal="body_entered" from="Detectors/WallHangRight" to="." method="_on_right_wall_touched"]

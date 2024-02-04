@@ -55,6 +55,7 @@ var should_take_damage := true
 @onready var gap_check: Area2D = $Detectors/GapCheck
 @onready var animations: AnimationPlayer = $Animations
 @onready var dash_ghost: Timer = $Timers/DashGhost
+@onready var repeat_sound: Timer = $Timers/RepeatSound
 
 
 func _physics_process(delta: float) -> void:
@@ -577,3 +578,15 @@ func _on_screen_exited() -> void:
 	if global_position.y < 0:
 		return
 	_try_recall()
+
+
+func _on_repeat_sound_timeout() -> void:
+	if is_on_floor():
+		if is_crouching:
+			repeat_sound.wait_time = 0.5
+			Sound.sfx(Sound.RUNNING, 0.5)
+		elif not is_sliding and not is_zero_approx(velocity.x):
+			repeat_sound.wait_time = 0.3
+			Sound.sfx(Sound.RUNNING)
+	else:
+		return
