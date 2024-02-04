@@ -25,7 +25,7 @@ func _ready() -> void:
 	for i in [1, 2]:
 		var tile: TileData = tilemap.get_cell_tile_data(i, map_pos)
 		if is_instance_valid(tile):
-			if tile.get_collision_polygons_count(i):
+			if tile.get_collision_polygons_count(i) > 0:
 				enable_collision = true
 	var tile := tilemap.get_cell_atlas_coords(1, Vector2(map_pos.x, map_pos.y + 1))
 	if (
