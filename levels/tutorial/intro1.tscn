@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://jjonqbhottmy"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_7m3w6"]
-[ext_resource type="Texture2D" uid="uid://by88pqvsnr0kq" path="res://assets/elliot/tutorialPlaceholder.png" id="2_7bkfc"]
+[ext_resource type="PackedScene" uid="uid://bbn1m5fehj7kt" path="res://prefabs/level design/giant_legs.tscn" id="2_kgp01"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_sfk4o"]
 [ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="4_505hl"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="5_i7jqx"]
@@ -78,13 +78,7 @@ func _on_player_entered(body: Node2D) -> void:
 [node name="Level3" type="Node2D"]
 script = ExtResource("1_7m3w6")
 
-[node name="Feet" type="TextureRect" parent="."]
-z_index = -1
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 656.0
-offset_bottom = 376.0
-texture = ExtResource("2_7bkfc")
+[node name="GiantLegs" parent="." instance=ExtResource("2_kgp01")]
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(395, 313)
@@ -142,5 +136,9 @@ next_scene = "res://levels/tutorial/intro2.tscn"
 enable_on = NodePath("../scene2")
 set_player_spawn = true
 
+[connection signal="body_entered" from="scene1/Fader" to="scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="scene1/@Area2D@53573" to="scene1/@Area2D@53573" method="_on_body_entered"]
+[connection signal="body_entered" from="scene1/@Area2D@53574" to="scene1/@Area2D@53574" method="_on_body_entered"]
+[connection signal="body_entered" from="scene1/@Area2D@53575" to="scene1/@Area2D@53575" method="_on_body_entered"]
 [connection signal="body_entered" from="text2_jump" to="text2_jump" method="_on_player_entered"]
 [connection signal="body_entered" from="text3_climb" to="text3_climb" method="_on_player_entered"]
