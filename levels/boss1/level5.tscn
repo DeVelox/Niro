@@ -55,18 +55,8 @@ layer_4/tile_data = PackedInt32Array(-196605, 1, 131072, -196604, 1, 131072, -19
 layer_5/tile_data = PackedInt32Array(-196605, 1, 196608, -196604, 1, 196608, -196603, 1, 196608, -196602, 1, 196608, -196601, 1, 196608, -262137, 1, 196608, -262138, 1, 196608, -262139, 1, 196608, -262140, 1, 196608, -262141, 1, 196608, -196588, 1, 196608, -196587, 1, 196608, -196586, 1, 196608, -262122, 1, 196608, -262123, 1, 196608, -262124, 1, 196608, -524267, 1, 196608, -589803, 1, 196608, -655339, 1, 196608, -720875, 1, 196608, -786411, 1, 196608, -851947, 1, 196608, -917483, 1, 196608, -983019, 1, 196608, -1048555, 1, 196608, -1114092, 1, 196608, -1114093, 1, 196608, -1114094, 1, 196608, -1179630, 1, 196608, -1179629, 1, 196608, -1179628, 1, 196608, -1245159, 1, 196608, -1179623, 1, 196608, -1114087, 1, 196608, -1048551, 1, 196608, -983015, 1, 196608, -917479, 1, 196608, -851943, 1, 196608, -786407, 1, 196608, -720871, 1, 196608, -655335, 1, 196608, -589799, 1, 196608, -524263, 1, 196608, -458727, 1, 196608, -393191, 1, 196608)
 prev = NodePath("../Tilemap3")
 
-[node name="SceneSwitcher" parent="." instance=ExtResource("4_n1v4p")]
+[node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on", "outro") instance=ExtResource("4_n1v4p")]
 position = Vector2(313, 69)
-
-[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@31776" to="Tilemap/@Area2D@31776" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@31777" to="Tilemap/@Area2D@31777" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/KillZone" to="Tilemap/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@31778" to="Tilemap/@Area2D@31778" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@31813" to="Tilemap2/@Area2D@31813" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@31814" to="Tilemap2/@Area2D@31814" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@31815" to="Tilemap2/@Area2D@31815" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap3/Fader" to="Tilemap3/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap3/@Area2D@31853" to="Tilemap3/@Area2D@31853" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap3/@Area2D@31854" to="Tilemap3/@Area2D@31854" method="_on_body_entered"]
+next_scene = "res://levels/boss1/level6.tscn"
+enable_on = NodePath("../Tilemap4")
+outro = NodePath("../Tilemap4")
