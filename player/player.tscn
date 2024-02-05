@@ -2644,6 +2644,7 @@ target_position = Vector2(0, 100)
 collision_mask = 8
 
 [node name="InteractCheck" type="RayCast2D" parent="Detectors"]
+position = Vector2(0, 9)
 target_position = Vector2(64, 0)
 collision_mask = 32
 hit_from_inside = true
