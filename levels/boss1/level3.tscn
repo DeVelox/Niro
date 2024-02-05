@@ -40,33 +40,8 @@ layer_4/tile_data = PackedInt32Array(-262140, 1, 131072, -262139, 1, 131072, -26
 layer_5/tile_data = PackedInt32Array(-655347, 1, 196608, -655346, 1, 196608, -720882, 1, 196608, -786418, 1, 196608, -851954, 1, 196608, -917490, 1, 196608, -983026, 1, 196608, -1048562, 1, 196608, -1114098, 1, 196608, -1114099, 1, 196608, -1048563, 1, 196608, -983027, 1, 196608, -917491, 1, 196608, -851955, 1, 196608, -786419, 1, 196608, -720883, 1, 196608, -917499, 1, 196608, -917498, 1, 196608, -917497, 1, 196608, -851961, 1, 196608, -851962, 1, 196608, -851963, 1, 196608, -262140, 1, 196608, -262139, 1, 196608, -262138, 1, 196608, -262137, 1, 196608, -262136, 1, 196608, -262135, 1, 196608, -262134, 1, 196608, -262133, 1, 196608, -196597, 1, 196608, -196598, 1, 196608, -196599, 1, 196608, -196600, 1, 196608, -196601, 1, 196608, -196602, 1, 196608, -196603, 1, 196608, -196604, 1, 196608, -262131, 1, 196608, -196595, 1, 196608, -131059, 1, 196608, -65523, 1, 196608, -65522, 1, 196608, -131058, 1, 196608, -196594, 1, 196608, -262130, 1, 196608, -262128, 1, 196608, -262127, 1, 196608, -262126, 1, 196608, -262125, 1, 196608, -262124, 1, 196608, -262123, 1, 196608, -262122, 1, 196608, -262121, 1, 196608, -196585, 1, 196608, -196586, 1, 196608, -196587, 1, 196608, -196588, 1, 196608, -196589, 1, 196608, -196590, 1, 196608, -196591, 1, 196608, -196592, 1, 196608, -196578, 1, 327680, -196577, 1, 327680, -196576, 1, 327680, -196575, 1, 327680, -196574, 1, 327680, -262110, 1, 327680, -262111, 1, 327680, -262112, 1, 327680, -262113, 1, 327680, -262114, 1, 327680)
 prev = NodePath("../Tilemap")
 
-[node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on") instance=ExtResource("5_3lahn")]
+[node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on", "outro") instance=ExtResource("5_3lahn")]
 position = Vector2(521, 292)
 next_scene = "res://levels/boss1/level4.tscn"
 enable_on = NodePath("../Tilemap2")
-
-[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@28699" to="Tilemap/@Area2D@28699" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@28700" to="Tilemap/@Area2D@28700" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/KillZone" to="Tilemap2/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@28769" to="Tilemap2/@Area2D@28769" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@28770" to="Tilemap2/@Area2D@28770" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@28771" to="Tilemap2/@Area2D@28771" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29853" to="Tilemap2/@Area2D@29853" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29854" to="Tilemap2/@Area2D@29854" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29855" to="Tilemap2/@Area2D@29855" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29856" to="Tilemap2/@Area2D@29856" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29857" to="Tilemap2/@Area2D@29857" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29858" to="Tilemap2/@Area2D@29858" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29859" to="Tilemap2/@Area2D@29859" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29860" to="Tilemap2/@Area2D@29860" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29861" to="Tilemap2/@Area2D@29861" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29862" to="Tilemap2/@Area2D@29862" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29863" to="Tilemap2/@Area2D@29863" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29864" to="Tilemap2/@Area2D@29864" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29865" to="Tilemap2/@Area2D@29865" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29866" to="Tilemap2/@Area2D@29866" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29867" to="Tilemap2/@Area2D@29867" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29868" to="Tilemap2/@Area2D@29868" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29869" to="Tilemap2/@Area2D@29869" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@29870" to="Tilemap2/@Area2D@29870" method="_on_body_entered"]
+outro = NodePath("../Tilemap2")
