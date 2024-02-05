@@ -54,9 +54,3 @@ next_scene = "res://levels/boss1/level5.tscn"
 enable_on = NodePath("../Tilemap3")
 outro = NodePath("../Tilemap3")
 set_player_spawn = true
-
-[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@39144" to="Tilemap/@Area2D@39144" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@39240" to="Tilemap2/@Area2D@39240" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@39241" to="Tilemap2/@Area2D@39241" method="_on_body_entered"]
