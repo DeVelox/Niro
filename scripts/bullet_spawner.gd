@@ -5,7 +5,6 @@ const BULLET_SPEED = 400
 const STARTING_ANGLE = 0
 
 @export var delay: float = 1.5
-@export var point: Vector2
 @export var angle: float = STARTING_ANGLE
 @export var bullet_count: int = 4
 @export var groups: int = 3
@@ -20,14 +19,12 @@ const STARTING_ANGLE = 0
 @onready var target: CollisionShape2D = $Target
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	timer.start(delay)
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	if delay and timer.is_stopped():
+		timer.start(delay)
+	elif delay == 0.0:
+		timer.stop()
 
 
 func _shoot_barrage(shot_angle: float, barrage_count: int) -> void:
@@ -47,13 +44,13 @@ func _shoot_single(shot_angle: float) -> void:
 	add_child(bullet)
 
 
-func _shoot_shotgun(shot_angle: float, pellet_count: int, speed_variant_array: Array[int]) -> void:
+func _shoot_shotgun(shot_angle: float, pellet_count: int, speed_var_array: Array[int]) -> void:
 	var angle_diff: float = 2 * PI / (bullet_spread * (groups - 1))
 	shot_angle -= angle_diff * pellet_count / 2
 	for count in pellet_count:
 		var direction := _get_direction(shot_angle)
 		var bullet: Bullet = BULLET.instantiate()
-		bullet.direction = direction * (BULLET_SPEED - speed_variant_array[count])
+		bullet.direction = direction * (BULLET_SPEED - speed_var_array[count])
 		add_child(bullet)
 		shot_angle += angle_diff
 
