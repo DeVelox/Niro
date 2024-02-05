@@ -1,0 +1,150 @@
+[gd_scene load_steps=12 format=3 uid="uid://jjonqbhottmy"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_7m3w6"]
+[ext_resource type="Texture2D" uid="uid://by88pqvsnr0kq" path="res://assets/elliot/tutorialPlaceholder.png" id="2_7bkfc"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_sfk4o"]
+[ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="4_505hl"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="5_i7jqx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
+[sub_resource type="GDScript" id="GDScript_tljyp"]
+script/source = "extends Area2D
+@onready var old_man: Area2D = $\"../OldMan\"
+@onready var text_box_position: Marker2D = $\"../text_box_position\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var lines: Array[String] = [\"Hey... up here!\", \"Can you walk? (arrow keys)\"]
+	old_man.say(lines, text_box_position.global_position)
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fkw68"]
+size = Vector2(64.5, 11)
+
+[sub_resource type="GDScript" id="GDScript_nf51d"]
+script/source = "extends Area2D
+@onready var old_man: Area2D = $\"../OldMan\"
+@onready var text_box_position: Marker2D = $\"../text_box_position\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func _on_player_entered(body: Node2D) -> void:
+	if body.is_in_group(\"players\"):
+		var lines: Array[String] = [\"Come up!\", \"Jump! (space)\"]
+		body_entered.disconnect(_on_player_entered)
+		old_man.say(lines, text_box_position.global_position)
+"
+
+[sub_resource type="GDScript" id="GDScript_3mipr"]
+script/source = "extends Area2D
+@onready var old_man: Area2D = $\"../OldMan\"
+@onready var text_box_position: Marker2D = $\"../text_box_position\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+
+
+func _on_player_entered(body: Node2D) -> void:
+	if body.is_in_group(\"players\"):
+		var lines: Array[String] = [\"Up the vine quick!\", \"You know how to climb right? (up arrow)\"]
+		body_entered.disconnect(_on_player_entered)
+		old_man.say(lines, text_box_position.global_position)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bnkkp"]
+
+[node name="Level3" type="Node2D"]
+script = ExtResource("1_7m3w6")
+
+[node name="Feet" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 656.0
+offset_bottom = 376.0
+texture = ExtResource("2_7bkfc")
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(395, 313)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_m7p01")
+
+[node name="scene1" parent="." node_paths=PackedStringArray("next") instance=ExtResource("3_sfk4o")]
+layer_0/tile_data = PackedInt32Array(-65536, 196610, 268435460, 0, 196610, 268435461, -65535, 196610, 4, 1, 196610, 5, -65534, 196610, 4, 2, 196610, 5, -65533, 262146, 4, 3, 262146, 5, -65532, 327682, 4, 4, 327682, 5, -65531, 327682, 268435460, 5, 327682, 268435461, -65530, 262146, 268435460, 6, 262146, 268435461, -65529, 196610, 268435460, 7, 196610, 268435461, -65528, 196610, 4, 8, 196610, 5, -65527, 262146, 4, 9, 262146, 5, -65526, 327682, 4, 10, 327682, 5, -65525, 327682, 268435460, 11, 327682, 268435461, -65524, 262146, 268435460, 12, 262146, 268435461, -65523, 196610, 268435460, 13, 196610, 268435461, -65522, 196610, 4, 14, 196610, 5, -65521, 262146, 4, 15, 262146, 5, -65520, 327682, 4, 16, 327682, 5, -65519, 327682, 268435460, 17, 327682, 268435461, -65518, 262146, 268435460, 18, 262146, 268435461, -65517, 196610, 268435460, 19, 196610, 268435461, -65516, 196610, 4, 20, 196610, 5, -65515, 262146, 4, 21, 262146, 5, -65514, 327682, 4, 22, 327682, 5, -65511, 196610, 268435460, -65512, 262146, 268435460, -65513, 327682, 268435460, 25, 196610, 268435461, 24, 262146, 268435461, 23, 327682, 268435461, -65508, 327682, 4, -65509, 262146, 4, -65510, 196610, 4, 28, 327682, 5, 27, 262146, 5, 26, 196610, 5, -65505, 196610, 268435460, -65506, 262146, 268435460, -65507, 327682, 268435460, 31, 196610, 268435461, 30, 262146, 268435461, 29, 327682, 268435461, -65502, 327682, 4, -65503, 262146, 4, -65504, 196610, 4, 34, 327682, 5, 33, 262146, 5, 32, 196610, 5, -65499, 196610, 268435460, -65500, 262146, 268435460, -65501, 327682, 268435460, 37, 196610, 268435461, 36, 262146, 268435461, 35, 327682, 268435461, -65496, 327682, 4, -65497, 262146, 4, -65498, 196610, 4, 40, 327682, 5, 39, 262146, 5, 38, 196610, 5, -1, 262146, 268435460, 65535, 262146, 268435461)
+layer_1/tile_data = PackedInt32Array(-262134, 1376263, 2, -262133, 1441799, 2, -327671, 1310727, 1, -262135, 1310727, 2, -327670, 1376263, 1, -327669, 1441799, 1, -524285, 1376263, 5, -458749, 1376263, 6, -524284, 1376263, 268435461, -458748, 1376263, 268435462, -524283, 1376263, 5, -458747, 1376263, 6, -524282, 1441799, 5, -458746, 1441799, 6, -524286, 1310727, 5, -458750, 1310727, 6, -786427, 1310727, 1, -720891, 1310727, 2, -786426, 1376263, 1, -720890, 1376263, 2, -786425, 1441799, 1, -720889, 1441799, 2)
+layer_3/tile_data = PackedInt32Array(-655355, 1, 262144, -655356, 1, 262144, -655357, 1, 262144, -655358, 1, 262144)
+layer_4/tile_data = PackedInt32Array(-327669, 1, 131072, -262133, 1, 131072, -262134, 1, 131072, -327670, 1, 131072, -327671, 1, 131072, -262135, 1, 131072, -524282, 1, 131072, -458746, 1, 131072, -458747, 1, 131072, -524283, 1, 131072, -524284, 1, 131072, -458748, 1, 131072, -458749, 1, 131072, -458750, 1, 131072, -524286, 1, 131072, -524285, 1, 131072, -720891, 1, 131072, -786427, 1, 131072, -786426, 1, 131072, -720890, 1, 131072, -720889, 1, 131072, -786425, 1, 131072)
+layer_5/tile_data = PackedInt32Array(-327669, 1, 327680, -262133, 1, 327680, -262134, 1, 327680, -327670, 1, 327680, -327671, 1, 327680, -262135, 1, 327680, -524282, 1, 327680, -458746, 1, 327680, -524283, 1, 327680, -524284, 1, 327680, -458748, 1, 327680, -458747, 1, 327680, -458749, 1, 327680, -524285, 1, 327680, -524286, 1, 327680, -458750, 1, 327680, -786427, 1, 327680, -720891, 1, 327680, -720890, 1, 327680, -786426, 1, 327680, -786425, 1, 327680, -720889, 1, 327680)
+next = NodePath("../scene2")
+
+[node name="scene2" parent="." node_paths=PackedStringArray("prev") instance=ExtResource("3_sfk4o")]
+layer_0/tile_data = PackedInt32Array(-65536, 196610, 268435460, 0, 196610, 268435461, -65535, 196610, 4, 1, 196610, 5, -65534, 196610, 4, 2, 196610, 5, -65533, 262146, 4, 3, 262146, 5, -65532, 327682, 4, 4, 327682, 5, -65531, 327682, 268435460, 5, 327682, 268435461, -65530, 262146, 268435460, 6, 262146, 268435461, -65529, 196610, 268435460, 7, 196610, 268435461, -65528, 196610, 4, 8, 196610, 5, -65527, 262146, 4, 9, 262146, 5, -65526, 327682, 4, 10, 327682, 5, -65525, 327682, 268435460, 11, 327682, 268435461, -65524, 262146, 268435460, 12, 262146, 268435461, -65523, 196610, 268435460, 13, 196610, 268435461, -65522, 196610, 4, 14, 196610, 5, -65521, 262146, 4, 15, 262146, 5, -65520, 327682, 4, 16, 327682, 5, -65519, 327682, 268435460, 17, 327682, 268435461, -65518, 262146, 268435460, 18, 262146, 268435461, -65517, 196610, 268435460, 19, 196610, 268435461, -65516, 196610, 4, 20, 196610, 5, -65515, 262146, 4, 21, 262146, 5, -65514, 327682, 4, 22, 327682, 5, -65511, 196610, 268435460, -65512, 262146, 268435460, -65513, 327682, 268435460, 25, 196610, 268435461, 24, 262146, 268435461, 23, 327682, 268435461, -65508, 327682, 4, -65509, 262146, 4, -65510, 196610, 4, 28, 327682, 5, 27, 262146, 5, 26, 196610, 5, -65505, 196610, 268435460, -65506, 262146, 268435460, -65507, 327682, 268435460, 31, 196610, 268435461, 30, 262146, 268435461, 29, 327682, 268435461, -65502, 327682, 4, -65503, 262146, 4, -65504, 196610, 4, 34, 327682, 5, 33, 262146, 5, 32, 196610, 5, -65499, 196610, 268435460, -65500, 262146, 268435460, -65501, 327682, 268435460, 37, 196610, 268435461, 36, 262146, 268435461, 35, 327682, 268435461, -65496, 327682, 4, -65497, 262146, 4, -65498, 196610, 4, 40, 327682, 5, 39, 262146, 5, 38, 196610, 5, -1, 262146, 268435460, 65535, 262146, 268435461)
+layer_1/tile_data = PackedInt32Array(-262134, 1376263, 2, -262133, 1441799, 2, -327671, 1310727, 1, -262135, 1310727, 2, -327670, 1376263, 1, -327669, 1441799, 1, -524285, 1376263, 5, -458749, 1376263, 6, -524284, 1376263, 268435461, -458748, 1376263, 268435462, -524283, 1376263, 5, -458747, 1376263, 6, -524282, 1441799, 5, -458746, 1441799, 6, -524286, 1310727, 5, -458750, 1310727, 6, -786427, 1310727, 1, -720891, 1310727, 2, -786426, 1376263, 1, -720890, 1376263, 2, -786425, 1441799, 1, -720889, 1441799, 2, -1507320, 1179655, 2, -1441784, 1179655, 2, -1376248, 1179655, 2, -1310712, 1179655, 2, -1245176, 1179655, 2, -1179640, 1179655, 2, -1114104, 1179655, 2, -1048568, 1179655, 2, -983032, 1179655, 2)
+layer_4/tile_data = PackedInt32Array(-1507320, 1, 131072, -1441784, 1, 131072, -1376248, 1, 131072, -1310712, 1, 131072, -1245176, 1, 131072, -1179640, 1, 131072, -1114104, 1, 131072, -1048568, 1, 131072, -983032, 1, 131072)
+prev = NodePath("../scene1")
+
+[node name="OldMan" parent="." instance=ExtResource("4_505hl")]
+position = Vector2(318, -31)
+
+[node name="text1_walk" type="Area2D" parent="."]
+position = Vector2(500, 44)
+script = SubResource("GDScript_tljyp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="text1_walk"]
+shape = SubResource("RectangleShape2D_fkw68")
+
+[node name="text2_jump" type="Area2D" parent="."]
+position = Vector2(280, 320)
+scale = Vector2(-0.22041, 3.7741)
+script = SubResource("GDScript_nf51d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="text2_jump"]
+shape = SubResource("RectangleShape2D_fkw68")
+
+[node name="text3_climb" type="Area2D" parent="."]
+position = Vector2(64, 217)
+scale = Vector2(2.8, 1)
+script = SubResource("GDScript_3mipr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="text3_climb"]
+shape = SubResource("RectangleShape2D_bnkkp")
+
+[node name="text_box_position" type="Marker2D" parent="."]
+position = Vector2(181, 13)
+
+[node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on") instance=ExtResource("5_i7jqx")]
+position = Vector2(136, -24)
+next_scene = "res://levels/tutorial/intro2.tscn"
+enable_on = NodePath("../scene2")
+set_player_spawn = true
+
+[connection signal="body_entered" from="scene1/Fader" to="scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="scene1/@Area2D@53654" to="scene1/@Area2D@53654" method="_on_body_entered"]
+[connection signal="body_entered" from="scene1/@Area2D@53655" to="scene1/@Area2D@53655" method="_on_body_entered"]
+[connection signal="body_entered" from="scene1/@Area2D@53656" to="scene1/@Area2D@53656" method="_on_body_entered"]
+[connection signal="body_entered" from="text2_jump" to="text2_jump" method="_on_player_entered"]
+[connection signal="body_entered" from="text3_climb" to="text3_climb" method="_on_player_entered"]

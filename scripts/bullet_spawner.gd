@@ -1,7 +1,7 @@
 extends Node2D
 
 const BULLET = preload("res://prefabs/utility library/bullet.tscn")
-const BULLET_SPEED = 400
+const BULLET_SPEED = 280
 const STARTING_ANGLE = 0
 
 @export var delay: float = 1.5

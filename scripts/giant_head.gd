@@ -9,12 +9,11 @@ var go_away_now := Vector2(320, -160)
 
 
 func _ready() -> void:
+	pass
+
+
+func phase1() -> void:
 	var tween := create_tween()
-	phase1(tween)
-	phase2(tween)
-
-
-func phase1(tween: Tween) -> void:
 	# Head comes down, and roars which lines up with fader dropping the player down
 	tween.tween_property(giant_head, "position", come_down, 1.0)
 	tween.tween_property(head, "animation", &"open", 0.0)
@@ -34,7 +33,8 @@ func phase1(tween: Tween) -> void:
 	tween.tween_property(head, "animation", &"idle", 0.0)
 
 
-func phase2(tween: Tween) -> void:
+func phase2() -> void:
+	var tween := create_tween()
 	tween.tween_property(head, "animation", &"roar", 0.0).set_delay(0.5)
 	tween.tween_property(bullet_spawner, "delay", 0.1, 0.0)
 	tween.tween_property(bullet_spawner, "mode", "single", 0.0)

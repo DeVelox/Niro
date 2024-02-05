@@ -53,23 +53,3 @@ position = Vector2(481, 222)
 next_scene = "res://levels/boss2/level2.tscn"
 enable_on = NodePath("../Scene3")
 outro = NodePath("../Scene3")
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@30640" to="Scene1/@Area2D@30640" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/KillZone" to="Scene2/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30654" to="Scene2/@Area2D@30654" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30655" to="Scene2/@Area2D@30655" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30656" to="Scene2/@Area2D@30656" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30657" to="Scene2/@Area2D@30657" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30658" to="Scene2/@Area2D@30658" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30659" to="Scene2/@Area2D@30659" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30660" to="Scene2/@Area2D@30660" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30661" to="Scene2/@Area2D@30661" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30662" to="Scene2/@Area2D@30662" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30663" to="Scene2/@Area2D@30663" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30669" to="Scene2/@Area2D@30669" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30670" to="Scene2/@Area2D@30670" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@30671" to="Scene2/@Area2D@30671" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/KillZone" to="Scene3/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene3/@Area2D@32950" to="Scene3/@Area2D@32950" method="_on_body_entered"]
