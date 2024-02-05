@@ -59,6 +59,7 @@ var should_take_damage := true
 
 func _physics_process(delta: float) -> void:
 	_state_checks()
+	_gear_checks()
 	_special_actions()
 	_movement(delta)
 	_animation()
@@ -67,6 +68,17 @@ func _physics_process(delta: float) -> void:
 	_coyote()
 
 	_debug_clear()
+
+
+func _gear_checks() -> void:
+	if Upgrades.check(Upgrades.Type.RECALL):
+		$Recall.show()
+	if Upgrades.check(Upgrades.Type.VISION):
+		$Vision.show()
+	if Upgrades.check(Upgrades.Type.SHIELD):
+		$ShieldOn.show()
+	if Upgrades.check(Upgrades.Type.SLOWMO):
+		$Slowmo.show()
 
 
 func _movement(delta: float) -> void:
@@ -384,7 +396,9 @@ func _animation() -> void:
 			interact_check.scale.x = -1
 
 	# Current animation
-	sprite.play(_get_animation())
+	var curr_anim := _get_animation()
+	sprite.play(curr_anim)
+	get_tree().call_group("upgrades", "play", curr_anim)
 
 
 func _get_animation() -> String:
@@ -487,6 +501,8 @@ func _collision(state = 1) -> void:
 func _absorb() -> void:
 	if Upgrades.use_shield():
 		Sound.sfx(Sound.SHIELD_HIT)
+		$ShieldOn.hide()
+		$ShieldOff.show()
 		invulnerability.start()
 		can_take_damage = false
 	else:
@@ -503,7 +519,7 @@ func kill() -> void:
 		tween.tween_callback(glitch.show)
 		tween.tween_property(sprite.material, "shader_parameter/sensitivity", 1.0, 2.0)
 		tween.tween_callback(glitch.hide).set_delay(1.0)
-		tween.tween_callback(_hard_recall)
+		tween.tween_callback(get_tree().change_scene_to_file.bind("res://levels/credits.tscn"))
 
 
 func damage() -> void:
@@ -549,6 +565,8 @@ func _on_invulnerability_timeout() -> void:
 	should_take_damage = true
 	can_take_damage = true
 	Sound.sfx(Sound.SHIELD_CHARGE)
+	$ShieldOn.show()
+	$ShieldOff.hide()
 
 
 func camera_shake() -> void:

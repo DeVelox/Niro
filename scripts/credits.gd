@@ -16,3 +16,6 @@ func _process(delta: float) -> void:
 	if timer > 4 * delta:
 		point_light_2d.energy = clamp(randfn(0.8, 0.1), 0.0, 1.0)
 		timer = 0
+
+	if Input.is_action_just_pressed("jump"):
+		get_tree().change_scene_to_file("res://main.tscn")

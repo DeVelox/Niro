@@ -9,6 +9,7 @@ var debug_path: Node2D
 @onready var shield: CheckBox = %Shield
 @onready var vision: CheckBox = %Vision
 @onready var recall: CheckBox = %Recall
+@onready var slowmo: CheckBox = %Slowmo
 @onready var player: Player = get_parent()
 
 
@@ -88,10 +89,19 @@ func _on_recall_toggled(toggled_on: bool) -> void:
 	Scene.reload()
 
 
+func _on_slowmo_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		Upgrades.buy(Upgrades.Type.SLOWMO)
+	else:
+		Upgrades.sell(Upgrades.Type.SLOWMO)
+	Scene.reload()
+
+
 func _init_checkbox() -> void:
 	shield.set_pressed_no_signal(Upgrades.check(Upgrades.Type.SHIELD))
 	vision.set_pressed_no_signal(Upgrades.check(Upgrades.Type.VISION))
 	recall.set_pressed_no_signal(Upgrades.check(Upgrades.Type.RECALL))
+	slowmo.set_pressed_no_signal(Upgrades.check(Upgrades.Type.SLOWMO))
 
 
 func _toggle() -> void:

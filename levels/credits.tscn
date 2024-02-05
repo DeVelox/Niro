@@ -81,13 +81,13 @@ theme_override_fonts/bold_italics_font = ExtResource("3_0dhve")
 theme_override_fonts/mono_font = ExtResource("3_0dhve")
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
-text = "[right]Boss Man:
+text = "[right]Boss man:
 
-Art Man:
+Lead (and only) artist:
 
-Level Man:
+Level design and QA:
 
-Code Monkey:
+Code monkey:
 [/right]"
 fit_content = true
 
@@ -104,7 +104,7 @@ theme_override_fonts/mono_font = ExtResource("3_0dhve")
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
 text = "[left][b]MrRgon
-EjayFreeKAI
+EjayFreeKay
 LilNumbers
 DeVelox
 [/b][/left]"
@@ -123,6 +123,7 @@ theme_override_fonts/mono_font = ExtResource("3_0dhve")
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
 text = "[center]
+\"90 player movement SFX\" leohpaz.itch.io
 \"Club Diver\" Kevin MacLeod (incompetech.com)
 \"Cut and Run\" Kevin MacLeod (incompetech.com)
 \"Harmful or Fatal\" Kevin MacLeod (incompetech.com)

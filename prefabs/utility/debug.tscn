@@ -54,6 +54,12 @@ layout_mode = 2
 focus_mode = 0
 text = "Recall"
 
+[node name="Slowmo" type="CheckBox" parent="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Slowmo"
+
 [node name="DebugPath" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -84,4 +90,5 @@ layout_mode = 2
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Shield" to="." method="_on_shield_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Vision" to="." method="_on_vision_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Recall" to="." method="_on_recall_toggled"]
+[connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Slowmo" to="." method="_on_slowmo_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugPath/PathToggle" to="." method="_on_path_toggle"]
