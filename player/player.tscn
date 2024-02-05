@@ -1802,10 +1802,8 @@ offset = Vector2(0, -1)
 material = SubResource("ShaderMaterial_mdjxt")
 position = Vector2(0, 3)
 sprite_frames = SubResource("SpriteFrames_b2xwc")
-animation = &"03idle"
+animation = &"01crouching_idle"
 autoplay = "03idle"
-frame = 6
-frame_progress = 0.49717
 offset = Vector2(0, -1)
 
 [node name="ShieldOff" type="AnimatedSprite2D" parent="."]

@@ -15,8 +15,6 @@ func _ready() -> void:
 
 
 func phase1(tween: Tween) -> void:
-	var come_down := Vector2(320, 60)
-	var go_away_now := Vector2(320, -160)
 	# Head comes down, and roars which lines up with fader dropping the player down
 	tween.tween_property(giant_head, "position", come_down, 1.0)
 	tween.tween_property(head, "animation", &"open", 0.0)
