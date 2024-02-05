@@ -2442,10 +2442,10 @@ height = 46.0
 size = Vector2(28, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0u0hd"]
-size = Vector2(14, 2)
+size = Vector2(10, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3xclq"]
-size = Vector2(14, 2)
+size = Vector2(10, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hfvdp"]
 size = Vector2(24, 20)
