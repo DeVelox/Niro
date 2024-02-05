@@ -137,9 +137,5 @@ position = Vector2(538, -15)
 next_scene = "res://levels/tutorial/intro2.tscn"
 set_player_spawn = true
 
-[connection signal="body_entered" from="scene1/Fader" to="scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="scene1/@Area2D@83251" to="scene1/@Area2D@83251" method="_on_body_entered"]
-[connection signal="body_entered" from="scene1/@Area2D@83252" to="scene1/@Area2D@83252" method="_on_body_entered"]
-[connection signal="body_entered" from="scene1/@Area2D@83253" to="scene1/@Area2D@83253" method="_on_body_entered"]
 [connection signal="body_entered" from="text2_jump" to="text2_jump" method="_on_player_entered"]
 [connection signal="body_entered" from="text3_climb" to="text3_climb" method="_on_player_entered"]
