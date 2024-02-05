@@ -10,7 +10,6 @@ var debug_path: Node2D
 @onready var vision: CheckBox = %Vision
 @onready var recall: CheckBox = %Recall
 @onready var player: Player = get_parent()
-@onready var music_list: OptionButton = $MarginContainer/HBoxContainer/DebugMusic/MusicList
 
 
 func _ready() -> void:
@@ -19,7 +18,6 @@ func _ready() -> void:
 	_init_menu_bools(Data.debug_bools, MENU_BOOL.instantiate())
 	_init_menu_values(Data.debug_values, MENU_VALUE.instantiate())
 	_init_checkbox()
-	_init_music()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,12 +41,6 @@ func _init_values(_properties: Array[Dictionary]) -> Array[String]:
 			list.append(property["name"])
 	return list
 
-
-func _init_music() -> void:
-	var music_nodes := get_node("/root/Main").get_tree().get_nodes_in_group("music")
-	music_list.add_item("Music")
-	for i in music_nodes:
-		music_list.add_item(i.name)
 
 
 func _init_menu_bools(_properties: Array[String], _menu_row: Node) -> void:
@@ -117,13 +109,3 @@ func _on_path_toggle(toggled_on: bool) -> void:
 		player.add_sibling(debug_path)
 	else:
 		debug_path.queue_free()
-
-
-func _on_music_list_item_selected(index: int) -> void:
-	var music_nodes := get_node("/root/Main").get_tree().get_nodes_in_group("music")
-	var item_name := music_list.get_item_text(index)
-	for i in music_nodes:
-		if i.name == item_name:
-			i.playing = true
-		else:
-			i.playing = false

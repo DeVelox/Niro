@@ -66,17 +66,6 @@ focus_mode = 0
 toggle_mode = true
 icon = ExtResource("2_15wnm")
 
-[node name="DebugMusic" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="MusicList" type="OptionButton" parent="MarginContainer/HBoxContainer/DebugMusic"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-focus_mode = 0
-
 [node name="DebugProperties" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
@@ -96,4 +85,3 @@ layout_mode = 2
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Vision" to="." method="_on_vision_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugUpgrades/MarginContainer/VBoxContainer/Recall" to="." method="_on_recall_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DebugPath/PathToggle" to="." method="_on_path_toggle"]
-[connection signal="item_selected" from="MarginContainer/HBoxContainer/DebugMusic/MusicList" to="." method="_on_music_list_item_selected"]
