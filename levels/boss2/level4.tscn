@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://8u6f3ivlh71m"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_nh3i8"]
-[ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/elliot/stoneGiantPlaceholder1.png" id="2_2wkwk"]
+[ext_resource type="PackedScene" path="res://prefabs/level design/giant_chest.tscn" id="2_n0s6n"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="5_26wwc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
@@ -11,11 +11,7 @@ height = 48.0
 [node name="Level" type="Node2D"]
 script = ExtResource("1_nh3i8")
 
-[node name="Chest" type="TextureRect" parent="."]
-z_index = -1
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_2wkwk")
+[node name="GiantChest" parent="." instance=ExtResource("2_n0s6n")]
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(151, 270)
@@ -39,14 +35,14 @@ layer_4/tile_data = PackedInt32Array(-196589, 1, 131072, -131053, 1, 131072, -19
 layer_5/tile_data = PackedInt32Array(-131054, 1, 196608, -131053, 1, 196608, -131052, 1, 196608, -196588, 1, 196608, -196589, 1, 196608, -196590, 1, 196608, -262131, 1, 196608, -262132, 1, 196608, -262133, 1, 196608, -327669, 1, 196608, -327668, 1, 196608, -327667, 1, 196608, -458743, 1, 196608, -524279, 1, 196608, -589815, 1, 196608, -655351, 1, 196608, -589814, 1, 196608, -524278, 1, 196608, -458742, 1, 196608, -851959, 1, 196608, -917495, 1, 196608, -983031, 1, 196608, -1048567, 1, 196608, -983030, 1, 196608, -917494, 1, 196608, -851958, 1, 196608, -655345, 1, 196608, -720881, 1, 196608, -786417, 1, 196608, -851953, 1, 196608, -786418, 1, 196608, -720882, 1, 196608, -655346, 1, 196608, -983022, 1, 196608, -983021, 1, 196608, -983020, 1, 196608, -1048556, 1, 196608, -1048557, 1, 196608, -1048558, 1, 196608, -1114093, 1, 196608, -1179629, 1, 196608, -1245165, 1, 196608, -1310701, 1, 196608, -1376237, 1, 196608)
 
 [connection signal="body_entered" from="Tilemap/KillZone" to="Tilemap/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@53470" to="Tilemap/@Area2D@53470" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@53471" to="Tilemap/@Area2D@53471" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@53472" to="Tilemap/@Area2D@53472" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@53473" to="Tilemap/@Area2D@53473" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@53474" to="Tilemap/@Area2D@53474" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@49360" to="Tilemap/@Area2D@49360" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@49361" to="Tilemap/@Area2D@49361" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@49362" to="Tilemap/@Area2D@49362" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@49363" to="Tilemap/@Area2D@49363" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@49364" to="Tilemap/@Area2D@49364" method="_on_body_entered"]
 [connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@53475" to="Tilemap/@Area2D@53475" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@53476" to="Tilemap/@Area2D@53476" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@49365" to="Tilemap/@Area2D@49365" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@49366" to="Tilemap/@Area2D@49366" method="_on_body_entered"]
 [connection signal="body_entered" from="Tilemap2/KillZone" to="Tilemap2/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@53560" to="Tilemap2/@Area2D@53560" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@53561" to="Tilemap2/@Area2D@53561" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@49450" to="Tilemap2/@Area2D@49450" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@49451" to="Tilemap2/@Area2D@49451" method="_on_body_entered"]

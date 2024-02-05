@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cph40po70aol6"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_hcbdv"]
-[ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/elliot/stoneGiantPlaceholder1.png" id="2_uva26"]
+[ext_resource type="PackedScene" path="res://prefabs/level design/giant_chest.tscn" id="2_oogyv"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_072nv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
@@ -11,11 +11,7 @@ height = 48.0
 [node name="Level" type="Node2D"]
 script = ExtResource("1_hcbdv")
 
-[node name="Chest" type="TextureRect" parent="."]
-z_index = -1
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_uva26")
+[node name="GiantChest" parent="." instance=ExtResource("2_oogyv")]
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(310, 270)
@@ -42,5 +38,5 @@ layer_5/tile_data = PackedInt32Array(-196590, 1, 196608, -196589, 1, 196608, -19
 prev = NodePath("../Tilemap")
 
 [connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@89758" to="Tilemap/@Area2D@89758" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@89759" to="Tilemap/@Area2D@89759" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@30636" to="Tilemap/@Area2D@30636" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@30637" to="Tilemap/@Area2D@30637" method="_on_body_entered"]
