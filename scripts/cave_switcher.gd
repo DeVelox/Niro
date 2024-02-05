@@ -35,6 +35,7 @@ func interact() -> void:
 
 
 func _switch_level() -> void:
+	_music()
 	trophy.collision_layer = 0
 	trophy.collision_mask = 0
 	var main := get_node("/root/Main")
