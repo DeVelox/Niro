@@ -19,13 +19,10 @@ script/source = "extends Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var lines: Array[String] = [\"Seems like you want to destoy this giant\", 
-	\"Now I'm not saying you should do it\",
-	\"But if you do I've got the perfect thing for you!\",
-	\"A brand new Quantom ChronoCore!\",
-	\"It allows you do safeguard a point in time and has sensors for auto-reversal\",
-	\"It is a heart mod so if you don't mind I will be keeping it\",
-	\"Anyways up to you its right there on the desk\"]
+	var lines: Array[String] = [\"If you need an hand I found this nice piece\",
+	\"Deflection arm guards, should keep you safe out there\",
+	\"I would say it will cost you an arm and a leg but just an arm will do\",
+	\"Its on the bench if you want it\"]
 	old_man.say(lines, old_man.global_position)
 
 
@@ -33,9 +30,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
-
-
-pass
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gh2w5"]
@@ -90,3 +84,8 @@ set_player_spawn = true
 [node name="eyes" parent="." instance=ExtResource("7_hdt07")]
 
 [node name="Heart2" parent="." instance=ExtResource("8_livvc")]
+
+[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@198169" to="Scene1/@Area2D@198169" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@198170" to="Scene1/@Area2D@198170" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@198171" to="Scene1/@Area2D@198171" method="_on_body_entered"]

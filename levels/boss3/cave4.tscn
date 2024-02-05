@@ -20,13 +20,10 @@ script/source = "extends Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var lines: Array[String] = [\"Seems like you want to destoy this giant\", 
-	\"Now I'm not saying you should do it\",
-	\"But if you do I've got the perfect thing for you!\",
-	\"A brand new Quantom ChronoCore!\",
-	\"It allows you do safeguard a point in time and has sensors for auto-reversal\",
-	\"It is a heart mod so if you don't mind I will be keeping it\",
-	\"Anyways up to you its right there on the desk\"]
+	var lines: Array[String] = [\"If you want to get it done you better get running\",
+	\"Temporal Stirders will get you up to speed real fast\",
+	\"This will cost that leg part of the arm and a leg\",
+	\"get to the bench if you want it\"]
 	old_man.say(lines, old_man.global_position)
 
 
@@ -62,11 +59,11 @@ shape = SubResource("CapsuleShape2D_m7p01")
 [node name="OldMan" parent="." instance=ExtResource("3_xrsll")]
 position = Vector2(392, 192)
 
-[node name="text1_arm" type="Area2D" parent="."]
+[node name="text1_legs" type="Area2D" parent="."]
 position = Vector2(297, 173)
 script = SubResource("GDScript_g05pd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="text1_arm"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="text1_legs"]
 shape = SubResource("RectangleShape2D_gh2w5")
 
 [node name="Scene1" parent="." node_paths=PackedStringArray("next") instance=ExtResource("4_mikdv")]
@@ -95,6 +92,6 @@ set_player_spawn = true
 [node name="Arms" parent="." instance=ExtResource("8_op8w1")]
 
 [connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@187987" to="Scene1/@Area2D@187987" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@187988" to="Scene1/@Area2D@187988" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@187989" to="Scene1/@Area2D@187989" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@207606" to="Scene1/@Area2D@207606" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@207607" to="Scene1/@Area2D@207607" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@207608" to="Scene1/@Area2D@207608" method="_on_body_entered"]
