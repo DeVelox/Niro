@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://f6yb2sek4ils"]
+[gd_scene load_steps=22 format=3 uid="uid://f6yb2sek4ils"]
 
 [ext_resource type="Texture2D" uid="uid://cix8widrpdkm2" path="res://assets/temp/ground_monk.png" id="1_4yqqk"]
 [ext_resource type="Script" path="res://scripts/old_man.gd" id="1_lmwb7"]
+[ext_resource type="Texture2D" uid="uid://ddyjxv1wfl87r" path="res://assets/elliot/OldMan.png" id="3_t305m"]
+[ext_resource type="Texture2D" uid="uid://berdg8oifo5h4" path="res://assets/elliot/OldMan Idle.png" id="4_bfqdv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tgdor"]
 atlas = ExtResource("1_4yqqk")
@@ -18,6 +20,50 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_lp0ia"]
 atlas = ExtResource("1_4yqqk")
 region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64egf"]
+atlas = ExtResource("3_t305m")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ecca"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b32x2"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 48, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4pqi"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 96, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbg1o"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 144, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekhct"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 192, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw8qd"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 240, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6jo0"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 288, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ven68"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 336, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc1dj"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 384, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aq12p"]
+atlas = ExtResource("4_bfqdv")
+region = Rect2(0, 432, 32, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yyg2h"]
 animations = [{
@@ -37,13 +83,55 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64egf")
+}],
+"loop": true,
+"name": &"elliot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ecca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b32x2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4pqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbg1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekhct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aw8qd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6jo0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ven68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc1dj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aq12p")
+}],
+"loop": true,
+"name": &"elliot_idle",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wedis"]
-size = Vector2(10, 28)
+size = Vector2(25, 33)
 
 [node name="OldMan" type="Area2D"]
-scale = Vector2(1.6, 1.6)
 collision_layer = 32
 script = ExtResource("1_lmwb7")
 default_lines = Array[String](["Yo, what's poppin'!", "You go on then.
@@ -55,10 +143,11 @@ upgrade = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yyg2h")
-autoplay = "default"
+animation = &"elliot"
+autoplay = "elliot_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(-0.5, 7.5)
 shape = SubResource("RectangleShape2D_wedis")
 
 [node name="text_show_timer" type="Timer" parent="."]
