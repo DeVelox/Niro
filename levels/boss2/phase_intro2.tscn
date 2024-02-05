@@ -9,7 +9,7 @@
 radius = 12.0
 height = 48.0
 
-[node name="Level" type="Node2D"]
+[node name="Level2" type="Node2D"]
 script = ExtResource("1_ng6xm")
 
 [node name="Legs" type="TextureRect" parent="."]
@@ -51,4 +51,30 @@ position = Vector2(0, 10)
 shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("4_vv31t")]
+position = Vector2(520, -5)
 next_scene = "res://levels/boss2/level1.tscn"
+
+[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@85098" to="Scene1/@Area2D@85098" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@85099" to="Scene1/@Area2D@85099" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@85100" to="Scene1/@Area2D@85100" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@85124" to="Scene2/@Area2D@85124" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/KillZone" to="Scene2/KillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@85125" to="Scene2/@Area2D@85125" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@85126" to="Scene2/@Area2D@85126" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@85127" to="Scene2/@Area2D@85127" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@85128" to="Scene2/@Area2D@85128" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@85129" to="Scene2/@Area2D@85129" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@85130" to="Scene2/@Area2D@85130" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/KillZone" to="Scene3/KillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85246" to="Scene3/@Area2D@85246" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85247" to="Scene3/@Area2D@85247" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85248" to="Scene3/@Area2D@85248" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85249" to="Scene3/@Area2D@85249" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85250" to="Scene3/@Area2D@85250" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85251" to="Scene3/@Area2D@85251" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85252" to="Scene3/@Area2D@85252" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85253" to="Scene3/@Area2D@85253" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85254" to="Scene3/@Area2D@85254" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene3/@Area2D@85255" to="Scene3/@Area2D@85255" method="_on_body_entered"]
