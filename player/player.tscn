@@ -1,8 +1,9 @@
-[gd_scene load_steps=67 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=70 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_0if4t"]
 [ext_resource type="Shader" path="res://scripts/shader/dissolve.gdshader" id="2_b5s7b"]
 [ext_resource type="Texture2D" uid="uid://dh8n7xvev6fjj" path="res://assets/elliot/CharacterAnimationSpriteSheetV2.png" id="2_e2n38"]
+[ext_resource type="Texture2D" uid="uid://dscg6to5mry6o" path="res://assets/elliot/CharacterAnimationSpriteSheetV4.png" id="4_5firg"]
 [ext_resource type="Texture2D" uid="uid://dnm7ya8rtxqy1" path="res://assets/temp/double_jump.png" id="30_cadxq"]
 [ext_resource type="PackedScene" uid="uid://jbo4xpcv06af" path="res://prefabs/utility/debug.tscn" id="33_7luae"]
 
@@ -186,6 +187,14 @@ region = Rect2(240, 704, 80, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_63nab"]
 atlas = ExtResource("2_e2n38")
 region = Rect2(320, 704, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xs658"]
+atlas = ExtResource("4_5firg")
+region = Rect2(0, 192, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slbq5"]
+atlas = ExtResource("4_5firg")
+region = Rect2(80, 192, 80, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ejhj4"]
 atlas = ExtResource("2_e2n38")
@@ -391,6 +400,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xs658")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slbq5")
+}],
+"loop": true,
+"name": &"throw",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ejhj4")
 }, {
 "duration": 1.0,
@@ -493,11 +513,11 @@ collision_mask = 255
 safe_margin = 0.1
 script = ExtResource("1_0if4t")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_mdjxt")
 position = Vector2(0, 3)
 sprite_frames = SubResource("SpriteFrames_13nta")
-animation = &"landing"
+animation = &"throw"
 autoplay = "idle"
 offset = Vector2(0, -1)
 
