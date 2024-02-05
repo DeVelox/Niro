@@ -12,8 +12,7 @@ const SLIDE_JUMP_MULTI = 1.2
 const WALL_JUMP_MULTI = 1.7
 const FALL_CLAMP = 400.0
 const WALL_CLAMP_MULTI = 0.1
-const JUMP_APEX = 5
-const JUMP_APEX_MULTI = 0.1
+const JUMP_APEX = 100
 const VAR_JUMP_MULTI = 0.25
 const CLIMB_SPEED_MULTI = 0.5
 const NUDGE_RANGE = 28
@@ -394,7 +393,7 @@ func _get_animation() -> String:
 		else:
 			if velocity.y > -JUMP_VELOCITY:
 				animation = "falling"
-			elif is_zero_approx(velocity.y):
+			elif absf(velocity.y) < JUMP_APEX:
 				animation = "peak"
 			else:
 				animation = "jumping"

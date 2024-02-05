@@ -147,6 +147,8 @@ func fade_out(tilemap: TileMap, is_recall: bool = false) -> void:
 
 func toggle_layers(tilemap: TileMap, state: bool) -> void:
 	for i in [1, 2, 3]:
+		if i == 2 and not Upgrades.check(Upgrades.Type.VISION):
+			continue
 		tilemap.set_layer_enabled(i, state)
 
 
