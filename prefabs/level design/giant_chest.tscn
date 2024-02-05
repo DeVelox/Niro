@@ -1,0 +1,144 @@
+[gd_scene load_steps=17 format=3 uid="uid://c28jwgt51aubn"]
+
+[ext_resource type="Texture2D" uid="uid://dbd6ydrup1kai" path="res://assets/elliot/ChestIdle.png" id="1_5euor"]
+[ext_resource type="Texture2D" uid="uid://xwc8j7dqbv7v" path="res://assets/elliot/ChestBG.png" id="2_nipe8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twm4y"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 0, 675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl4r0"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 392, 675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxgvb"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 784, 675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7per2"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 1176, 675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7q7h1"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 1568, 675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lw1p8"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 1960, 675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8o2a"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 2352, 675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl6c6"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 2744, 675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q35x6"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 3136, 675, 392)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5m0x"]
+atlas = ExtResource("1_5euor")
+region = Rect2(0, 3528, 675, 392)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_evgg6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twm4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl4r0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxgvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7per2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7q7h1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lw1p8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8o2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl6c6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q35x6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5m0x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_rikvx"]
+resource_name = "parallax"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ParallaxBackground:scroll_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-100, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6tqu6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ParallaxBackground:scroll_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nmb35"]
+_data = {
+"RESET": SubResource("Animation_6tqu6"),
+"parallax": SubResource("Animation_rikvx")
+}
+
+[node name="GiantChest" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_evgg6")
+autoplay = "default"
+frame = 8
+frame_progress = 0.226876
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(672, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(320, 180)
+texture = ExtResource("2_nipe8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nmb35")
+}
+autoplay = "parallax"

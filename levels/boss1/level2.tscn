@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5phlinst64sp"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_quajw"]
-[ext_resource type="Texture2D" uid="uid://c43ygn1u7sueg" path="res://assets/elliot/stoneGiantPlaceholder1.png" id="2_46bu1"]
+[ext_resource type="PackedScene" path="res://prefabs/level design/giant_chest.tscn" id="2_03ia1"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_d60pn"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_y4o6f"]
 
@@ -11,11 +11,7 @@ script = ExtResource("1_quajw")
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(135, 66)
 
-[node name="Chest" type="TextureRect" parent="."]
-z_index = -1
-offset_right = 640.0
-offset_bottom = 360.0
-texture = ExtResource("2_46bu1")
+[node name="GiantChest" parent="." instance=ExtResource("2_03ia1")]
 
 [node name="Scene1" parent="." node_paths=PackedStringArray("next") groups=["hidden"] instance=ExtResource("3_d60pn")]
 layer_1/tile_data = PackedInt32Array(-1048569, 1376263, 6, -1048568, 1376263, 268435462, -1048547, 1376263, 268435462, -1048546, 1376263, 6, -1048545, 1376263, 268435462, -1048548, 1310727, 6, -1114083, 1376263, 268435461, -1114082, 1376263, 5, -1114081, 1376263, 268435461, -1114080, 1441799, 5, -1114084, 1310727, 5, -1114105, 1376263, 5, -1114104, 1376263, 268435461, -1114106, 1310727, 5, -1048570, 1310727, 6, -1114103, 1376263, 5, -1048567, 1376263, 6, -1114102, 1376263, 268435461, -1048566, 1376263, 268435462, -1114101, 1441799, 5, -1048565, 1441799, 6, -983006, 917511, 2, -589790, 917511, 3, -524254, 917511, 3, -1048542, 524295, 0, -458718, 917511, 4, -983034, 524295, 10, -983033, 589831, 10, -983032, 655367, 10, -983031, 655367, 8, -983030, 720903, 8, -983029, 524295, 6, -983012, 524295, 12, -983011, 589831, 12, -983010, 655367, 12, -983009, 720903, 12, -393182, 589831, 6, -983008, 786439, 12, -1048544, 1441799, 6, -917470, 917511, 3, -851934, 917511, 3, -786398, 917511, 3, -720862, 917511, 3, -655326, 917511, 3)
@@ -48,3 +44,16 @@ position = Vector2(474, 133)
 next_scene = "res://levels/boss1/level3.tscn"
 enable_on = NodePath("../Scene3")
 outro = NodePath("../Scene3")
+
+[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@35116" to="Scene1/@Area2D@35116" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@35117" to="Scene1/@Area2D@35117" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@35118" to="Scene1/@Area2D@35118" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@35119" to="Scene1/@Area2D@35119" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/KillZone" to="Scene1/KillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/KillZone" to="Scene2/KillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@35226" to="Scene2/@Area2D@35226" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@35227" to="Scene2/@Area2D@35227" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@35228" to="Scene2/@Area2D@35228" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@35229" to="Scene2/@Area2D@35229" method="_on_body_entered"]
