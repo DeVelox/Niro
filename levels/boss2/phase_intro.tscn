@@ -46,9 +46,3 @@ position = Vector2(529, 227)
 next_scene = "res://levels/boss2/cave1.tscn"
 enable_on = NodePath("../Scene2")
 set_player_spawn = true
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@179823" to="Scene1/@Area2D@179823" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@179824" to="Scene1/@Area2D@179824" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@179825" to="Scene1/@Area2D@179825" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@179826" to="Scene1/@Area2D@179826" method="_on_body_entered"]

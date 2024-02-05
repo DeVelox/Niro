@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5ppyocwoqptf"]
+[gd_scene load_steps=13 format=3 uid="uid://b5ppyocwoqptf"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_wwlmt"]
 [ext_resource type="Texture2D" uid="uid://dc4wfbnndse1l" path="res://assets/elliot/CaveBG.png" id="2_lqywk"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="6_j2qrr"]
 [ext_resource type="PackedScene" uid="uid://bqc3mfy3mwujv" path="res://prefabs/utility library/eyes.tscn" id="7_4jp1u"]
 [ext_resource type="PackedScene" uid="uid://d0bbr8kynuq3l" path="res://prefabs/utility library/arms.tscn" id="8_op8w1"]
+[ext_resource type="PackedScene" uid="uid://dg7mocau7w55p" path="res://prefabs/utility library/legs.tscn" id="8_sgct4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
 radius = 12.0
@@ -89,4 +90,11 @@ set_player_spawn = true
 
 [node name="eyes" parent="." instance=ExtResource("7_4jp1u")]
 
-[node name="Heart2" parent="." instance=ExtResource("8_op8w1")]
+[node name="Legs" parent="." instance=ExtResource("8_sgct4")]
+
+[node name="Arms" parent="." instance=ExtResource("8_op8w1")]
+
+[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@187987" to="Scene1/@Area2D@187987" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@187988" to="Scene1/@Area2D@187988" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@187989" to="Scene1/@Area2D@187989" method="_on_body_entered"]

@@ -82,8 +82,3 @@ prev = NodePath("../Scene1")
 position = Vector2(432, 192)
 next_scene = "res://levels/tutorial/legs1.tscn"
 set_player_spawn = true
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@185002" to="Scene1/@Area2D@185002" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@185003" to="Scene1/@Area2D@185003" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@185004" to="Scene1/@Area2D@185004" method="_on_body_entered"]

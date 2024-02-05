@@ -42,13 +42,7 @@ layer_5/tile_data = PackedInt32Array(-524262, 1, 196608, -458726, 1, 196608, -39
 prev = NodePath("../Scene1")
 
 [node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on") instance=ExtResource("4_cqtmq")]
-position = Vector2(522, 226)
-next_scene = "res://levels/boss2/cave1.tscn"
+position = Vector2(534, 226)
+next_scene = "res://levels/boss3/phase_intro2.tscn"
 enable_on = NodePath("../Scene2")
 set_player_spawn = true
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@145644" to="Scene1/@Area2D@145644" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@145645" to="Scene1/@Area2D@145645" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@145646" to="Scene1/@Area2D@145646" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@145647" to="Scene1/@Area2D@145647" method="_on_body_entered"]

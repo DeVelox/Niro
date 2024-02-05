@@ -79,8 +79,3 @@ script = SubResource("GDScript_628j5")
 shape = SubResource("RectangleShape2D_hxphl")
 
 [node name="eyes" parent="." instance=ExtResource("7_rhy4o")]
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@187137" to="Scene1/@Area2D@187137" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@187138" to="Scene1/@Area2D@187138" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@187139" to="Scene1/@Area2D@187139" method="_on_body_entered"]
