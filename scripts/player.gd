@@ -398,6 +398,8 @@ func _get_animation() -> String:
 			animation = "dashing"
 		elif is_wall_hanging:
 			animation = "wall"
+		elif is_sliding:
+			animation = "sliding"
 		else:
 			if velocity.y > -JUMP_VELOCITY:
 				animation = "falling"
