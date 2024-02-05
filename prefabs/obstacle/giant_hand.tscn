@@ -1,8 +1,114 @@
-[gd_scene load_steps=2 format=3 uid="uid://xywws1e0d1n5"]
+[gd_scene load_steps=15 format=3 uid="uid://xywws1e0d1n5"]
+
+[ext_resource type="Script" path="res://scripts/giant_hand.gd" id="1_jffm2"]
+[ext_resource type="Texture2D" uid="uid://de4rm78md1hya" path="res://assets/elliot/HandSpritev2.png" id="2_yom5t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhec1"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 0, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujxqy"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 216, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isyth"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 432, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3s7l"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 648, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ea6j"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 864, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1iqp"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 864, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1al5h"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 648, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wf5m"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 432, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cakoy"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 216, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g416"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 0, 600, 216)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_103hx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhec1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujxqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isyth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3s7l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ea6j")
+}],
+"loop": true,
+"name": &"grab",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1iqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1al5h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wf5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cakoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0g416")
+}],
+"loop": true,
+"name": &"slap",
+"speed": 10.0
+}]
 
-[node name="GiantHand" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6kmbn"]
+radius = 55.0364
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_jffm2")
+
+[node name="GiantHand" type="StaticBody2D" parent="."]
+collision_layer = 16
+
+[node name="Hand" type="AnimatedSprite2D" parent="GiantHand"]
 sprite_frames = SubResource("SpriteFrames_103hx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GiantHand"]
+polygon = PackedVector2Array(-287, -12, -298, 61, -275, 93, -122, 77, -74, 90, -42, 78, -14, 85, 49, 46, 108, 33, 174, 39, 217, 29, 228, -1, 226, -31, 214, -61, 161, -80, 97, -35, 39, -35, -11, -47, -41, -27, -73, -38, -144, -17)
+
+[node name="KillZone" type="Area2D" parent="GiantHand"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GiantHand/KillZone"]
+position = Vector2(153, -14)
+shape = SubResource("CircleShape2D_6kmbn")
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(325, -10)
+
+[connection signal="body_entered" from="GiantHand/KillZone" to="GiantHand" method="_on_kill_zone_body_entered"]
