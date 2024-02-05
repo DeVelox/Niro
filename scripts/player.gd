@@ -484,7 +484,11 @@ func _absorb() -> void:
 
 
 func kill() -> void:
-	_try_recall()
+	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
+	if checkpoint and Upgrades.check(Upgrades.Type.RECALL):
+		_soft_recall()
+	else:
+		_hard_recall()
 
 
 func damage() -> void:

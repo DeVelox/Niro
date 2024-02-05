@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://vdbixuwcxquu" path="res://assets/elliot/bouldah.png" id="2_mc658"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wf4kf"]
+radius = 16.0
 
 [node name="Bullet" type="RigidBody2D"]
 collision_layer = 0
@@ -19,6 +20,8 @@ texture = ExtResource("2_mc658")
 shape = SubResource("CircleShape2D_wf4kf")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.38419e-07, -2.38419e-07)
+scale = Vector2(1.6, 1.6)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

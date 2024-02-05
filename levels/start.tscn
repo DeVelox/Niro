@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://0abuvb065pb1"]
+[gd_scene load_steps=6 format=3 uid="uid://0abuvb065pb1"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2xunh"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="2_yqmey"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="3_8np6h"]
 [ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="4_5i88s"]
+[ext_resource type="PackedScene" uid="uid://xywws1e0d1n5" path="res://prefabs/obstacle/giant_hand.tscn" id="5_q602n"]
 
 [node name="Start" type="Node2D"]
 script = ExtResource("1_2xunh")
@@ -37,3 +38,6 @@ set_player_spawn = true
 
 [node name="OldMan" parent="." instance=ExtResource("4_5i88s")]
 position = Vector2(132, 319)
+
+[node name="Node2D" parent="." instance=ExtResource("5_q602n")]
+position = Vector2(-2, 95)

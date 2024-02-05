@@ -1,3 +1,104 @@
-[gd_scene format=3 uid="uid://cqfckmcl7eptq"]
+[gd_scene load_steps=13 format=3 uid="uid://cqfckmcl7eptq"]
 
-[node name="GiantHead" type="Node2D"]
+[ext_resource type="Texture2D" uid="uid://b6tpl5p8f8bm1" path="res://assets/elliot/GiantHead-Closing.png" id="1_d1dpj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8qng"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(0, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgdr3"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(320, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibdrw"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(640, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7srg"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(960, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82c78"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(1280, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5kka"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(1600, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1febn"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(1920, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnwii"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(2240, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6byp0"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(2560, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqip4"]
+atlas = ExtResource("1_d1dpj")
+region = Rect2(2880, 0, 320, 368)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u0hda"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8qng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgdr3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibdrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7srg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82c78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5kka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1febn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnwii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6byp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqip4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GiantHead" type="StaticBody2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GiantHead"]
+sprite_frames = SubResource("SpriteFrames_u0hda")
+animation = &"open"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GiantHead"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)

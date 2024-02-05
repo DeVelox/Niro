@@ -9,9 +9,8 @@ script = ExtResource("1_lck6t")
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Target" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_vxoxp")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
