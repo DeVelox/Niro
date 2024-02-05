@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c37hwyjp34h13"]
+[gd_scene load_steps=12 format=3 uid="uid://di834yvpe0xkm"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ecwbu"]
 [ext_resource type="Texture2D" uid="uid://dc4wfbnndse1l" path="res://assets/elliot/CaveBG.png" id="2_t16xm"]
@@ -6,31 +6,39 @@
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="4_85uqd"]
 [ext_resource type="PackedScene" uid="uid://deu2j662vobvv" path="res://prefabs/utility library/heart.tscn" id="5_el0sr"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="6_pdt7p"]
-[ext_resource type="PackedScene" uid="uid://bqc3mfy3mwujv" path="res://prefabs/utility library/eyes.tscn" id="7_rhy4o"]
+[ext_resource type="PackedScene" uid="uid://bqc3mfy3mwujv" path="res://prefabs/utility library/eyes.tscn" id="7_hdt07"]
+[ext_resource type="PackedScene" uid="uid://d0bbr8kynuq3l" path="res://prefabs/utility library/arms.tscn" id="8_livvc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
 radius = 12.0
 height = 48.0
 
-[sub_resource type="GDScript" id="GDScript_628j5"]
+[sub_resource type="GDScript" id="GDScript_g05pd"]
 script/source = "extends Area2D
 @onready var old_man: Area2D = $\"../OldMan\"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var lines: Array[String] = [\"Found this beauty in my boxes\",
-	\"An OmniSight Optix with dimensional integration\",
-	\"If you are lucky enough this will show you helpful objects from close universes\",
-	\"Its a simple exchange, an eye for eye if you will\",
-	\"Its over on the bench if you want it\"]
+	var lines: Array[String] = [\"Seems like you want to destoy this giant\", 
+	\"Now I'm not saying you should do it\",
+	\"But if you do I've got the perfect thing for you!\",
+	\"A brand new Quantom ChronoCore!\",
+	\"It allows you do safeguard a point in time and has sensors for auto-reversal\",
+	\"It is a heart mod so if you don't mind I will be keeping it\",
+	\"Anyways up to you its right there on the desk\"]
 	old_man.say(lines, old_man.global_position)
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
+pass
 "
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxphl"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gh2w5"]
 size = Vector2(64.5, 11)
 
 [node name="Level" type="Node2D"]
@@ -53,6 +61,13 @@ shape = SubResource("CapsuleShape2D_m7p01")
 [node name="OldMan" parent="." instance=ExtResource("3_ipgxv")]
 position = Vector2(392, 192)
 
+[node name="text1_arm" type="Area2D" parent="."]
+position = Vector2(297, 173)
+script = SubResource("GDScript_g05pd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="text1_arm"]
+shape = SubResource("RectangleShape2D_gh2w5")
+
 [node name="Scene1" parent="." node_paths=PackedStringArray("next") instance=ExtResource("4_85uqd")]
 layer_1/tile_data = PackedInt32Array(-917494, 327687, 0, -851958, 327687, 0, -786422, 327687, 0, -720886, 327687, 0, -655350, 327687, 0, -589814, 327687, 0, -786419, 1179655, 16, -720883, 1179655, 17, -655347, 1179655, 18, -589811, 327687, 0, -786418, 1245191, 16, -720882, 1245191, 17, -655346, 1245191, 18, -589810, 327687, 0, -786417, 1310727, 16, -720881, 1310727, 17, -655345, 1310727, 18, -589809, 327687, 0, -786416, 1376263, 16, -720880, 1376263, 17, -655344, 1376263, 18, -589808, 327687, 0, -589806, 327687, 0, -589805, 327687, 0, -589804, 327687, 0, -589803, 327687, 0, -983030, 327687, 0, -983029, 327687, 0, -589813, 327687, 0, -983028, 327687, 0, -589812, 327687, 0, -983027, 327687, 0, -851955, 1179655, 15, -983026, 327687, 0, -851954, 1245191, 15, -983025, 327687, 0, -851953, 1310727, 15, -983024, 327687, 0, -851952, 1376263, 15, -983023, 327687, 0, -589807, 327687, 0, -983022, 327687, 0, -655342, 327690, 3, -983021, 327687, 0, -655341, 393226, 3, -983020, 327687, 0, -655340, 458762, 3, -983019, 327687, 0, -655339, 524298, 3, -983018, 327687, 0, -589802, 327687, 0, -983017, 327687, 0, -589801, 327687, 0, -983016, 327687, 0, -589800, 327687, 0, -983015, 327687, 0, -589799, 327687, 0, -983014, 327687, 0, -589798, 327687, 0, -983013, 327687, 0, -589797, 327687, 0, -983012, 327687, 0, -589796, 327687, 0, -983011, 327687, 0, -589795, 327687, 0, -917475, 327687, 0, -851939, 327687, 0, -786403, 327687, 0, -720867, 327687, 0, -655331, 327687, 0)
 layer_3/tile_data = PackedInt32Array(-786419, 1, 262144, -786418, 1, 262144, -786417, 1, 262144, -786416, 1, 262144)
@@ -68,19 +83,10 @@ prev = NodePath("../Scene1")
 [node name="Heart" parent="." instance=ExtResource("5_el0sr")]
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("6_pdt7p")]
-position = Vector2(432, 187)
+position = Vector2(432, 192)
+next_scene = "res://levels/tutorial/legs1.tscn"
 set_player_spawn = true
 
-[node name="text1_eye" type="Area2D" parent="."]
-position = Vector2(297, 173)
-script = SubResource("GDScript_628j5")
+[node name="eyes" parent="." instance=ExtResource("7_hdt07")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="text1_eye"]
-shape = SubResource("RectangleShape2D_hxphl")
-
-[node name="eyes" parent="." instance=ExtResource("7_rhy4o")]
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@187137" to="Scene1/@Area2D@187137" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@187138" to="Scene1/@Area2D@187138" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@187139" to="Scene1/@Area2D@187139" method="_on_body_entered"]
+[node name="Heart2" parent="." instance=ExtResource("8_livvc")]

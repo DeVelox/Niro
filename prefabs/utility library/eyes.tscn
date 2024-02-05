@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqc3mfy3mwujv"]
+
+[ext_resource type="Texture2D" uid="uid://4winq0bbdhpj" path="res://assets/elliot/Cave Assets.png" id="1_dpi7m"]
+[ext_resource type="FontFile" uid="uid://cxul4gjqdn5ua" path="res://assets/temp/04B_03__.TTF" id="2_4rkm7"]
+
+[sub_resource type="GDScript" id="GDScript_rj4st"]
+script/source = "extends Area2D
+@onready var label: Label = $Label
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	label.hide()
+	if Upgrades.check(Upgrades.Type.VISION):
+		queue_free()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_player_entered(body: Node2D) -> void:
+	if body.is_in_group(\"players\"):
+		label.show()
+		
+
+func _on_player_exited(body: Node2D) -> void:
+	if body.is_in_group(\"players\"):
+		label.hide()
+
+func interact() -> void:
+	Upgrades.buy(Upgrades.Type.VISION)
+	queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmqxn"]
+size = Vector2(5, 10)
+
+[node name="eyes" type="Area2D"]
+position = Vector2(312, 192)
+collision_layer = 32
+script = SubResource("GDScript_rj4st")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dpi7m")
+region_enabled = true
+region_rect = Rect2(81, 34, 14, 9)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 0)
+shape = SubResource("RectangleShape2D_lmqxn")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -16.0
+offset_right = 126.0
+offset_bottom = 7.0
+theme_override_colors/font_color = Color(0.635294, 0, 0.180392, 1)
+theme_override_fonts/font = ExtResource("2_4rkm7")
+theme_override_font_sizes/font_size = 8
+text = "Take OmniSight (F)"
+
+[connection signal="body_entered" from="." to="." method="_on_player_entered"]
+[connection signal="body_exited" from="." to="." method="_on_player_exited"]

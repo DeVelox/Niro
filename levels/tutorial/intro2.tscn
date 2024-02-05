@@ -68,3 +68,4 @@ position = Vector2(59, 241)
 [node name="SceneSwitcher" parent="." instance=ExtResource("4_ovym1")]
 position = Vector2(47, 277)
 next_scene = "res://levels/tutorial/cave1.tscn"
+set_player_spawn = true

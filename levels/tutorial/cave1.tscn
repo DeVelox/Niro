@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ucx0x7enyjcx"]
+[gd_scene load_steps=10 format=3 uid="uid://ucx0x7enyjcx"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ynigr"]
-[ext_resource type="PackedScene" uid="uid://003busc8drrl" path="res://prefabs/level design/cave.tscn" id="2_h276l"]
+[ext_resource type="Texture2D" uid="uid://dc4wfbnndse1l" path="res://assets/elliot/CaveBG.png" id="2_4ydvv"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_g0u8x"]
 [ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="3_jjm8d"]
+[ext_resource type="PackedScene" uid="uid://deu2j662vobvv" path="res://prefabs/utility library/heart.tscn" id="5_j0i6u"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="7_ndv4w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
 radius = 12.0
@@ -19,7 +22,8 @@ func _ready() -> void:
 	\"But if you do I've got the perfect thing for you!\",
 	\"A brand new Quantom ChronoCore!\",
 	\"It allows you do safeguard a point in time and has sensors for auto-reversal\",
-	\"It is a heart mod so if you don't mind I will be keeping it\",
+	\"It is a heart mod\",
+	\"And I'll be willing to give it to you in exchange of that flesh one of yours\",
 	\"Anyways up to you its right there on the desk\"]
 	old_man.say(lines, old_man.global_position)
 
@@ -36,20 +40,50 @@ size = Vector2(64.5, 11)
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ynigr")
 
+[node name="Cave" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -16.0
+offset_top = -24.0
+offset_right = 656.0
+offset_bottom = 368.0
+texture = ExtResource("2_4ydvv")
+
 [node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(151, 262)
+position = Vector2(232, 192)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
 shape = SubResource("CapsuleShape2D_m7p01")
 
-[node name="Tilemap" parent="." instance=ExtResource("2_h276l")]
-
 [node name="OldMan" parent="." instance=ExtResource("3_jjm8d")]
-position = Vector2(372, 270)
+position = Vector2(392, 192)
 
-[node name="text1_walk" type="Area2D" parent="."]
+[node name="text1_heart" type="Area2D" parent="."]
 position = Vector2(297, 173)
 script = SubResource("GDScript_g05pd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="text1_walk"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="text1_heart"]
 shape = SubResource("RectangleShape2D_gh2w5")
+
+[node name="Scene1" parent="." node_paths=PackedStringArray("next") instance=ExtResource("3_g0u8x")]
+layer_1/tile_data = PackedInt32Array(-917494, 327687, 0, -851958, 327687, 0, -786422, 327687, 0, -720886, 327687, 0, -655350, 327687, 0, -589814, 327687, 0, -786419, 1179655, 16, -720883, 1179655, 17, -655347, 1179655, 18, -589811, 327687, 0, -786418, 1245191, 16, -720882, 1245191, 17, -655346, 1245191, 18, -589810, 327687, 0, -786417, 1310727, 16, -720881, 1310727, 17, -655345, 1310727, 18, -589809, 327687, 0, -786416, 1376263, 16, -720880, 1376263, 17, -655344, 1376263, 18, -589808, 327687, 0, -589806, 327687, 0, -589805, 327687, 0, -589804, 327687, 0, -589803, 327687, 0, -983030, 327687, 0, -983029, 327687, 0, -589813, 327687, 0, -983028, 327687, 0, -589812, 327687, 0, -983027, 327687, 0, -851955, 1179655, 15, -983026, 327687, 0, -851954, 1245191, 15, -983025, 327687, 0, -851953, 1310727, 15, -983024, 327687, 0, -851952, 1376263, 15, -983023, 327687, 0, -589807, 327687, 0, -983022, 327687, 0, -655342, 327690, 3, -983021, 327687, 0, -655341, 393226, 3, -983020, 327687, 0, -655340, 458762, 3, -983019, 327687, 0, -655339, 524298, 3, -983018, 327687, 0, -589802, 327687, 0, -983017, 327687, 0, -589801, 327687, 0, -983016, 327687, 0, -589800, 327687, 0, -983015, 327687, 0, -589799, 327687, 0, -983014, 327687, 0, -589798, 327687, 0, -983013, 327687, 0, -589797, 327687, 0, -983012, 327687, 0, -589796, 327687, 0, -983011, 327687, 0, -589795, 327687, 0, -917475, 327687, 0, -851939, 327687, 0, -786403, 327687, 0, -720867, 327687, 0, -655331, 327687, 0)
+layer_3/tile_data = PackedInt32Array(-786419, 1, 262144, -786418, 1, 262144, -786417, 1, 262144, -786416, 1, 262144)
+layer_5/tile_data = PackedInt32Array(-983030, 1, 327680, -917494, 1, 327680, -851958, 1, 327680, -786422, 1, 327680, -720886, 1, 327680, -655350, 1, 327680, -589814, 1, 327680, -983029, 1, 327680, -589813, 1, 327680, -983028, 1, 327680, -589812, 1, 327680, -983027, 1, 327680, -851955, 1, 196608, -786419, 1, 196608, -720883, 1, 196608, -655347, 1, 196608, -589811, 1, 327680, -983026, 1, 327680, -851954, 1, 196608, -786418, 1, 196608, -720882, 1, 196608, -655346, 1, 196608, -589810, 1, 327680, -983025, 1, 327680, -851953, 1, 196608, -786417, 1, 196608, -720881, 1, 196608, -655345, 1, 196608, -589809, 1, 327680, -983024, 1, 327680, -851952, 1, 196608, -786416, 1, 196608, -720880, 1, 196608, -655344, 1, 196608, -589808, 1, 327680, -983023, 1, 327680, -589807, 1, 327680, -983022, 1, 327680, -589806, 1, 327680, -983021, 1, 327680, -655341, 1, 327680, -589805, 1, 327680, -983020, 1, 327680, -655340, 1, 327680, -589804, 1, 327680, -983019, 1, 327680, -655339, 1, 327680, -589803, 1, 327680, -983018, 1, 327680, -589802, 1, 327680, -983017, 1, 327680, -589801, 1, 327680, -983016, 1, 327680, -589800, 1, 327680, -983015, 1, 327680, -589799, 1, 327680, -983014, 1, 327680, -589798, 1, 327680, -983013, 1, 327680, -589797, 1, 327680, -983012, 1, 327680, -589796, 1, 327680, -983011, 1, 327680, -589795, 1, 327680, -917475, 1, 327680, -851939, 1, 327680, -786403, 1, 327680, -720867, 1, 327680, -655331, 1, 327680)
+next = NodePath("../Scene2")
+delay = 20.0
+
+[node name="Scene2" parent="." node_paths=PackedStringArray("prev") instance=ExtResource("3_g0u8x")]
+layer_1/tile_data = PackedInt32Array(-983030, 327687, 0, -589814, 327687, 0, -983029, 327687, 0, -589813, 327687, 0, -983028, 327687, 0, -589812, 327687, 0, -983027, 327687, 0, -589811, 327687, 0, -983026, 327687, 0, -589810, 327687, 0, -983025, 327687, 0, -589809, 327687, 0, -983024, 327687, 0, -589808, 327687, 0, -983023, 327687, 0, -589807, 327687, 0, -983022, 327687, 0, -655342, 327690, 3, -589806, 327687, 0, -983021, 327687, 0, -655341, 393226, 3, -589805, 327687, 0, -983020, 327687, 0, -655340, 458762, 3, -589804, 327687, 0, -983019, 327687, 0, -589803, 327687, 0, -983018, 327687, 0, -589802, 327687, 0, -983017, 327687, 0, -589801, 327687, 0, -983016, 327687, 0, -589800, 327687, 0, -983015, 327687, 0, -851943, 1179655, 15, -786407, 1179655, 16, -720871, 1179655, 17, -655335, 1179655, 18, -589799, 327687, 0, -983014, 327687, 0, -851942, 1245191, 15, -786406, 1245191, 16, -720870, 1245191, 17, -655334, 1245191, 18, -589798, 327687, 0, -983013, 327687, 0, -851941, 1310727, 15, -786405, 1310727, 16, -720869, 1310727, 17, -655333, 1310727, 18, -589797, 327687, 0, -983012, 327687, 0, -589796, 327687, 0, -983011, 327687, 0, -589795, 327687, 0, -917494, 327687, 0, -851958, 327687, 0, -786422, 327687, 0, -720886, 327687, 0, -655350, 327687, 0, -655339, 524298, 3, -851940, 1376263, 15, -786404, 1376263, 16, -720868, 1376263, 17, -655332, 1376263, 18, -917475, 327687, 0, -851939, 327687, 0, -786403, 327687, 0, -720867, 327687, 0, -655331, 327687, 0)
+layer_4/tile_data = PackedInt32Array(-851943, 1, 131072, -786407, 1, 131072, -720871, 1, 131072, -655335, 1, 131072, -851942, 1, 131072, -786406, 1, 131072, -720870, 1, 131072, -655334, 1, 131072, -851941, 1, 131072, -786405, 1, 131072, -720869, 1, 131072, -655333, 1, 131072, -851940, 1, 131072, -786404, 1, 131072, -720868, 1, 131072, -655332, 1, 131072)
+prev = NodePath("../Scene1")
+
+[node name="Heart" parent="." instance=ExtResource("5_j0i6u")]
+
+[node name="SceneSwitcher" parent="." instance=ExtResource("7_ndv4w")]
+position = Vector2(432, 192)
+next_scene = "res://levels/tutorial/legs1.tscn"
+set_player_spawn = true
+
+[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@185002" to="Scene1/@Area2D@185002" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@185003" to="Scene1/@Area2D@185003" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@185004" to="Scene1/@Area2D@185004" method="_on_body_entered"]

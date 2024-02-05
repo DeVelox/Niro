@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgdhrhilvrnge"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_62nki"]
+[ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/elliot/tutorialPlaceholder1.png" id="4_nub6q"]
+[ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_ucjm5"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="5_a5r1q"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_62nki")
+
+[node name="Legs" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 656.0
+offset_bottom = 376.0
+texture = ExtResource("4_nub6q")
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(78, 112)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_m7p01")
+
+[node name="Tilemap" parent="." instance=ExtResource("5_a5r1q")]
+layer_1/tile_data = PackedInt32Array(-1114109, 458759, 15, -1048573, 458759, 16, -983037, 458759, 17, -917501, 458759, 18, -1114108, 524295, 15, -1048572, 524295, 16, -983036, 524295, 17, -917500, 524295, 18, -1114107, 589831, 15, -1048571, 589831, 16, -983035, 589831, 17, -917499, 589831, 18, -1114106, 655367, 15, -1048570, 655367, 16, -983034, 655367, 17, -917498, 655367, 18, -851965, 1310727, 6, -851964, 1376263, 6, -851963, 1376263, 6, -851962, 1441799, 6, -1507320, 1179655, 2, -1441784, 1179655, 2, -1376248, 1179655, 2, -1310712, 1179655, 2, -1245176, 1179655, 2, -1179640, 1179655, 2, -1114104, 1179655, 2, -1048568, 1179655, 2, -983032, 1179655, 2)
+
+[node name="SceneSwitcher" parent="." instance=ExtResource("4_ucjm5")]
+position = Vector2(136, -14)
+next_scene = "res://levels/boss1/level1.tscn"
+set_player_spawn = true

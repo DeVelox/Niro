@@ -142,9 +142,5 @@ next_scene = "res://levels/tutorial/intro2.tscn"
 enable_on = NodePath("../scene2")
 set_player_spawn = true
 
-[connection signal="body_entered" from="scene1/Fader" to="scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="scene1/@Area2D@53654" to="scene1/@Area2D@53654" method="_on_body_entered"]
-[connection signal="body_entered" from="scene1/@Area2D@53655" to="scene1/@Area2D@53655" method="_on_body_entered"]
-[connection signal="body_entered" from="scene1/@Area2D@53656" to="scene1/@Area2D@53656" method="_on_body_entered"]
 [connection signal="body_entered" from="text2_jump" to="text2_jump" method="_on_player_entered"]
 [connection signal="body_entered" from="text3_climb" to="text3_climb" method="_on_player_entered"]
