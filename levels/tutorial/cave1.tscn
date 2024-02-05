@@ -1,11 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://ucx0x7enyjcx"]
+[gd_scene load_steps=7 format=3 uid="uid://ucx0x7enyjcx"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ynigr"]
 [ext_resource type="PackedScene" uid="uid://003busc8drrl" path="res://prefabs/level design/cave.tscn" id="2_h276l"]
+[ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="3_jjm8d"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
 radius = 12.0
 height = 48.0
+
+[sub_resource type="GDScript" id="GDScript_g05pd"]
+script/source = "extends Area2D
+@onready var old_man: Area2D = $\"../OldMan\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var lines: Array[String] = [\"Seems like you want to destoy this giant\", 
+	\"Now I'm not saying you should do it\",
+	\"But if you do I've got the perfect thing for you!\",
+	\"A brand new Quantom ChronoCore!\",
+	\"It allows you do safeguard a point in time and has sensors for auto-reversal\",
+	\"It is a heart mod so if you don't mind I will be keeping it\",
+	\"Anyways up to you its right there on the desk\"]
+	old_man.say(lines, old_man.global_position)
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gh2w5"]
+size = Vector2(64.5, 11)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ynigr")
@@ -17,3 +43,13 @@ position = Vector2(151, 262)
 shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="Tilemap" parent="." instance=ExtResource("2_h276l")]
+
+[node name="OldMan" parent="." instance=ExtResource("3_jjm8d")]
+position = Vector2(372, 270)
+
+[node name="text1_walk" type="Area2D" parent="."]
+position = Vector2(297, 173)
+script = SubResource("GDScript_g05pd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="text1_walk"]
+shape = SubResource("RectangleShape2D_gh2w5")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://xywws1e0d1n5"]
+[gd_scene load_steps=17 format=3 uid="uid://xywws1e0d1n5"]
 
 [ext_resource type="Script" path="res://scripts/giant_hand.gd" id="1_jffm2"]
 [ext_resource type="Texture2D" uid="uid://de4rm78md1hya" path="res://assets/elliot/HandSpritev2.png" id="2_yom5t"]
@@ -20,6 +20,14 @@ atlas = ExtResource("2_yom5t")
 region = Rect2(0, 648, 600, 216)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ea6j"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 864, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlrar"]
+atlas = ExtResource("2_yom5t")
+region = Rect2(0, 648, 600, 216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1w41"]
 atlas = ExtResource("2_yom5t")
 region = Rect2(0, 864, 600, 216)
 
@@ -67,6 +75,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_qlrar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1w41")
+}],
+"loop": true,
+"name": &"slam",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_e1iqp")
 }, {
 "duration": 1.0,
@@ -100,10 +119,11 @@ metadata/_edit_group_ = true
 
 [node name="Hand" type="AnimatedSprite2D" parent="GiantHand"]
 sprite_frames = SubResource("SpriteFrames_103hx")
-animation = &"grab"
+animation = &"slam"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GiantHand"]
-polygon = PackedVector2Array(-287, -12, -298, 61, -275, 93, -122, 77, -74, 90, -42, 78, -14, 85, 49, 46, 108, 33, 174, 39, 217, 29, 228, -1, 226, -31, 214, -61, 161, -80, 97, -35, 39, -35, -11, -47, -41, -27, -73, -38, -144, -17)
+polygon = PackedVector2Array(-287, -12, -298, 61, -275, 93, -122, 77, -74, 90, -42, 78, -14, 85, 49, 46, 108, 33, 174, 39, 216, 30, 229, 2, 233, -28, 220, -60, 166, -87, 97, -35, 39, -35, -11, -47, -41, -27, -73, -38, -144, -17)
+disabled = true
 
 [node name="KillZone" type="Area2D" parent="GiantHand"]
 
@@ -112,9 +132,16 @@ position = Vector2(153, -14)
 shape = SubResource("CircleShape2D_6kmbn")
 disabled = true
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GiantHand/KillZone"]
+polygon = PackedVector2Array(-287, -12, -298, 61, -275, 93, -122, 77, -74, 90, -42, 78, -14, 85, 49, 46, 108, 33, 174, 39, 216, 30, 229, 2, 233, -28, 220, -60, 166, -87, 97, -35, 39, -35, -11, -47, -41, -27, -73, -38, -144, -17)
+disabled = true
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)
 
 [connection signal="body_entered" from="GiantHand/KillZone" to="." method="_on_kill_zone_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_attack"]
