@@ -82,7 +82,7 @@ prev = NodePath("../Scene1")
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("6_j2qrr")]
 position = Vector2(432, 192)
-next_scene = "res://levels/tutorial/legs1.tscn"
+next_scene = "res://levels/boss3/phase_intro2.tscn"
 set_player_spawn = true
 
 [node name="eyes" parent="." instance=ExtResource("7_4jp1u")]
@@ -92,6 +92,6 @@ set_player_spawn = true
 [node name="Arms" parent="." instance=ExtResource("8_op8w1")]
 
 [connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@207606" to="Scene1/@Area2D@207606" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@207607" to="Scene1/@Area2D@207607" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@207608" to="Scene1/@Area2D@207608" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@59296" to="Scene1/@Area2D@59296" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@59297" to="Scene1/@Area2D@59297" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@59298" to="Scene1/@Area2D@59298" method="_on_body_entered"]

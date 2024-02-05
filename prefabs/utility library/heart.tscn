@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://deu2j662vobvv"]
+[gd_scene load_steps=5 format=3 uid="uid://d3eor0tsefqy6"]
 
 [ext_resource type="Texture2D" uid="uid://4winq0bbdhpj" path="res://assets/elliot/Cave Assets.png" id="1_tqk6b"]
 [ext_resource type="FontFile" uid="uid://cxul4gjqdn5ua" path="res://assets/temp/04B_03__.TTF" id="2_jv0qp"]
