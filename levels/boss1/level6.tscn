@@ -41,15 +41,15 @@ next = NodePath("../Tilemap3")
 [node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on") instance=ExtResource("4_k33ms")]
 position = Vector2(311, 342)
 scale = Vector2(25, 1)
-next_scene = "res://levels/boss2/phase_intro2.tscn"
-enable_on = NodePath("../Tilemap3")
+next_scene = "res://levels/boss2/phase_intro.tscn"
+enable_on = NodePath("../Tilemap2")
 
 [node name="Tilemap3" parent="." node_paths=PackedStringArray("prev") instance=ExtResource("3_072nv")]
 prev = NodePath("../Tilemap2")
 
 [connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@30491" to="Tilemap/@Area2D@30491" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@30492" to="Tilemap/@Area2D@30492" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@32532" to="Tilemap/@Area2D@32532" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@32533" to="Tilemap/@Area2D@32533" method="_on_body_entered"]
 [connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@30504" to="Tilemap2/@Area2D@30504" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@30505" to="Tilemap2/@Area2D@30505" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@32568" to="Tilemap2/@Area2D@32568" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@32569" to="Tilemap2/@Area2D@32569" method="_on_body_entered"]

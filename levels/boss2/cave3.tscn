@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dc4wfbnndse1l" path="res://assets/elliot/CaveBG.png" id="2_t16xm"]
 [ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="3_ipgxv"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="4_85uqd"]
-[ext_resource type="PackedScene" uid="uid://deu2j662vobvv" path="res://prefabs/utility library/heart.tscn" id="5_el0sr"]
+[ext_resource type="PackedScene" uid="uid://d3eor0tsefqy6" path="res://prefabs/utility library/heart.tscn" id="5_el0sr"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="6_pdt7p"]
 [ext_resource type="PackedScene" uid="uid://bqc3mfy3mwujv" path="res://prefabs/utility library/eyes.tscn" id="7_hdt07"]
 [ext_resource type="PackedScene" uid="uid://d0bbr8kynuq3l" path="res://prefabs/utility library/arms.tscn" id="8_livvc"]
@@ -78,7 +78,7 @@ prev = NodePath("../Scene1")
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("6_pdt7p")]
 position = Vector2(432, 192)
-next_scene = "res://levels/tutorial/legs1.tscn"
+next_scene = "res://levels/boss2/phase_intro2.tscn"
 set_player_spawn = true
 
 [node name="eyes" parent="." instance=ExtResource("7_hdt07")]
@@ -86,6 +86,6 @@ set_player_spawn = true
 [node name="Heart2" parent="." instance=ExtResource("8_livvc")]
 
 [connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@198169" to="Scene1/@Area2D@198169" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@198170" to="Scene1/@Area2D@198170" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@198171" to="Scene1/@Area2D@198171" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@33255" to="Scene1/@Area2D@33255" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@33256" to="Scene1/@Area2D@33256" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@33257" to="Scene1/@Area2D@33257" method="_on_body_entered"]

@@ -27,3 +27,4 @@ layer_4/tile_data = PackedInt32Array(-720871, 1, 327680, -720870, 1, 327680, -72
 [node name="SceneSwitcher" parent="." instance=ExtResource("4_rgqt8")]
 position = Vector2(520, 174)
 next_scene = "res://levels/tutorial/cave2.tscn"
+set_player_spawn = true
