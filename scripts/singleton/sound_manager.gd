@@ -95,7 +95,9 @@ func crossfade(track: AudioStream, loop: bool = true) -> AudioStreamPlayer:
 	audio.play()
 
 	var tween := create_tween()
-	tween.tween_property(audio_old, "volume_db", -60, 3)
+	if is_instance_valid(audio_old):
+		tween.tween_property(audio_old, "volume_db", -60, 3)
 	tween.parallel().tween_property(audio, "volume_db", 0, 3)
-	tween.tween_callback(audio_old.stop)
+	if is_instance_valid(audio_old):
+		tween.tween_callback(audio_old.stop)
 	return audio
