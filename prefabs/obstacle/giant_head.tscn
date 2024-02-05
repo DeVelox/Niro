@@ -291,10 +291,10 @@ tracks/3/path = NodePath("AnimatedSprite2D:animation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(1, 3),
-"transitions": PackedFloat32Array(1, 1e+06),
+"times": PackedFloat32Array(0, 1, 6.2),
+"transitions": PackedFloat32Array(1, 1, 1e+06),
 "update": 1,
-"values": [&"open", &"close"]
+"values": [&"idle", &"open", &"close"]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -303,10 +303,10 @@ tracks/4/path = NodePath("AnimatedSprite2D:speed_scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
+"times": PackedFloat32Array(0, 1, 2.4),
+"transitions": PackedFloat32Array(1e+06, 1e+06, 1),
 "update": 0,
-"values": []
+"values": [0.0, 1.0, 0.0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -315,10 +315,10 @@ tracks/5/path = NodePath("AnimatedSprite2D:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(1, 2.4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(2.4),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 14]
+"values": [14]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rkv4l"]
@@ -330,13 +330,14 @@ _data = {
 script = ExtResource("1_tjvpd")
 
 [node name="GiantHead" type="StaticBody2D" parent="."]
-position = Vector2(320, 60)
+position = Vector2(320, -160)
 collision_layer = 16
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GiantHead"]
 sprite_frames = SubResource("SpriteFrames_u0hda")
-animation = &"close"
+animation = &"idle"
 autoplay = "idle"
+speed_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GiantHead"]
 visible = false
