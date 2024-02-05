@@ -36,7 +36,7 @@ var was_on_floor := false
 var can_take_damage := true
 var should_take_damage := true
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $Sprite
 @onready var hitbox: CollisionShape2D = $CollisionShape2D
 @onready var dash_timer: Timer = $Timers/DashTimer
 @onready var slide_timer: Timer = $Timers/SlideTimer

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://hedyyw0jrvg5"]
+[gd_scene load_steps=44 format=3 uid="uid://cqfckmcl7eptq"]
 
 [ext_resource type="Texture2D" uid="uid://b6tpl5p8f8bm1" path="res://assets/elliot/GiantHead-Closing.png" id="1_d1dpj"]
 [ext_resource type="Texture2D" uid="uid://dlpqdiakjaj4b" path="res://assets/elliot/GiantHead-idle.png" id="1_pm0h5"]
@@ -130,6 +130,26 @@ region = Rect2(4160, 0, 320, 368)
 atlas = ExtResource("3_py1vl")
 region = Rect2(4480, 0, 320, 368)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd2kp"]
+atlas = ExtResource("3_py1vl")
+region = Rect2(3200, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ext5g"]
+atlas = ExtResource("3_py1vl")
+region = Rect2(3520, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sioql"]
+atlas = ExtResource("3_py1vl")
+region = Rect2(3840, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jikej"]
+atlas = ExtResource("3_py1vl")
+region = Rect2(4160, 0, 320, 368)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xe75q"]
+atlas = ExtResource("3_py1vl")
+region = Rect2(4480, 0, 320, 368)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_u0hda"]
 animations = [{
 "frames": [{
@@ -239,92 +259,31 @@ animations = [{
 "loop": true,
 "name": &"open",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd2kp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ext5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sioql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jikej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xe75q")
+}],
+"loop": true,
+"name": &"roar",
+"speed": 4.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lrrd2"]
 radius = 115.0
 height = 360.0
-
-[sub_resource type="Animation" id="Animation_muw30"]
-resource_name = "start"
-length = 10.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BulletSpawner:delay")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BulletSpawner:mode")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(320, -160), Vector2(320, 60)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:animation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1, 6.2),
-"transitions": PackedFloat32Array(1, 1, 1e+06),
-"update": 1,
-"values": [&"idle", &"open", &"close"]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AnimatedSprite2D:speed_scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1, 2.4),
-"transitions": PackedFloat32Array(1e+06, 1e+06, 1),
-"update": 0,
-"values": [0.0, 1.0, 0.0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("AnimatedSprite2D:frame")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(2.4),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [14]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_rkv4l"]
-_data = {
-"start": SubResource("Animation_muw30")
-}
 
 [node name="GiantHead" type="Node2D"]
 script = ExtResource("1_tjvpd")
@@ -335,9 +294,9 @@ collision_layer = 16
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GiantHead"]
 sprite_frames = SubResource("SpriteFrames_u0hda")
-animation = &"idle"
+animation = &"close"
 autoplay = "idle"
-speed_scale = 0.0
+frame_progress = 0.362711
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GiantHead"]
 visible = false
@@ -348,8 +307,3 @@ disabled = true
 [node name="BulletSpawner" parent="GiantHead" instance=ExtResource("4_f53ap")]
 position = Vector2(0, 65)
 delay = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GiantHead"]
-libraries = {
-"": SubResource("AnimationLibrary_rkv4l")
-}
