@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcb43egl2jv1h"
-path="res://.godot/imported/TilesetV6 Fade In.png-6fd848d67be33ad1c624baef1d2716af.ctex"
+uid="uid://byanb2hwy5eow"
+path="res://.godot/imported/TilesetV7FadeOut.png-7525d823f29c973c0c7bf89488db87c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/elliot/TilesetV6 Fade In.png"
-dest_files=["res://.godot/imported/TilesetV6 Fade In.png-6fd848d67be33ad1c624baef1d2716af.ctex"]
+source_file="res://assets/elliot/TilesetV7FadeOut.png"
+dest_files=["res://.godot/imported/TilesetV7FadeOut.png-7525d823f29c973c0c7bf89488db87c5.ctex"]
 
 [params]
 
