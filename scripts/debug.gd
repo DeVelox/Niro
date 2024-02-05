@@ -42,7 +42,6 @@ func _init_values(_properties: Array[Dictionary]) -> Array[String]:
 	return list
 
 
-
 func _init_menu_bools(_properties: Array[String], _menu_row: Node) -> void:
 	var add = _menu_row.get_child(0).get_child(3)
 	add.pressed.connect(_on_add_pressed)

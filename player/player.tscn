@@ -2634,7 +2634,6 @@ wait_time = 0.3
 autostart = true
 
 [node name="Detectors" type="Node2D" parent="."]
-visible = false
 
 [node name="DropCheck" type="RayCast2D" parent="Detectors"]
 target_position = Vector2(0, 100)
@@ -2647,7 +2646,6 @@ hit_from_inside = true
 collide_with_areas = true
 
 [node name="WallHangLeft" type="Area2D" parent="Detectors"]
-visible = false
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/WallHangLeft"]
@@ -2656,7 +2654,6 @@ scale = Vector2(0.4, 0.6)
 shape = SubResource("RectangleShape2D_kjvja")
 
 [node name="WallHangRight" type="Area2D" parent="Detectors"]
-visible = false
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/WallHangRight"]

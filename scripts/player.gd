@@ -447,12 +447,6 @@ func _try_interact() -> void:
 	if interact_check.is_colliding():
 		interact_check.get_collider().interact()
 
-func _request_recall() -> void:
-	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
-	if checkpoint and Upgrades.check(Upgrades.Type.RECALL):
-		_soft_recall()
-	else:
-		_hard_recall()
 
 func _try_recall(long_reset = false) -> void:
 	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
@@ -496,7 +490,7 @@ func _absorb() -> void:
 		invulnerability.start()
 		can_take_damage = false
 	else:
-		_request_recall()
+		kill()
 
 
 func kill() -> void:
@@ -516,7 +510,7 @@ func damage() -> void:
 	if Upgrades.check(Upgrades.Type.SHIELD):
 		_absorb()
 	elif can_take_damage:
-		_request_recall()
+		kill()
 
 
 func is_safe() -> void:
@@ -551,7 +545,7 @@ func _on_wall_exited(_body: Node2D) -> void:
 
 func _on_invulnerability_timeout() -> void:
 	if should_take_damage:
-		_request_recall()
+		kill()
 	should_take_damage = true
 	can_take_damage = true
 	Sound.sfx(Sound.SHIELD_CHARGE)
@@ -607,7 +601,7 @@ func _on_climbing_bottom_exited(_body: Node2D) -> void:
 func _on_screen_exited() -> void:
 	if global_position.y < 0:
 		return
-	_request_recall()
+	kill()
 
 
 func _on_repeat_sound_timeout() -> void:
