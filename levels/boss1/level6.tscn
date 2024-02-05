@@ -48,8 +48,8 @@ enable_on = NodePath("../Tilemap2")
 prev = NodePath("../Tilemap2")
 
 [connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@200285" to="Tilemap/@Area2D@200285" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@200286" to="Tilemap/@Area2D@200286" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@32532" to="Tilemap/@Area2D@32532" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@32533" to="Tilemap/@Area2D@32533" method="_on_body_entered"]
 [connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@200321" to="Tilemap2/@Area2D@200321" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@200322" to="Tilemap2/@Area2D@200322" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@32568" to="Tilemap2/@Area2D@32568" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@32569" to="Tilemap2/@Area2D@32569" method="_on_body_entered"]
