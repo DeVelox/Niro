@@ -10,9 +10,9 @@ script/source = "extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var position := Vector2(320, 180)
+	var pos := Vector2(320, 180)
 	var tween = create_tween()
-	tween.tween_property(legs, \"position\", position, 0.5).set_trans(Tween.TRANS_ELASTIC).set_delay(1.5)
+	tween.tween_property(legs, \"position\", pos, 0.5).set_trans(Tween.TRANS_ELASTIC).set_delay(1.5)
 	tween.tween_callback(Sound.event.bind(Sound.GIANT))
 	tween.parallel().tween_callback(Sound.event.bind(Sound.STOMP))
 
