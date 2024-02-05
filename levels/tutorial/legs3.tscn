@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dgur0k5oxc14t"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_o3cvd"]
+[ext_resource type="PackedScene" path="res://prefabs/level design/giant_legs.tscn" id="2_dgyr2"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_pvwfa"]
-[ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/elliot/tutorialPlaceholder1.png" id="4_h12x4"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_rgqt8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
@@ -12,13 +12,7 @@ height = 48.0
 [node name="Level" type="Node2D"]
 script = ExtResource("1_o3cvd")
 
-[node name="Legs" type="TextureRect" parent="."]
-z_index = -1
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 656.0
-offset_bottom = 376.0
-texture = ExtResource("4_h12x4")
+[node name="GiantLegs" parent="." instance=ExtResource("2_dgyr2")]
 
 [node name="Spawn" type="Marker2D" parent="."]
 
@@ -27,7 +21,7 @@ position = Vector2(440, 171)
 shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="Scene1" parent="." instance=ExtResource("3_pvwfa")]
-layer_1/tile_data = PackedInt32Array(-720871, 524290, 8, -720870, 589826, 8, -720869, 655362, 8, -720868, 720898, 8, -655335, 524290, 9, -655334, 589826, 9, -655333, 655362, 9, -655332, 720898, 9, -720867, 786434, 8, -655331, 786434, 9)
+layer_1/tile_data = PackedInt32Array(-720871, 1310727, 5, -720870, 1376263, 5, -720869, 1376263, 5, -720868, 1376263, 5, -655335, 1310727, 6, -655334, 1376263, 6, -655333, 1376263, 6, -655332, 1376263, 6, -720867, 1441799, 5, -655331, 1441799, 6)
 layer_4/tile_data = PackedInt32Array(-720871, 1, 327680, -720870, 1, 327680, -720869, 1, 327680, -720868, 1, 327680, -655335, 1, 327680, -655334, 1, 327680, -655333, 1, 327680, -655332, 1, 327680, -720867, 1, 327680, -655331, 1, 327680)
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("4_rgqt8")]
