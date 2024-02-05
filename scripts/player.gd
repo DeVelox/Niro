@@ -458,7 +458,6 @@ func _double_tap(action: String, method: Callable) -> void:
 
 
 func _try_interact() -> void:
-	print_debug(interact_check.is_colliding())
 	if interact_check.is_colliding():
 		interact_check.get_collider().interact()
 
