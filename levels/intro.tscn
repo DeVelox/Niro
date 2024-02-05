@@ -52,17 +52,14 @@ Before the deadline...
 Four heroes rose to the task...
 
 
-Of making you...
+Of letting you become...
 
 
-[i]THE UNNAMED HERO[/i]
-in
-[code]THE UNNAMED GAME[/code]
+[i]NIRO[/i]
+
+[code]POST HUMANITY[/code]
 [/b]
 [/center]"
-
-[node name="Label" type="Label" parent="MarginContainer"]
-layout_mode = 2
 
 [node name="LetterTimer" type="Timer" parent="."]
 wait_time = 0.08
