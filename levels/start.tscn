@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://0abuvb065pb1"]
+[gd_scene load_steps=5 format=3 uid="uid://0abuvb065pb1"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2xunh"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="2_yqmey"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="3_8np6h"]
 [ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="4_5i88s"]
-[ext_resource type="PackedScene" path="res://prefabs/obstacle/giant_hand.tscn" id="5_q602n"]
 
 [node name="Start" type="Node2D"]
 script = ExtResource("1_2xunh")
@@ -18,26 +17,23 @@ position = Vector2(38, 287)
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("3_8np6h")]
 position = Vector2(232, 248)
-next_scene = "res://levels/boss2/level1.tscn"
+next_scene = "res://levels/boss1/level3.tscn"
 set_player_spawn = true
 
 [node name="SceneSwitcher2" parent="." instance=ExtResource("3_8np6h")]
 position = Vector2(312, 248)
-next_scene = "res://levels/boss2/phase_intro2.tscn"
+next_scene = "res://levels/boss1/level1.tscn"
 set_player_spawn = true
 
 [node name="SceneSwitcher3" parent="." instance=ExtResource("3_8np6h")]
 position = Vector2(392, 248)
-next_scene = "res://levels/boss1/level3.tscn"
+next_scene = "res://levels/boss2/level3.tscn"
 set_player_spawn = true
 
 [node name="SceneSwitcher4" parent="." instance=ExtResource("3_8np6h")]
 position = Vector2(107, 246)
-next_scene = "res://levels/boss3/level1.tscn"
+next_scene = "res://levels/boss2/cave1.tscn"
 set_player_spawn = true
 
 [node name="OldMan" parent="." instance=ExtResource("4_5i88s")]
 position = Vector2(132, 319)
-
-[node name="GiantHand" parent="." instance=ExtResource("5_q602n")]
-delay = 1

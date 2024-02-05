@@ -60,3 +60,16 @@ position = Vector2(313, 69)
 next_scene = "res://levels/boss1/level6.tscn"
 enable_on = NodePath("../Tilemap4")
 outro = NodePath("../Tilemap4")
+
+[connection signal="body_entered" from="Tilemap/KillZone" to="Tilemap/KillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@95496" to="Tilemap/@Area2D@95496" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@95497" to="Tilemap/@Area2D@95497" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@95498" to="Tilemap/@Area2D@95498" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@95533" to="Tilemap2/@Area2D@95533" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@95534" to="Tilemap2/@Area2D@95534" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@95535" to="Tilemap2/@Area2D@95535" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap3/Fader" to="Tilemap3/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap3/@Area2D@95580" to="Tilemap3/@Area2D@95580" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap3/@Area2D@95581" to="Tilemap3/@Area2D@95581" method="_on_body_entered"]
