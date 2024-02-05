@@ -49,16 +49,3 @@ position = Vector2(474, 133)
 next_scene = "res://levels/boss1/level3.tscn"
 enable_on = NodePath("../Scene3")
 outro = NodePath("../Scene3")
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@211525" to="Scene1/@Area2D@211525" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@211526" to="Scene1/@Area2D@211526" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@211527" to="Scene1/@Area2D@211527" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@211528" to="Scene1/@Area2D@211528" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/KillZone" to="Scene1/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/KillZone" to="Scene2/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@211617" to="Scene2/@Area2D@211617" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@211618" to="Scene2/@Area2D@211618" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@211619" to="Scene2/@Area2D@211619" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@211620" to="Scene2/@Area2D@211620" method="_on_body_entered"]
