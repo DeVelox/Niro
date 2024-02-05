@@ -480,15 +480,20 @@ func _absorb() -> void:
 		invulnerability.start()
 		can_take_damage = false
 	else:
-		_try_recall()
+		kill()
 
 
 func kill() -> void:
 	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
+	var glitch := get_node("/root/Main/Shader/Glitch")
 	if checkpoint and Upgrades.check(Upgrades.Type.RECALL):
 		_soft_recall()
 	else:
-		_hard_recall()
+		var tween := create_tween()
+		tween.tween_callback(glitch.show)
+		tween.tween_property(sprite.material, "shader_parameter/sensitivity", 1.0, 2.0)
+		tween.tween_callback(glitch.hide).set_delay(1.0)
+		tween.tween_callback(_hard_recall)
 
 
 func damage() -> void:

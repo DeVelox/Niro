@@ -35,7 +35,6 @@ func _get_texture() -> Texture2D:
 	var pos: Vector2 = tilemap.local_to_map(position)
 	var tile: Vector2i = tilemap.get_cell_atlas_coords(1, pos)
 	var atlas: TileSetAtlasSource = tilemap.tile_set.get_source(Scene.Source.TILE)
-	print_debug(pos, tile, atlas)
 	var region: Rect2i = atlas.get_tile_texture_region(tile)
 	var image: Image = atlas.texture.get_image().get_region(region)
 	var texture: Texture2D = ImageTexture.create_from_image(image)

@@ -23,10 +23,14 @@ func sell(upgrade: Type) -> void:
 
 
 func use_slowmo() -> void:
+	var chromatic_aberration := get_node("/root/Main/Shader/ChromaticAberration")
+	chromatic_aberration.show()
 	Engine.time_scale = 0.5
 
 
 func end_slowmo() -> void:
+	var chromatic_aberration := get_node("/root/Main/Shader/ChromaticAberration")
+	chromatic_aberration.hide()
 	Engine.time_scale = 1.0
 
 

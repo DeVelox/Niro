@@ -89,7 +89,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_6kmbn"]
 radius = 55.0364
 
-[node name="Node2D" type="Node2D"]
+[node name="GiantHand" type="Node2D"]
 z_index = 2
 z_as_relative = false
 script = ExtResource("1_jffm2")

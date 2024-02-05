@@ -90,7 +90,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Node2D" type="Node2D"]
+[node name="GiantHead" type="Node2D"]
 
 [node name="GiantHead" type="StaticBody2D" parent="."]
 

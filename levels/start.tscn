@@ -39,5 +39,5 @@ set_player_spawn = true
 [node name="OldMan" parent="." instance=ExtResource("4_5i88s")]
 position = Vector2(132, 319)
 
-[node name="Node2D" parent="." instance=ExtResource("5_q602n")]
-position = Vector2(-2, 95)
+[node name="GiantHand" parent="." instance=ExtResource("5_q602n")]
+delay = 1
