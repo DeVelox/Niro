@@ -164,10 +164,11 @@ func _wall_move(delta) -> void:
 
 func _try_jump() -> bool:
 	# Jump buffer not functional
-	if Input.is_action_just_pressed("jump") or not jump_buffer.is_stopped():
+	if not jump_buffer.is_stopped():
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
 		Sound.sfx(Sound.JUMP)
+		jump_buffer.stop()
 		return true
 	return false
 
@@ -228,15 +229,19 @@ func _try_climb_jump() -> bool:
 
 
 func _try_double_jump() -> bool:
+	if not jump_buffer.is_stopped() and has_double_jump:
+		if velocity.y < 0:
+			velocity.y = JUMP_VELOCITY * DOUBLE_JUMP_MULTI
+		else:
+			velocity.y = JUMP_VELOCITY * DOUBLE_JUMP_MULTI
+			#velocity.y += JUMP_VELOCITY * DOUBLE_JUMP_MULTI
+		has_double_jump = false
+		is_double_jumping = true
+		effects.play("double_jump")
+		Sound.sfx(Sound.DOUBLE_JUMP)
+		jump_buffer.stop()
+		return true
 	return false
-	#if Input.is_action_just_pressed("jump") and has_double_jump:
-	#velocity.y = JUMP_VELOCITY
-	#has_double_jump = false
-	#is_double_jumping = true
-	#effects.play("double_jump")
-	#Sound.sfx(Sound.DOUBLE_JUMP)
-	#return true
-	#return false
 
 
 func _try_crouch() -> bool:
@@ -301,7 +306,7 @@ func _try_wall_hang(direction) -> bool:
 func _state_checks() -> void:
 	if is_on_floor():
 		was_on_floor = true
-		has_double_jump = true
+		#has_double_jump = true
 		has_dash = true
 		is_jumping = false
 		is_double_jumping = false
@@ -310,6 +315,9 @@ func _state_checks() -> void:
 	if is_climbing:
 		if is_climbing_bottom + is_climbing_top == 0:
 			is_climbing = false
+			
+	if Input.is_action_just_pressed("jump"):
+		jump_buffer.start()
 
 
 func _collision_update() -> void:
@@ -604,3 +612,9 @@ func _on_repeat_sound_timeout() -> void:
 			Sound.sfx(Sound.RUNNING)
 	else:
 		return
+		
+func enable_double_jump(body) -> void:
+	has_double_jump = true
+
+func disable_double_jump(body) -> void:
+	has_double_jump = false

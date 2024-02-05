@@ -610,6 +610,14 @@ collision_mask = 132
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_hfvdp")
 
+[node name="DoubleJumpCheck" type="Area2D" parent="Detectors"]
+position = Vector2(0, 28)
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/DoubleJumpCheck"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_hfvdp")
+
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Detectors"]
 scale = Vector2(0.2, 0.2)
 
@@ -640,4 +648,6 @@ animation = &"double_jump"
 [connection signal="body_exited" from="Detectors/ClimbingTop" to="." method="_on_climbing_top_exited"]
 [connection signal="body_entered" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_entered"]
 [connection signal="body_exited" from="Detectors/ClimbingBottom" to="." method="_on_climbing_bottom_exited"]
+[connection signal="body_entered" from="Detectors/DoubleJumpCheck" to="." method="enable_double_jump"]
+[connection signal="body_exited" from="Detectors/DoubleJumpCheck" to="." method="disable_double_jump"]
 [connection signal="screen_exited" from="Detectors/VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

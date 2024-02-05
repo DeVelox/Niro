@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cqfckmcl7eptq"]
+[gd_scene load_steps=41 format=3 uid="uid://hedyyw0jrvg5"]
 
 [ext_resource type="Texture2D" uid="uid://b6tpl5p8f8bm1" path="res://assets/elliot/GiantHead-Closing.png" id="1_d1dpj"]
 [ext_resource type="Texture2D" uid="uid://dlpqdiakjaj4b" path="res://assets/elliot/GiantHead-idle.png" id="1_pm0h5"]
@@ -245,25 +245,110 @@ animations = [{
 radius = 115.0
 height = 360.0
 
+[sub_resource type="Animation" id="Animation_muw30"]
+resource_name = "start"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BulletSpawner:delay")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BulletSpawner:mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(320, -160), Vector2(320, 60)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 3),
+"transitions": PackedFloat32Array(1, 1e+06),
+"update": 1,
+"values": [&"open", &"close"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedSprite2D:speed_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimatedSprite2D:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1, 2.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 14]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rkv4l"]
+_data = {
+"start": SubResource("Animation_muw30")
+}
+
 [node name="GiantHead" type="Node2D"]
 script = ExtResource("1_tjvpd")
 
 [node name="GiantHead" type="StaticBody2D" parent="."]
-position = Vector2(320, -160)
+position = Vector2(320, 60)
 collision_layer = 16
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GiantHead"]
 sprite_frames = SubResource("SpriteFrames_u0hda")
 animation = &"close"
 autoplay = "idle"
-frame = 4
-frame_progress = 0.741998
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GiantHead"]
 visible = false
 position = Vector2(-4, -69)
 shape = SubResource("CapsuleShape2D_lrrd2")
+disabled = true
 
 [node name="BulletSpawner" parent="GiantHead" instance=ExtResource("4_f53ap")]
 position = Vector2(0, 65)
 delay = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GiantHead"]
+libraries = {
+"": SubResource("AnimationLibrary_rkv4l")
+}
