@@ -22,7 +22,7 @@ shader_parameter/shake_color_rate = 0.01
 
 [node name="Main" type="Node"]
 script = ExtResource("1_qd4cp")
-current_scene = "res://levels/start.tscn"
+current_scene = "res://levels/stomp.tscn"
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(130, 260)

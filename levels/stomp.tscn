@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp7whulqrrj4l"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_m5psx"]
+[ext_resource type="PackedScene" uid="uid://b4suc33jof7de" path="res://prefabs/level design/giant_foot.tscn" id="3_6wanv"]
+[ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="5_ixtan"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_m5psx")
+
+[node name="Spawn" type="Marker2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_m7p01")
+
+[node name="Tilemap" parent="." instance=ExtResource("5_ixtan")]
+
+[node name="GiantFoot" parent="." instance=ExtResource("3_6wanv")]

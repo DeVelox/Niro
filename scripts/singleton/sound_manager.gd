@@ -32,6 +32,7 @@ const SHIELD_HIT = preload("res://assets/sfx/shield_hit.ogg")
 const SLIDE = preload("res://assets/sfx/slide.ogg")
 const SPIKE_HIT = preload("res://assets/sfx/spike_hit.ogg")
 const UPGRADE_GET = preload("res://assets/sfx/upgrade_get.ogg")
+const STOMP = preload("res://assets/sfx/stomp.ogg")
 
 # Events
 const GIANT = preload("res://assets/sfx/El Gigante.ogg")

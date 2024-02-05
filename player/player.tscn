@@ -1,4 +1,4 @@
-[gd_scene load_steps=313 format=3 uid="uid://b75hun8hw8sj0"]
+[gd_scene load_steps=312 format=3 uid="uid://b75hun8hw8sj0"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_0if4t"]
 [ext_resource type="Shader" path="res://scripts/shader/dissolve.gdshader" id="2_b5s7b"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://dv34owl5tlury" path="res://assets/elliot/CharacterAnimationSpriteSheetV4Eyes.png" id="7_jods2"]
 [ext_resource type="Texture2D" uid="uid://blxovb2nbp2u2" path="res://assets/elliot/CharacterAnimationSpriteSheetV4Legs.png" id="8_bmav7"]
 [ext_resource type="Texture2D" uid="uid://dnm7ya8rtxqy1" path="res://assets/temp/double_jump.png" id="30_cadxq"]
-[ext_resource type="PackedScene" uid="uid://jbo4xpcv06af" path="res://prefabs/utility/debug.tscn" id="33_7luae"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mdjxt"]
 resource_local_to_scene = true
@@ -2709,8 +2708,6 @@ position = Vector2(0, 24)
 scale = Vector2(1, 0.4375)
 sprite_frames = SubResource("SpriteFrames_1xcut")
 animation = &"double_jump"
-
-[node name="Debug" parent="." instance=ExtResource("33_7luae")]
 
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_finished"]
 [connection signal="timeout" from="Timers/DashGhost" to="." method="_dash_ghost"]
