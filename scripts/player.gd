@@ -315,7 +315,7 @@ func _state_checks() -> void:
 	if is_climbing:
 		if is_climbing_bottom + is_climbing_top == 0:
 			is_climbing = false
-			
+
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer.start()
 
@@ -612,9 +612,11 @@ func _on_repeat_sound_timeout() -> void:
 			Sound.sfx(Sound.RUNNING)
 	else:
 		return
-		
-func enable_double_jump(body) -> void:
+
+
+func enable_double_jump(_body) -> void:
 	has_double_jump = true
 
-func disable_double_jump(body) -> void:
+
+func disable_double_jump(_body) -> void:
 	has_double_jump = false

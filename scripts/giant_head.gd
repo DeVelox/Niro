@@ -9,8 +9,10 @@ extends Node2D
 func _ready() -> void:
 	pass
 
+
 func animation() -> void:
 	animation_player.play("start")
+
 
 func fight() -> void:
 	var come_down := Vector2(320, 60)
