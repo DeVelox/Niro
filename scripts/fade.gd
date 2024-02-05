@@ -1,8 +1,8 @@
 extends Node2D
 
-const STATIC = preload("res://assets/elliot/TilesetV6.png")
-const FADEIN = preload("res://assets/elliot/TilesetV6 Fade In.png")
-const FADEOUT = preload("res://assets/elliot/TilesetV6 Fade Out.png")
+const STATIC = preload("res://assets/elliot/TilesetV7.png")
+const FADEIN = preload("res://assets/elliot/TilesetV7FadeIn.png")
+const FADEOUT = preload("res://assets/elliot/TilesetV7FadeOut.png")
 
 var vision: bool = Upgrades.check(Upgrades.Type.VISION)
 var atlas_coords: Vector2i
