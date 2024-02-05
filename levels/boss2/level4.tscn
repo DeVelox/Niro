@@ -44,16 +44,18 @@ scale = Vector2(20, 1)
 next_scene = "res://levels/boss3/phase_intro1.tscn"
 enable_on = NodePath("../Tilemap3")
 
-
-[connection signal="body_entered" from="Tilemap/@Area2D@30096" to="Tilemap/@Area2D@30096" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@30097" to="Tilemap/@Area2D@30097" method="_on_body_entered"]
 [connection signal="body_entered" from="Tilemap/KillZone" to="Tilemap/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@30098" to="Tilemap/@Area2D@30098" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@30099" to="Tilemap/@Area2D@30099" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@30100" to="Tilemap/@Area2D@30100" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@30101" to="Tilemap/@Area2D@30101" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@30102" to="Tilemap/@Area2D@30102" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@33470" to="Tilemap/@Area2D@33470" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@33471" to="Tilemap/@Area2D@33471" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@33472" to="Tilemap/@Area2D@33472" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@33473" to="Tilemap/@Area2D@33473" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@33474" to="Tilemap/@Area2D@33474" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@33475" to="Tilemap/@Area2D@33475" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap/@Area2D@33476" to="Tilemap/@Area2D@33476" method="_on_body_entered"]
 [connection signal="body_entered" from="Tilemap2/KillZone" to="Tilemap2/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@30186" to="Tilemap2/@Area2D@30186" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@30187" to="Tilemap2/@Area2D@30187" method="_on_body_entered"]
-
+[connection signal="body_entered" from="Tilemap2/@Area2D@33560" to="Tilemap2/@Area2D@33560" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@33561" to="Tilemap2/@Area2D@33561" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@33562" to="Tilemap2/@Area2D@33562" method="_on_body_entered"]
+[connection signal="body_entered" from="Tilemap2/@Area2D@33563" to="Tilemap2/@Area2D@33563" method="_on_body_entered"]
