@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://2n4lftjnnvey"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_417hb"]
-[ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/elliot/tutorialPlaceholder1.png" id="4_f8cy8"]
+[ext_resource type="PackedScene" uid="uid://bbn1m5fehj7kt" path="res://prefabs/level design/giant_legs.tscn" id="2_tbssd"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_ovym1"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="5_yurye"]
 
@@ -36,13 +36,7 @@ size = Vector2(64.5, 11)
 [node name="Level" type="Node2D"]
 script = ExtResource("1_417hb")
 
-[node name="Legs" type="TextureRect" parent="."]
-z_index = -1
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 656.0
-offset_bottom = 376.0
-texture = ExtResource("4_f8cy8")
+[node name="GiantLegs" parent="." instance=ExtResource("2_tbssd")]
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(136, 319)

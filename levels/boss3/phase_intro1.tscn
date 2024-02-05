@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://kjqj0cna4t37"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_gh8b2"]
-[ext_resource type="Texture2D" uid="uid://d2unvips8vk5y" path="res://assets/elliot/tutorialPlaceholder1.png" id="2_gjbfs"]
+[ext_resource type="PackedScene" uid="uid://bbn1m5fehj7kt" path="res://prefabs/level design/giant_legs.tscn" id="2_vs1mv"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_dsr7w"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_cqtmq"]
 
@@ -12,13 +12,7 @@ height = 48.0
 [node name="Level" type="Node2D"]
 script = ExtResource("1_gh8b2")
 
-[node name="Legs" type="TextureRect" parent="."]
-z_index = -1
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 656.0
-offset_bottom = 376.0
-texture = ExtResource("2_gjbfs")
+[node name="GiantLegs" parent="." instance=ExtResource("2_vs1mv")]
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(459, 13)
@@ -47,7 +41,7 @@ enable_on = NodePath("../Scene2")
 set_player_spawn = true
 
 [connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@43320" to="Scene1/@Area2D@43320" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@43321" to="Scene1/@Area2D@43321" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@43322" to="Scene1/@Area2D@43322" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@43323" to="Scene1/@Area2D@43323" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@39065" to="Scene1/@Area2D@39065" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@39066" to="Scene1/@Area2D@39066" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@39067" to="Scene1/@Area2D@39067" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@39068" to="Scene1/@Area2D@39068" method="_on_body_entered"]
