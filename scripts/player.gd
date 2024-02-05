@@ -394,11 +394,17 @@ func _get_animation() -> String:
 		else:
 			if velocity.y > -JUMP_VELOCITY:
 				animation = "falling"
+			elif is_zero_approx(velocity.y):
+				animation = "peak"
 			else:
 				animation = "jumping"
 	else:
-		if is_sliding:
+		if not was_on_floor:
+			animation = "landing"
+		elif is_sliding:
 			animation = "sliding"
+		elif is_crouching and is_zero_approx(velocity.x):
+			animation = "crouching_idle"
 		elif is_crouching:
 			animation = "crouching"
 		elif absf(velocity.x) > 0.1:
