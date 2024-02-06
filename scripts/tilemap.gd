@@ -10,6 +10,7 @@ func _ready() -> void:
 		Scene.active_tilemap.append(self)
 		Scene.active_tilemap_changed.emit()
 	if next:
+		next.hide()
 		Scene.toggle_layers(next, false)
 		Scene.should_fade.connect(_fade)
 

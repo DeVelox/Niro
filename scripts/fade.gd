@@ -114,6 +114,7 @@ func _fade(
 			tween.parallel().tween_property(rubble, "emitting", true, 0.0)
 			tween.tween_property(rubble, "emitting", false, 0.0)
 		if _atlas_texture == FADEIN:
+			tween.tween_callback(_tilemap.show)
 			tween.tween_callback(Scene.toggle_layers.bind(_tilemap, true))
 	tween.tween_callback(fade_shader.material.set_shader_parameter.bind("toggle", false))
 
