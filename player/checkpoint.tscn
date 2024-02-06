@@ -69,6 +69,8 @@ animations = [{
 
 [node name="Checkpoint" type="Node2D"]
 modulate = Color(0.164706, 1, 1, 0.556863)
+z_index = 1
+z_as_relative = false
 script = ExtResource("1_4tspx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

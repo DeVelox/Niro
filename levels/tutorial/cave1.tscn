@@ -7,24 +7,20 @@
 [ext_resource type="PackedScene" uid="uid://d3eor0tsefqy6" path="res://prefabs/utility library/heart.tscn" id="5_j0i6u"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="7_ndv4w"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
-radius = 12.0
-height = 48.0
-
 [sub_resource type="GDScript" id="GDScript_g05pd"]
 script/source = "extends Area2D
 @onready var old_man: Area2D = $\"../OldMan\"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var lines: Array[String] = [\"Seems like you want to destoy this giant\", 
-	\"Now I'm not saying you should do it\",
+	var lines: Array[String] = [\"Seems like you want to destroy this giant\", 
+	\"Now, I'm not saying you should do it\",
 	\"But if you do I've got the perfect thing for you!\",
-	\"A brand new Quantom ChronoCore!\",
-	\"It allows you do safeguard a point in time and has sensors for auto-reversal\",
+	\"A brand new Quantum ChronoCore!\",
+	\"It allows you to safeguard a point in time and has sensors for auto-recall\",
 	\"It is a heart mod\",
-	\"And I'll be willing to give it to you in exchange of that flesh one of yours\",
-	\"Anyways up to you its right there on the desk\"]
+	\"And I'd be willing to give it to you in exchange of that flesh one of yours\",
+	\"Anyways, up to you. It's right there on the bench\"]
 	old_man.say(lines, old_man.global_position)
 
 
@@ -37,6 +33,10 @@ func _process(_delta: float) -> void:
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gh2w5"]
 size = Vector2(64.5, 11)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ynigr")
 
@@ -47,12 +47,6 @@ offset_top = -24.0
 offset_right = 656.0
 offset_bottom = 368.0
 texture = ExtResource("2_4ydvv")
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(232, 192)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="OldMan" parent="." instance=ExtResource("3_jjm8d")]
 position = Vector2(392, 192)
@@ -81,4 +75,10 @@ prev = NodePath("../Scene1")
 [node name="SceneSwitcher" parent="." instance=ExtResource("7_ndv4w")]
 position = Vector2(432, 192)
 next_scene = "res://levels/tutorial/legs1.tscn"
-set_player_spawn = true
+music = "TRACK10"
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(232, 192)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+shape = SubResource("CapsuleShape2D_m7p01")

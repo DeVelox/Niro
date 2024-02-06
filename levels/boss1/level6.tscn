@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cph40po70aol6"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_hcbdv"]
-[ext_resource type="PackedScene" path="res://prefabs/level design/giant_chest.tscn" id="2_oogyv"]
+[ext_resource type="PackedScene" uid="uid://c28jwgt51aubn" path="res://prefabs/level design/giant_chest.tscn" id="2_oogyv"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_072nv"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_k33ms"]
 
@@ -13,14 +13,6 @@ height = 48.0
 script = ExtResource("1_hcbdv")
 
 [node name="GiantChest" parent="." instance=ExtResource("2_oogyv")]
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(310, 270)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-position = Vector2(0, 10)
-shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="Tilemap" parent="." node_paths=PackedStringArray("next") instance=ExtResource("3_072nv")]
 layer_1/tile_data = PackedInt32Array(-262126, 1310727, 5, -196590, 1310727, 6, -262125, 1376263, 5, -196589, 1376263, 6, -262124, 1441799, 5, -196588, 1441799, 6)
@@ -38,18 +30,20 @@ layer_5/tile_data = PackedInt32Array(-196590, 1, 196608, -196589, 1, 196608, -19
 prev = NodePath("../Tilemap")
 next = NodePath("../Tilemap3")
 
+[node name="Tilemap3" parent="." node_paths=PackedStringArray("prev") instance=ExtResource("3_072nv")]
+prev = NodePath("../Tilemap2")
+
 [node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on") instance=ExtResource("4_k33ms")]
 position = Vector2(311, 342)
 scale = Vector2(25, 1)
 next_scene = "res://levels/boss2/phase_intro.tscn"
+music = "TRACK5"
 enable_on = NodePath("../Tilemap2")
 
-[node name="Tilemap3" parent="." node_paths=PackedStringArray("prev") instance=ExtResource("3_072nv")]
-prev = NodePath("../Tilemap2")
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(310, 270)
+metadata/_edit_group_ = true
 
-[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@32532" to="Tilemap/@Area2D@32532" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@32533" to="Tilemap/@Area2D@32533" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@32568" to="Tilemap2/@Area2D@32568" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@32569" to="Tilemap2/@Area2D@32569" method="_on_body_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_m7p01")

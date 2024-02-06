@@ -60,6 +60,7 @@ Of letting you become...
 [code]POST HUMANITY[/code]
 [/b]
 [/center]"
+scroll_active = false
 
 [node name="LetterTimer" type="Timer" parent="."]
 wait_time = 0.08

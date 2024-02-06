@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://buwbgoy582pkb"]
+[gd_scene load_steps=10 format=3 uid="uid://buwbgoy582pkb"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_qd4cp"]
+[ext_resource type="Shader" path="res://scripts/shader/shadow.gdshader" id="2_eef30"]
 [ext_resource type="Shader" path="res://scripts/shader/aberration.gdshader" id="2_vcgex"]
 [ext_resource type="Shader" path="res://scripts/shader/glitch.gdshader" id="3_pnqtm"]
+[ext_resource type="Shader" path="res://scripts/shader/vignette.gdshader" id="4_epj8g"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_prtvb"]
-shader = ExtResource("2_vcgex")
-shader_parameter/r_displacement = Vector2(1, 0)
-shader_parameter/g_displacement = Vector2(0, 0)
-shader_parameter/b_displacement = Vector2(-1, 0)
-shader_parameter/alpha = 1.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5dhsr"]
+shader = ExtResource("2_eef30")
+shader_parameter/background_color = null
+shader_parameter/shadow_color = null
+shader_parameter/offset_in_pixels = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ixer8"]
 resource_local_to_scene = true
@@ -20,19 +21,29 @@ shader_parameter/shake_speed = 5.0
 shader_parameter/shake_block_size = 30.5
 shader_parameter/shake_color_rate = 0.01
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_prtvb"]
+shader = ExtResource("2_vcgex")
+shader_parameter/r_displacement = Vector2(1, 0)
+shader_parameter/g_displacement = Vector2(0, 0)
+shader_parameter/b_displacement = Vector2(-1, 0)
+shader_parameter/alpha = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwrvp"]
+shader = ExtResource("4_epj8g")
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
+
 [node name="Main" type="Node"]
 script = ExtResource("1_qd4cp")
 current_scene = "res://levels/stomp.tscn"
 
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(130, 260)
-
 [node name="Shader" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
-[node name="ChromaticAberration" type="ColorRect" parent="Shader"]
+[node name="DropShadow" type="ColorRect" parent="Shader"]
 visible = false
-material = SubResource("ShaderMaterial_prtvb")
+material = SubResource("ShaderMaterial_5dhsr")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -44,3 +55,20 @@ visible = false
 material = SubResource("ShaderMaterial_ixer8")
 offset_right = 640.0
 offset_bottom = 360.0
+
+[node name="ChromaticAberration" type="ColorRect" parent="Shader"]
+visible = false
+material = SubResource("ShaderMaterial_prtvb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vignette" type="ColorRect" parent="Shader"]
+material = SubResource("ShaderMaterial_mwrvp")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

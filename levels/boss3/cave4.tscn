@@ -4,15 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://dc4wfbnndse1l" path="res://assets/elliot/CaveBG.png" id="2_lqywk"]
 [ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="3_xrsll"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="4_mikdv"]
-[ext_resource type="PackedScene" uid="uid://deu2j662vobvv" path="res://prefabs/utility library/heart.tscn" id="5_j4snc"]
+[ext_resource type="PackedScene" uid="uid://d3eor0tsefqy6" path="res://prefabs/utility library/heart.tscn" id="5_j4snc"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="6_j2qrr"]
 [ext_resource type="PackedScene" uid="uid://bqc3mfy3mwujv" path="res://prefabs/utility library/eyes.tscn" id="7_4jp1u"]
 [ext_resource type="PackedScene" uid="uid://d0bbr8kynuq3l" path="res://prefabs/utility library/arms.tscn" id="8_op8w1"]
 [ext_resource type="PackedScene" uid="uid://dg7mocau7w55p" path="res://prefabs/utility library/legs.tscn" id="8_sgct4"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
-radius = 12.0
-height = 48.0
 
 [sub_resource type="GDScript" id="GDScript_g05pd"]
 script/source = "extends Area2D
@@ -21,9 +17,9 @@ script/source = "extends Area2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var lines: Array[String] = [\"If you want to get it done you better get running\",
-	\"Temporal Stirders will get you up to speed real fast\",
+	\"Temporal Striders will get you up to speed real fast\",
 	\"This will cost that leg part of the arm and a leg\",
-	\"get to the bench if you want it\"]
+	\"Get to the bench if you want it\"]
 	old_man.say(lines, old_man.global_position)
 
 
@@ -39,6 +35,10 @@ pass
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gh2w5"]
 size = Vector2(64.5, 11)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
 [node name="Level" type="Node2D"]
 script = ExtResource("1_wwlmt")
 
@@ -49,12 +49,6 @@ offset_top = -24.0
 offset_right = 656.0
 offset_bottom = 368.0
 texture = ExtResource("2_lqywk")
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(232, 192)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="OldMan" parent="." instance=ExtResource("3_xrsll")]
 position = Vector2(392, 192)
@@ -83,6 +77,7 @@ prev = NodePath("../Scene1")
 [node name="SceneSwitcher" parent="." instance=ExtResource("6_j2qrr")]
 position = Vector2(432, 192)
 next_scene = "res://levels/boss3/phase_intro2.tscn"
+music = "TRACK4"
 set_player_spawn = true
 
 [node name="eyes" parent="." instance=ExtResource("7_4jp1u")]
@@ -91,7 +86,13 @@ set_player_spawn = true
 
 [node name="Arms" parent="." instance=ExtResource("8_op8w1")]
 
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(232, 192)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+shape = SubResource("CapsuleShape2D_m7p01")
+
 [connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@59296" to="Scene1/@Area2D@59296" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@59297" to="Scene1/@Area2D@59297" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@59298" to="Scene1/@Area2D@59298" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@68714" to="Scene1/@Area2D@68714" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@68715" to="Scene1/@Area2D@68715" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@68716" to="Scene1/@Area2D@68716" method="_on_body_entered"]

@@ -6,10 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://f6yb2sek4ils" path="res://prefabs/level design/old_man.tscn" id="4_505hl"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="5_i7jqx"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
-radius = 12.0
-height = 48.0
-
 [sub_resource type="GDScript" id="GDScript_tljyp"]
 script/source = "extends Area2D
 @onready var old_man: Area2D = $\"../OldMan\"
@@ -75,17 +71,14 @@ func _on_player_entered(body: Node2D) -> void:
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bnkkp"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
 [node name="Level3" type="Node2D"]
 script = ExtResource("1_7m3w6")
 
 [node name="GiantLegs" parent="." instance=ExtResource("2_kgp01")]
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(395, 313)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-position = Vector2(0, 10)
-shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="scene1" parent="." node_paths=PackedStringArray("next") instance=ExtResource("3_sfk4o")]
 layer_0/tile_data = PackedInt32Array(-65536, 196610, 268435460, 0, 196610, 268435461, -65535, 196610, 4, 1, 196610, 5, -65534, 196610, 4, 2, 196610, 5, -65533, 262146, 4, 3, 262146, 5, -65532, 327682, 4, 4, 327682, 5, -65531, 327682, 268435460, 5, 327682, 268435461, -65530, 262146, 268435460, 6, 262146, 268435461, -65529, 196610, 268435460, 7, 196610, 268435461, -65528, 196610, 4, 8, 196610, 5, -65527, 262146, 4, 9, 262146, 5, -65526, 327682, 4, 10, 327682, 5, -65525, 327682, 268435460, 11, 327682, 268435461, -65524, 262146, 268435460, 12, 262146, 268435461, -65523, 196610, 268435460, 13, 196610, 268435461, -65522, 196610, 4, 14, 196610, 5, -65521, 262146, 4, 15, 262146, 5, -65520, 327682, 4, 16, 327682, 5, -65519, 327682, 268435460, 17, 327682, 268435461, -65518, 262146, 268435460, 18, 262146, 268435461, -65517, 196610, 268435460, 19, 196610, 268435461, -65516, 196610, 4, 20, 196610, 5, -65515, 262146, 4, 21, 262146, 5, -65514, 327682, 4, 22, 327682, 5, -65511, 196610, 268435460, -65512, 262146, 268435460, -65513, 327682, 268435460, 25, 196610, 268435461, 24, 262146, 268435461, 23, 327682, 268435461, -65508, 327682, 4, -65509, 262146, 4, -65510, 196610, 4, 28, 327682, 5, 27, 262146, 5, 26, 196610, 5, -65505, 196610, 268435460, -65506, 262146, 268435460, -65507, 327682, 268435460, 31, 196610, 268435461, 30, 262146, 268435461, 29, 327682, 268435461, -65502, 327682, 4, -65503, 262146, 4, -65504, 196610, 4, 34, 327682, 5, 33, 262146, 5, 32, 196610, 5, -65499, 196610, 268435460, -65500, 262146, 268435460, -65501, 327682, 268435460, 37, 196610, 268435461, 36, 262146, 268435461, 35, 327682, 268435461, -65496, 327682, 4, -65497, 262146, 4, -65498, 196610, 4, 40, 327682, 5, 39, 262146, 5, 38, 196610, 5, -1, 262146, 268435460, 65535, 262146, 268435461)
@@ -134,11 +127,13 @@ position = Vector2(181, 13)
 position = Vector2(136, -24)
 next_scene = "res://levels/tutorial/intro2.tscn"
 enable_on = NodePath("../scene2")
-set_player_spawn = true
 
-[connection signal="body_entered" from="scene1/Fader" to="scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="scene1/@Area2D@53573" to="scene1/@Area2D@53573" method="_on_body_entered"]
-[connection signal="body_entered" from="scene1/@Area2D@53574" to="scene1/@Area2D@53574" method="_on_body_entered"]
-[connection signal="body_entered" from="scene1/@Area2D@53575" to="scene1/@Area2D@53575" method="_on_body_entered"]
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(395, 313)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_m7p01")
+
 [connection signal="body_entered" from="text2_jump" to="text2_jump" method="_on_player_entered"]
 [connection signal="body_entered" from="text3_climb" to="text3_climb" method="_on_player_entered"]

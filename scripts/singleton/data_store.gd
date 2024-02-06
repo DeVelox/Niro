@@ -3,6 +3,11 @@ extends Node
 var debug_bools: Array[String]
 var debug_values: Array[String]
 
+var has_checkpoint: bool
+var set_player_spawn: bool
+var set_current_track: String
+var set_player_position: Vector2
+
 
 func _ready() -> void:
 	pass

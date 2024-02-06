@@ -14,7 +14,7 @@ func _ready() -> void:
 		queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
@@ -29,6 +29,7 @@ func _on_player_exited(body: Node2D) -> void:
 
 func interact() -> void:
 	Upgrades.buy(Upgrades.Type.VISION)
+	Sound.sfx(Sound.UPGRADE_GET)
 	queue_free()
 "
 
@@ -50,11 +51,13 @@ position = Vector2(-3, 0)
 shape = SubResource("RectangleShape2D_lmqxn")
 
 [node name="Label" type="Label" parent="."]
+z_index = 3
+z_as_relative = false
 offset_left = -40.0
 offset_top = -16.0
 offset_right = 126.0
 offset_bottom = 7.0
-theme_override_colors/font_color = Color(0.635294, 0, 0.180392, 1)
+theme_override_colors/font_color = Color(0.999911, 0.0525778, 0.31046, 1)
 theme_override_fonts/font = ExtResource("2_4rkm7")
 theme_override_font_sizes/font_size = 8
 text = "Take OmniSight (F)"

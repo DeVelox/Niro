@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqaigl0shv1vy"]
+[gd_scene load_steps=6 format=3 uid="uid://dqaigl0shv1vy"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_77mbl"]
-[ext_resource type="PackedScene" path="res://prefabs/level design/giant_chest.tscn" id="2_ojrt3"]
+[ext_resource type="PackedScene" uid="uid://c28jwgt51aubn" path="res://prefabs/level design/giant_chest.tscn" id="2_ojrt3"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_op8ir"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_kux74"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_454th"]
+radius = 12.0
+height = 48.0
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_77mbl")
@@ -23,3 +27,7 @@ outro = NodePath("../Tilemap")
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(120, 311)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_454th")

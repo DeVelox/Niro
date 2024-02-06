@@ -170,9 +170,10 @@ func recall(tilemap_count) -> void:
 
 
 func reload() -> void:
-	var main := get_node("/root/Main")
+	var main := get_node_or_null("/root/Main")
 	var load_level: Node2D = load(current_scene).instantiate()
 	current_level.destroy()
+	load_level.request_ready()
 	main.add_child(load_level)
 	current_level = load_level
 

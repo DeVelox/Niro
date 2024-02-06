@@ -67,6 +67,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_coyote()
 
+	#_debug_move()
 	_debug_clear()
 
 
@@ -151,6 +152,12 @@ func _slide_move() -> void:
 	if motion * velocity.x < 0:
 		velocity.x = -motion
 		is_sliding = false
+
+
+func _debug_move() -> void:
+	var motion_y: float = Input.get_axis("up", "down") * SPEED
+	var motion_x: float = Input.get_axis("left", "right") * SPEED
+	velocity = Vector2(motion_x, motion_y)
 
 
 func _climb_move() -> void:
@@ -463,10 +470,9 @@ func _try_interact() -> void:
 
 
 func _try_recall(long_reset = false) -> void:
-	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 	if long_reset:
 		_hard_recall()
-	elif checkpoint and Upgrades.check(Upgrades.Type.RECALL):
+	elif Data.has_checkpoint and Upgrades.check(Upgrades.Type.RECALL):
 		_soft_recall()
 	# Don't send the player to the shadow realm on accidental press
 	#else:
@@ -474,20 +480,19 @@ func _try_recall(long_reset = false) -> void:
 
 
 func _hard_recall() -> void:
+	Upgrades.active_upgrades.clear()
 	get_tree().reload_current_scene.call_deferred()
 
 
 func _soft_recall() -> void:
-	var checkpoint := get_node("/root/Main/Checkpoint")
 	var rewind_dur: int = Scene.active_tilemap.size() - 1
 	var tween := create_tween()
 
-	Scene.recall(rewind_dur)
-
-	_collision(0)
+	tween.tween_callback(_collision.bind(0))
+	tween.tween_callback(Scene.recall.bind(rewind_dur))
 	(
 		tween
-		. tween_property(self, "position", checkpoint.position, max(1, rewind_dur))
+		. tween_property(self, "position", Scene.spawn_point, max(1, rewind_dur))
 		. set_trans(Tween.TRANS_ELASTIC)
 		. set_ease(Tween.EASE_IN_OUT)
 	)
@@ -510,9 +515,8 @@ func _absorb() -> void:
 
 
 func kill() -> void:
-	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
 	var glitch := get_node("/root/Main/Shader/Glitch")
-	if checkpoint and Upgrades.check(Upgrades.Type.RECALL):
+	if Data.has_checkpoint and Upgrades.check(Upgrades.Type.RECALL):
 		_soft_recall()
 	else:
 		var tween := create_tween()

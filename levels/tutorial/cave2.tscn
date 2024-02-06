@@ -8,10 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="6_pdt7p"]
 [ext_resource type="PackedScene" uid="uid://bqc3mfy3mwujv" path="res://prefabs/utility library/eyes.tscn" id="7_rhy4o"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
-radius = 12.0
-height = 48.0
-
 [sub_resource type="GDScript" id="GDScript_628j5"]
 script/source = "extends Area2D
 @onready var old_man: Area2D = $\"../OldMan\"
@@ -21,8 +17,8 @@ func _ready() -> void:
 	var lines: Array[String] = [\"Found this beauty in my boxes\",
 	\"An OmniSight Optix with dimensional integration\",
 	\"If you are lucky enough this will show you helpful objects from close universes\",
-	\"Its a simple exchange, an eye for eye if you will\",
-	\"Its over on the bench if you want it\"]
+	\"It's a simple exchange, an eye for an eye if you will\",
+	\"It's over on the bench if you want it\"]
 	old_man.say(lines, old_man.global_position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,6 +28,10 @@ func _process(_delta: float) -> void:
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hxphl"]
 size = Vector2(64.5, 11)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ecwbu")
@@ -43,12 +43,6 @@ offset_top = -24.0
 offset_right = 656.0
 offset_bottom = 368.0
 texture = ExtResource("2_t16xm")
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(232, 192)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="OldMan" parent="." instance=ExtResource("3_ipgxv")]
 position = Vector2(392, 192)
@@ -70,7 +64,7 @@ prev = NodePath("../Scene1")
 [node name="SceneSwitcher" parent="." instance=ExtResource("6_pdt7p")]
 position = Vector2(432, 187)
 next_scene = "res://levels/tutorial/legs4.tscn"
-set_player_spawn = true
+music = "TRACK10"
 
 [node name="text1_eye" type="Area2D" parent="."]
 position = Vector2(297, 173)
@@ -81,7 +75,8 @@ shape = SubResource("RectangleShape2D_hxphl")
 
 [node name="eyes" parent="." instance=ExtResource("7_rhy4o")]
 
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@24630" to="Scene1/@Area2D@24630" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@24631" to="Scene1/@Area2D@24631" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@24632" to="Scene1/@Area2D@24632" method="_on_body_entered"]
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(232, 192)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+shape = SubResource("CapsuleShape2D_m7p01")

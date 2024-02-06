@@ -9,6 +9,7 @@ signal end_cutscene
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	end_cutscene.connect(_end_cutscene, CONNECT_ONE_SHOT)
+	Sound.music(Sound.TRACK_7)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,8 +24,8 @@ func _end_cutscene() -> void:
 
 func _on_letter_timer_timeout() -> void:
 	var clean_text: String = _strip_bbcode(rich_text_label.text)
-	var hero_name: String = "THE UNNAMED HERO"
-	var game_name: String = "THE UNNAMED GAME"
+	var hero_name: String = "NIRO"
+	var game_name: String = "POST HUMANITY"
 	var hero_name_i: int = clean_text.find(hero_name)
 	var game_name_i: int = clean_text.find(game_name)
 	rich_text_label.visible_characters += 1

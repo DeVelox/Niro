@@ -11,7 +11,7 @@ func _ready() -> void:
 	crumble.body_entered.connect(_on_body_entered, CONNECT_ONE_SHOT)
 	tile_texture = _get_texture()
 	effect.material.set_shader_parameter("tile", tile_texture)
-	effect.material.set_shader_parameter("alpha", 0.0)
+	effect.material.set_shader_parameter("alpha", 0.1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

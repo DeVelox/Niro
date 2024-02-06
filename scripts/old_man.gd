@@ -9,9 +9,12 @@ var seenthisbozobefore: bool = false
 @onready var text_between_timer: Timer = $text_between_timer
 
 
+func _ready() -> void:
+	Dialog.finished_line.connect(_delay_text_show)
+
+
 # For remotely initiated lines only
 func say(lines: Array[String], text_position: Vector2 = global_position) -> void:
-	Dialog.finished_line.connect(_delay_text_show)
 	Dialog.end_dialog()
 	Dialog.start_dialog(lines, text_position)
 	text_show_timer.stop()
@@ -21,14 +24,16 @@ func say(lines: Array[String], text_position: Vector2 = global_position) -> void
 func interact() -> void:
 	_continue_dialog()
 
-	if Upgrades.check(upgrade):
-		_say(["You're so big.", "And powerful."])
-	elif seenthisbozobefore:
-		_say(["El bozo."])
-	else:
-		_say(default_lines)
+	#if Upgrades.check(upgrade):
+	#_say(["You're so big.", "And powerful."])
+	#elif seenthisbozobefore:
+	#_say(["El bozo."])
+	#else:
+	#_say(default_lines)
 
-	seenthisbozobefore = true
+
+#
+#seenthisbozobefore = true
 
 
 func _continue_dialog() -> void:

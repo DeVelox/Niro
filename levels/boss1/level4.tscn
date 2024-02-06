@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dn7vwin1iafox"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_hcbdv"]
-[ext_resource type="PackedScene" path="res://prefabs/level design/giant_chest.tscn" id="2_2dqqw"]
+[ext_resource type="PackedScene" uid="uid://c28jwgt51aubn" path="res://prefabs/level design/giant_chest.tscn" id="2_2dqqw"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_072nv"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_8tc3m"]
 
@@ -13,12 +13,6 @@ height = 48.0
 script = ExtResource("1_hcbdv")
 
 [node name="GiantChest" parent="." instance=ExtResource("2_2dqqw")]
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(520, 284)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="Tilemap" parent="." node_paths=PackedStringArray("next") groups=["hidden"] instance=ExtResource("3_072nv")]
 layer_1/tile_data = PackedInt32Array(-327667, 1310727, 2, -327666, 1441799, 2, -786419, 1310727, 1, -720883, 1310727, 2, -393203, 1310727, 1, -786418, 1441799, 1, -720882, 1441799, 2, -393202, 1441799, 1, -655341, 1310727, 5, -589805, 1310727, 6, -655340, 1376263, 5, -589804, 1376263, 6, -655339, 1441799, 5, -589803, 1441799, 6, -262114, 1310727, 5, -196578, 1310727, 6, -131042, 524295, 10, -262113, 1376263, 5, -196577, 1376263, 6, -131041, 589831, 10, -262112, 1376263, 268435461, -196576, 1376263, 268435462, -131040, 655367, 10, -262111, 1376263, 268435461, -196575, 1376263, 268435462, -131039, 786439, 8, -262110, 1441799, 5, -196574, 1441799, 6, -131038, 851975, 8, -196589, 1310727, 5, -131053, 1310727, 6, -196588, 1376263, 5, -131052, 1376263, 6, -196587, 1441799, 5, -131051, 1441799, 6, -917498, 1310727, 1, -851962, 1310727, 2, -917497, 1441799, 1, -851961, 1441799, 2)
@@ -49,10 +43,9 @@ position = Vector2(168, 84)
 next_scene = "res://levels/boss1/level5.tscn"
 enable_on = NodePath("../Tilemap3")
 outro = NodePath("../Tilemap3")
-set_player_spawn = true
 
-[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@27436" to="Tilemap/@Area2D@27436" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@27532" to="Tilemap2/@Area2D@27532" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@27533" to="Tilemap2/@Area2D@27533" method="_on_body_entered"]
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(520, 284)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+shape = SubResource("CapsuleShape2D_m7p01")

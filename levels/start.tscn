@@ -35,6 +35,7 @@ set_player_spawn = true
 position = Vector2(107, 246)
 next_scene = "res://levels/tutorial/cave2.tscn"
 set_player_spawn = true
+going_to_cave = true
 
 [node name="OldMan" parent="." instance=ExtResource("4_5i88s")]
 position = Vector2(132, 319)

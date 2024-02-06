@@ -9,20 +9,16 @@
 [ext_resource type="PackedScene" uid="uid://bqc3mfy3mwujv" path="res://prefabs/utility library/eyes.tscn" id="7_hdt07"]
 [ext_resource type="PackedScene" uid="uid://d0bbr8kynuq3l" path="res://prefabs/utility library/arms.tscn" id="8_livvc"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
-radius = 12.0
-height = 48.0
-
 [sub_resource type="GDScript" id="GDScript_g05pd"]
 script/source = "extends Area2D
 @onready var old_man: Area2D = $\"../OldMan\"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var lines: Array[String] = [\"If you need an hand I found this nice piece\",
-	\"Deflection arm guards, should keep you safe out there\",
+	var lines: Array[String] = [\"If you need a hand I found this nice piece\",
+	\"Deflection Arm Guards, should keep you safe out there\",
 	\"I would say it will cost you an arm and a leg but just an arm will do\",
-	\"Its on the bench if you want it\"]
+	\"It's on the bench if you want it\"]
 	old_man.say(lines, old_man.global_position)
 
 
@@ -35,6 +31,10 @@ func _process(_delta: float) -> void:
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gh2w5"]
 size = Vector2(64.5, 11)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
+
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ecwbu")
 
@@ -45,12 +45,6 @@ offset_top = -24.0
 offset_right = 656.0
 offset_bottom = 368.0
 texture = ExtResource("2_t16xm")
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(232, 192)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="OldMan" parent="." instance=ExtResource("3_ipgxv")]
 position = Vector2(392, 192)
@@ -79,13 +73,14 @@ prev = NodePath("../Scene1")
 [node name="SceneSwitcher" parent="." instance=ExtResource("6_pdt7p")]
 position = Vector2(432, 192)
 next_scene = "res://levels/boss2/phase_intro2.tscn"
-set_player_spawn = true
+music = "TRACK5"
 
 [node name="eyes" parent="." instance=ExtResource("7_hdt07")]
 
 [node name="Heart2" parent="." instance=ExtResource("8_livvc")]
 
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@33255" to="Scene1/@Area2D@33255" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@33256" to="Scene1/@Area2D@33256" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@33257" to="Scene1/@Area2D@33257" method="_on_body_entered"]
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(232, 192)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+shape = SubResource("CapsuleShape2D_m7p01")

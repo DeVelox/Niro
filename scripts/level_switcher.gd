@@ -18,7 +18,8 @@ class_name Switcher extends Node2D
 var music: String
 @export var enable_on: TileMap
 @export var outro: TileMap
-@export var set_player_spawn: bool
+@export var keep_player_position: bool
+@export var going_to_cave: bool
 
 @onready var trophy: Area2D = $"."
 
@@ -28,6 +29,7 @@ func _ready() -> void:
 		Scene.active_tilemap_changed.connect(_on_active_tilemap_change)
 		trophy.collision_layer = 0
 		trophy.collision_mask = 0
+		trophy.hide()
 
 
 func interact() -> void:
@@ -36,20 +38,26 @@ func interact() -> void:
 
 
 func _switch_level() -> void:
-	_music()
 	get_tree().call_group("textbox", "queue_free")
 	trophy.collision_layer = 0
 	trophy.collision_mask = 0
-	var main := get_node("/root/Main")
-	var checkpoint := get_node_or_null("/root/Main/Checkpoint")
+	var main := get_node_or_null("/root/Main")
 	var next_level: Node2D = load(next_scene).instantiate()
-	next_level.set_player_spawn = set_player_spawn
+	Data.set_player_spawn = keep_player_position
+	Data.set_current_track = music
 	Scene.current_level = next_level
 	Scene.current_scene = next_scene
 	Scene.active_tilemap.clear()
-	main.add_child.call_deferred(next_level)
-	if checkpoint:
-		checkpoint.destroy()
+
+	if going_to_cave:
+		main.current_scene = next_scene
+
+	if is_instance_valid(main):
+		next_level.request_ready()
+		main.add_child.call_deferred(next_level)
+	else:
+		return
+
 	get_parent().destroy()
 
 
@@ -61,8 +69,8 @@ func _play_outro() -> void:
 
 func _on_player_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
+		Data.set_player_position = body.position
 		_play_outro()
-		await get_tree().create_timer(1).timeout
 		_switch_level()
 
 
@@ -70,31 +78,4 @@ func _on_active_tilemap_change() -> void:
 	if enable_on == Scene.active_tilemap.back():
 		trophy.collision_layer = 6
 		trophy.collision_mask = 1
-
-
-func _music() -> void:
-	match music:
-		"TRACK1":
-			Sound.crossfade(Sound.TRACK_1)
-		"TRACK2":
-			Sound.crossfade(Sound.TRACK_2)
-		"TRACK3":
-			Sound.crossfade(Sound.TRACK_3)
-		"TRACK4":
-			Sound.crossfade(Sound.TRACK_4)
-		"TRACK5":
-			Sound.crossfade(Sound.TRACK_5)
-		"TRACK6":
-			Sound.crossfade(Sound.TRACK_6)
-		"TRACK7":
-			Sound.crossfade(Sound.TRACK_7)
-		"TRACK8":
-			Sound.crossfade(Sound.TRACK_8)
-		"TRACK9":
-			Sound.crossfade(Sound.TRACK_9)
-		"TRACK10":
-			Sound.crossfade(Sound.TRACK_10)
-		"TRACK11":
-			Sound.crossfade(Sound.TRACK_11)
-		"TRACK12":
-			Sound.crossfade(Sound.TRACK_12)
+		trophy.show()

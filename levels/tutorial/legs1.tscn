@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://06klc34tuvpk"]
+[gd_scene load_steps=6 format=3 uid="uid://06klc34tuvpk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_07drl"]
-[ext_resource type="PackedScene" path="res://prefabs/level design/giant_legs.tscn" id="2_yx2ms"]
+[ext_resource type="PackedScene" uid="uid://bbn1m5fehj7kt" path="res://prefabs/level design/giant_legs.tscn" id="2_yx2ms"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="3_s1u40"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="6_i37ls"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wr20q"]
+radius = 12.0
+height = 48.0
 
 [node name="Legs1" type="Node2D"]
 script = ExtResource("1_07drl")
@@ -14,9 +18,6 @@ script = ExtResource("1_07drl")
 position = Vector2(72, 53)
 next_scene = "res://levels/tutorial/legs2.tscn"
 outro = NodePath("../Scene3")
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(59, 237)
 
 [node name="Scene1" parent="." node_paths=PackedStringArray("next") instance=ExtResource("3_s1u40")]
 layer_1/tile_data = PackedInt32Array(-131071, 1310727, 5, -65535, 1310727, 6, -131070, 1376263, 5, -65534, 1376263, 6, -131069, 1376263, 5, -65533, 1376263, 6, -131068, 1376263, 5, -65532, 1376263, 6, -131067, 1441799, 5, -65531, 1441799, 6)
@@ -41,3 +42,10 @@ layer_1/tile_data = PackedInt32Array(-131061, 1310727, 5, -65525, 1310727, 6, -1
 layer_4/tile_data = PackedInt32Array(-458736, 1, 131072, -393200, 1, 131072, -327664, 1, 131072, -524272, 1, 131072, -524281, 1, 131072, -524280, 1, 131072, -524279, 1, 131072, -524278, 1, 131072, -524277, 1, 131072, -589817, 1, 131072, -589816, 1, 131072, -589815, 1, 131072, -589814, 1, 131072, -589813, 1, 131072, -917500, 1, 131072, -851964, 1, 131072, -786428, 1, 131072, -720892, 1, 131072, -1114103, 1, 131072, -1048567, 1, 131072, -983031, 1, 131072, -917495, 1, 131072, -1179645, 1, 131072, -1114109, 1, 131072, -1114108, 1, 131072, -1114107, 1, 131072, -1179643, 1, 131072, -1179644, 1, 131072)
 layer_5/tile_data = PackedInt32Array(-524272, 1, 196608, -458736, 1, 196608, -393200, 1, 196608, -327664, 1, 196608, -131057, 1, 196608, -65521, 1, 196608, -65522, 1, 196608, -131058, 1, 196608, -131059, 1, 196608, -65523, 1, 196608, -65524, 1, 196608, -131060, 1, 196608, -131061, 1, 196608, -65525, 1, 196608, -589813, 1, 196608, -524277, 1, 196608, -524278, 1, 196608, -589814, 1, 196608, -589815, 1, 196608, -524279, 1, 196608, -524280, 1, 196608, -589816, 1, 196608, -589817, 1, 196608, -524281, 1, 196608, -917500, 1, 196608, -851964, 1, 196608, -786428, 1, 196608, -720892, 1, 196608, -1114103, 1, 196608, -1048567, 1, 196608, -983031, 1, 196608, -917495, 1, 196608, -1179645, 1, 327680, -1114109, 1, 327680, -1114108, 1, 327680, -1179644, 1, 327680, -1179643, 1, 327680, -1114107, 1, 327680)
 prev = NodePath("../Scene2")
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(48, 290)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_wr20q")

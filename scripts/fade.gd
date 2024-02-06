@@ -14,6 +14,7 @@ var tween: Tween
 @onready var fade_shader: TextureRect = $FadeShader
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var rubble: CPUParticles2D = $CPUParticles2D
+@onready var glitch: ColorRect = $Glitch
 
 
 # Called when the node enters the scene tree for the first time.
@@ -34,6 +35,11 @@ func _ready() -> void:
 		and Scene.attachments.has(tilemap.get_cell_atlas_coords(1, map_pos))
 	):
 		is_bottom = true
+
+	if vision:
+		var tile_hidden = tilemap.get_cell_tile_data(2, tilemap.local_to_map(position))
+		if is_instance_valid(tile_hidden):
+			glitch.show()
 
 	collision.set_disabled.call_deferred("true")
 
@@ -93,7 +99,6 @@ func _fade(
 	if is_instance_valid(tween):
 		tween.kill()
 	tween = create_tween()
-
 	if enable_collision and _atlas_texture != FADEIN:
 		tween.tween_callback(collision.set_disabled.bind(false))
 

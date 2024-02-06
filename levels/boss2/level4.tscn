@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://8u6f3ivlh71m"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_nh3i8"]
-[ext_resource type="PackedScene" path="res://prefabs/level design/giant_chest.tscn" id="2_n0s6n"]
+[ext_resource type="PackedScene" uid="uid://c28jwgt51aubn" path="res://prefabs/level design/giant_chest.tscn" id="2_n0s6n"]
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="4_1ye1r"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="5_26wwc"]
 
@@ -13,13 +13,6 @@ height = 48.0
 script = ExtResource("1_nh3i8")
 
 [node name="GiantChest" parent="." instance=ExtResource("2_n0s6n")]
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(151, 270)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="Tilemap" parent="." node_paths=PackedStringArray("next") instance=ExtResource("5_26wwc")]
 layer_1/tile_data = PackedInt32Array(-262136, 1310727, 1, -196600, 1310727, 2, -262135, 1376263, 1, -196599, 1376263, 2, -262134, 1441799, 1, -196598, 1441799, 2, -393203, 1310727, 9, -327667, 1310727, 10, -393202, 1376263, 9, -327666, 1376263, 10, -393201, 1441799, 9, -327665, 1441799, 10, -589803, 1310727, 9, -524267, 1310727, 10, -589802, 1376263, 9, -524266, 1376263, 10, -589801, 1441799, 9, -524265, 1441799, 10, -589806, 1114119, 3, -524270, 1114119, 4, -458734, 1114119, 5, -655342, 1114119, 2, -917487, 1310727, 1, -851951, 1310727, 2, -917486, 1376263, 1, -851950, 1376263, 2, -917485, 1441799, 1, -851949, 1441799, 2, -1245171, 1114119, 2, -1179635, 1114119, 3, -1114099, 1114119, 4, -1048563, 1114119, 5, -917481, 589831, 0, -851945, 917511, 2, -786409, 917511, 3, -720873, 917511, 4, -851946, 851975, 2, -786410, 851975, 3, -720874, 851975, 4, -1310702, 1310727, 1, -1245166, 1310727, 2, -1310701, 1376263, 1, -1245165, 1376263, 2, -1310700, 1441799, 1, -1245164, 1441799, 2)
@@ -42,20 +35,12 @@ next = NodePath("../Tilemap3")
 position = Vector2(319, 342)
 scale = Vector2(20, 1)
 next_scene = "res://levels/boss3/phase_intro1.tscn"
+music = "TRACK4"
 enable_on = NodePath("../Tilemap3")
 
-[connection signal="body_entered" from="Tilemap/KillZone" to="Tilemap/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@33470" to="Tilemap/@Area2D@33470" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@33471" to="Tilemap/@Area2D@33471" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@33472" to="Tilemap/@Area2D@33472" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@33473" to="Tilemap/@Area2D@33473" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@33474" to="Tilemap/@Area2D@33474" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/Fader" to="Tilemap/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@33475" to="Tilemap/@Area2D@33475" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap/@Area2D@33476" to="Tilemap/@Area2D@33476" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/KillZone" to="Tilemap2/KillZone" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@33560" to="Tilemap2/@Area2D@33560" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@33561" to="Tilemap2/@Area2D@33561" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/Fader" to="Tilemap2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@33562" to="Tilemap2/@Area2D@33562" method="_on_body_entered"]
-[connection signal="body_entered" from="Tilemap2/@Area2D@33563" to="Tilemap2/@Area2D@33563" method="_on_body_entered"]
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(151, 270)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+shape = SubResource("CapsuleShape2D_m7p01")

@@ -14,14 +14,6 @@ script = ExtResource("1_ng6xm")
 
 [node name="GiantLegs" parent="." instance=ExtResource("2_ymdm7")]
 
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(459, 13)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-position = Vector2(0, 10)
-shape = SubResource("CapsuleShape2D_m7p01")
-
 [node name="Scene1" parent="." node_paths=PackedStringArray("next") instance=ExtResource("5_q68go")]
 layer_1/tile_data = PackedInt32Array(-524262, 1310727, 5, -458726, 1310727, 6, -524261, 1376263, 5, -458725, 1376263, 6, -524260, 1376263, 5, -458724, 1376263, 6, -524259, 1376263, 5, -458723, 1376263, 6, -524258, 1441799, 5, -458722, 1441799, 6, -393190, 524295, 8, -393189, 589831, 8, -393188, 655367, 8, -393187, 786439, 6, -393186, 851975, 6)
 layer_3/tile_data = PackedInt32Array(-524262, 1, 262144, -524261, 1, 262144, -524260, 1, 262144, -524259, 1, 262144, -524258, 1, 262144)
@@ -37,11 +29,14 @@ prev = NodePath("../Scene1")
 [node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on") instance=ExtResource("4_jos8c")]
 position = Vector2(529, 227)
 next_scene = "res://levels/boss2/cave3.tscn"
+music = "TRACK6"
 enable_on = NodePath("../Scene2")
-set_player_spawn = true
+going_to_cave = true
 
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@33515" to="Scene1/@Area2D@33515" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@33516" to="Scene1/@Area2D@33516" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@33517" to="Scene1/@Area2D@33517" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@33518" to="Scene1/@Area2D@33518" method="_on_body_entered"]
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(459, 13)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_m7p01")

@@ -6,10 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://88mqupj5ekgp" path="res://prefabs/level design/level_switcher.tscn" id="5_b35bf"]
 [ext_resource type="PackedScene" uid="uid://bb44qdp7l5m62" path="res://prefabs/level design/tilemap.tscn" id="5_ixtan"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
-radius = 12.0
-height = 48.0
-
 [sub_resource type="GDScript" id="GDScript_ei48x"]
 script/source = "extends Area2D
 @onready var old_man: Area2D = $\"../OldMan\"
@@ -41,7 +37,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _on_player_entered(body: Node2D) -> void:
@@ -68,12 +64,16 @@ func _process(_delta: float) -> void:
 
 func _on_player_entered(body: Node2D) -> void:
 	if body.is_in_group(\"players\"):
-		var lines: Array[String] = [\"Up the vine quick!\", \"You know how to climb right? (up arrow)\"]
+		var lines: Array[String] = [\"Up the vine quick!\", \"You know how to climb, right? (up arrow)\"]
 		body_entered.disconnect(_on_player_entered)
 		old_man.say(lines, text_box_position.global_position)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_reqcv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7p01"]
+radius = 12.0
+height = 48.0
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_m5psx")
@@ -82,13 +82,6 @@ script = ExtResource("1_m5psx")
 layer_0/tile_data = PackedInt32Array(-196608, 1, 262144, -196607, 1, 262144, -196606, 1, 262144, -196605, 1, 262144, -196604, 1, 262144, -196603, 1, 262144, -196602, 1, 262144, -196601, 1, 262144, -196600, 1, 262144, -196599, 1, 262144, -196598, 1, 262144, -196597, 1, 262144, -196596, 1, 262144, -196595, 1, 262144, -196594, 1, 262144, -196593, 1, 262144, -196592, 1, 262144, -196591, 1, 262144, -196590, 1, 262144, -196589, 1, 262144, -196588, 1, 262144, -196587, 1, 262144, -196586, 1, 262144, -196585, 1, 262144, -196584, 1, 262144, -196583, 1, 262144, -196582, 1, 262144, -196581, 1, 262144, -196580, 1, 262144, -196579, 1, 262144, -196578, 1, 262144, -196577, 1, 262144, -196576, 1, 262144, -196575, 1, 262144, -196574, 1, 262144, -196573, 1, 262144, -196572, 1, 262144, -196571, 1, 262144, -196570, 1, 262144, -196569, 1, 262144)
 next = NodePath("../Scene2")
 delay = 3.0
-
-[node name="Spawn" type="Marker2D" parent="."]
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
-position = Vector2(0, 10)
-shape = SubResource("CapsuleShape2D_m7p01")
 
 [node name="GiantFoot" parent="." instance=ExtResource("3_6wanv")]
 
@@ -141,5 +134,57 @@ position = Vector2(538, -15)
 next_scene = "res://levels/tutorial/intro2.tscn"
 set_player_spawn = true
 
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(27, 309)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_m7p01")
+
+[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49576" to="Scene1/@Area2D@49576" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49577" to="Scene1/@Area2D@49577" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49578" to="Scene1/@Area2D@49578" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49579" to="Scene1/@Area2D@49579" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49580" to="Scene1/@Area2D@49580" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49581" to="Scene1/@Area2D@49581" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49582" to="Scene1/@Area2D@49582" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49583" to="Scene1/@Area2D@49583" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49584" to="Scene1/@Area2D@49584" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49585" to="Scene1/@Area2D@49585" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49586" to="Scene1/@Area2D@49586" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49587" to="Scene1/@Area2D@49587" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49588" to="Scene1/@Area2D@49588" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49589" to="Scene1/@Area2D@49589" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49590" to="Scene1/@Area2D@49590" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49591" to="Scene1/@Area2D@49591" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49592" to="Scene1/@Area2D@49592" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49593" to="Scene1/@Area2D@49593" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49594" to="Scene1/@Area2D@49594" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49595" to="Scene1/@Area2D@49595" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49596" to="Scene1/@Area2D@49596" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49597" to="Scene1/@Area2D@49597" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49598" to="Scene1/@Area2D@49598" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49599" to="Scene1/@Area2D@49599" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49600" to="Scene1/@Area2D@49600" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49601" to="Scene1/@Area2D@49601" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49602" to="Scene1/@Area2D@49602" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49603" to="Scene1/@Area2D@49603" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49604" to="Scene1/@Area2D@49604" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49605" to="Scene1/@Area2D@49605" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49606" to="Scene1/@Area2D@49606" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49607" to="Scene1/@Area2D@49607" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49608" to="Scene1/@Area2D@49608" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49609" to="Scene1/@Area2D@49609" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49610" to="Scene1/@Area2D@49610" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49611" to="Scene1/@Area2D@49611" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49612" to="Scene1/@Area2D@49612" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49613" to="Scene1/@Area2D@49613" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene1/@Area2D@49614" to="Scene1/@Area2D@49614" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@49615" to="Scene2/@Area2D@49615" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@49616" to="Scene2/@Area2D@49616" method="_on_body_entered"]
+[connection signal="body_entered" from="Scene2/@Area2D@49617" to="Scene2/@Area2D@49617" method="_on_body_entered"]
 [connection signal="body_entered" from="text2_jump" to="text2_jump" method="_on_player_entered"]
 [connection signal="body_entered" from="text3_climb" to="text3_climb" method="_on_player_entered"]
