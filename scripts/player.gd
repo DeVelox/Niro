@@ -266,6 +266,7 @@ func _try_double_jump() -> bool:
 func _try_crouch() -> bool:
 	if Input.is_action_just_pressed("down"):
 		is_crouching = true
+		repeat_sound.start(0.5)
 		Sound.sfx(Sound.CROUCH)
 		return true
 	return false
@@ -627,11 +628,11 @@ func _on_screen_exited() -> void:
 
 
 func _on_repeat_sound_timeout() -> void:
-	if is_on_floor():
+	if is_on_floor() and not is_zero_approx(velocity.x):
 		if is_crouching:
 			repeat_sound.wait_time = 0.5
-			Sound.sfx(Sound.RUNNING, 0.5)
-		elif not is_sliding and not is_zero_approx(velocity.x):
+			Sound.sfx(Sound.CROUCH)
+		elif not is_sliding:
 			repeat_sound.wait_time = 0.3
 			Sound.sfx(Sound.RUNNING)
 	else:
