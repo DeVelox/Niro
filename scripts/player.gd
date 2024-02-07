@@ -498,6 +498,7 @@ func _soft_recall() -> void:
 		. set_ease(Tween.EASE_IN_OUT)
 	)
 	tween.tween_callback(_collision)
+	Upgrades.add_shield()
 
 
 func _collision(state = 1) -> void:
