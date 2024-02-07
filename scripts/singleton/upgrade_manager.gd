@@ -4,6 +4,7 @@ enum Type { SHIELD, VISION, RECALL, SLOWMO }
 
 var active_upgrades: Array[Type] = []
 var shield := 1
+var slowmo := 1
 
 var buying: Type
 
@@ -26,6 +27,8 @@ func use_slowmo() -> void:
 	var chromatic_aberration := get_node("/root/Main/Shader/ChromaticAberration")
 	chromatic_aberration.show()
 	Engine.time_scale = 0.5
+	if slowmo > 0:
+		slowmo = -1
 
 
 func end_slowmo() -> void:
@@ -44,3 +47,8 @@ func use_shield() -> bool:
 func add_shield() -> void:
 	if shield == 0:
 		shield += 1
+
+
+func add_slowmo() -> void:
+	if slowmo == 0:
+		slowmo += 1

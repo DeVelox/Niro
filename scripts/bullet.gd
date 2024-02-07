@@ -27,3 +27,10 @@ func _on_body_exited(body: Node) -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("players") and Upgrades.check(Upgrades.Type.SLOWMO):
+		Upgrades.use_slowmo()
+		await get_tree().create_timer(1).timeout
+		Upgrades.end_slowmo()

@@ -499,6 +499,7 @@ func _soft_recall() -> void:
 	)
 	tween.tween_callback(_collision)
 	Upgrades.add_shield()
+	Upgrades.add_slowmo()
 
 
 func _collision(state = 1) -> void:
