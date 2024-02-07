@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Platformer"
+config/name="Niro Post Humanity"
 run/main_scene="res://levels/intro.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
