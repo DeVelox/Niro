@@ -33,7 +33,7 @@ func _ready() -> void:
 
 
 func interact() -> void:
-	_play_outro()
+	await _play_outro()
 	_switch_level()
 
 
@@ -64,13 +64,14 @@ func _switch_level() -> void:
 func _play_outro() -> void:
 	if outro:
 		Scene.fade_out(outro)
+		await get_tree().create_timer(1).timeout
 		return
 
 
 func _on_player_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		Data.set_player_position = body.position
-		_play_outro()
+		await _play_outro()
 		_switch_level()
 
 

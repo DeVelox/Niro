@@ -19,7 +19,7 @@ layer_1/tile_data = PackedInt32Array(-1179645, 1310727, 1, -1114109, 1310727, 2,
 layer_3/tile_data = PackedInt32Array(-1179645, 1, 262144, -1179644, 1, 262144, -1179643, 1, 262144)
 layer_5/tile_data = PackedInt32Array(-1179645, 1, 327680, -1114109, 1, 327680, -1114108, 1, 327680, -1179644, 1, 327680, -1179643, 1, 327680, -1114107, 1, 327680)
 next = NodePath("../Scene2")
-delay = 2.0
+delay = 1.0
 
 [node name="Scene2" parent="." node_paths=PackedStringArray("prev", "next") instance=ExtResource("3_gu4s5")]
 layer_1/tile_data = PackedInt32Array(-1179645, 1310727, 1, -1114109, 1310727, 2, -1179644, 1376263, 1, -1114108, 1376263, 2, -1179643, 1441799, 1, -1114107, 1441799, 2, -1507322, 589831, 0, -1441786, 524295, 2, -1376250, 524295, 3, -1310714, 524295, 3, -1245178, 524295, 3, -1179642, 524295, 3, -1114106, 524295, 3, -1048570, 524295, 4, -655352, 1310727, 5, -655351, 1376263, 5, -655350, 1376263, 5, -655349, 1376263, 5, -655348, 1441799, 5, -589816, 1310727, 6, -589815, 1376263, 6, -589814, 1376263, 6, -589813, 1376263, 6, -589812, 1441799, 6)
@@ -47,12 +47,3 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_bn1x2")
-
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@23755" to="Scene1/@Area2D@23755" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@23756" to="Scene1/@Area2D@23756" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@23762" to="Scene2/@Area2D@23762" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@23763" to="Scene2/@Area2D@23763" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@23764" to="Scene2/@Area2D@23764" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@23765" to="Scene2/@Area2D@23765" method="_on_body_entered"]

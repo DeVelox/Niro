@@ -97,7 +97,7 @@ next = NodePath("../Scene3")
 
 [node name="Scene3" parent="." node_paths=PackedStringArray("prev") instance=ExtResource("5_ixtan")]
 layer_0/tile_data = PackedInt32Array(-65536, 196610, 268435460, 0, 196610, 268435461, -65535, 196610, 4, 1, 196610, 5, -65534, 196610, 4, 2, 196610, 5, -65533, 262146, 4, 3, 262146, 5, -65532, 327682, 4, 4, 327682, 5, -65531, 327682, 268435460, 5, 327682, 268435461, -65530, 262146, 268435460, 6, 262146, 268435461, -65529, 196610, 268435460, 7, 196610, 268435461, -65528, 196610, 4, 8, 196610, 5, -65527, 262146, 4, 9, 262146, 5, -65526, 327682, 4, 10, 327682, 5, -65525, 327682, 268435460, 11, 327682, 268435461, -65524, 262146, 268435460, 12, 262146, 268435461, -65523, 196610, 268435460, 13, 196610, 268435461, -65522, 196610, 4, 14, 196610, 5, -65521, 262146, 4, 15, 262146, 5, -65520, 327682, 4, 16, 327682, 5, -65519, 327682, 268435460, 17, 327682, 268435461, -65518, 262146, 268435460, 18, 262146, 268435461, -65517, 196610, 268435460, 19, 196610, 268435461, -65516, 196610, 4, 20, 196610, 5, -65515, 262146, 4, 21, 262146, 5, -65514, 327682, 4, 22, 327682, 5, -65511, 196610, 268435460, -65512, 262146, 268435460, -65513, 327682, 268435460, 25, 196610, 268435461, 24, 262146, 268435461, 23, 327682, 268435461, -65508, 327682, 4, -65509, 262146, 4, -65510, 196610, 4, 28, 327682, 5, 27, 262146, 5, 26, 196610, 5, -65505, 196610, 268435460, -65506, 262146, 268435460, -65507, 327682, 268435460, 31, 196610, 268435461, 30, 262146, 268435461, 29, 327682, 268435461, -65502, 327682, 4, -65503, 262146, 4, -65504, 196610, 4, 34, 327682, 5, 33, 262146, 5, 32, 196610, 5, -65499, 196610, 268435460, -65500, 262146, 268435460, -65501, 327682, 268435460, 37, 196610, 268435461, 36, 262146, 268435461, 35, 327682, 268435461, -65496, 327682, 4, -65497, 262146, 4, -65498, 196610, 4, 40, 327682, 5, 39, 262146, 5, 38, 196610, 5, -1, 262146, 268435460, 65535, 262146, 268435461)
-layer_1/tile_data = PackedInt32Array(-524266, 1310727, 5, -458730, 1310727, 6, -524265, 1376263, 5, -458729, 1376263, 6, -524264, 1376263, 268435461, -458728, 1376263, 268435462, -786407, 1310727, 1, -720871, 1310727, 2, -524263, 1376263, 5, -458727, 1376263, 6, -786406, 1376263, 1, -720870, 1376263, 2, -524262, 1441799, 5, -458726, 1441799, 6, -786405, 1441799, 1, -720869, 1441799, 2, -327651, 1310727, 1, -262115, 1310727, 2, -327650, 1376263, 1, -262114, 1376263, 2, -327649, 1441799, 1, -262113, 1441799, 2, -1507295, 1179655, 2, -1441759, 1179655, 2, -1376223, 1179655, 2, -1310687, 1179655, 2, -1245151, 1179655, 2, -1179615, 1179655, 2, -1114079, 1179655, 2, -1048543, 1179655, 2, -983007, 1179655, 2)
+layer_1/tile_data = PackedInt32Array(-786407, 1310727, 1, -720871, 1310727, 2, -786406, 1376263, 1, -720870, 1376263, 2, -786405, 1441799, 1, -720869, 1441799, 2, -327651, 1310727, 1, -262115, 1310727, 2, -327650, 1376263, 1, -262114, 1376263, 2, -327649, 1441799, 1, -262113, 1441799, 2, -1507295, 1179655, 2, -1441759, 1179655, 2, -1376223, 1179655, 2, -1310687, 1179655, 2, -1245151, 1179655, 2, -1179615, 1179655, 2, -1114079, 1179655, 2, -1048543, 1179655, 2, -983007, 1179655, 2, -524266, 1310727, 5, -458730, 1310727, 6, -524265, 1376263, 5, -524264, 1376263, 268435461, -458728, 1376263, 268435462, -524263, 1376263, 5, -458727, 1376263, 6, -524262, 1441799, 5, -458726, 1441799, 6, -458729, 1376263, 6)
 layer_4/tile_data = PackedInt32Array(-1507295, 1, 131072, -1441759, 1, 131072, -1376223, 1, 131072, -1310687, 1, 131072, -1245151, 1, 131072, -1179615, 1, 131072, -1114079, 1, 131072, -1048543, 1, 131072, -983007, 1, 131072)
 prev = NodePath("../Scene2")
 
@@ -142,49 +142,5 @@ metadata/_edit_group_ = true
 position = Vector2(0, 10)
 shape = SubResource("CapsuleShape2D_m7p01")
 
-[connection signal="body_entered" from="Scene1/Fader" to="Scene1/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42884" to="Scene1/@Area2D@42884" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42885" to="Scene1/@Area2D@42885" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42886" to="Scene1/@Area2D@42886" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42887" to="Scene1/@Area2D@42887" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42888" to="Scene1/@Area2D@42888" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42889" to="Scene1/@Area2D@42889" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42890" to="Scene1/@Area2D@42890" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42891" to="Scene1/@Area2D@42891" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42892" to="Scene1/@Area2D@42892" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42893" to="Scene1/@Area2D@42893" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42894" to="Scene1/@Area2D@42894" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42895" to="Scene1/@Area2D@42895" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42896" to="Scene1/@Area2D@42896" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42897" to="Scene1/@Area2D@42897" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42898" to="Scene1/@Area2D@42898" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42899" to="Scene1/@Area2D@42899" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42900" to="Scene1/@Area2D@42900" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42901" to="Scene1/@Area2D@42901" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42902" to="Scene1/@Area2D@42902" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42903" to="Scene1/@Area2D@42903" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42904" to="Scene1/@Area2D@42904" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42905" to="Scene1/@Area2D@42905" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42906" to="Scene1/@Area2D@42906" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42907" to="Scene1/@Area2D@42907" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42908" to="Scene1/@Area2D@42908" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42909" to="Scene1/@Area2D@42909" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42910" to="Scene1/@Area2D@42910" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42911" to="Scene1/@Area2D@42911" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42912" to="Scene1/@Area2D@42912" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42913" to="Scene1/@Area2D@42913" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42914" to="Scene1/@Area2D@42914" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42915" to="Scene1/@Area2D@42915" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42916" to="Scene1/@Area2D@42916" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42917" to="Scene1/@Area2D@42917" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42918" to="Scene1/@Area2D@42918" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42919" to="Scene1/@Area2D@42919" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42920" to="Scene1/@Area2D@42920" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42921" to="Scene1/@Area2D@42921" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene1/@Area2D@42922" to="Scene1/@Area2D@42922" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/Fader" to="Scene2/Fader" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@42923" to="Scene2/@Area2D@42923" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@42924" to="Scene2/@Area2D@42924" method="_on_body_entered"]
-[connection signal="body_entered" from="Scene2/@Area2D@42925" to="Scene2/@Area2D@42925" method="_on_body_entered"]
 [connection signal="body_entered" from="text2_jump" to="text2_jump" method="_on_player_entered"]
 [connection signal="body_entered" from="text3_climb" to="text3_climb" method="_on_player_entered"]

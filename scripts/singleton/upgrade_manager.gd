@@ -2,7 +2,7 @@ extends Node
 
 enum Type { SHIELD, VISION, RECALL, SLOWMO }
 
-var active_upgrades: Array[Type] = [Type.VISION]
+var active_upgrades: Array[Type] = []
 var shield := 1
 
 var buying: Type

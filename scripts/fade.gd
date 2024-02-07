@@ -101,6 +101,8 @@ func _fade(
 	tween = create_tween()
 	if enable_collision and _atlas_texture != FADEIN:
 		tween.tween_callback(collision.set_disabled.bind(false))
+	else:
+		tween.tween_callback(_tilemap.show)
 
 	if _atlas_texture == STATIC:
 		fade_shader.material.set_shader_parameter("frame", 0)
@@ -109,12 +111,12 @@ func _fade(
 	else:
 		if _atlas_texture == FADEOUT:
 			tween.tween_callback(collision.set_disabled.bind(true)).set_delay(0.5)
+			tween.parallel().tween_callback(_tilemap.hide).set_delay(1.0)
 		tween.parallel().tween_property(fade_shader.material, "shader_parameter/frame", 9, 1.0)
 		if is_bottom:
 			tween.parallel().tween_property(rubble, "emitting", true, 0.0)
 			tween.tween_property(rubble, "emitting", false, 0.0)
 		if _atlas_texture == FADEIN:
-			tween.tween_callback(_tilemap.show)
 			tween.tween_callback(Scene.toggle_layers.bind(_tilemap, true))
 	tween.tween_callback(fade_shader.material.set_shader_parameter.bind("toggle", false))
 
