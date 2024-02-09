@@ -103,8 +103,7 @@ func _fade(
 		tween.tween_callback(collision.set_disabled.bind(false))
 	else:
 		tween.tween_callback(_tilemap.show)
-		
-	
+
 	if _atlas_texture == STATIC:
 		fade_shader.material.set_shader_parameter("frame", 0)
 		fade_shader.material.set_shader_parameter("frames", 1)

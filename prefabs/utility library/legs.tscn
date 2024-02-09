@@ -10,11 +10,11 @@ script/source = "extends Area2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	label.hide()
-	if Upgrades.check(Upgrades.Type.RECALL):
+	if Upgrades.check(Upgrades.Type.SLOWMO):
 		queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
@@ -28,7 +28,7 @@ func _on_player_exited(body: Node2D) -> void:
 		label.hide()
 
 func interact() -> void:
-	Upgrades.buy(Upgrades.Type.RECALL)
+	Upgrades.buy(Upgrades.Type.SLOWMO)
 	queue_free()
 "
 

@@ -392,15 +392,19 @@ func _animation() -> void:
 		if is_wall_hanging:
 			if wall_hang_direction > 0.0:
 				sprite.flip_h = true
+				get_tree().call_group("upgrades", "set_flip_h", true)
 				interact_check.scale.x = -1
 			else:
 				sprite.flip_h = false
+				get_tree().call_group("upgrades", "set_flip_h", false)
 				interact_check.scale.x = 1
 		elif velocity.x > 0.0:
 			sprite.flip_h = false
+			get_tree().call_group("upgrades", "set_flip_h", false)
 			interact_check.scale.x = 1
 		else:
 			sprite.flip_h = true
+			get_tree().call_group("upgrades", "set_flip_h", true)
 			interact_check.scale.x = -1
 
 	# Current animation
@@ -512,6 +516,7 @@ func _absorb() -> void:
 		$ShieldOn.hide()
 		$ShieldOff.show()
 		invulnerability.start()
+		should_take_damage = false
 		can_take_damage = false
 	else:
 		kill()
