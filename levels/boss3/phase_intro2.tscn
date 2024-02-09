@@ -17,7 +17,7 @@ script = ExtResource("1_53e4b")
 [node name="Scene1" parent="." instance=ExtResource("3_w1j1p")]
 layer_1/tile_data = PackedInt32Array(-720863, 589831, 15, -720865, 458759, 15, -458719, 1376263, 6, -458720, 1376263, 6, -720864, 524295, 15, -655327, 589831, 16, -589791, 589831, 17, -524255, 589831, 18, -393184, 655367, 6, -524256, 524295, 18, -524254, 655367, 18, -458718, 1441799, 6, -655329, 458759, 16, -655328, 524295, 16, -589792, 524295, 17, -720862, 655367, 15, -655326, 655367, 16, -589790, 655367, 17, -589793, 458759, 17, -524257, 458759, 18, -458721, 1310727, 6, -786400, 1179655, 2, -851936, 1179655, 2, -917472, 1179655, 2, -983008, 1179655, 2, -1048544, 1179655, 2, -1114080, 1179655, 2, -1179616, 1179655, 2, -1245152, 1179655, 2, -1310688, 1179655, 2, -1376224, 1179655, 2, -1441760, 1179655, 2, -1507296, 1179655, 2)
 
-[node name="SceneSwitcher2" parent="." node_paths=PackedStringArray("enable_on") instance=ExtResource("4_rogjf")]
+[node name="SceneSwitcher" parent="." node_paths=PackedStringArray("enable_on") instance=ExtResource("4_rogjf")]
 position = Vector2(520, 2)
 next_scene = "res://levels/boss3/level1.tscn"
 enable_on = NodePath("../Scene1")
